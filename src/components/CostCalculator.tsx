@@ -1,0 +1,490 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Calculator, Check, ArrowRight, Copy, CheckCheck, 
+  MessageSquare, Shield, Clock, RefreshCw 
+} from 'lucide-react';
+import { SERVICES_LIST } from '../data/servicesData';
+import { useCurrency } from '../context/CurrencyContext';
+import { useLanguage } from '../context/LanguageContext';
+
+interface AddonOption {
+  id: string;
+  name: string;
+  desc: string;
+  priceUSD: number;
+  priceKES: number;
+  category: string;
+}
+
+const ADDON_OPTIONS: AddonOption[] = [
+  {
+    id: 'mpesa-gateway',
+    name: 'M-Pesa STK Push & Daraja Integration',
+    desc: 'Instant Safaricom mobile money prompt on user phones with automated callback verification.',
+    priceUSD: 180,
+    priceKES: 24000,
+    category: 'payments'
+  },
+  {
+    id: 'whatsapp-bot',
+    name: 'WhatsApp Automation & Sales Bot',
+    desc: 'Automated 24/7 lead capture, interactive quick replies, and CRM lead forwarding.',
+    priceUSD: 220,
+    priceKES: 28000,
+    category: 'marketing'
+  },
+  {
+    id: 'seo-accelerator',
+    name: 'Technical SEO & Local Maps Dominance',
+    desc: 'Structured schema markup, keyword research, Core Web Vitals optimization, and Google Business setup.',
+    priceUSD: 200,
+    priceKES: 26000,
+    category: 'seo'
+  },
+  {
+    id: 'ai-assistant',
+    name: 'AI Smart Support Assistant Widget',
+    desc: 'Trained on your business FAQs, services, and pricing to assist visitors 24/7.',
+    priceUSD: 280,
+    priceKES: 36000,
+    category: 'ai'
+  },
+  {
+    id: 'speed-sla',
+    name: 'Sub-Second Speed & Core Web Vitals SLA',
+    desc: 'Aggressive edge caching, image compression, critical CSS, and 95+ Lighthouse score guarantee.',
+    priceUSD: 140,
+    priceKES: 18000,
+    category: 'performance'
+  },
+  {
+    id: 'maintenance-3mo',
+    name: '3 Months Managed Maintenance Care',
+    desc: 'Daily cloud backups, weekly plugin/security patches, uptime monitoring, and 4h developer time.',
+    priceUSD: 300,
+    priceKES: 39000,
+    category: 'support'
+  }
+];
+
+interface CostCalculatorProps {
+  initialServiceId?: string;
+  onProceedToBooking: (quoteSummary: string, estimatedTotal: string) => void;
+}
+
+export const CostCalculator: React.FC<CostCalculatorProps> = ({ 
+  initialServiceId, 
+  onProceedToBooking 
+}) => {
+  const { currency, formatPrice } = useCurrency();
+  const { t } = useLanguage();
+  const [selectedServiceId, setSelectedServiceId] = useState<string>(
+    initialServiceId || 'web-development'
+  );
+  const [selectedTier, setSelectedTier] = useState<'starter' | 'growth' | 'enterprise'>('growth');
+  const [selectedAddons, setSelectedAddons] = useState<string[]>(['mpesa-gateway', 'seo-accelerator']);
+  const [isRushTimeline, setIsRushTimeline] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
+
+  // Sync if initialServiceId changes
+  useEffect(() => {
+    if (initialServiceId) {
+      setSelectedServiceId(initialServiceId);
+    }
+  }, [initialServiceId]);
+
+  const currentService = SERVICES_LIST.find(s => s.id === selectedServiceId) || SERVICES_LIST[0];
+
+  // Tier multiplier
+  const tierMultiplier = {
+    starter: 0.75,
+    growth: 1.0,
+    enterprise: 1.85
+  }[selectedTier];
+
+  const tierLabels = {
+    starter: 'Startup MVP Tier (Essential Scope)',
+    growth: 'Growth & Business Tier (Full Production)',
+    enterprise: 'Enterprise & Scale Tier (High Volume & Custom Architecture)'
+  };
+
+  // Base price calculation
+  const calculatedBaseUSD = Math.round(currentService.basePriceUSD * tierMultiplier);
+  const calculatedBaseKES = Math.round(currentService.basePriceKES * tierMultiplier);
+
+  // Addons calculation
+  const addonsTotalUSD = selectedAddons.reduce((acc, addonId) => {
+    const addon = ADDON_OPTIONS.find(a => a.id === addonId);
+    return acc + (addon ? addon.priceUSD : 0);
+  }, 0);
+
+  const addonsTotalKES = selectedAddons.reduce((acc, addonId) => {
+    const addon = ADDON_OPTIONS.find(a => a.id === addonId);
+    return acc + (addon ? addon.priceKES : 0);
+  }, 0);
+
+  // Subtotal
+  const subtotalUSD = calculatedBaseUSD + addonsTotalUSD;
+  const subtotalKES = calculatedBaseKES + addonsTotalKES;
+
+  // Rush fee
+  const rushFeeUSD = isRushTimeline ? Math.round(subtotalUSD * 0.25) : 0;
+  const rushFeeKES = isRushTimeline ? Math.round(subtotalKES * 0.25) : 0;
+
+  // Final Total
+  const finalTotalUSD = subtotalUSD + rushFeeUSD;
+  const finalTotalKES = subtotalKES + rushFeeKES;
+
+  const toggleAddon = (addonId: string) => {
+    setSelectedAddons(prev => 
+      prev.includes(addonId) ? prev.filter(id => id !== addonId) : [...prev, addonId]
+    );
+  };
+
+  const getQuoteSummaryText = () => {
+    const selectedAddonNames = selectedAddons
+      .map(id => ADDON_OPTIONS.find(a => a.id === id)?.name)
+      .filter(Boolean)
+      .join(', ');
+
+    return `*Domain Tech Hub Project Quote Request*
+- Service: ${currentService.title}
+- Tier: ${tierLabels[selectedTier]}
+- Add-ons: ${selectedAddonNames || 'None'}
+- Timeline: ${isRushTimeline ? 'Expedited Rush Sprint (+25%)' : 'Standard Delivery'}
+- Estimated Total: ${currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`}
+Generated at domaintechhub.com tool.`;
+  };
+
+  const handleCopyQuote = () => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        navigator.clipboard.writeText(getQuoteSummaryText());
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = getQuoteSummaryText();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
+
+  return (
+    <section id="calculator" className="py-20 lg:py-28 bg-slate-900/40 border-t border-slate-900 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="max-w-3xl mb-12">
+          <div className="text-xs font-mono text-cyan-400 tracking-wider mb-2">
+            {t('calc.kicker')}
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+            {t('calc.title')}
+          </h2>
+          <p className="text-base sm:text-lg text-slate-300">
+            {t('calc.subtitle')}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Interactive Configuration Form (8 cols) */}
+          <div className="lg:col-span-8 space-y-8 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8">
+            
+            {/* Step 1: Select Primary Service */}
+            <div>
+              <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+                {t('calc.step1')}
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {SERVICES_LIST.slice(0, 8).map((srv) => (
+                  <button
+                    key={srv.id}
+                    onClick={() => setSelectedServiceId(srv.id)}
+                    className={`text-left p-3 rounded-xl border text-xs sm:text-sm font-medium transition-all ${
+                      selectedServiceId === srv.id
+                        ? 'bg-cyan-950/60 border-cyan-500 text-white shadow-sm shadow-cyan-500/10'
+                        : 'bg-slate-950/60 border-slate-800/80 text-slate-300 hover:border-slate-700 hover:text-white'
+                    }`}
+                  >
+                    <div className="font-semibold">{srv.title}</div>
+                    <div className="text-[11px] text-slate-400 mt-1 font-mono">
+                      From {formatPrice(srv.basePriceUSD, srv.basePriceKES)}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Step 2: Project Tier & Scope */}
+            <div>
+              <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+                {t('calc.step2')}
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  {
+                    id: 'starter',
+                    title: 'Starter / MVP',
+                    desc: 'Essential features, rapid launch, lean setup for new ventures.',
+                    multiplier: '0.75x'
+                  },
+                  {
+                    id: 'growth',
+                    title: 'Growth / Business',
+                    desc: 'Most popular. Full custom design, high conversions & integrations.',
+                    multiplier: '1.0x (Standard)'
+                  },
+                  {
+                    id: 'enterprise',
+                    title: 'Enterprise / Scale',
+                    desc: 'High traffic, multi-role security, custom API & dedicated SLA.',
+                    multiplier: '1.85x'
+                  }
+                ].map((tier) => (
+                  <button
+                    key={tier.id}
+                    onClick={() => setSelectedTier(tier.id as any)}
+                    className={`text-left p-4 rounded-xl border transition-all ${
+                      selectedTier === tier.id
+                        ? 'bg-cyan-950/70 border-cyan-500 text-white shadow-md'
+                        : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-bold text-sm">{tier.title}</span>
+                      {selectedTier === tier.id && <Check className="w-4 h-4 text-cyan-400" />}
+                    </div>
+                    <p className="text-xs text-slate-400 leading-relaxed mb-2">
+                      {tier.desc}
+                    </p>
+                    <span className="text-[11px] font-mono text-cyan-400">
+                      Scale: {tier.multiplier}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Step 3: High-Value Integrations & Add-ons */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                  {t('calc.step3')}
+                </label>
+                <span className="text-xs text-slate-400">
+                  {selectedAddons.length} selected
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {ADDON_OPTIONS.map((addon) => {
+                  const isChecked = selectedAddons.includes(addon.id);
+                  return (
+                    <div
+                      key={addon.id}
+                      onClick={() => toggleAddon(addon.id)}
+                      className={`cursor-pointer p-3.5 rounded-xl border transition-all ${
+                        isChecked 
+                          ? 'bg-cyan-950/40 border-cyan-500/80 text-white' 
+                          : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className={`w-5 h-5 rounded-md flex items-center justify-center border mt-0.5 transition-colors ${
+                          isChecked 
+                            ? 'bg-cyan-500 border-cyan-400 text-slate-950' 
+                            : 'border-slate-700 bg-slate-900 text-transparent'
+                        }`}>
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="font-semibold text-xs sm:text-sm">{addon.name}</span>
+                            <span className="text-xs font-mono font-bold text-cyan-400 whitespace-nowrap">
+                              +{formatPrice(addon.priceUSD, addon.priceKES)}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-400 mt-1 leading-normal">
+                            {addon.desc}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Step 4: Timeline Priority */}
+            <div>
+              <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+                {t('calc.step4')}
+              </label>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setIsRushTimeline(false)}
+                  className={`flex-1 p-3.5 rounded-xl border text-left transition-all ${
+                    !isRushTimeline 
+                      ? 'bg-cyan-950/60 border-cyan-500 text-white' 
+                      : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                  }`}
+                >
+                  <div className="font-semibold text-sm">Standard Delivery Pace</div>
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    Thorough discovery, design sprints & QA ({currentService.duration})
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setIsRushTimeline(true)}
+                  className={`flex-1 p-3.5 rounded-xl border text-left transition-all ${
+                    isRushTimeline 
+                      ? 'bg-cyan-950/60 border-cyan-500 text-white' 
+                      : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-sm">Expedited Rush Sprint</span>
+                    <span className="text-[11px] font-mono text-amber-400">+25%</span>
+                  </div>
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    Dedicated engineering squad to cut delivery time by ~45%
+                  </div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column: Live Quotation Receipt (4 cols) */}
+          <div className="lg:col-span-4 sticky top-24 space-y-4">
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <Calculator className="w-4 h-4 text-cyan-400" />
+                  <span className="font-mono text-xs text-cyan-400 uppercase tracking-wider font-semibold">
+                    {t('calc.summaryTitle')}
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-emerald-400">
+                  {t('calc.instantEst')}
+                </span>
+              </div>
+
+              {/* Itemized lines */}
+              <div className="py-4 space-y-3 text-xs border-b border-slate-800">
+                <div className="flex justify-between text-slate-300">
+                  <span className="font-medium">{currentService.title} ({selectedTier})</span>
+                  <span className="font-mono text-white">
+                    {formatPrice(calculatedBaseUSD, calculatedBaseKES)}
+                  </span>
+                </div>
+
+                {selectedAddons.map(id => {
+                  const addon = ADDON_OPTIONS.find(a => a.id === id);
+                  if (!addon) return null;
+                  return (
+                    <div key={id} className="flex justify-between text-slate-400 pl-2">
+                      <span className="line-clamp-1">+ {addon.name}</span>
+                      <span className="font-mono text-slate-300 shrink-0">
+                        {formatPrice(addon.priceUSD, addon.priceKES)}
+                      </span>
+                    </div>
+                  );
+                })}
+
+                {isRushTimeline && (
+                  <div className="flex justify-between text-amber-400 pl-2">
+                    <span>+ Expedited Sprint (+25%)</span>
+                    <span className="font-mono">
+                      {formatPrice(rushFeeUSD, rushFeeKES)}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Total Display */}
+              <div className="py-4">
+                <span className="text-xs text-slate-400 block font-mono uppercase tracking-wider">
+                  {t('calc.estInvestment')} ({currency})
+                </span>
+                <div className="text-3xl font-extrabold text-white font-mono mt-1 tracking-tight">
+                  {formatPrice(finalTotalUSD, finalTotalKES)}
+                </div>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Includes full source code ownership, SSL, deployment & 30-day warranty.
+                </p>
+              </div>
+
+              {/* Primary Call to Action */}
+              <div className="space-y-2 pt-2">
+                <button
+                  onClick={() => onProceedToBooking(
+                    getQuoteSummaryText(), 
+                    currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`
+                  )}
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all hover:scale-[1.01] cursor-pointer"
+                >
+                  <span>{t('calc.btnLock')}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <a
+                  href={`https://wa.me/254118746676?text=${encodeURIComponent(getQuoteSummaryText())}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/80 border border-emerald-800 text-emerald-300 font-semibold text-xs flex items-center justify-center gap-2 transition-colors text-center cursor-pointer"
+                >
+                  <MessageSquare className="w-4 h-4 text-emerald-400" />
+                  <span>{t('calc.btnSendWA')}</span>
+                </a>
+
+                <button
+                  onClick={handleCopyQuote}
+                  className="w-full py-2 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                >
+                  {copied ? (
+                    <>
+                      <CheckCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">{t('calc.copied')}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-slate-400" />
+                      <span>{t('calc.btnCopy')}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Guarantees unboxed notes */}
+              <div className="mt-4 pt-4 border-t border-slate-900 text-[11px] text-slate-500 space-y-1">
+                <div className="flex items-center gap-1.5">
+                  <Shield className="w-3 h-3 text-cyan-400" />
+                  <span>Milestone-based payments (40% start / 60% completion)</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-3 h-3 text-cyan-400" />
+                  <span>Strict NDA and intellectual property transfer on final payout</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};

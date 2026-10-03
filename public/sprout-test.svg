@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Canonical leaf shape centered around origin -->
+    <path id="leaf" d="M 0,-52 C 22,-28 24,10 0,38 C -24,10 -22,-28 0,-52 Z" />
+  </defs>
+  
+  <g id="sprout-group" transform="translate(100, 105)">
+    <!-- Center Leaf -->
+    <use href="#leaf" x="0" y="-18" transform="scale(0.88)" fill="#A6EE35" />
+    
+    <!-- Left Leaf: angled outward to left -->
+    <use href="#leaf" transform="translate(-32, 5) rotate(-46) scale(0.82)" fill="#A6EE35" />
+    
+    <!-- Right Leaf: angled outward to right -->
+    <use href="#leaf" transform="translate(32, 5) rotate(46) scale(0.82)" fill="#A6EE35" />
+    
+    <!-- Stylized stem cutout if needed or base -->
+  </g>
+</svg>

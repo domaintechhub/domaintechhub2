@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <path id="leaf-shape-full" d="M 0,-65 C 27,-35 30,12 0,48 C -30,12 -27,-35 0,-65 Z" />
+  </defs>
+  
+  <!-- Sprout 3 Leaves -->
+  <g transform="translate(200, 125)">
+    <!-- Center Leaf -->
+    <use href="#leaf-shape-full" x="0" y="-12" transform="scale(0.86)" fill="#A6EE35" />
+    <!-- Left Leaf -->
+    <use href="#leaf-shape-full" transform="translate(-44, -2) rotate(-46) scale(0.82)" fill="#A6EE35" />
+    <!-- Right Leaf -->
+    <use href="#leaf-shape-full" transform="translate(44, -2) rotate(46) scale(0.82)" fill="#A6EE35" />
+  </g>
+
+  <!-- DOMAINTECHHUB -->
+  <text x="200" y="256" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="0.02em">
+    DOMAINTECHHUB
+  </text>
+
+  <!-- Tagline: INNOVATE. CONNECT. SUCCEED. -->
+  <text x="200" y="294" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="14.5" font-weight="800" fill="currentColor" text-anchor="middle" letter-spacing="0.12em">
+    INNOVATE. CONNECT. SUCCEED.
+  </text>
+</svg>
