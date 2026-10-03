@@ -113,7 +113,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
             </div>
             <div className="flex items-center gap-1.5 font-medium text-teal-900 dark:text-cyan-200">
               <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>Email Receiver: <strong>{AGENCY_INFO.email}</strong></span>
+              <span>Email Receiver: <strong>{AGENCY_INFO.email}</strong> {AGENCY_INFO.secondaryEmail && <span className="opacity-75">(&amp; {AGENCY_INFO.secondaryEmail})</span>}</span>
             </div>
           </div>
 

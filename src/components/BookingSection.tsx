@@ -176,9 +176,14 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   <Mail className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-semibold text-white block">Email Direct</span>
-                    <a href={`mailto:${AGENCY_INFO.email}`} className="text-cyan-300 hover:underline font-mono">
+                    <a href={`mailto:${AGENCY_INFO.email}`} className="text-cyan-300 hover:underline font-mono block">
                       {AGENCY_INFO.email}
                     </a>
+                    {AGENCY_INFO.secondaryEmail && (
+                      <a href={`mailto:${AGENCY_INFO.secondaryEmail}`} className="text-slate-400 hover:text-cyan-300 text-xs hover:underline font-mono block">
+                        {AGENCY_INFO.secondaryEmail}
+                      </a>
+                    )}
                   </div>
                 </div>
 

@@ -110,7 +110,7 @@ export function sendToWhatsApp(lead: Partial<LeadRecord>): void {
 }
 
 /**
- * Triggers an Email directly to domaintechhub@gmail.com
+ * Triggers an Email directly to info@domaintechhub.com (with cc to domaintechhub@gmail.com)
  */
 export function sendToEmail(lead: Partial<LeadRecord>): void {
   const subject = `[Domain Tech Hub Inquiry] ${lead.serviceOrItem || lead.sourceTitle || 'New Customer Lead'}${lead.fullName ? ` - ${lead.fullName}` : ''}`;
@@ -131,7 +131,8 @@ export function sendToEmail(lead: Partial<LeadRecord>): void {
   }
   body += `\nPlease reply directly to this email or contact the client via WhatsApp at ${lead.phone || 'their phone number'}.\n`;
 
-  const mailtoUrl = `mailto:${AGENCY_INFO.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const ccParam = AGENCY_INFO.secondaryEmail ? `&cc=${encodeURIComponent(AGENCY_INFO.secondaryEmail)}` : '';
+  const mailtoUrl = `mailto:${AGENCY_INFO.email}?subject=${encodeURIComponent(subject)}${ccParam}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoUrl;
 }
 

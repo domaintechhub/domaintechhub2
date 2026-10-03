@@ -41,9 +41,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadInbox }) =
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <a href={`mailto:${AGENCY_INFO.email}`} className="hover:text-cyan-300">
-                  {AGENCY_INFO.email}
-                </a>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <a href={`mailto:${AGENCY_INFO.email}`} className="hover:text-cyan-300">
+                    {AGENCY_INFO.email}
+                  </a>
+                  {AGENCY_INFO.secondaryEmail && (
+                    <>
+                      <span className="text-slate-600">/</span>
+                      <a href={`mailto:${AGENCY_INFO.secondaryEmail}`} className="text-slate-400 hover:text-cyan-300">
+                        {AGENCY_INFO.secondaryEmail}
+                      </a>
+                    </>
+                  )}
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
