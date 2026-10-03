@@ -226,8 +226,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadInbox }) =
         <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
             <span>© {new Date().getFullYear()} Domain Tech Hub. All rights reserved.</span>
-            <span className="hidden sm:inline text-slate-600">·</span>
-            <span className="text-slate-400 font-mono text-[10px]">Built with care by human engineers in Nairobi</span>
           </div>
           <div className="flex flex-wrap items-center gap-4">
             <button 

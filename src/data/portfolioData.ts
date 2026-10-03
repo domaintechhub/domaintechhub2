@@ -1,4 +1,5 @@
 import { CaseStudy } from '../types';
+import solarGridImg from '../assets/images/commercial_solar_grid_kenya_1791048420279.jpg';
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
@@ -139,7 +140,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     challenge: 'Commercial solar systems have high price points ($15k - $100k). Previous ad agencies generated thousands of clicks from residential homeowners wanting small bulbs, burning budget.',
     solution: 'Restructured Google Ads with strict commercial negative keyword filtering, B2B company size qualifiers, and custom industrial landing pages with an interactive Solar Savings Calculator.',
     techStack: ['Google Ads', 'Google Tag Manager', 'Looker Studio', 'Conversion Rate Optimization'],
-    image: 'https://images.unsplash.com/photo-1508873696983-2df5293cb32f?auto=format&fit=crop&w=1000&q=80',
+    image: solarGridImg,
     testimonial: {
       quote: 'Domain Tech Hub eliminated our wasted ad spend on day one. Every lead that lands in our inbox now is a bona fide factory owner or commercial real estate manager.',
       author: 'Eng. Patrick Mwangi',
