@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { 
   Globe, Search, CheckCircle, Server, Shield, 
-  ArrowRight, ExternalLink, HelpCircle 
+  ArrowRight, ExternalLink, HelpCircle, MessageSquare, Mail 
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage } from '../context/LanguageContext';
+import { AGENCY_INFO } from '../data/portfolioData';
+import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
 
 interface DomainCheckerProps {
   onSelectDomainForSetup: (domain: string, extension: string) => void;
@@ -142,7 +144,7 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                    <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
                       <div>
                         <span className="text-xs text-slate-500 font-mono block">Annual Fee</span>
                         <span className="text-base font-bold font-mono text-cyan-300">
@@ -150,13 +152,38 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                         </span>
                       </div>
 
-                      <button
-                        onClick={() => onSelectDomainForSetup(cleanName || 'mybrand', tld.ext)}
-                        className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-semibold transition-colors flex items-center gap-1.5"
-                      >
-                        <span>Reserve</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const domainFull = `${cleanName || 'mybrand'}${tld.ext}`;
+                            const leadData = {
+                              source: 'domain' as const,
+                              sourceTitle: 'Domain Registration Order',
+                              fullName: 'Domain Registrant',
+                              email: '',
+                              phone: '',
+                              serviceOrItem: `Domain: ${domainFull}`,
+                              budgetOrPrice: `${formatPrice(tld.usd, tld.kes)}/yr`,
+                              notes: `Inquiry to register domain ${domainFull}. Please verify availability and share invoice.`
+                            };
+                            saveLead(leadData);
+                            sendToWhatsApp(leadData);
+                          }}
+                          className="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
+                          title="Register via WhatsApp"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5" />
+                        </button>
+
+                        <button
+                          onClick={() => onSelectDomainForSetup(cleanName || 'mybrand', tld.ext)}
+                          className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-semibold transition-colors flex items-center gap-1.5"
+                        >
+                          <span>Reserve</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -257,12 +284,36 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                   </ul>
                 </div>
 
-                <button
-                  onClick={() => onSelectDomainForSetup('hosting-plan', plan.title)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-white font-semibold text-xs transition-colors"
-                >
-                  Configure Cloud Server
-                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const leadData = {
+                        source: 'domain' as const,
+                        sourceTitle: 'Cloud Hosting Plan Order',
+                        fullName: 'Hosting Client',
+                        email: '',
+                        phone: '',
+                        serviceOrItem: plan.title,
+                        budgetOrPrice: `${formatPrice(plan.priceUSD, plan.priceKES)}${plan.period}`,
+                        notes: `Inquiry to provision ${plan.title} (${formatPrice(plan.priceUSD, plan.priceKES)}${plan.period}). Specs: ${plan.specs.slice(0, 3).join(', ')}`
+                      };
+                      saveLead(leadData);
+                      sendToWhatsApp(leadData);
+                    }}
+                    className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>WhatsApp Order</span>
+                  </button>
+
+                  <button
+                    onClick={() => onSelectDomainForSetup('hosting-plan', plan.title)}
+                    className="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition-colors"
+                  >
+                    Configure Plan
+                  </button>
+                </div>
               </div>
             ))}
           </div>

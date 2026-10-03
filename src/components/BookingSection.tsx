@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Calendar, Clock, Video, Phone, MapPin, CheckCircle2, 
-  Send, MessageSquare, Download, Check, Mail, User, ShieldCheck, X 
+  Send, MessageSquare, Download, Check, Mail, User, ShieldCheck, X, ArrowRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { useLanguage } from '../context/LanguageContext';
+import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
 
 interface BookingSectionProps {
   prefilledService?: string;
@@ -39,32 +40,61 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
   const timeSlots = ['09:00 AM', '10:00 AM', '11:30 AM', '02:00 PM', '03:30 PM', '04:30 PM'];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent, dispatchMode: 'whatsapp' | 'email' | 'both' = 'both') => {
+    if (e) e.preventDefault();
     if (!fullName || !email || !phone) return;
 
-    // Save to LocalStorage for persistence
-    const newBooking = {
-      id: `booking-${Date.now()}`,
+    // Save to centralized lead storage
+    const leadData = {
+      source: 'booking' as const,
+      sourceTitle: 'Strategy Session Booking',
       fullName,
       email,
       phone,
-      service,
-      meetingDate: selectedDate,
-      meetingTime: selectedTime,
-      meetingType,
-      notes,
-      createdAt: new Date().toISOString()
+      serviceOrItem: service,
+      meetingDetails: {
+        date: selectedDate,
+        time: selectedTime,
+        type: meetingType === 'google_meet' ? 'Google Meet' : meetingType === 'phone' ? 'Phone Call' : 'Nairobi Office',
+      },
+      notes: notes || undefined,
     };
 
-    const existing = JSON.parse(localStorage.getItem('dth_bookings') || '[]');
-    localStorage.setItem('dth_bookings', JSON.stringify([...existing, newBooking]));
+    saveLead(leadData);
+
+    if (dispatchMode === 'whatsapp') {
+      sendToWhatsApp(leadData);
+    } else if (dispatchMode === 'email') {
+      sendToEmail(leadData);
+    } else {
+      // Default: Open WhatsApp directly so message is queued to send immediately
+      sendToWhatsApp(leadData);
+    }
 
     setIsSubmitted(true);
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 6000);
+    }, 8000);
+  };
+
+  const handleEmailDirect = () => {
+    const leadData = {
+      source: 'booking' as const,
+      sourceTitle: 'Strategy Session Booking',
+      fullName,
+      email,
+      phone,
+      serviceOrItem: service,
+      meetingDetails: {
+        date: selectedDate,
+        time: selectedTime,
+        type: meetingType === 'google_meet' ? 'Google Meet' : meetingType === 'phone' ? 'Phone Call' : 'Nairobi Office',
+      },
+      notes: notes || undefined,
+    };
+    saveLead(leadData);
+    sendToEmail(leadData);
   };
 
   const generateIcsCalendar = () => {
@@ -73,7 +103,7 @@ VERSION:2.0
 PRODID:-//Domain Tech Hub//Strategy Session//EN
 BEGIN:VEVENT
 SUMMARY:Domain Tech Hub Strategy Session - ${service}
-DESCRIPTION:Strategy and technical architecture consultation with Domain Tech Hub (Nairobi). Contact: info@domaintechhub.com / +254 118746676.
+DESCRIPTION:Strategy and technical architecture consultation with Domain Tech Hub (Nairobi). Contact: ${AGENCY_INFO.email} / +${AGENCY_INFO.whatsapp}.
 LOCATION:${meetingType === 'google_meet' ? 'Google Meet (Link will be sent to email)' : meetingType === 'phone' ? 'Phone Call' : 'Nairobi Office, Kenya'}
 DTSTART:${selectedDate.replace(/-/g, '')}T070000Z
 DTEND:${selectedDate.replace(/-/g, '')}T074500Z
@@ -97,7 +127,7 @@ END:VCALENDAR`;
 - Date: ${selectedDate} at ${selectedTime} (${meetingType})
 - Phone: ${phone}
 - Email: ${email}
-Looking forward to discussing my project!`;
+${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
     return encodeURIComponent(text);
   };
 
@@ -274,23 +304,32 @@ Looking forward to discussing my project!`;
                     transition={{ delay: 0.35, duration: 0.4 }}
                     className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3"
                   >
-                    <button
-                      onClick={generateIcsCalendar}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors hover:scale-[1.02] active:scale-[0.98]"
-                    >
-                      <Download className="w-4 h-4 text-cyan-400" />
-                      <span>Add to Google / Apple Calendar (.ics)</span>
-                    </button>
-
                     <a
                       href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=${getWhatsAppBookingText()}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 text-emerald-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors hover:scale-[1.02] active:scale-[0.98]"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.02] shadow-md"
                     >
-                      <MessageSquare className="w-4 h-4 text-emerald-400" />
-                      <span>Confirm Instantly on WhatsApp</span>
+                      <MessageSquare className="w-4 h-4 text-white" />
+                      <span>Chat Directly on WhatsApp (+254 118746676)</span>
                     </a>
+
+                    <button
+                      type="button"
+                      onClick={handleEmailDirect}
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors hover:scale-[1.02]"
+                    >
+                      <Mail className="w-4 h-4 text-white" />
+                      <span>Email {AGENCY_INFO.email}</span>
+                    </button>
+
+                    <button
+                      onClick={generateIcsCalendar}
+                      className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors hover:scale-[1.02]"
+                    >
+                      <Download className="w-4 h-4 text-cyan-400" />
+                      <span>Calendar (.ics)</span>
+                    </button>
                   </motion.div>
 
                   <button
@@ -464,14 +503,34 @@ Looking forward to discussing my project!`;
                   </div>
                 </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{t('contact.btnSubmit')}</span>
-                </button>
+                {/* Direct Delivery Channels Notice */}
+                <div className="p-3.5 rounded-xl bg-teal-950/40 border border-teal-800/60 text-xs text-teal-200 flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold text-white block">Direct Delivery Guarantee:</span>
+                    <span>Submissions are delivered instantly to WhatsApp (<strong>+254 118746676</strong>) and Email (<strong>{AGENCY_INFO.email}</strong>). Our team replies in &lt;20 minutes.</span>
+                  </div>
+                </div>
+
+                {/* Dual Submit Actions: WhatsApp & Email */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/60 transition-all cursor-pointer"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Send to WhatsApp (+254 118746676)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleEmailDirect}
+                    className="w-full py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  >
+                    <Mail className="w-4 h-4 text-blue-400" />
+                    <span>Send via Email ({AGENCY_INFO.email})</span>
+                  </button>
+                </div>
 
               </motion.form>
             )}

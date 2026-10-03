@@ -3,8 +3,9 @@ import {
   Compass, Palette, Code2, CheckSquare2, Rocket, 
   Calendar, Clock, CheckCircle2, ShieldCheck, ArrowRight, 
   Sparkles, Layers, Users, RefreshCw, FileText, ChevronRight, 
-  Lock, Zap, Check, HelpCircle, AlertCircle
+  Lock, Zap, Check, HelpCircle, AlertCircle, MessageSquare, Mail
 } from 'lucide-react';
+import { AGENCY_INFO } from '../data/portfolioData';
 
 export type SprintTimeline = '4-weeks' | '6-weeks' | '8-weeks';
 
@@ -585,11 +586,29 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                <a
+                  href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=${encodeURIComponent(`Hello Domain Tech Hub, I want to initiate a ${selectedTimeline} sprint (${activeStage.shortLabel} stage).`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp Kickoff</span>
+                </a>
+
+                <a
+                  href={`mailto:${AGENCY_INFO.email}?subject=${encodeURIComponent(`Sprint Kickoff Request: ${selectedTimeline} (${activeStage.shortLabel})`)}&body=${encodeURIComponent(`Hello Domain Tech Hub Team,\n\nI want to initiate a ${selectedTimeline} sprint for our project starting at the ${activeStage.name} stage.\n\nTimeline: ${activeStage.timeRange[selectedTimeline]}\n\nPlease let me know your available times for the kickoff consultation.\n`)}`}
+                  className="px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Email Kickoff</span>
+                </a>
+
                 <button
                   type="button"
                   onClick={() => onStartSprint?.(selectedTimeline, activeStage.id)}
-                  className="px-5 py-2.5 rounded-full bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md transition-all whitespace-nowrap cursor-pointer"
+                  className="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all whitespace-nowrap cursor-pointer"
                 >
                   Schedule Discovery Kickoff
                 </button>

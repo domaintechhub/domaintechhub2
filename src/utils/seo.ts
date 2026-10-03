@@ -23,6 +23,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       description: 'Nairobi digital technology agency specializing in modern web applications, e-commerce, Safaricom Daraja M-Pesa integration, and SEO.',
       url: 'https://domaintechhub.com',
       telephone: '+254118746676',
+      email: 'domaintechhub@gmail.com',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Nairobi',

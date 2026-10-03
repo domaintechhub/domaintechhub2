@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Calculator, Check, ArrowRight, Copy, CheckCheck, 
-  MessageSquare, Shield, Clock, RefreshCw 
+  MessageSquare, Shield, Clock, RefreshCw, Mail 
 } from 'lucide-react';
 import { SERVICES_LIST } from '../data/servicesData';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage } from '../context/LanguageContext';
+import { AGENCY_INFO } from '../data/portfolioData';
+import { saveLead, sendToEmail, sendToWhatsApp } from '../utils/leadDispatch';
 
 interface AddonOption {
   id: string;
@@ -174,6 +176,35 @@ Generated at domaintechhub.com tool.`;
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
+  };
+
+  const handleSendWhatsAppQuote = () => {
+    saveLead({
+      source: 'calculator',
+      sourceTitle: 'Cost Calculator Estimate',
+      fullName: 'Prospective Client',
+      email: '',
+      phone: '',
+      serviceOrItem: currentService.title,
+      budgetOrPrice: currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`,
+      notes: getQuoteSummaryText()
+    });
+    window.open(`https://wa.me/${AGENCY_INFO.whatsapp}?text=${encodeURIComponent(getQuoteSummaryText())}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSendEmailQuote = () => {
+    const leadData = {
+      source: 'calculator' as const,
+      sourceTitle: 'Cost Calculator Estimate',
+      fullName: 'Prospective Client',
+      email: '',
+      phone: '',
+      serviceOrItem: currentService.title,
+      budgetOrPrice: currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`,
+      notes: getQuoteSummaryText()
+    };
+    saveLead(leadData);
+    sendToEmail(leadData);
   };
 
   return (
@@ -439,15 +470,23 @@ Generated at domaintechhub.com tool.`;
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <a
-                  href={`https://wa.me/254118746676?text=${encodeURIComponent(getQuoteSummaryText())}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/80 border border-emerald-800 text-emerald-300 font-semibold text-xs flex items-center justify-center gap-2 transition-colors text-center cursor-pointer"
+                <button
+                  type="button"
+                  onClick={handleSendWhatsAppQuote}
+                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-md"
                 >
-                  <MessageSquare className="w-4 h-4 text-emerald-400" />
-                  <span>{t('calc.btnSendWA')}</span>
-                </a>
+                  <MessageSquare className="w-4 h-4 text-white" />
+                  <span>Send Quote to WhatsApp (+254 118746676)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSendEmailQuote}
+                  className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                >
+                  <Mail className="w-4 h-4 text-white" />
+                  <span>Email Quote to {AGENCY_INFO.email}</span>
+                </button>
 
                 <button
                   onClick={handleCopyQuote}

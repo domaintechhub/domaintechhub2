@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Search, ShieldAlert, CheckCircle2, AlertTriangle, XCircle, 
-  Gauge, ArrowRight, Printer, RefreshCw, Globe, Smartphone, Lock
+  Gauge, ArrowRight, Printer, RefreshCw, Globe, Smartphone, Lock,
+  MessageSquare, Mail
 } from 'lucide-react';
 import { AuditReport } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { AGENCY_INFO } from '../data/portfolioData';
+import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
 
 interface SeoAuditToolProps {
   onFixWithAgency: (domain: string, auditIssuesCount: number) => void;
@@ -379,7 +382,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             </div>
 
             {/* Bottom Callout Banner */}
-            <div className="mt-4 p-5 rounded-xl bg-teal-50/80 dark:bg-cyan-950/50 border border-teal-200 dark:border-cyan-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="mt-4 p-5 rounded-xl bg-teal-50/80 dark:bg-cyan-950/50 border border-teal-200 dark:border-cyan-800/50 flex flex-col lg:flex-row items-center justify-between gap-4">
               <div>
                 <h5 className="font-bold text-sm text-slate-900 dark:text-white">
                   Want Domain Tech Hub’s senior team to resolve these issues?
@@ -388,12 +391,59 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                   We guarantee Core Web Vitals passing scores, Schema markup implementation, and Google ranking leaps.
                 </p>
               </div>
-              <button
-                onClick={() => onFixWithAgency(report.url, report.issues.filter(i => i.severity !== 'good').length)}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-xs whitespace-nowrap shadow-md"
-              >
-                Fix My Site Now
-              </button>
+
+              <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const criticalCount = report.issues.filter(i => i.severity !== 'good').length;
+                    const leadData = {
+                      source: 'audit' as const,
+                      sourceTitle: 'Live SEO Speed & Vitals Audit',
+                      fullName: 'Website Owner',
+                      email: '',
+                      phone: '',
+                      serviceOrItem: `SEO & Speed Fix for ${report.url}`,
+                      notes: `Audit for ${report.url}: Score ${report.overallScore}/100. Critical issues: ${criticalCount}. Recommendations: LCP speed, Schema JSON-LD, SSL.`
+                    };
+                    saveLead(leadData);
+                    sendToWhatsApp(leadData);
+                  }}
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp Report</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const criticalCount = report.issues.filter(i => i.severity !== 'good').length;
+                    const leadData = {
+                      source: 'audit' as const,
+                      sourceTitle: 'Live SEO Speed & Vitals Audit',
+                      fullName: 'Website Owner',
+                      email: '',
+                      phone: '',
+                      serviceOrItem: `SEO & Speed Fix for ${report.url}`,
+                      notes: `Audit for ${report.url}: Score ${report.overallScore}/100. Critical issues: ${criticalCount}. Recommendations: LCP speed, Schema JSON-LD, SSL.`
+                    };
+                    saveLead(leadData);
+                    sendToEmail(leadData);
+                  }}
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Email Report</span>
+                </button>
+
+                <button
+                  onClick={() => onFixWithAgency(report.url, report.issues.filter(i => i.severity !== 'good').length)}
+                  className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs whitespace-nowrap shadow-md transition-all"
+                >
+                  Schedule Fix Call
+                </button>
+              </div>
             </div>
 
           </div>

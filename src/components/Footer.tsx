@@ -9,9 +9,10 @@ import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
   onNavigate: (sectionId: string, subParam?: string) => void;
+  onOpenLeadInbox?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadInbox }) => {
   const { t } = useLanguage();
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'sla' | null>(null);
   return (
@@ -139,6 +140,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               Client Tools
             </h4>
             <ul className="space-y-2.5">
+              {onOpenLeadInbox && (
+                <li>
+                  <button onClick={onOpenLeadInbox} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-mono font-bold text-teal-400">
+                    <span>Agency Lead Inbox</span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                  </button>
+                </li>
+              )}
               <li>
                 <button onClick={() => onNavigate('roadmap')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-medium text-white">
                   <span>4–8 Week Sprint Roadmap</span>
@@ -244,6 +253,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             >
               SLA Agreement
             </button>
+            {onOpenLeadInbox && (
+              <>
+                <span aria-hidden="true">·</span>
+                <button
+                  type="button"
+                  onClick={onOpenLeadInbox}
+                  className="px-2.5 py-0.5 rounded-full bg-slate-800 hover:bg-teal-600 hover:text-white text-teal-400 font-mono text-[10px] transition-colors flex items-center gap-1 cursor-pointer"
+                  title="View all form submissions and inquiries"
+                >
+                  <ShieldCheck className="w-3 h-3" />
+                  <span>Lead Inbox (Owner Access)</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

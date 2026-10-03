@@ -27,6 +27,7 @@ import { BookingSection } from './components/BookingSection';
 import { ToolsPage, ToolTab } from './components/ToolsPage';
 import { ServiceDetailPage } from './components/ServiceDetailPage';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
+import { LeadInboxModal } from './components/LeadInboxModal';
 import { Footer } from './components/Footer';
 import { QuickContactFloating } from './components/QuickContactFloating';
 import { applyPageSeo } from './utils/seo';
@@ -88,6 +89,7 @@ export default function App() {
   const [activeToolTab, setActiveToolTab] = useState<ToolTab>('calculator');
   const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isLeadInboxOpen, setIsLeadInboxOpen] = useState(false);
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
@@ -118,6 +120,8 @@ export default function App() {
         setTimeout(() => {
           document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
         }, 150);
+      } else if (rawHash === 'inbox' || rawHash === 'leads') {
+        setIsLeadInboxOpen(true);
       } else {
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
@@ -163,6 +167,9 @@ export default function App() {
       setTimeout(() => {
         document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
+      return;
+    } else if (target === 'inbox' || target === 'leads') {
+      setIsLeadInboxOpen(true);
       return;
     } else if (target === 'services' || target === 'tech-stack') {
       targetPage = 'services';
@@ -594,6 +601,7 @@ export default function App() {
           {/* Footer */}
           <Footer 
             onNavigate={navigateTo} 
+            onOpenLeadInbox={() => setIsLeadInboxOpen(true)}
           />
 
           {/* Floating Quick Action Widget */}
@@ -606,6 +614,12 @@ export default function App() {
             isOpen={isSearchOpen}
             onClose={() => setIsSearchOpen(false)}
             onNavigate={(target, subTab) => navigateTo(target, subTab)}
+          />
+
+          {/* Agency Owner Lead & Submission Inbox */}
+          <LeadInboxModal 
+            isOpen={isLeadInboxOpen}
+            onClose={() => setIsLeadInboxOpen(false)}
           />
 
         </div>

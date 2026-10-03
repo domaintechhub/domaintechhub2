@@ -3,8 +3,11 @@ import {
   FolderGit2, CheckCircle2, Clock, AlertCircle, Send, 
   ExternalLink, FileText, ShieldCheck, LifeBuoy, Check,
   Compass, Palette, Code2, CheckSquare2, Rocket, 
-  ChevronRight, ChevronLeft, UserCheck, Sparkles, Layers
+  ChevronRight, ChevronLeft, UserCheck, Sparkles, Layers,
+  MessageSquare, Mail
 } from 'lucide-react';
+import { AGENCY_INFO } from '../data/portfolioData';
+import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
 
 export interface RoadmapStage {
   id: 'discovery' | 'design' | 'development' | 'uat' | 'deployment';
@@ -149,15 +152,34 @@ export const ClientPortalDemo: React.FC = () => {
     }
   };
 
-  const handleTicketSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleTicketSubmit = (e?: React.FormEvent, method: 'whatsapp' | 'email' = 'whatsapp') => {
+    if (e) e.preventDefault();
     if (!ticketSubject || !ticketDescription) return;
+
+    const leadData = {
+      source: 'ticket' as const,
+      sourceTitle: `Client Portal Support Ticket (${ticketCategory.toUpperCase()})`,
+      fullName: 'Portal Client',
+      email: '',
+      phone: '',
+      serviceOrItem: `Ticket: ${ticketSubject}`,
+      notes: `[Category: ${ticketCategory}]\n${ticketDescription}`
+    };
+
+    saveLead(leadData);
+
+    if (method === 'whatsapp') {
+      sendToWhatsApp(leadData);
+    } else {
+      sendToEmail(leadData);
+    }
+
     setTicketSubmitted(true);
     setTimeout(() => {
       setTicketSubject('');
       setTicketDescription('');
       setTicketSubmitted(false);
-    }, 4000);
+    }, 6000);
   };
 
   return (
@@ -642,13 +664,24 @@ export const ClientPortalDemo: React.FC = () => {
                       />
                     </div>
 
-                    <button
-                      type="submit"
-                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
-                    >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Dispatch Ticket to Engineers</span>
-                    </button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      <button
+                        type="submit"
+                        className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>Send to WhatsApp</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={(e) => handleTicketSubmit(e, 'email')}
+                        className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>Send via Email</span>
+                      </button>
+                    </div>
                   </form>
                 )}
               </div>
