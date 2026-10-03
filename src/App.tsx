@@ -16,6 +16,7 @@ import { TechStackSection } from './components/TechStackSection';
 import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
 import { RoadmapPage } from './components/RoadmapPage';
 import { MorePage, MoreTab } from './components/MorePage';
+import { AboutPage } from './components/AboutPage';
 import { CostCalculator } from './components/CostCalculator';
 import { SeoAuditTool } from './components/SeoAuditTool';
 import { DomainChecker } from './components/DomainChecker';
@@ -40,14 +41,17 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from './data/portfolioData';
 
-export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more';
+export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about';
 
 function parseHashRoute(): { page: PageRoute; subTab?: string } {
   if (typeof window === 'undefined') return { page: 'home' };
   const rawHash = window.location.hash.replace(/^#\/?/, '').toLowerCase().trim();
   
-  if (!rawHash || rawHash === 'home' || rawHash === 'hero' || rawHash === 'about' || rawHash === 'about-us') {
+  if (!rawHash || rawHash === 'home' || rawHash === 'hero') {
     return { page: 'home' };
+  }
+  if (rawHash === 'about' || rawHash === 'about-us') {
+    return { page: 'about' };
   }
   if (rawHash.startsWith('roadmap') || rawHash.startsWith('process') || rawHash.startsWith('sprint-roadmap')) {
     return { page: 'more', subTab: 'roadmap' };
@@ -124,11 +128,7 @@ export default function App() {
       }
 
       const rawHash = window.location.hash.replace(/^#\/?/, '').toLowerCase().trim();
-      if (rawHash === 'about' || rawHash === 'about-us') {
-        setTimeout(() => {
-          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
-      } else if (rawHash === 'dth-owner-vault' || rawHash === 'owner-portal') {
+      if (rawHash === 'dth-owner-vault' || rawHash === 'owner-portal') {
         setIsLeadInboxOpen(true);
       } else {
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -160,13 +160,8 @@ export default function App() {
       targetPage = 'home';
       targetSub = undefined;
     } else if (target === 'about' || target === 'about-us') {
-      setCurrentPage('home');
-      setActiveServiceId(null);
-      window.location.hash = '#/about';
-      setTimeout(() => {
-        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
+      targetPage = 'about';
+      targetSub = undefined;
     } else if (target === 'team' || target === 'our-team') {
       targetPage = 'more';
       targetSub = 'team';
@@ -616,6 +611,20 @@ export default function App() {
                     setActiveMoreTab(tab);
                     window.location.hash = `#/more/${tab}`;
                   }}
+                />
+              </div>
+            )}
+
+            {/* 10. DEDICATED PAGE: ABOUT US */}
+            {currentPage === 'about' && (
+              <div className="animate-in fade-in duration-200">
+                <AboutPage 
+                  onNavigateHome={() => navigateTo('home')}
+                  onNavigateToPortfolio={() => navigateTo('portfolio')}
+                  onNavigateToTeam={() => navigateTo('more', 'team')}
+                  onNavigateToRoadmap={() => navigateTo('more', 'roadmap')}
+                  onNavigateToContact={() => navigateTo('contact')}
+                  onNavigateToTools={() => navigateTo('tools')}
                 />
               </div>
             )}

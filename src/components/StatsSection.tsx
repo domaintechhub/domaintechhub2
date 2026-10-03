@@ -20,7 +20,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="py-16 sm:py-20 bg-slate-950 border-y border-slate-900/90 relative overflow-hidden scroll-mt-24">
+    <section id="stats" className="py-16 sm:py-20 bg-slate-950 border-y border-slate-900/90 relative overflow-hidden scroll-mt-24">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-cyan-500/5 blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-blue-600/5 blur-[100px] rounded-full pointer-events-none" />

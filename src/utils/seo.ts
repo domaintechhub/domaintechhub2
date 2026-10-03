@@ -46,6 +46,29 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     },
   }),
 
+  about: () => ({
+    title: 'About Us | Nairobi Web Engineering Studio | Domain Tech Hub',
+    description: 'Learn about Domain Tech Hub: Nairobi premier web engineering agency. Our mission, verified track record, 100% in-house engineering team, and client philosophy.',
+    canonicalPath: '/#/about',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'About Domain Tech Hub',
+      description: 'Nairobi-based digital engineering agency architecting modern web apps, M-Pesa e-commerce systems, and high-performance cloud infrastructure.',
+      url: 'https://domaintechhub.com/#/about',
+      publisher: {
+        '@type': 'Organization',
+        name: 'Domain Tech Hub',
+        url: 'https://domaintechhub.com',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Nairobi',
+          addressCountry: 'KE',
+        },
+      },
+    },
+  }),
+
   services: (serviceId?: string) => {
     if (serviceId && serviceId !== 'all') {
       const matched = SERVICES_LIST.find(s => s.id === serviceId);
