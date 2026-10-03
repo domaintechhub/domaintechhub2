@@ -17,6 +17,7 @@ import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
 import { RoadmapPage } from './components/RoadmapPage';
 import { MorePage, MoreTab } from './components/MorePage';
 import { AboutPage } from './components/AboutPage';
+import { PageLoader } from './components/PageLoader';
 import { CostCalculator } from './components/CostCalculator';
 import { SeoAuditTool } from './components/SeoAuditTool';
 import { DomainChecker } from './components/DomainChecker';
@@ -111,10 +112,21 @@ export default function App() {
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isPageTransitioning, setIsPageTransitioning] = useState(false);
+
+  // Initial startup timer: smooth transition from preloader to interactive application
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialLoading(false);
+    }, 380);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Sync route on mount and hash changes
   useEffect(() => {
     const handleHashChange = () => {
+      setIsPageTransitioning(true);
       const { page, subTab } = parseHashRoute();
       setCurrentPage(page);
       if (page === 'tools') {
@@ -133,6 +145,10 @@ export default function App() {
       } else {
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
+
+      setTimeout(() => {
+        setIsPageTransitioning(false);
+      }, 200);
     };
 
     handleHashChange();
@@ -153,6 +169,7 @@ export default function App() {
   }, [currentPage, activeToolTab, activeMoreTab, activeServiceId]);
 
   const navigateTo = (target: string, subParam?: string) => {
+    setIsPageTransitioning(true);
     let targetPage: PageRoute = 'home';
     let targetSub: string | undefined = subParam;
 
@@ -227,6 +244,10 @@ export default function App() {
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+      setIsPageTransitioning(false);
+    }, 200);
   };
 
   const handleSelectForQuote = (serviceId: string) => {
@@ -294,6 +315,21 @@ export default function App() {
       <CurrencyProvider>
         <LanguageProvider>
           <div className="min-h-screen bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-teal-500/20 selection:text-teal-800">
+
+          {/* Animated Logo Loading Screens */}
+          {isInitialLoading && (
+            <PageLoader 
+              message="Domain Tech Hub" 
+              subMessage="Nairobi Studio · Web & Software Systems" 
+            />
+          )}
+
+          {isPageTransitioning && !isInitialLoading && (
+            <PageLoader 
+              message="Loading View..." 
+              subMessage="Domain Tech Hub Engineering" 
+            />
+          )}
           
           {/* Navigation Bar with Search Trigger */}
           <Navbar 

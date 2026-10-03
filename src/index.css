@@ -732,5 +732,24 @@ html.dark .logo-skeleton-pulse {
   }
 }
 
+@keyframes dth-progress {
+  0% {
+    left: -40%;
+    width: 30%;
+  }
+  50% {
+    left: 30%;
+    width: 60%;
+  }
+  100% {
+    left: 105%;
+    width: 35%;
+  }
+}
+
+.animate-dth-progress {
+  animation: dth-progress 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 
 
