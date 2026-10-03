@@ -610,25 +610,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                         </div>
                       </button>
 
-                      {/* Lead Inbox (Owner Access) */}
-                      <button
-                        onClick={() => handleNavClick('inbox')}
-                        className="w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer"
-                      >
-                        <div className="w-8 h-8 rounded-xl bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                          <ShieldCheck className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors flex items-center gap-1.5">
-                            <span>Lead Inbox</span>
-                            <span className="text-[9px] font-mono text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/80 px-1 py-0.2 rounded border border-teal-200">OWNER</span>
-                          </div>
-                          <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
-                            View all customer form submissions &amp; inquiries
-                          </div>
-                        </div>
-                      </button>
-
                       {/* Direct WhatsApp Line */}
                       <div className="pt-2 border-t border-stone-200/80 dark:border-slate-800/60 flex items-center justify-between px-2.5 py-1 text-[11px]">
                         <a

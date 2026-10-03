@@ -120,7 +120,7 @@ export default function App() {
         setTimeout(() => {
           document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
         }, 150);
-      } else if (rawHash === 'inbox' || rawHash === 'leads') {
+      } else if (rawHash === 'dth-owner-vault' || rawHash === 'owner-portal') {
         setIsLeadInboxOpen(true);
       } else {
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -168,7 +168,7 @@ export default function App() {
         document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
       return;
-    } else if (target === 'inbox' || target === 'leads') {
+    } else if (target === 'dth-owner-vault') {
       setIsLeadInboxOpen(true);
       return;
     } else if (target === 'services' || target === 'tech-stack') {
@@ -601,7 +601,6 @@ export default function App() {
           {/* Footer */}
           <Footer 
             onNavigate={navigateTo} 
-            onOpenLeadInbox={() => setIsLeadInboxOpen(true)}
           />
 
           {/* Floating Quick Action Widget */}
