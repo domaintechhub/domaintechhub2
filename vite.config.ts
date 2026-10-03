@@ -6,10 +6,14 @@ import { defineConfig } from 'vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
+const base = repositoryName && !repositoryName.endsWith('.github.io')
+  ? `/${repositoryName}/`
+  : '/';
 
 export default defineConfig(({ mode }) => {
   return {
-    base: '/',
+    base,
     plugins: [
       react(), 
       tailwindcss()

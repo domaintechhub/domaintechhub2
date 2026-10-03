@@ -123,10 +123,7 @@ npm start
 4. The included `_redirects` file handles client-side routing automatically.
 
 ### Deploy to GitHub Pages
-Run the automated deploy script:
-```bash
-npm run deploy
-```
+In the repository's **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. The deployment workflow builds `dist/` and publishes that artifact; the branch-based Pages source serves the unbuilt Vite `index.html` and results in a blank page. After changing the source, pushes to `main` deploy automatically. Vite reads the repository name from `GITHUB_REPOSITORY` and builds asset URLs with the GitHub Pages project path; local builds without that variable use the site root.
 
 ### Deploy to cPanel / Traditional Web Hosting (.co.ke)
 1. Run `npm run build`.
