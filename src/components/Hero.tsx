@@ -8,6 +8,7 @@ import { AGENCY_INFO } from '../data/portfolioData';
 import { useLanguage } from '../context/LanguageContext';
 import { AnimatedCounter } from './AnimatedCounter';
 import { SproutEmblem } from './Logo';
+import heroImage from '../assets/images/kenyan_developer_laptop_1790409653138.jpg';
 
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
@@ -132,7 +133,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               {/* Main Image Card with Rounded Shape */}
               <div className="overflow-hidden rounded-3xl border-4 border-white dark:border-slate-800 shadow-2xl bg-stone-100 dark:bg-slate-900 relative">
                 <img
-                  src="/src/assets/images/kenyan_developer_laptop_1790409653138.jpg"
+                  src={heroImage}
                   alt="Kenyan software developer working on a laptop at Domain Tech Hub Nairobi studio"
                   referrerPolicy="no-referrer"
                   className="w-full h-[360px] sm:h-[420px] object-cover object-center hover:scale-105 transition-transform duration-500"
