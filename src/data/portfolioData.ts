@@ -187,6 +187,13 @@ export const AGENCY_INFO = {
   whatsapp: '254118746676',
   address: 'Nairobi, Kenya',
   officeHours: 'Monday – Friday: 8:00 AM – 5:00 PM (EAT)',
+  socials: {
+    instagram: 'https://www.instagram.com/domain_tech_hub/',
+    tiktok: 'https://www.tiktok.com/@domaintechhub',
+    facebook: 'https://web.facebook.com/profile.php?id=61589542515206&_rdc=1&_rdr#',
+    x: 'https://x.com/DomainTechhub',
+    linkedin: 'https://www.linkedin.com/in/domain-techhub-2a7596433/'
+  },
   stats: [
     { label: 'Projects Completed', value: '65+' },
     { label: 'Happy Clients', value: '42+' },

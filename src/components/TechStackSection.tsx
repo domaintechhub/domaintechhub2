@@ -4,7 +4,6 @@ import {
   ExternalLink, ArrowRight, CheckCircle2, Terminal 
 } from 'lucide-react';
 import { TECH_STACK, TECH_CATEGORIES, TechItem } from '../data/techStackData';
-import { TechLogo } from './TechLogos';
 
 interface TechStackSectionProps {
   onSelectTechForProject?: (techName: string) => void;
@@ -128,19 +127,14 @@ export const TechStackSection: React.FC<TechStackSectionProps> = ({ onSelectTech
               className="group bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-slate-700 rounded-2xl p-5 transition-all duration-200 flex flex-col justify-between hover:shadow-lg hover:shadow-cyan-950/20"
             >
               <div>
-                {/* Header with SVG Logo and Category Kicker */}
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-xl bg-slate-950/90 border border-slate-800/90 p-2 flex items-center justify-center group-hover:scale-105 group-hover:border-slate-700 transition-all">
-                    <TechLogo svgKey={item.svgKey} className="w-7 h-7" color={item.color} />
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block">
-                      {item.badge}
-                    </span>
-                    <span className="text-[11px] text-slate-500 font-mono">
-                      {item.categoryLabel}
-                    </span>
-                  </div>
+                {/* Header with Category and Badge (Icons removed) */}
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <span className="text-[11px] text-slate-400 font-mono">
+                    {item.categoryLabel}
+                  </span>
+                  <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    {item.badge}
+                  </span>
                 </div>
 
                 {/* Tech Name */}
