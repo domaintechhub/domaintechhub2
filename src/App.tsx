@@ -14,6 +14,7 @@ import { StatsSection } from './components/StatsSection';
 import { ServicesExplorer } from './components/ServicesExplorer';
 import { TechStackSection } from './components/TechStackSection';
 import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
+import { RoadmapPage } from './components/RoadmapPage';
 import { CostCalculator } from './components/CostCalculator';
 import { SeoAuditTool } from './components/SeoAuditTool';
 import { DomainChecker } from './components/DomainChecker';
@@ -38,7 +39,7 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from './data/portfolioData';
 
-export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact';
+export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap';
 
 function parseHashRoute(): { page: PageRoute; subTab?: string } {
   if (typeof window === 'undefined') return { page: 'home' };
@@ -46,6 +47,9 @@ function parseHashRoute(): { page: PageRoute; subTab?: string } {
   
   if (!rawHash || rawHash === 'home' || rawHash === 'hero' || rawHash === 'about' || rawHash === 'about-us') {
     return { page: 'home' };
+  }
+  if (rawHash.startsWith('roadmap') || rawHash.startsWith('process') || rawHash.startsWith('sprint-roadmap')) {
+    return { page: 'roadmap' };
   }
   if (rawHash.startsWith('service') || rawHash === 'tech-stack') {
     const parts = rawHash.split('/');
@@ -116,10 +120,6 @@ export default function App() {
         setTimeout(() => {
           document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' });
         }, 150);
-      } else if (rawHash === 'roadmap' || rawHash === 'sprint-roadmap' || rawHash === 'process') {
-        setTimeout(() => {
-          document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
       } else if (rawHash === 'dth-owner-vault' || rawHash === 'owner-portal') {
         setIsLeadInboxOpen(true);
       } else {
@@ -161,13 +161,8 @@ export default function App() {
       }, 100);
       return;
     } else if (target === 'roadmap' || target === 'process' || target === 'sprint-roadmap') {
-      setCurrentPage('home');
-      setActiveServiceId(null);
-      window.location.hash = '#/roadmap';
-      setTimeout(() => {
-        document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
+      targetPage = 'roadmap';
+      targetSub = undefined;
     } else if (target === 'dth-owner-vault') {
       setIsLeadInboxOpen(true);
       return;
@@ -319,11 +314,6 @@ export default function App() {
 
                 <TechStackSection 
                   onSelectTechForProject={handleSelectTechForProject}
-                />
-
-                <ProjectRoadmap 
-                  onStartSprint={handleStartSprint}
-                  onOpenCalculator={() => navigateTo('calculator')}
                 />
 
                 <CostCalculator 
@@ -593,6 +583,22 @@ export default function App() {
                     prefilledNotes={prefilledNotes}
                   />
                 </div>
+              </div>
+            )}
+
+            {/* 9. DEDICATED PAGE: PROJECT SPRINT ROADMAP & MILESTONES */}
+            {currentPage === 'roadmap' && (
+              <div className="animate-in fade-in duration-200">
+                <RoadmapPage 
+                  onNavigateHome={() => navigateTo('home')}
+                  onStartSprint={handleStartSprint}
+                  onOpenCalculator={() => navigateTo('calculator')}
+                  onBookCall={() => {
+                    setPrefilledService('Agile Sprint Scoping Consultation');
+                    setPrefilledNotes('I would like to schedule a technical discovery session to review our sprint milestones and delivery timeline.');
+                    navigateTo('contact');
+                  }}
+                />
               </div>
             )}
 

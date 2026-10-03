@@ -225,6 +225,45 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     },
   }),
 
+  roadmap: () => ({
+    title: '4 to 8 Week Agile Sprint Roadmap & Delivery Timeline | Domain Tech Hub',
+    description: 'Explore our predictable 5-stage sprint engineering methodology: Discovery, UI/UX Design Tokens, Fullstack Development, UAT, and Cloud Production Launch.',
+    canonicalPath: '/#/roadmap',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: 'Domain Tech Hub 4 to 8 Week Agile Delivery Process',
+      description: 'A 5-stage sprint methodology with milestone gates, live staging previews, and 30-day post-launch warranty.',
+      step: [
+        {
+          '@type': 'HowToStep',
+          name: 'Stage 1: Discovery, Technical Scoping & Architecture',
+          text: 'Technical requirements specification, database entity models, and API integration mapping.'
+        },
+        {
+          '@type': 'HowToStep',
+          name: 'Stage 2: High-Fidelity UI/UX & Interactive Design Tokens',
+          text: 'Component design tokens, interactive prototypes, and typography styling.'
+        },
+        {
+          '@type': 'HowToStep',
+          name: 'Stage 3: Fullstack Engineering & Third-Party Integration',
+          text: 'React/Next.js frontend, backend APIs, Safaricom Daraja STK Push, and test suites.'
+        },
+        {
+          '@type': 'HowToStep',
+          name: 'Stage 4: Quality Assurance, Security Hardening & UAT',
+          text: 'Core Web Vitals tuning, penetration testing, and client sign-off.'
+        },
+        {
+          '@type': 'HowToStep',
+          name: 'Stage 5: Production Deployment, DNS Cutover & Warranty',
+          text: 'Zero-downtime deployment, DNS cutover, Google indexing, and 30-day bug warranty.'
+        }
+      ]
+    },
+  }),
+
   faq: () => ({
     title: 'Frequently Asked Questions & Pricing Tiers | Domain Tech Hub',
     description: 'Answers to questions on development sprint timelines, M-Pesa integration security, code repository ownership, and monthly SLA retainers.',

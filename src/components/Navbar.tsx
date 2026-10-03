@@ -165,7 +165,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
   const isPortalActive = activeSection === 'portal' || activeSection === 'client-portal';
   const isFaqActive = activeSection === 'faq';
   const isContactActive = activeSection === 'contact';
-  const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive;
+  const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap';
+  const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive || isRoadmapActive;
 
   return (
     <>
@@ -576,7 +577,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                       {/* Project Roadmap */}
                       <button
                         onClick={() => handleNavClick('roadmap')}
-                        className="w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer"
+                        className={`w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer ${
+                          isRoadmapActive ? 'bg-stone-100 dark:bg-slate-800' : ''
+                        }`}
                       >
                         <div className="w-8 h-8 rounded-xl bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
                           <Rocket className="w-4 h-4" />
@@ -754,7 +757,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {[
-                    { id: 'roadmap', label: 'Project Roadmap', subtitle: '4–8 Week Delivery Sprint Cycle', icon: Rocket, active: false },
+                    { id: 'roadmap', label: 'Project Roadmap', subtitle: '4–8 Week Delivery Sprint Cycle', icon: Rocket, active: isRoadmapActive },
                     { id: 'team', label: 'Our Engineering Team', subtitle: 'Senior Architects & Strategists', icon: Users, active: false },
                     { id: 'tech-stack', label: t('nav.techStack'), subtitle: 'React, Node, Python & Cloud Architecture', icon: Cpu, active: isTechStackActive },
                     { id: 'insights', label: t('nav.insights'), subtitle: 'Tech Trends & Strategy Guides', icon: BookOpen, active: isInsightsActive },
