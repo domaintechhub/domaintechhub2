@@ -165,8 +165,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
   const isPortalActive = activeSection === 'portal' || activeSection === 'client-portal';
   const isFaqActive = activeSection === 'faq';
   const isContactActive = activeSection === 'contact';
-  const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap';
-  const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive || isRoadmapActive;
+  const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap' || (activeSection === 'more' && window.location.hash.includes('roadmap'));
+  const isTeamActive = activeSection === 'team' || activeSection === 'our-team' || (activeSection === 'more' && window.location.hash.includes('team'));
+  const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive || isRoadmapActive || isTeamActive || activeSection === 'more';
 
   return (
     <>
@@ -467,16 +468,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                   type="button"
                   onClick={() => {
                     if (moreTimeoutRef.current) clearTimeout(moreTimeoutRef.current);
-                    setMoreDropdownOpen((prev) => !prev);
-                    setServicesDropdownOpen(false);
-                    setToolsDropdownOpen(false);
+                    handleNavClick('more');
                   }}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full cursor-pointer liquid-glass-btn whitespace-nowrap ${
                     isMoreActive || moreDropdownOpen
                       ? 'active text-teal-800 dark:text-teal-300' 
                       : 'text-slate-700 dark:text-slate-200'
                   }`}
-                  title="More Options & Solutions"
+                  title="More Solutions, Sprints & Engineering Operations (Click to view More page)"
                 >
                   <span>{t('nav.more')}</span>
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${moreDropdownOpen ? 'rotate-180 text-teal-600' : 'text-slate-400'}`} />
@@ -576,7 +575,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
 
                       {/* Project Roadmap */}
                       <button
-                        onClick={() => handleNavClick('roadmap')}
+                        onClick={() => handleNavClick('more', 'roadmap')}
                         className={`w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer ${
                           isRoadmapActive ? 'bg-stone-100 dark:bg-slate-800' : ''
                         }`}
@@ -597,8 +596,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
 
                       {/* Our Engineering Team */}
                       <button
-                        onClick={() => handleNavClick('team')}
-                        className="w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer"
+                        onClick={() => handleNavClick('more', 'team')}
+                        className={`w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer ${
+                          isTeamActive ? 'bg-stone-100 dark:bg-slate-800' : ''
+                        }`}
                       >
                         <div className="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
                           <Users className="w-4 h-4" />
@@ -758,7 +759,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {[
                     { id: 'roadmap', label: 'Project Roadmap', subtitle: '4–8 Week Delivery Sprint Cycle', icon: Rocket, active: isRoadmapActive },
-                    { id: 'team', label: 'Our Engineering Team', subtitle: 'Senior Architects & Strategists', icon: Users, active: false },
+                    { id: 'team', label: 'Our Engineering Team', subtitle: 'Senior Architects & Strategists', icon: Users, active: isTeamActive },
                     { id: 'tech-stack', label: t('nav.techStack'), subtitle: 'React, Node, Python & Cloud Architecture', icon: Cpu, active: isTechStackActive },
                     { id: 'insights', label: t('nav.insights'), subtitle: 'Tech Trends & Strategy Guides', icon: BookOpen, active: isInsightsActive },
                     { id: 'client-portal', label: t('nav.clientPortal'), subtitle: 'Client Project Dashboard Demo', icon: ShieldCheck, active: isPortalActive },

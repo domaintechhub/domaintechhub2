@@ -15,6 +15,7 @@ import { ServicesExplorer } from './components/ServicesExplorer';
 import { TechStackSection } from './components/TechStackSection';
 import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
 import { RoadmapPage } from './components/RoadmapPage';
+import { MorePage, MoreTab } from './components/MorePage';
 import { CostCalculator } from './components/CostCalculator';
 import { SeoAuditTool } from './components/SeoAuditTool';
 import { DomainChecker } from './components/DomainChecker';
@@ -39,7 +40,7 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from './data/portfolioData';
 
-export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap';
+export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more';
 
 function parseHashRoute(): { page: PageRoute; subTab?: string } {
   if (typeof window === 'undefined') return { page: 'home' };
@@ -49,7 +50,15 @@ function parseHashRoute(): { page: PageRoute; subTab?: string } {
     return { page: 'home' };
   }
   if (rawHash.startsWith('roadmap') || rawHash.startsWith('process') || rawHash.startsWith('sprint-roadmap')) {
-    return { page: 'roadmap' };
+    return { page: 'more', subTab: 'roadmap' };
+  }
+  if (rawHash.startsWith('team') || rawHash.startsWith('our-team') || rawHash.startsWith('engineers')) {
+    return { page: 'more', subTab: 'team' };
+  }
+  if (rawHash.startsWith('more')) {
+    const parts = rawHash.split('/');
+    const sub = (parts[1] as MoreTab) || 'roadmap';
+    return { page: 'more', subTab: sub };
   }
   if (rawHash.startsWith('service') || rawHash === 'tech-stack') {
     const parts = rawHash.split('/');
@@ -91,6 +100,7 @@ function parseHashRoute(): { page: PageRoute; subTab?: string } {
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
   const [activeToolTab, setActiveToolTab] = useState<ToolTab>('calculator');
+  const [activeMoreTab, setActiveMoreTab] = useState<MoreTab>('roadmap');
   const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLeadInboxOpen, setIsLeadInboxOpen] = useState(false);
@@ -107,6 +117,8 @@ export default function App() {
         if (subTab) setActiveToolTab(subTab as ToolTab);
       } else if (page === 'services') {
         setActiveServiceId(subTab || null);
+      } else if (page === 'more') {
+        setActiveMoreTab((subTab as MoreTab) || 'roadmap');
       } else {
         setActiveServiceId(null);
       }
@@ -115,10 +127,6 @@ export default function App() {
       if (rawHash === 'about' || rawHash === 'about-us') {
         setTimeout(() => {
           document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
-      } else if (rawHash === 'team' || rawHash === 'our-team') {
-        setTimeout(() => {
-          document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' });
         }, 150);
       } else if (rawHash === 'dth-owner-vault' || rawHash === 'owner-portal') {
         setIsLeadInboxOpen(true);
@@ -134,8 +142,15 @@ export default function App() {
 
   // Dynamically update document title, meta descriptions, and Schema.org JSON-LD for SEO
   useEffect(() => {
-    applyPageSeo(currentPage, currentPage === 'services' ? (activeServiceId || undefined) : activeToolTab);
-  }, [currentPage, activeToolTab, activeServiceId]);
+    applyPageSeo(
+      currentPage, 
+      currentPage === 'services' 
+        ? (activeServiceId || undefined) 
+        : currentPage === 'more' 
+        ? activeMoreTab 
+        : activeToolTab
+    );
+  }, [currentPage, activeToolTab, activeMoreTab, activeServiceId]);
 
   const navigateTo = (target: string, subParam?: string) => {
     let targetPage: PageRoute = 'home';
@@ -153,16 +168,14 @@ export default function App() {
       }, 100);
       return;
     } else if (target === 'team' || target === 'our-team') {
-      setCurrentPage('home');
-      setActiveServiceId(null);
-      window.location.hash = '#/team';
-      setTimeout(() => {
-        document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
+      targetPage = 'more';
+      targetSub = 'team';
     } else if (target === 'roadmap' || target === 'process' || target === 'sprint-roadmap') {
-      targetPage = 'roadmap';
-      targetSub = undefined;
+      targetPage = 'more';
+      targetSub = 'roadmap';
+    } else if (target === 'more') {
+      targetPage = 'more';
+      targetSub = subParam || activeMoreTab || 'roadmap';
     } else if (target === 'dth-owner-vault') {
       setIsLeadInboxOpen(true);
       return;
@@ -202,6 +215,8 @@ export default function App() {
       setActiveToolTab(targetSub as ToolTab);
     } else if (targetPage === 'services') {
       setActiveServiceId(targetSub || null);
+    } else if (targetPage === 'more') {
+      setActiveMoreTab((targetSub as MoreTab) || 'roadmap');
     } else {
       setActiveServiceId(null);
     }
@@ -336,10 +351,6 @@ export default function App() {
                 <ClientPortalDemo />
 
                 <Testimonials />
-
-                <TeamSection 
-                  onScheduleWithMember={handleScheduleWithTeamMember}
-                />
 
                 <InsightsSection 
                   onScheduleConsultation={handleScheduleFromInsight}
@@ -586,17 +597,24 @@ export default function App() {
               </div>
             )}
 
-            {/* 9. DEDICATED PAGE: PROJECT SPRINT ROADMAP & MILESTONES */}
-            {currentPage === 'roadmap' && (
+            {/* 9. DEDICATED MORE PAGE: SPRINT ROADMAP, ENGINEERING TEAM & ARCHITECTURE */}
+            {(currentPage === 'more' || currentPage === 'roadmap' || currentPage === 'team') && (
               <div className="animate-in fade-in duration-200">
-                <RoadmapPage 
+                <MorePage 
+                  initialTab={activeMoreTab}
                   onNavigateHome={() => navigateTo('home')}
                   onStartSprint={handleStartSprint}
                   onOpenCalculator={() => navigateTo('calculator')}
                   onBookCall={() => {
-                    setPrefilledService('Agile Sprint Scoping Consultation');
-                    setPrefilledNotes('I would like to schedule a technical discovery session to review our sprint milestones and delivery timeline.');
+                    setPrefilledService('Technical Discovery & Scoping Session');
+                    setPrefilledNotes('I would like to schedule a technical discovery session with Domain Tech Hub architects.');
                     navigateTo('contact');
+                  }}
+                  onScheduleWithMember={handleScheduleWithTeamMember}
+                  onSelectTechForProject={handleSelectTechForProject}
+                  onTabChange={(tab) => {
+                    setActiveMoreTab(tab);
+                    window.location.hash = `#/more/${tab}`;
                   }}
                 />
               </div>

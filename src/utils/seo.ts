@@ -264,6 +264,34 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     },
   }),
 
+  team: () => ({
+    title: 'Senior Engineering Team & Technical Architects | Domain Tech Hub',
+    description: 'Meet our senior software architects, fintech leads, and product designers in Nairobi. 100% in-house engineering and direct technical advisory.',
+    canonicalPath: '/#/team',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'Domain Tech Hub Engineering Team',
+      description: 'Senior software architects, fullstack developers, and fintech leads in Nairobi, Kenya.',
+    },
+  }),
+
+  more: (subTab?: string) => ({
+    title: subTab === 'team'
+      ? 'Senior Engineering Team & Technical Leadership | Domain Tech Hub'
+      : subTab === 'tech-stack'
+      ? 'Modern Tech Stack & Architecture | Domain Tech Hub'
+      : 'Project Roadmap & Engineering Operations | Domain Tech Hub',
+    description: 'Explore Domain Tech Hub sprint delivery roadmap, meet our senior software engineering team, and review our modern fullstack architecture.',
+    canonicalPath: subTab ? `/#/more/${subTab}` : '/#/more',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Domain Tech Hub Agency Solutions & Engineering Operations',
+      description: 'Predictable 4 to 8 week delivery sprint roadmaps, senior engineering leadership, and tech stack capabilities.',
+    },
+  }),
+
   faq: () => ({
     title: 'Frequently Asked Questions & Pricing Tiers | Domain Tech Hub',
     description: 'Answers to questions on development sprint timelines, M-Pesa integration security, code repository ownership, and monthly SLA retainers.',
