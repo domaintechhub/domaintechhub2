@@ -1,0 +1,47 @@
+# Domain Tech Hub
+
+> Domain Tech Hub is a premier digital technology and senior web engineering agency headquartered in Nairobi, Kenya. We engineer high-performance web applications, Safaricom Daraja 3.0 M-Pesa e-commerce systems, conversion-driven digital marketing engines, and custom enterprise software.
+
+## Key Capabilities & Core Services
+- **Modern Web Development**: React 19, Next.js, TypeScript, Tailwind CSS, sub-second Core Web Vitals (LCP < 1.0s), 98+ Google Lighthouse scores.
+- **African Fintech & E-Commerce**: Safaricom Daraja 3.0 STK Push, C2B/B2C automated webhooks, Pesapal, Stripe, multi-currency KES/USD checkout.
+- **High-ROI Digital Marketing**: Google Ads search/display campaigns, conversion tracking via Google Tag Manager, Looker Studio dashboards, CRO.
+- **Custom Enterprise Software**: Scalable REST & GraphQL APIs, Node.js, Python, PostgreSQL, Docker containers, Cloudflare edge hosting.
+- **Corporate Branding & Design Tokens**: UI/UX design in Figma, comprehensive brand identity guidelines, design systems, vector asset kits.
+- **Technical & Generative SEO**: Semantic HTML5, Schema.org JSON-LD structured data, Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), Core Web Vitals tuning.
+
+## Verified Agency Performance Metrics
+- **Projects Completed**: 65+ commercial deployments
+- **Client Retention Rate**: 98%
+- **Average Client ROI Multiplier**: 4.6x
+- **Typical Delivery Sprints**: 4 to 8 weeks fixed-bid milestone cycles
+- **Post-Launch Warranty**: 30-day zero-cost bug fix guarantee with SLA response times
+
+## Engineering Commitments
+- **100% In-House Nairobi Studio**: No unvetted third-party outsourcing; direct access to senior software architects.
+- **Full IP & Source Code Ownership**: Complete Git repository transfer, deployment pipelines, and database schemas provided upon project handover.
+- **Zero Proprietary Lock-In**: Built on standard open-source enterprise technologies.
+
+## Markdown Mirrors & Deep Documentation
+The following clean markdown endpoints are provided for LLM ingestion, semantic crawlers, and AI search engines:
+
+- [Index & Overview](/markdown/index.md): Executive summary of Domain Tech Hub services, metrics, and architecture.
+- [About Us](/markdown/about.md): Company founding mission, Nairobi headquarters, engineering philosophy, and standards.
+- [Core Services](/markdown/services.md): Deep architectural specification of all 6 agency core services.
+- [Verified Case Studies](/markdown/portfolio.md): Case studies covering solar energy, logistics ERP, global textiles, and fintech with verified ROI.
+- [Agile Sprint Roadmap](/markdown/roadmap.md): Predictable 5-stage sprint methodology, deliverables, and milestone sign-offs.
+- [Engineering Team](/markdown/team.md): Senior software architects, fintech leads, and product designers.
+- [Tech Stack & Architecture](/markdown/tech-stack.md): Modern frontend, backend, database, and infrastructure standards.
+- [Engineering Blog & Articles](/markdown/insights.md): In-depth technical guides on Daraja 3.0 M-Pesa webhooks, Next.js, and technical SEO.
+- [Frequently Asked Questions](/markdown/faq.md): Comprehensive answers on pricing, delivery timelines, intellectual property, and security.
+- [Full LLM Context](/llms-full.txt): Complete consolidated single-file context document.
+
+## Official Contact Channels & Endpoints
+- **Primary Email**: info@domaintechhub.com
+- **Secondary / Direct**: domaintechhub@gmail.com
+- **WhatsApp Direct**: +254 118746676 (https://wa.me/254118746676)
+- **Phone Lines**: +254 118746676 / +254 706 943383
+- **Headquarters**: Delta Corner Tower, Westlands, Nairobi, Kenya
+- **Operating Hours**: Monday – Friday: 8:00 AM – 5:00 PM EAT
+- **Website**: https://domaintechhub.com
+- **Sitemap**: https://domaintechhub.com/sitemap.xml

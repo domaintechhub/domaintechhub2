@@ -1,6 +1,47 @@
+# robots.txt for Domain Tech Hub (https://domaintechhub.com)
+# Configured for High-Performance Search, Answer Engine & Generative Engine Crawlers
+
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /private/
 
+# Explicit Allowance for Google & Bing Search Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Answer Engine & Generative AI Crawlers (AEO / GEO Optimization)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Sitemaps & LLM Machine-Readable Mirrors
 Sitemap: https://domaintechhub.com/sitemap.xml
+LLMs-Txt: https://domaintechhub.com/llms.txt

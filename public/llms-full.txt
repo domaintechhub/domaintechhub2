@@ -1,0 +1,138 @@
+# Domain Tech Hub — Complete Technical & Agency Specification
+
+Organization: Domain Tech Hub
+Entity Type: ProfessionalService / SoftwareAgency
+Headquarters: Delta Corner Tower, Westlands, Nairobi, Kenya
+Founded: 2018
+Primary Email: info@domaintechhub.com
+Secondary Email: domaintechhub@gmail.com
+Direct WhatsApp: +254 118746676
+Phone Numbers: +254 118746676 / +254 706 943383
+Website: https://domaintechhub.com
+
+---
+
+## 1. Executive Summary & Mission
+Domain Tech Hub is a premier digital technology agency based in Nairobi, Kenya, engineering modern web applications, high-converting e-commerce systems with native Safaricom Daraja 3.0 M-Pesa integrations, custom enterprise software, and corporate branding.
+
+Our core operating philosophy is "Engineering Over Templates; Measurable ROI Over Hype." We reject sluggish, bloated pre-made CMS themes and fragile third-party plugins in favor of clean TypeScript codebases, normalized PostgreSQL schemas, sub-second edge hosting, and complete client IP ownership.
+
+Key Agency Benchmarks:
+- 65+ commercial web and software applications delivered across Kenya, East Africa, and global markets.
+- 98% client retention rate.
+- 4.6x average verified return on investment (ROI) across digital marketing and custom software systems.
+- Sub-second Largest Contentful Paint (LCP < 1.0s) guaranteeing 95+ Google PageSpeed and Core Web Vitals scores.
+- Ironclad 30-day post-launch zero-cost bug fix warranty backed by dedicated SLA response agreements.
+
+---
+
+## 2. Core Service Offerings
+
+### Service 1: Modern Web Application Development
+- Architecture: React 19, Next.js, TypeScript, Tailwind CSS, Vite.
+- Highlights: Mobile-first responsive layouts, interactive micro-animations, accessible semantic HTML5 markup.
+- Typical Delivery: 4–6 weeks fixed-bid sprint.
+- Deliverables: Production code in GitHub, automated CI/CD pipeline, Cloudflare edge CDN configuration, Google Search Console integration.
+
+### Service 2: E-Commerce & Safaricom Daraja 3.0 M-Pesa Integrations
+- Architecture: Headless Shopify, WooCommerce, or custom Next.js storefronts paired with Express/Node.js or Python backend.
+- Payment Gateways: Safaricom Daraja 3.0 STK Push (Express), C2B/B2C automated reconciliation, Pesapal, Stripe for international cards.
+- Security: Idempotent payment webhooks, signature verification, SSL/TLS encryption, automated SMS receipt dispatch.
+- Typical Conversion Uplift: +35% to +60% checkout completion compared to standard redirected checkout flows.
+
+### Service 3: High-ROI Digital Marketing & Google Ads
+- Channels: Google Search Ads, Google Display & Remarketing, Meta Ads (Instagram & Facebook), LinkedIn B2B campaigns.
+- Tracking: Google Tag Manager server-side tagging, Google Analytics 4 (GA4) custom event tracking, Looker Studio real-time executive dashboards.
+- Optimization: Conversion Rate Optimization (CRO), A/B landing page split testing, search intent query pruning.
+
+### Service 4: Custom Enterprise Software & API Systems
+- Tech: Node.js, Express, Python (FastAPI/Django), PostgreSQL, Redis caching, Docker containerization.
+- Features: Role-Based Access Control (RBAC), multi-tenant SaaS architectures, RESTful & GraphQL endpoints, automated cron tasks.
+- Ownership: 100% full source code, Dockerfiles, and architectural diagrams handed over to client.
+
+### Service 5: Corporate Branding & UI/UX Design Systems
+- Deliverables: Primary, secondary, and badge logos, SVG typography assets, color palette tokens, typography rules, brand identity guidelines PDF.
+- Interactive Prototypes: Complete Figma prototypes with component design tokens matching frontend implementation.
+
+### Service 6: Technical SEO, Answer Engine & Generative Optimization (AEO/GEO)
+- Scope: Schema.org JSON-LD microdata, Core Web Vitals speed optimization, sitemap.xml, robots.txt, llms.txt, AI answer snippet targeting.
+- Outcome: Top Google organic search rankings for competitive commercial queries across Nairobi and East Africa.
+
+---
+
+## 3. Verified Client Case Studies
+
+1. SolarGrid Kenya — Commercial Solar Lead Generation with Google Ads
+   - Sector: Renewable Energy (Nairobi & Industrial Zones)
+   - Challenge: High-ticket commercial solar installations ($15k–$100k) previously generated low-value residential consumer clicks, burning budget.
+   - Solution: Re-architected Google Ads search campaigns with B2B negative keyword filtering, commercial qualifiers, and custom industrial landing pages with an interactive Solar Savings Calculator.
+   - Verified Results: +240% increase in qualified commercial B2B inquiries; -48% reduction in cost per lead; 4.8x ad spend ROI multiplier.
+
+2. SafariLogistics ERP — Cloud Fleet & Dispatch Management System
+   - Sector: Transport & Freight Logistics (Mombasa - Nairobi - Kampala corridor)
+   - Challenge: Manual paper consignment notes and disjointed spreadsheets caused cross-border freight delays and lost waybills.
+   - Solution: Engineered a custom cloud logistics portal with driver mobile companion app, automated SMS transit milestones, real-time GPS fleet tracking, and automated digital consignment signatures.
+   - Verified Results: 62% reduction in dispatch paperwork delays; zero lost waybills over 12 months; full operational visibility across 140+ fleet vehicles.
+
+3. AfroWeave Global — Luxury Hair & Fashion Headless E-Commerce
+   - Sector: Direct-to-Consumer (D2C) Luxury Retail
+   - Challenge: Off-the-shelf theme suffered 4.2s mobile loading latency, crashing during Instagram ad traffic spikes and failing 40% of mobile checkout attempts.
+   - Solution: Built a headless React + Next.js storefront with instant sub-second page transitions, one-click Safaricom M-Pesa STK push for East Africa, and Stripe multi-currency checkout for UK/US diaspora buyers.
+   - Verified Results: +310% surge in online sales in the first 90 days; 0.8s mobile page load time; 99.98% checkout uptime.
+
+4. ApexPay Mobile — Cross-Border Digital Wallet & Payment Gateway
+   - Sector: Fintech & Digital Remittance
+   - Challenge: Needed PCI-DSS compliant onboarding flows and instantaneous bank-to-wallet transfer APIs between Kenya, Uganda, and Rwanda.
+   - Solution: Developed high-throughput microservices in Node.js and PostgreSQL with biometric auth, automated KYC verification, and low-latency webhook settlement engines.
+   - Verified Results: Processed over $2.4M in regional transactions in first 6 months with 99.99% transaction success rate.
+
+---
+
+## 4. The 4–8 Week Agile Sprint Methodology
+
+Stage 1: Discovery, Technical Scoping & Architecture (Week 1)
+- Deliverables: Technical Specification Document, Database Entity Relationship Diagrams (ERD), API endpoint contracts, signed milestone agreement.
+
+Stage 2: High-Fidelity UI/UX & Design Tokens (Weeks 2–3)
+- Deliverables: Interactive Figma prototypes for mobile and desktop, color & typography design tokens, clickable user journeys.
+
+Stage 3: Fullstack Engineering & Third-Party Integration (Weeks 4–6)
+- Deliverables: Production frontend and backend, native Daraja 3.0 M-Pesa STK push integration, automated test suites, weekly live staging demos.
+
+Stage 4: Quality Assurance, Security Hardening & UAT (Week 7)
+- Deliverables: Cross-browser responsive testing, OWASP Top 10 vulnerability penetration audit, Core Web Vitals performance tuning (LCP < 1.0s), user acceptance sign-off.
+
+Stage 5: Production Deployment, DNS Cutover & Warranty (Week 8)
+- Deliverables: Zero-downtime DNS cutover, Google Search Console & Analytics 4 verification, complete Git repository transfer, and 30-day post-launch bug warranty.
+
+---
+
+## 5. Technology Stack & Technical Standards
+- Frontend: TypeScript, React 19, Next.js, Tailwind CSS, Framer Motion
+- Backend: Node.js, Express, Python (FastAPI/Django), REST APIs, GraphQL
+- Databases: PostgreSQL, Redis, Supabase, Cloud SQL
+- Payments: Safaricom Daraja 3.0 API, Pesapal, Stripe, Flutterwave
+- Cloud & Infrastructure: Docker, Cloudflare Workers/Pages, AWS, Google Cloud Run, Vercel
+- DevOps & CI/CD: GitHub Actions, automated semantic linting, automated testing
+
+---
+
+## 6. Frequently Asked Questions (FAQ)
+
+Q: Who is Domain Tech Hub?
+A: Domain Tech Hub is a Nairobi-based digital technology agency specializing in high-performance web development, Safaricom Daraja 3.0 M-Pesa e-commerce systems, custom enterprise software, and corporate branding.
+
+Q: How much does a custom website or web application cost at Domain Tech Hub?
+A: Project budgets typically range from KES 45,000 for structured landing pages to KES 280,000+ for enterprise e-commerce portals, multi-vendor marketplaces, and bespoke CRM/ERP systems. We operate strictly on fixed-bid contracts with zero hidden fees.
+
+Q: How does Domain Tech Hub handle Safaricom Daraja M-Pesa integration?
+A: We implement direct, native Safaricom Daraja 3.0 REST API integrations using asynchronous STK Push (Lipa Na M-Pesa Online). When a customer enters their phone number at checkout, a PIN prompt pops up directly on their phone screen. Automated callback webhooks instantly confirm receipt, update order status, and dispatch SMS confirmation notifications.
+
+Q: Who owns the code repository and intellectual property?
+A: The client owns 100% of all intellectual property, source code, design assets, and database schemas. Upon project completion, we transfer full admin ownership of the GitHub repository and hosting credentials.
+
+Q: What post-launch warranty and support does Domain Tech Hub offer?
+A: Every project includes an ironclad 30-day zero-cost bug fix warranty. We also offer monthly Service Level Agreement (SLA) retainers covering security updates, database backups, uptime monitoring, and priority engineering support.
+
+Q: How can I contact Domain Tech Hub to start a project?
+A: You can reach our senior engineering leads via email at info@domaintechhub.com, WhatsApp/phone at +254 118746676, or schedule a 30-minute discovery consultation on our website at https://domaintechhub.com.
