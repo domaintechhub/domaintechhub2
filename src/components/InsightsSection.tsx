@@ -69,6 +69,62 @@ export const calculateReadStats = (article: InsightArticle): ReadStats => {
   };
 };
 
+const parseTextWithLinks = (text: string) => {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts: (string | React.ReactNode)[] = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    const [_, label, url] = match;
+    parts.push(
+      <a
+        key={`${match.index}-${url}`}
+        href={url}
+        className="text-cyan-400 hover:text-cyan-300 underline font-semibold transition-colors cursor-pointer"
+        target={url.startsWith('http') ? '_blank' : '_self'}
+        rel={url.startsWith('http') ? 'noopener noreferrer' : undefined}
+      >
+        {label}
+      </a>
+    );
+    lastIndex = linkRegex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts;
+};
+
+const renderRichBody = (body: string) => {
+  const paragraphs = body.split('\n\n');
+  return paragraphs.map((para, pIdx) => {
+    if (para.includes('\n•') || para.startsWith('•')) {
+      const items = para.split('\n').filter(Boolean);
+      return (
+        <ul key={pIdx} className="space-y-1.5 my-3 pl-4 list-disc text-slate-300">
+          {items.map((item, iIdx) => (
+            <li key={iIdx}>
+              {parseTextWithLinks(item.replace(/^[•\-]\s*/, ''))}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    return (
+      <p key={pIdx} className="text-slate-300 leading-relaxed mb-3">
+        {parseTextWithLinks(para)}
+      </p>
+    );
+  });
+};
+
 export const InsightsSection: React.FC<InsightsSectionProps> = ({ 
   onScheduleConsultation,
   initialLoading = true
@@ -662,9 +718,9 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     <h3 className="text-base sm:text-lg font-bold text-white">
                       {section.heading}
                     </h3>
-                    <p className="text-slate-300 leading-relaxed">
-                      {section.body}
-                    </p>
+                    <div className="text-slate-300 leading-relaxed text-xs sm:text-sm">
+                      {renderRichBody(section.body)}
+                    </div>
                     {section.codeSnippet && (
                       <div className="mt-3 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden font-mono text-xs">
                         <div className="px-4 py-1.5 bg-slate-900 border-b border-slate-800 text-[10px] text-slate-400 flex items-center gap-2">
