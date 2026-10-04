@@ -17,7 +17,6 @@ import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
 import { RoadmapPage } from './components/RoadmapPage';
 import { MorePage, MoreTab } from './components/MorePage';
 import { AboutPage } from './components/AboutPage';
-import { PageLoader } from './components/PageLoader';
 import { CostCalculator } from './components/CostCalculator';
 import { SeoAuditTool } from './components/SeoAuditTool';
 import { DomainChecker } from './components/DomainChecker';
@@ -115,14 +114,22 @@ export default function App() {
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
 
-  // Initial startup timer: smooth transition from preloader to interactive application
+  // Smoothly dismiss the instant preloader once React has mounted and painted
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsInitialLoading(false);
-    }, 380);
+      const preloader = document.getElementById('dth-preloader');
+      if (preloader) {
+        preloader.classList.add('dth-preloader-hidden');
+        setTimeout(() => {
+          if (preloader.parentNode) {
+            preloader.parentNode.removeChild(preloader);
+          }
+        }, 550);
+      }
+    }, 450);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -322,19 +329,11 @@ export default function App() {
         <LanguageProvider>
           <div className="min-h-screen bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-teal-500/20 selection:text-teal-800">
 
-          {/* Animated Logo Loading Screens */}
-          {isInitialLoading && (
-            <PageLoader 
-              message="Domain Tech Hub" 
-              subMessage="Nairobi Studio · Web & Software Systems" 
-            />
-          )}
-
-          {isPageTransitioning && !isInitialLoading && (
-            <PageLoader 
-              message="Loading View..." 
-              subMessage="Domain Tech Hub Engineering" 
-            />
+          {/* Top Route Transition Progress Bar */}
+          {isPageTransitioning && (
+            <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-stone-200/50 dark:bg-slate-800/50 overflow-hidden pointer-events-none">
+              <div className="h-full bg-gradient-to-r from-lime-400 via-teal-400 to-cyan-400 animate-dth-progress" />
+            </div>
           )}
           
           {/* Navigation Bar with Search Trigger */}

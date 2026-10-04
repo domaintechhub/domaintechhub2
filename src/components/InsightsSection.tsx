@@ -391,9 +391,9 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
                     <button
                       onClick={() => setSelectedArticle(featuredArticle)}
-                      className="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                      className="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
-                      <span>Read Deep Dive</span>
+                      <span>Read More</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -457,11 +457,18 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">
+                    <h3 
+                      onClick={() => setSelectedArticle(article)}
+                      className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug cursor-pointer"
+                    >
                       {article.title}
                     </h3>
 
-                    <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4">
+                    <p 
+                      onClick={() => setSelectedArticle(article)}
+                      className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4 cursor-pointer hover:text-slate-100 transition-colors"
+                      title="Click to read full article"
+                    >
                       {article.excerpt}
                     </p>
                   </div>
@@ -483,9 +490,9 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
                     <button
                       onClick={() => setSelectedArticle(article)}
-                      className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold group-hover:translate-x-0.5 transition-transform"
+                      className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold group-hover:translate-x-0.5 transition-transform cursor-pointer"
                     >
-                      <span>Read Article</span>
+                      <span>Read More</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
