@@ -1,21 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, ShieldCheck, TrendingUp, CheckCircle2, 
   Code2, Globe2, PhoneCall, Laptop, Layers, 
-  ChevronRight, ShoppingCart, Search, Database, Cpu
+  ChevronRight, ShoppingCart, Search, Database, Cpu, X
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { useLanguage } from '../context/LanguageContext';
 import { AnimatedCounter } from './AnimatedCounter';
 import { SproutEmblem } from './Logo';
+import { detectDynamicIntent, DynamicHeroIntent, DEFAULT_HERO_INTENT } from '../utils/dynamicIntent';
 import heroImage from '../assets/images/kenyan_developer_laptop_1790409653138.jpg';
 
 interface HeroProps {
-  onNavigate: (sectionId: string) => void;
+  onNavigate: (sectionId: string, subTab?: string) => void;
+  onSelectCalculatorService?: (serviceId: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorService }) => {
   const { t } = useLanguage();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [intent, setIntent] = useState<DynamicHeroIntent>(() => detectDynamicIntent());
+
+  // Listen for external URL search params and hash changes
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const detected = detectDynamicIntent();
+      setIntent(detected);
+      if (detected.matchedTerm && detected.intentKey !== 'default') {
+        setSearchQuery(detected.matchedTerm);
+      }
+    };
+
+    handleUrlChange();
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
+
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    const detected = detectDynamicIntent(val);
+    setIntent(detected);
+    if (val.trim()) {
+      sessionStorage.setItem('dth_search_intent', val.trim());
+    } else {
+      sessionStorage.removeItem('dth_search_intent');
+    }
+  };
 
   return (
     <section id="hero" className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden">
@@ -36,33 +70,38 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <SproutEmblem className="w-4 h-4 shrink-0 text-teal-600" />
               <span className="font-bold text-slate-900 dark:text-white">Domain Tech Hub</span>
               <span>·</span>
-              <span>Nairobi Studio & Digital Engineering</span>
+              <span className="transition-all duration-300">{intent.studioBadge}</span>
             </div>
 
             {/* Large Bold Headline with highlighted words in Teal */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12]">
-              {t('hero.title1')}{' '}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12] transition-all duration-300">
+              {intent.title1}{' '}
               <span className="text-teal-600 dark:text-teal-400 font-extrabold relative inline-block">
-                {t('hero.titleHighlight')}
+                {intent.titleHighlight}
                 <svg className="absolute -bottom-1 left-0 w-full h-2 text-teal-300/70 dark:text-teal-700/60 -z-10" viewBox="0 0 100 20" preserveAspectRatio="none">
                   <path d="M0,15 Q50,0 100,15" stroke="currentColor" strokeWidth="8" fill="none" />
                 </svg>
               </span>{' '}
-              {t('hero.title2')}
+              {intent.title2}
             </h1>
 
             {/* Warm, human-first supporting text */}
-            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 font-normal leading-relaxed max-w-2xl">
-              {t('hero.desc')}
+            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 font-normal leading-relaxed max-w-2xl transition-all duration-300">
+              {intent.description}
             </p>
 
             {/* Friendly Rounded Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
-                onClick={() => onNavigate('calculator')}
+                onClick={() => {
+                  if (onSelectCalculatorService && intent.calculatorPreselect) {
+                    onSelectCalculatorService(intent.calculatorPreselect);
+                  }
+                  onNavigate(intent.primaryButtonTarget);
+                }}
                 className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm shadow-md shadow-teal-600/20 transition-all active:scale-[0.98]"
               >
-                <span>{t('hero.btnEstimate')}</span>
+                <span>{intent.primaryButtonText}</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </button>
 
@@ -82,8 +121,60 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </button>
             </div>
 
+            {/* Subtle In-Page Search & Fast Intent Matching */}
+            <div className="pt-2">
+              <div className="relative max-w-xl group">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                  <Search className="w-4 h-4 text-slate-400 group-focus-within:text-teal-600 transition-colors" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  placeholder="Search a service (e.g., M-Pesa store, SEO ranking, custom CRM, branding)..."
+                  className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm bg-stone-100/90 dark:bg-slate-900/90 border border-stone-200/90 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => handleSearchChange('')}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    title="Reset to all capabilities"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Instant suggested query chips for fast testing */}
+              <div className="flex flex-wrap items-center gap-1.5 mt-2.5">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mr-1">Quick match:</span>
+                {[
+                  { label: '⚡ M-Pesa E-Commerce', q: 'ecommerce mpesa' },
+                  { label: '🚀 Sub-Second Web Apps', q: 'web development' },
+                  { label: '📈 #1 Google SEO', q: 'seo ranking' },
+                  { label: '⚙️ Custom Cloud CRM', q: 'custom crm software' },
+                  { label: '🎨 Corporate Branding', q: 'branding identity' }
+                ].map((chip) => {
+                  const isActive = searchQuery === chip.q || (intent.matchedTerm && chip.q.includes(intent.matchedTerm.toLowerCase()));
+                  return (
+                    <button
+                      key={chip.q}
+                      onClick={() => handleSearchChange(chip.q)}
+                      className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
+                        isActive
+                          ? 'bg-teal-600 text-white border-teal-600 font-medium shadow-xs'
+                          : 'bg-white/80 dark:bg-slate-900/80 border-stone-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-teal-600 hover:border-teal-400'
+                      }`}
+                    >
+                      {chip.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Trust Section: Key statistics displayed clearly */}
-            <div className="pt-6 border-t border-stone-200/90 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="pt-4 border-t border-stone-200/90 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div>
                 <div className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-blue-600 dark:text-blue-400">
                   <AnimatedCounter value="48+" duration={2} />

@@ -162,6 +162,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         e.preventDefault();
         if (filteredItems[selectedIndex]) {
           const item = filteredItems[selectedIndex];
+          if (query.trim()) {
+            sessionStorage.setItem('dth_search_intent', query.trim());
+          }
           onNavigate(item.target, item.subTab);
           onClose();
         }
@@ -290,6 +293,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                 <button
                   key={item.id}
                   onClick={() => {
+                    if (query.trim()) {
+                      sessionStorage.setItem('dth_search_intent', query.trim());
+                    }
                     onNavigate(item.target, item.subTab);
                     onClose();
                   }}

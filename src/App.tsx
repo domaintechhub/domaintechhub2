@@ -355,6 +355,7 @@ export default function App() {
               <div className="animate-in fade-in duration-200">
                 <Hero 
                   onNavigate={navigateTo} 
+                  onSelectCalculatorService={setCalculatorServiceId}
                 />
 
                 <StatsSection 

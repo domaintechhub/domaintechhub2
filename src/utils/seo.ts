@@ -1,6 +1,7 @@
 import { PageRoute } from '../App';
 import { ToolTab } from '../components/ToolsPage';
 import { SERVICES_LIST } from '../data/servicesData';
+import { HIGH_PERFORMING_KEYWORDS } from './keywordInjection';
 
 export interface PageSeoConfig {
   title: string;
@@ -223,15 +224,22 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     };
   },
 
-  insights: () => ({
-    title: 'Engineering Insights, Fintech & Digital Trends | Domain Tech Hub',
-    description: 'Deep-dive architectural teardowns, African mobile money optimization playbooks, and conversion engineering insights authored by our Nairobi team.',
+  insights: (subTab?: string) => ({
+    title: 'Website Development & Technical SEO Insights Kenya | Domain Tech Hub',
+    description: 'Deep-dive architectural guides on website development in Kenya, Safaricom Daraja M-Pesa checkouts, and professional website engineering for growing brands.',
     canonicalPath: '/#/insights',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Blog',
       name: 'Domain Tech Hub Engineering Insights & Regional Trends',
       description: 'Technical teardowns, payment gateway architectures, and conversion rate benchmarks for African and global digital ecosystems.',
+      keywords: HIGH_PERFORMING_KEYWORDS.map(k => k.keyword).join(', '),
+      about: HIGH_PERFORMING_KEYWORDS.map(k => ({
+        '@type': 'Thing',
+        name: k.keyword,
+        description: k.searchSnippetsDescription,
+        category: k.entityCategory,
+      })),
     },
   }),
 

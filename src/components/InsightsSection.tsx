@@ -8,6 +8,14 @@ import {
 import { INSIGHT_ARTICLES, INSIGHT_CATEGORIES, InsightArticle } from '../data/insightsData';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { InsightsGridSkeleton } from './Skeletons';
+import { 
+  HIGH_PERFORMING_KEYWORDS, 
+  SecondaryKeywordMapping, 
+  getKeywordsForArticle, 
+  filterArticlesByKeyword, 
+  injectSemanticKeywords, 
+  generateArticleJsonLd 
+} from '../utils/keywordInjection';
 
 interface InsightsSectionProps {
   onScheduleConsultation?: (topic: string) => void;
@@ -115,8 +123,11 @@ const parseTextWithLinks = (text: string, onInternalNavigate?: (url: string) => 
   return parts;
 };
 
-const renderRichBody = (body: string, onInternalNavigate?: (url: string) => void) => {
-  const paragraphs = body.split('\n\n');
+const renderRichBody = (body: string, onInternalNavigate?: (url: string) => void, articleId?: string) => {
+  // Automated Content Injection: maps high-performing secondary keywords like
+  // 'website development in Kenya' or 'professional website Kenya' to relevant metadata & internal anchors
+  const injectedBody = injectSemanticKeywords(body, articleId);
+  const paragraphs = injectedBody.split('\n\n');
   return paragraphs.map((para, pIdx) => {
     if (para.includes('\n•') || para.startsWith('•')) {
       const items = para.split('\n').filter(Boolean);
@@ -146,6 +157,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   const [activeCategory, setActiveCategory] = useState<string>('All Articles');
   const [durationFilter, setDurationFilter] = useState<ReadDurationFilter>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedKeywordSlug, setSelectedKeywordSlug] = useState<string | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<InsightArticle | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
   const [modalReadProgress, setModalReadProgress] = useState(0);
@@ -167,6 +179,68 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     }, 350);
     return () => clearTimeout(timer);
   }, []);
+
+  // Listen for ?keyword= or #keyword= in URL to enable deep SEO indexing
+  useEffect(() => {
+    const checkKeywordParam = () => {
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        let kwParam = urlParams.get('keyword');
+        if (!kwParam && window.location.hash) {
+          const match = window.location.hash.match(/[?&]keyword=([^&]+)/i);
+          if (match) kwParam = match[1];
+        }
+        if (kwParam) {
+          const found = HIGH_PERFORMING_KEYWORDS.find(k => k.slug === kwParam);
+          if (found) setSelectedKeywordSlug(found.slug);
+        }
+      }
+    };
+    checkKeywordParam();
+    window.addEventListener('popstate', checkKeywordParam);
+    window.addEventListener('hashchange', checkKeywordParam);
+    return () => {
+      window.removeEventListener('popstate', checkKeywordParam);
+      window.removeEventListener('hashchange', checkKeywordParam);
+    };
+  }, []);
+
+  // Dynamic Google Indexing Schema.org JSON-LD & Meta Tags Injection
+  useEffect(() => {
+    let scriptTag = document.getElementById('insights-article-schema') as HTMLScriptElement | null;
+
+    if (selectedArticle) {
+      const schemaData = generateArticleJsonLd(selectedArticle);
+      if (!scriptTag) {
+        scriptTag = document.createElement('script');
+        scriptTag.id = 'insights-article-schema';
+        scriptTag.type = 'application/ld+json';
+        document.head.appendChild(scriptTag);
+      }
+      scriptTag.textContent = JSON.stringify(schemaData, null, 2);
+
+      const originalTitle = document.title;
+      const mappedKws = getKeywordsForArticle(selectedArticle.id).map(k => k.keyword).join(', ');
+      document.title = `${selectedArticle.title} | Domain Tech Hub Insights`;
+
+      let metaKeywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement | null;
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.name = 'keywords';
+        document.head.appendChild(metaKeywords);
+      }
+      const prevKeywords = metaKeywords.content;
+      metaKeywords.content = `${mappedKws}, ${selectedArticle.tags.join(', ')}`;
+
+      return () => {
+        document.title = originalTitle;
+        if (metaKeywords) metaKeywords.content = prevKeywords;
+        if (scriptTag && scriptTag.parentNode) {
+          scriptTag.parentNode.removeChild(scriptTag);
+        }
+      };
+    }
+  }, [selectedArticle]);
 
   const handleCategoryChange = (cat: string) => {
     if (cat === activeCategory) return;
@@ -230,7 +304,19 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
       matchesDuration = stats.minutes >= 6;
     }
 
-    return matchesCategory && matchesQuery && matchesDuration;
+    // Secondary keyword mapping filter
+    let matchesKeyword = true;
+    if (selectedKeywordSlug) {
+      const kwMapping = HIGH_PERFORMING_KEYWORDS.find(k => k.slug === selectedKeywordSlug);
+      if (kwMapping) {
+        const inTags = article.tags.some(t => t.toLowerCase().includes(kwMapping.keyword.toLowerCase()) || kwMapping.synonyms.some(s => t.toLowerCase().includes(s)));
+        const inTitle = article.title.toLowerCase().includes(kwMapping.keyword.toLowerCase());
+        const inExcerpt = article.excerpt.toLowerCase().includes(kwMapping.keyword.toLowerCase());
+        matchesKeyword = article.id === kwMapping.targetArticleId || inTags || inTitle || inExcerpt;
+      }
+    }
+
+    return matchesCategory && matchesQuery && matchesDuration && matchesKeyword;
   });
 
   const featuredArticle = filteredArticles.find(a => a.featured) || filteredArticles[0];
@@ -363,6 +449,56 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             </div>
           </div>
 
+        </div>
+
+        {/* Row 3: Automated Secondary Keyword Mapping & Indexing Entities */}
+        <div className="mb-8 p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border border-slate-800/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+              <span className="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
+                Google Indexing Clusters · High-Intent Search Entities
+              </span>
+            </div>
+            {selectedKeywordSlug && (
+              <button
+                onClick={() => setSelectedKeywordSlug(null)}
+                className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <span>Clear keyword filter</span>
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {HIGH_PERFORMING_KEYWORDS.map((kw) => {
+              const isActive = selectedKeywordSlug === kw.slug;
+              return (
+                <button
+                  key={kw.slug}
+                  onClick={() => {
+                    setSelectedKeywordSlug(isActive ? null : kw.slug);
+                  }}
+                  className={`text-xs px-2.5 py-1.5 rounded-lg border font-mono transition-all flex items-center gap-1.5 cursor-pointer ${
+                    isActive
+                      ? 'bg-teal-500/20 text-teal-300 border-teal-500/60 shadow-xs ring-1 ring-teal-500/30 font-semibold'
+                      : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                  }`}
+                  title={`${kw.searchSnippetsDescription} · Maps to ${kw.targetServiceTitle}`}
+                >
+                  <span>{kw.keyword}</span>
+                  <span className={`text-[10px] px-1 py-0.2 rounded font-sans uppercase tracking-tight ${
+                    kw.intent === 'transactional' ? 'bg-amber-950/80 text-amber-400 border border-amber-800/40' :
+                    kw.intent === 'commercial' ? 'bg-teal-950/80 text-teal-400 border border-teal-800/40' :
+                    'bg-slate-800 text-slate-400'
+                  }`}>
+                    {kw.intent}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Articles Content or Skeleton */}
@@ -740,7 +876,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       {section.heading}
                     </h3>
                     <div className="text-slate-300 leading-relaxed text-xs sm:text-sm">
-                      {renderRichBody(section.body, handleInternalNavigate)}
+                      {renderRichBody(section.body, handleInternalNavigate, selectedArticle.id)}
                     </div>
                     {section.codeSnippet && (
                       <div className="mt-3 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden font-mono text-xs">
@@ -756,6 +892,54 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   </div>
                 ))}
               </div>
+
+              {/* Automated Secondary Keyword & Entity Index Box (Google Indexed) */}
+              {getKeywordsForArticle(selectedArticle.id).length > 0 && (
+                <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-teal-900/40 my-6">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h4 className="text-xs font-mono text-teal-400 uppercase tracking-wider font-bold flex items-center gap-2">
+                      <Layers className="w-3.5 h-3.5 text-teal-400" />
+                      <span>Targeted Search Entities & Commercial Intent (Google Indexed)</span>
+                    </h4>
+                    <span className="text-[10px] font-mono text-slate-500 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                      Schema.org TechArticle
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mb-3.5 leading-relaxed">
+                    This publication is semantically mapped to the following high-performing secondary search terms and live engineering deliverables:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {getKeywordsForArticle(selectedArticle.id).map((kw) => (
+                      <a
+                        key={kw.slug}
+                        href={kw.targetUrl}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleInternalNavigate(kw.targetUrl);
+                        }}
+                        className="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800/90 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between group cursor-pointer"
+                      >
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="text-xs font-bold text-slate-200 group-hover:text-teal-300 transition-colors">
+                            {kw.keyword}
+                          </span>
+                          <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded shrink-0 ${
+                            kw.intent === 'transactional'
+                              ? 'bg-amber-950/80 text-amber-400 border border-amber-800/50'
+                              : 'bg-teal-950/80 text-teal-400 border border-teal-800/50'
+                          }`}>
+                            {kw.intentLabel}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-slate-400 flex items-center justify-between mt-1">
+                          <span className="truncate">{kw.targetServiceTitle}</span>
+                          <span className="text-teal-400 group-hover:translate-x-0.5 transition-transform shrink-0">→</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Tags */}
               <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-slate-800">
