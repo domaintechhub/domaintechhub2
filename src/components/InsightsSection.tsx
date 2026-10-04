@@ -69,7 +69,7 @@ export const calculateReadStats = (article: InsightArticle): ReadStats => {
   };
 };
 
-const parseTextWithLinks = (text: string) => {
+const parseTextWithLinks = (text: string, onInternalNavigate?: (url: string) => void) => {
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   const parts: (string | React.ReactNode)[] = [];
   let lastIndex = 0;
@@ -80,15 +80,29 @@ const parseTextWithLinks = (text: string) => {
       parts.push(text.substring(lastIndex, match.index));
     }
     const [_, label, url] = match;
+    const isExternal = url.startsWith('http://') || url.startsWith('https://');
+
     parts.push(
       <a
         key={`${match.index}-${url}`}
         href={url}
-        className="text-cyan-400 hover:text-cyan-300 underline font-semibold transition-colors cursor-pointer"
-        target={url.startsWith('http') ? '_blank' : '_self'}
-        rel={url.startsWith('http') ? 'noopener noreferrer' : undefined}
+        onClick={(e) => {
+          if (!isExternal) {
+            e.preventDefault();
+            if (onInternalNavigate) {
+              onInternalNavigate(url);
+            } else {
+              const hash = url.startsWith('/#') ? url.substring(2) : url.startsWith('#') ? url.substring(1) : url;
+              window.location.hash = hash;
+            }
+          }
+        }}
+        className="text-cyan-400 hover:text-cyan-300 underline font-semibold transition-colors cursor-pointer inline-flex items-center gap-0.5"
+        target={isExternal ? '_blank' : '_self'}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
       >
-        {label}
+        <span>{label}</span>
+        {isExternal && <ArrowUpRight className="w-3 h-3 inline-block shrink-0 opacity-70 ml-0.5" />}
       </a>
     );
     lastIndex = linkRegex.lastIndex;
@@ -101,7 +115,7 @@ const parseTextWithLinks = (text: string) => {
   return parts;
 };
 
-const renderRichBody = (body: string) => {
+const renderRichBody = (body: string, onInternalNavigate?: (url: string) => void) => {
   const paragraphs = body.split('\n\n');
   return paragraphs.map((para, pIdx) => {
     if (para.includes('\n•') || para.startsWith('•')) {
@@ -110,7 +124,7 @@ const renderRichBody = (body: string) => {
         <ul key={pIdx} className="space-y-1.5 my-3 pl-4 list-disc text-slate-300">
           {items.map((item, iIdx) => (
             <li key={iIdx}>
-              {parseTextWithLinks(item.replace(/^[•\-]\s*/, ''))}
+              {parseTextWithLinks(item.replace(/^[•\-]\s*/, ''), onInternalNavigate)}
             </li>
           ))}
         </ul>
@@ -119,7 +133,7 @@ const renderRichBody = (body: string) => {
 
     return (
       <p key={pIdx} className="text-slate-300 leading-relaxed mb-3">
-        {parseTextWithLinks(para)}
+        {parseTextWithLinks(para, onInternalNavigate)}
       </p>
     );
   });
@@ -138,6 +152,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   const [isLoading, setIsLoading] = useState(initialLoading);
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleInternalNavigate = (url: string) => {
+    setSelectedArticle(null);
+    const hash = url.startsWith('/#') ? url.substring(2) : url.startsWith('#') ? url.substring(1) : url;
+    window.location.hash = hash;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Initial mount smooth skeleton
   useEffect(() => {
@@ -719,7 +740,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       {section.heading}
                     </h3>
                     <div className="text-slate-300 leading-relaxed text-xs sm:text-sm">
-                      {renderRichBody(section.body)}
+                      {renderRichBody(section.body, handleInternalNavigate)}
                     </div>
                     {section.codeSnippet && (
                       <div className="mt-3 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden font-mono text-xs">

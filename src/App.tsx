@@ -69,7 +69,11 @@ function parseHashRoute(): { page: PageRoute; subTab?: string } {
   }
   if (rawHash.startsWith('service') || rawHash === 'tech-stack') {
     const parts = rawHash.split('/');
-    const serviceSlug = parts[1] || undefined;
+    let serviceSlug = parts[1] || undefined;
+    if (serviceSlug === 'ecommerce-mpesa' || serviceSlug === 'ecommerce') serviceSlug = 'ecommerce-development';
+    if (serviceSlug === 'seo-optimization' || serviceSlug === 'seo') serviceSlug = 'seo-services';
+    if (serviceSlug === 'custom-software' || serviceSlug === 'crm') serviceSlug = 'custom-crm-development';
+    if (serviceSlug === 'branding-design' || serviceSlug === 'branding') serviceSlug = 'graphic-design-branding';
     return { page: 'services', subTab: serviceSlug };
   }
   if (rawHash.startsWith('portfolio') || rawHash.startsWith('case-stud')) {

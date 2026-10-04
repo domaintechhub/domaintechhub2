@@ -70,7 +70,7 @@ At Domain Tech Hub, we engineer websites around a disciplined conversion funnel:
 This is why professional [website development in Kenya](https://domaintechhub.com/#/services/web-development) is about far more than colors, fonts, and animations. It is about systematically turning digital attention into revenue.
 
 ### 6. Why Google Rankings Matter: People-First SEO vs Keyword Stuffing
-When a prospective customer in Nairobi searches for a *"website designer in Kenya"*, *"web design company in Kenya"*, or *"[ecommerce website development Kenya](https://domaintechhub.com/#/services/ecommerce-mpesa)"*, you want your organization to appear in the top 2 Google results.
+When a prospective customer in Nairobi searches for a *"website designer in Kenya"*, *"web design company in Kenya"*, or *"[ecommerce website development Kenya](https://domaintechhub.com/#/services/ecommerce-development)"*, you want your organization to appear in the top 2 Google results.
 
 This visibility is powered by Search Engine Optimization (SEO). However, modern Google algorithms—bolstered by AI Overviews and helpful content guidelines from [Google Search Central](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)—harshly penalize spammy keyword stuffing.
 
@@ -122,7 +122,7 @@ At Domain Tech Hub, we believe a website should be far more than a digital broch
 
 Headquartered at Delta Corner Tower in Westlands, Nairobi, our senior in-house architects specialize in:
 - Bespoke [website design in Kenya](https://domaintechhub.com/#/services/web-development) and modern Next.js frontend engineering
-- Native [ecommerce website development Kenya](https://domaintechhub.com/#/services/ecommerce-mpesa) with zero-loss Safaricom Daraja 3.0 M-Pesa integration
+- Native [ecommerce website development Kenya](https://domaintechhub.com/#/services/ecommerce-development) with zero-loss Safaricom Daraja 3.0 M-Pesa integration
 - High-ROI Google Ads campaigns, technical SEO, and conversion optimization
 - [Predictable 4 to 8 week agile sprint delivery](https://domaintechhub.com/#/more/roadmap) backed by an ironclad 30-day bug warranty
 - 100% intellectual property, source code, and GitHub repository ownership transferred to you
@@ -135,16 +135,48 @@ If your organization is ready for a digital presence that drives measurable comm
 
 ---
 
-## Additional Technical Publications
+## Additional Technical Publications & Verified Implementations
 
 ### Guide 2: Zero-Loss M-Pesa STK Push: Architecting Resilient Webhooks on Safaricom Daraja API
-- **Key Concepts**: Idempotency keys preventing double-billing on retried webhooks; Redis atomic locks on CheckoutRequestID; background queue workers (BullMQ) for instantaneous HTTP 200 acknowledgment; automated reconciliation via Daraja Query API.
+- **Live Proof Points**:
+  - Official Specifications: [Safaricom Daraja Developer Portal](https://developer.safaricom.co.ke/)
+  - Distributed Locking: [Redis Distributed Locks](https://redis.io/docs/latest/develop/use/patterns/distributed-locks/)
+  - Production Implementation: [Domain Tech Hub E-Commerce & M-Pesa Service](https://domaintechhub.com/#/services/ecommerce-development)
+  - Verified Results: [AfroWeave Global Case Study](https://domaintechhub.com/#/portfolio) (+310% checkout volume surge, 99.8% reconciliation)
 
-### Guide 3: Sub-Second Core Web Vitals on East African 4G Mobile Networks
-- **Key Concepts**: Modern AVIF/WebP image encoding; critical CSS inlining with zero-runtime Tailwind CSS; local font display swapping avoiding layout shifts; Cloudflare edge caching across Nairobi and Mombasa nodes.
+### Guide 3: Why Top Kenyan Brands are Migrating from Monolithic WordPress to Headless Next.js
+- **Live Proof Points**:
+  - React Server Components & Edge Rendering: [Next.js Documentation](https://nextjs.org/docs)
+  - Speed Standards: [Google Core Web Vitals Guidance](https://web.dev/explore/vitals)
+  - Production Implementation: [Custom Website Development](https://domaintechhub.com/#/services/web-development)
+  - Live Performance Test: [Instant SEO & Speed Audit Tool](https://domaintechhub.com/#/tools/audit)
 
-### Guide 4: Headless Next.js Commerce vs. Traditional Monolithic Themes
-- **Key Findings**: Next.js headless storefronts convert +35% to +60% higher; zero frontend CMS security attack surface; sub-second mobile page loads on 4G networks.
+### Guide 4: Mastering Local Technical SEO in East Africa: How to Rank #1 on Google in Nairobi
+- **Live Proof Points**:
+  - Semantic Schema Standards: [Schema.org ProfessionalService](https://schema.org/ProfessionalService)
+  - Local Search Visibility: [Google Business Profile Guidelines](https://support.google.com/business/answer/3038177)
+  - Regulatory Compliance: [Office of the Data Protection Commissioner Kenya (ODPC)](https://www.odpc.go.ke/)
+  - Production Implementation: [Technical SEO & Optimization Service](https://domaintechhub.com/#/services/seo-services)
+  - Verified Results: [SolarGrid Kenya Case Study](https://domaintechhub.com/#/portfolio) (+240% qualified commercial leads, 4.8x ROI)
 
-### Guide 5: High-ROI B2B Google Ads Architectures for Kenyan Commercial Enterprises
-- **Key Tactics**: Rigorous negative keyword lists filtering out retail consumer intent; custom dedicated landing pages; server-side conversion tracking bypassing browser ad-blockers.
+### Guide 5: Transforming Inbound Leads: Architecting Meta WhatsApp Cloud API Sales Bots
+- **Live Proof Points**:
+  - Official API Infrastructure: [Meta WhatsApp Business Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api/)
+  - Production Implementation: [Custom Enterprise Software & CRM](https://domaintechhub.com/#/services/custom-crm-development) and [WhatsApp Marketing](https://domaintechhub.com/#/services/whatsapp-marketing)
+  - ROI Modeling: [Marketing ROI & Payback Simulator](https://domaintechhub.com/#/tools/roi)
+  - Interactive Test: [Domain Tech Hub Official WhatsApp](https://wa.me/254118746676)
+
+### Guide 6: Outgrowing Excel: Why Kenyan Mid-Market Enterprises are Building Custom Cloud CRMs
+- **Live Proof Points**:
+  - ACID Concurrency Architecture: [PostgreSQL Concurrency Control & MVCC](https://www.postgresql.org/docs/current/mvcc.html)
+  - Production Implementation: [Custom Enterprise Software](https://domaintechhub.com/#/services/custom-crm-development)
+  - Delivery Framework: [4 to 8 Week Agile Sprint Roadmap](https://domaintechhub.com/#/more/roadmap)
+  - Verified Results: [SafariLogistics ERP Case Study](https://domaintechhub.com/#/portfolio) (62% reduction in dispatch paperwork delays)
+
+### Guide 7: Fortifying African E-Commerce: Protecting Cross-Border Payments Against Fraud & Chargebacks
+- **Live Proof Points**:
+  - Automated Anti-Bot Defense: [Cloudflare Turnstile Anti-Bot Security](https://www.cloudflare.com/products/turnstile/)
+  - Global Payment Standards: [EMVCo 3-D Secure Standard](https://www.emvco.com/emv-technologies/3d-secure/)
+  - Statutory Data Protection: [Office of the Data Protection Commissioner Kenya (ODPC)](https://www.odpc.go.ke/)
+  - Verified Results: [ApexPay Africa Fintech Case Study](https://domaintechhub.com/#/portfolio) ($2.4M+ in regional transactions processed with 99.99% success rate)
+
