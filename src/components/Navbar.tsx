@@ -147,7 +147,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
   }, [onOpenSearch]);
 
   const handleNavClick = (id: string, subParam?: string) => {
-    onNavigate(id, subParam);
+    if (id === 'blog') {
+      onNavigate('more', 'blog');
+    } else {
+      onNavigate(id, subParam);
+    }
     setServicesDropdownOpen(false);
     setToolsDropdownOpen(false);
     setMoreDropdownOpen(false);
@@ -167,7 +171,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
   const isContactActive = activeSection === 'contact';
   const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap' || (activeSection === 'more' && window.location.hash.includes('roadmap'));
   const isTeamActive = activeSection === 'team' || activeSection === 'our-team' || (activeSection === 'more' && window.location.hash.includes('team'));
-  const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive || isRoadmapActive || isTeamActive || activeSection === 'more';
+  const isBlogActive = (activeSection === 'more' && window.location.hash.includes('blog')) || activeSection === 'insights';
+  const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive || isRoadmapActive || isTeamActive || isBlogActive || activeSection === 'more';
 
   return (
     <>
@@ -512,22 +517,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                         </div>
                       </button>
 
-                      {/* Insights & Trends */}
+                      {/* Engineering Blog & Articles */}
                       <button
-                        onClick={() => handleNavClick('insights')}
+                        onClick={() => handleNavClick('more', 'blog')}
                         className={`w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer ${
-                          isInsightsActive ? 'bg-stone-100 dark:bg-slate-800' : ''
+                          isBlogActive ? 'bg-stone-100 dark:bg-slate-800' : ''
                         }`}
                       >
                         <div className="w-8 h-8 rounded-xl bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
                           <BookOpen className="w-4 h-4" />
                         </div>
                         <div>
-                          <div className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
-                            {t('nav.insights')}
+                          <div className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors flex items-center gap-1.5">
+                            <span>Blog &amp; Technical Articles</span>
+                            <span className="text-[9px] font-mono text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/80 px-1.5 py-0.2 rounded border border-purple-200 font-semibold">ARTICLES</span>
                           </div>
                           <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
-                            Tech trends, engineering guides & benchmarks
+                            Technical guides, M-Pesa playbooks &amp; web benchmarks
                           </div>
                         </div>
                       </button>
@@ -761,7 +767,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                     { id: 'roadmap', label: 'Project Roadmap', subtitle: '4–8 Week Delivery Sprint Cycle', icon: Rocket, active: isRoadmapActive },
                     { id: 'team', label: 'Our Engineering Team', subtitle: 'Senior Architects & Strategists', icon: Users, active: isTeamActive },
                     { id: 'tech-stack', label: t('nav.techStack'), subtitle: 'React, Node, Python & Cloud Architecture', icon: Cpu, active: isTechStackActive },
-                    { id: 'insights', label: t('nav.insights'), subtitle: 'Tech Trends & Strategy Guides', icon: BookOpen, active: isInsightsActive },
+                    { id: 'blog', label: 'Engineering Blog & Articles', subtitle: 'Technical Guides & M-Pesa Playbooks', icon: BookOpen, active: isBlogActive },
                     { id: 'client-portal', label: t('nav.clientPortal'), subtitle: 'Client Project Dashboard Demo', icon: ShieldCheck, active: isPortalActive },
                     { id: 'faq', label: t('nav.faq'), subtitle: 'Frequently Asked Questions & SLAs', icon: HelpCircle, active: isFaqActive }
                   ].map((item) => {

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Rocket, Users, Cpu, Layers, CheckCircle2, 
-  ArrowRight, MessageSquare, Clock, ShieldCheck, FileCode2
+  ArrowRight, MessageSquare, Clock, ShieldCheck, FileCode2,
+  BookOpen
 } from 'lucide-react';
 import { PageHeader } from './PageHeader';
 import { ProjectRoadmap, SprintTimeline } from './ProjectRoadmap';
 import { TeamSection } from './TeamSection';
 import { TechStackSection } from './TechStackSection';
+import { InsightsSection } from './InsightsSection';
 import { AGENCY_INFO } from '../data/portfolioData';
 
-export type MoreTab = 'roadmap' | 'team' | 'tech-stack';
+export type MoreTab = 'roadmap' | 'team' | 'tech-stack' | 'blog';
 
 interface MorePageProps {
   initialTab?: MoreTab;
@@ -69,6 +71,14 @@ export const MorePage: React.FC<MorePageProps> = ({
       badge: 'Modern Stack',
       icon: Cpu,
       description: 'Modern TypeScript, Next.js, Node.js, PostgreSQL, Docker, and Cloudflare infrastructure.'
+    },
+    {
+      id: 'blog' as MoreTab,
+      label: 'Engineering Blog & Articles',
+      shortLabel: 'Blog & Articles',
+      badge: 'Tech Guides',
+      icon: BookOpen,
+      description: 'In-depth architectural breakdowns, Safaricom Daraja M-Pesa playbooks, Next.js benchmarks, and SEO strategies.'
     }
   ];
 
@@ -76,28 +86,42 @@ export const MorePage: React.FC<MorePageProps> = ({
     <div className="min-h-screen bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       {/* 1. Page Header */}
       <PageHeader
-        badge="Agency Delivery & Senior Engineering"
-        badgeIcon={<Layers className="w-3.5 h-3.5 text-teal-500" />}
+        badge={
+          activeTab === 'blog'
+            ? 'Engineering Publications & Research'
+            : 'Agency Delivery & Senior Engineering'
+        }
+        badgeIcon={
+          activeTab === 'blog'
+            ? <BookOpen className="w-3.5 h-3.5 text-teal-500" />
+            : <Layers className="w-3.5 h-3.5 text-teal-500" />
+        }
         title={
           activeTab === 'roadmap'
             ? '4 to 8 Week Agile Sprint Roadmap & Milestones'
             : activeTab === 'team'
             ? 'Meet the Senior Architects & Engineers'
-            : 'Modern Enterprise Tech Stack & Cloud Architecture'
+            : activeTab === 'tech-stack'
+            ? 'Modern Enterprise Tech Stack & Cloud Architecture'
+            : 'Engineering Blog, Tech Insights & Architectural Guides'
         }
         description={
           activeTab === 'roadmap'
             ? 'Explore our predictable 5-stage sprint methodology: live staging access, weekly video demos, signed milestone deliverables, and strict production guarantees.'
             : activeTab === 'team'
             ? 'We do not outsource your project to unvetted freelancers. Collaborate directly with senior Nairobi software architects and fintech developers who engineer systems that scale.'
-            : 'We architect web systems with strict TypeScript contracts, PostgreSQL schemas, and low-latency African CDN edge networks.'
+            : activeTab === 'tech-stack'
+            ? 'We architect web systems with strict TypeScript contracts, PostgreSQL schemas, and low-latency African CDN edge networks.'
+            : 'Explore in-depth engineering breakdowns, Safaricom Daraja 3.0 M-Pesa API playbooks, high-performance Next.js architectures, and practical technical SEO guides written by our Nairobi engineering team.'
         }
         currentBreadcrumb={
           activeTab === 'roadmap'
             ? 'Project Roadmap'
             : activeTab === 'team'
             ? 'Our Engineering Team'
-            : 'Tech Stack'
+            : activeTab === 'tech-stack'
+            ? 'Tech Stack'
+            : 'Blog & Articles'
         }
         onNavigateHome={onNavigateHome}
         actionButton={{
@@ -228,6 +252,16 @@ export const MorePage: React.FC<MorePageProps> = ({
         {activeTab === 'tech-stack' && (
           <div className="animate-in fade-in duration-200">
             <TechStackSection onSelectTechForProject={onSelectTechForProject} />
+          </div>
+        )}
+
+        {/* Tab 4: Engineering Blog & Articles */}
+        {activeTab === 'blog' && (
+          <div className="animate-in fade-in duration-200">
+            <InsightsSection 
+              onScheduleConsultation={(topic) => onScheduleWithMember('Lead Solutions Architect', topic)} 
+              initialLoading={false}
+            />
           </div>
         )}
       </div>

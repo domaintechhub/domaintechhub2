@@ -304,14 +304,20 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       ? 'Senior Engineering Team & Technical Leadership | Domain Tech Hub'
       : subTab === 'tech-stack'
       ? 'Modern Tech Stack & Architecture | Domain Tech Hub'
+      : subTab === 'blog'
+      ? 'Engineering Blog & Technical Insights | Domain Tech Hub'
       : 'Project Roadmap & Engineering Operations | Domain Tech Hub',
-    description: 'Explore Domain Tech Hub sprint delivery roadmap, meet our senior software engineering team, and review our modern fullstack architecture.',
+    description: subTab === 'blog'
+      ? 'Explore in-depth engineering breakdowns, Safaricom Daraja 3.0 M-Pesa API playbooks, Next.js architecture benchmarks, and technical SEO guides by senior Nairobi architects.'
+      : 'Explore Domain Tech Hub sprint delivery roadmap, meet our senior software engineering team, and review our modern fullstack architecture.',
     canonicalPath: subTab ? `/#/more/${subTab}` : '/#/more',
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      name: 'Domain Tech Hub Agency Solutions & Engineering Operations',
-      description: 'Predictable 4 to 8 week delivery sprint roadmaps, senior engineering leadership, and tech stack capabilities.',
+      '@type': subTab === 'blog' ? 'Blog' : 'WebPage',
+      name: subTab === 'blog' ? 'Domain Tech Hub Engineering Blog' : 'Domain Tech Hub Agency Solutions & Engineering Operations',
+      description: subTab === 'blog' 
+        ? 'Technical articles, architecture reviews, M-Pesa webhook guides, and modern frontend benchmarks.' 
+        : 'Predictable 4 to 8 week delivery sprint roadmaps, senior engineering leadership, and tech stack capabilities.',
     },
   }),
 

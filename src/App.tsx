@@ -54,6 +54,9 @@ function parseHashRoute(): { page: PageRoute; subTab?: string } {
   if (rawHash === 'about' || rawHash === 'about-us') {
     return { page: 'about' };
   }
+  if (rawHash.startsWith('blog') || rawHash.startsWith('articles') || rawHash.startsWith('posts')) {
+    return { page: 'more', subTab: 'blog' };
+  }
   if (rawHash.startsWith('roadmap') || rawHash.startsWith('process') || rawHash.startsWith('sprint-roadmap')) {
     return { page: 'more', subTab: 'roadmap' };
   }
@@ -208,6 +211,9 @@ export default function App() {
     } else if (target === 'domains') {
       targetPage = 'tools';
       targetSub = 'domains';
+    } else if (target === 'blog' || target === 'articles') {
+      targetPage = 'more';
+      targetSub = 'blog';
     } else if (target === 'insights') {
       targetPage = 'insights';
       targetSub = undefined;
