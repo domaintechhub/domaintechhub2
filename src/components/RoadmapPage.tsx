@@ -37,24 +37,24 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
       />
 
       {/* 2. Key Engineering Commitments Strip */}
-      <div className="border-b border-stone-200/90 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/80 sticky top-[68px] z-30 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+      <div className="border-b border-stone-200/90 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+            <div className="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-stone-50/80 dark:bg-slate-800/50 border border-stone-200/70 dark:border-slate-700/60 shadow-2xs text-slate-700 dark:text-slate-300 min-w-0">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span>100% Fixed-Bid Scope Contract</span>
+              <span className="text-xs font-medium tracking-tight text-slate-800 dark:text-slate-200">100% Fixed-Bid Scope Contract</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+            <div className="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-stone-50/80 dark:bg-slate-800/50 border border-stone-200/70 dark:border-slate-700/60 shadow-2xs text-slate-700 dark:text-slate-300 min-w-0">
               <Clock className="w-4 h-4 text-teal-500 shrink-0" />
-              <span>Weekly Staging & Video Demos</span>
+              <span className="text-xs font-medium tracking-tight text-slate-800 dark:text-slate-200">Weekly Staging &amp; Video Demos</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+            <div className="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-stone-50/80 dark:bg-slate-800/50 border border-stone-200/70 dark:border-slate-700/60 shadow-2xs text-slate-700 dark:text-slate-300 min-w-0">
               <ShieldCheck className="w-4 h-4 text-cyan-500 shrink-0" />
-              <span>30-Day Zero-Cost Bug Warranty</span>
+              <span className="text-xs font-medium tracking-tight text-slate-800 dark:text-slate-200">30-Day Zero-Cost Bug Warranty</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+            <div className="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-stone-50/80 dark:bg-slate-800/50 border border-stone-200/70 dark:border-slate-700/60 shadow-2xs text-slate-700 dark:text-slate-300 min-w-0">
               <FileCode2 className="w-4 h-4 text-purple-500 shrink-0" />
-              <span>Full Source Code & IP Transfer</span>
+              <span className="text-xs font-medium tracking-tight text-slate-800 dark:text-slate-200">Full Source Code &amp; IP Transfer</span>
             </div>
           </div>
         </div>

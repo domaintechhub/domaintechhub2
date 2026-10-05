@@ -424,6 +424,8 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                     type="button"
                     onClick={() => setActiveStageId(stage.id)}
                     className={`text-left p-4 rounded-2xl border transition-all duration-200 cursor-pointer group flex flex-col justify-between ${
+                      idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+                    } ${
                       isSelected
                         ? 'bg-white dark:bg-slate-900 border-teal-500 ring-2 ring-teal-500/20 shadow-xl shadow-teal-500/10 md:-translate-y-1'
                         : 'bg-white/80 dark:bg-slate-900/60 border-stone-200 dark:border-slate-800 hover:border-stone-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900'

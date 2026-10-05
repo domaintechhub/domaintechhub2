@@ -330,13 +330,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                 icon: Cpu,
                 color: 'text-teal-600 bg-teal-50 border-teal-200/60 dark:bg-teal-950/60 dark:text-teal-400 dark:border-teal-900',
               },
-            ].map((item) => {
+            ].map((item, idx) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => onNavigate(item.id === 'tech' ? 'tech-stack' : 'services')}
-                  className="p-3 rounded-2xl border border-stone-200/70 dark:border-slate-800 hover:border-teal-300 dark:hover:border-teal-700 bg-stone-50/50 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-800/80 transition-all text-left group flex items-start gap-2.5"
+                  className={`p-3 rounded-2xl border border-stone-200/70 dark:border-slate-800 hover:border-teal-300 dark:hover:border-teal-700 bg-stone-50/50 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-800/80 transition-all text-left group flex items-start gap-2.5 ${idx === 4 ? 'col-span-2 sm:col-span-1' : ''}`}
                 >
                   <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border ${item.color}`}>
                     <Icon className="w-4 h-4" />

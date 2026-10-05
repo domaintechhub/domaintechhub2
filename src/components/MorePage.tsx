@@ -130,8 +130,8 @@ export const MorePage: React.FC<MorePageProps> = ({
         }}
       />
 
-      {/* 2. Sticky Tab Segmented Navigation Bar */}
-      <div className="border-b border-stone-200/90 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/80 sticky top-[68px] z-30 backdrop-blur-md">
+      {/* 2. Tab Segmented Navigation Bar */}
+      <div className="border-b border-stone-200/90 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="inline-flex p-1 bg-stone-100 dark:bg-slate-900/90 border border-stone-200 dark:border-slate-800 rounded-2xl overflow-x-auto max-w-full shadow-xs">
