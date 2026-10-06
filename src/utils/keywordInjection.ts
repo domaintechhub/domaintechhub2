@@ -209,6 +209,42 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
       'custom erp kenya'
     ],
     searchSnippetsDescription: 'Multi-tenant PostgreSQL cloud CRMs with role-based access control, eliminating recurring SaaS license fees.'
+  },
+  {
+    keyword: 'Point of Sale POS system prices Kenya',
+    slug: 'pos-system-prices-kenya',
+    intent: 'commercial',
+    intentLabel: 'Hardware & Retail',
+    relevanceScore: 99,
+    targetArticleId: 'bespoke-crm-vs-spreadsheets',
+    targetUrl: '/#/services/pos-systems',
+    targetServiceTitle: 'Point of Sale (POS) Systems & Hardware',
+    entityCategory: 'RetailHardware',
+    synonyms: [
+      'pos prices kenya',
+      'pos machine price in kenya',
+      'pos systems kenya',
+      'cloud pos kenya',
+      'all in one touchscreen pos kenya'
+    ],
+    searchSnippetsDescription: 'POS system prices in Kenya from KSh 500/mo cloud software to KSh 100,000+ complete touchscreen hardware bundles with KRA e-TIMS.'
+  },
+  {
+    keyword: 'best web development agency Nairobi',
+    slug: 'best-web-development-agency-nairobi',
+    intent: 'commercial',
+    intentLabel: 'Agency Search',
+    relevanceScore: 99,
+    targetArticleId: 'website-design-in-kenya-2026',
+    targetUrl: '/#/services/web-development',
+    targetServiceTitle: 'Custom Website Development',
+    entityCategory: 'AgencyServices',
+    synonyms: [
+      'best web developers in nairobi',
+      'top web design companies kenya',
+      'software engineering company nairobi'
+    ],
+    searchSnippetsDescription: 'Top-ranked software engineering studio in Nairobi delivering sub-second Core Web Vitals, 100% source code ownership, and 4.6x average ROI.'
   }
 ];
 

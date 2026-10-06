@@ -74,6 +74,36 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     if (serviceId && serviceId !== 'all') {
       const matched = SERVICES_LIST.find(s => s.id === serviceId);
       if (matched) {
+        if (matched.id === 'pos-systems') {
+          return {
+            title: 'Point of Sale (POS) Systems & Hardware Prices Kenya | Domain Tech Hub',
+            description: 'Point of sale (POS) system prices in Kenya range from KSh 500/mo cloud software to over KSh 100,000 complete hardware bundles (80mm printers, barcode scanners, cash drawers, touchscreens) with KRA e-TIMS.',
+            canonicalPath: '/#/services/pos-systems',
+            jsonLd: {
+              '@context': 'https://schema.org',
+              '@type': 'Service',
+              name: 'Point of Sale (POS) Systems & Hardware Kenya',
+              description: matched.fullDesc,
+              provider: {
+                '@type': 'Organization',
+                name: 'Domain Tech Hub',
+                url: 'https://domaintechhub.com',
+              },
+              areaServed: {
+                '@type': 'Country',
+                name: 'Kenya'
+              },
+              offers: {
+                '@type': 'AggregateOffer',
+                priceCurrency: 'KES',
+                lowPrice: '500',
+                highPrice: '105000',
+                offerCount: '6',
+              },
+            },
+          };
+        }
+
         return {
           title: `${matched.title} | Pricing & Deliverables | Domain Tech Hub`,
           description: matched.shortDesc,
