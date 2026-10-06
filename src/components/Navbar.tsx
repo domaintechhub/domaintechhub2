@@ -159,19 +159,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
     setMobileMenuOpen(false);
   };
 
+  const currentPath = window.location.pathname.toLowerCase();
   const isHomeActive = activeSection === 'home' || activeSection === 'hero';
   const isAboutActive = activeSection === 'about';
   const isServicesActive = activeSection === 'services';
   const isPortfolioActive = activeSection === 'portfolio';
   const isToolsActive = activeSection === 'tools' || activeSection === 'calculator' || activeSection === 'audit' || activeSection === 'domains';
-  const isTechStackActive = activeSection === 'tech-stack';
+  const isTechStackActive = activeSection === 'tech-stack' || (activeSection === 'more' && currentPath.includes('tech-stack'));
   const isInsightsActive = activeSection === 'insights';
   const isPortalActive = activeSection === 'portal' || activeSection === 'client-portal';
   const isFaqActive = activeSection === 'faq';
   const isContactActive = activeSection === 'contact';
-  const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap' || (activeSection === 'more' && window.location.hash.includes('roadmap'));
-  const isTeamActive = activeSection === 'team' || activeSection === 'our-team' || (activeSection === 'more' && window.location.hash.includes('team'));
-  const isBlogActive = (activeSection === 'more' && window.location.hash.includes('blog')) || activeSection === 'insights';
+  const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap' || (activeSection === 'more' && currentPath.includes('roadmap'));
+  const isTeamActive = activeSection === 'team' || activeSection === 'our-team' || (activeSection === 'more' && currentPath.includes('team'));
+  const isBlogActive = (activeSection === 'more' && currentPath.includes('blog')) || activeSection === 'insights';
   const isMoreActive = isTechStackActive || isInsightsActive || isPortalActive || isFaqActive || isRoadmapActive || isTeamActive || isBlogActive || activeSection === 'more';
 
   return (

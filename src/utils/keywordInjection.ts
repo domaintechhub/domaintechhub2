@@ -26,7 +26,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Commercial Intent',
     relevanceScore: 99,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/services/web-development',
+    targetUrl: '/services/web-development',
     targetServiceTitle: 'Custom Website Development',
     entityCategory: 'WebDevelopment',
     synonyms: [
@@ -44,7 +44,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Commercial Intent',
     relevanceScore: 98,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/tools/calculator',
+    targetUrl: '/tools/calculator',
     targetServiceTitle: 'Project Scope & Budget Calculator',
     entityCategory: 'BusinessServices',
     synonyms: [
@@ -61,7 +61,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Commercial Intent',
     relevanceScore: 96,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/more/team',
+    targetUrl: '/team',
     targetServiceTitle: 'Engineering Leadership & Senior Designers',
     entityCategory: 'DesignServices',
     synonyms: [
@@ -79,7 +79,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Transactional Intent',
     relevanceScore: 97,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/about',
+    targetUrl: '/about',
     targetServiceTitle: 'About Domain Tech Hub Nairobi',
     entityCategory: 'Corporation',
     synonyms: [
@@ -97,7 +97,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Transactional Intent',
     relevanceScore: 99,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/services/ecommerce-development',
+    targetUrl: '/services/ecommerce-development',
     targetServiceTitle: 'E-Commerce & Safaricom Daraja M-Pesa',
     entityCategory: 'EcommercePlatform',
     synonyms: [
@@ -115,7 +115,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Commercial Intent',
     relevanceScore: 95,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/services/web-development',
+    targetUrl: '/services/web-development',
     targetServiceTitle: 'Business Website Architecture',
     entityCategory: 'BusinessServices',
     synonyms: [
@@ -132,7 +132,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Local Intent',
     relevanceScore: 97,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/contact',
+    targetUrl: '/contact',
     targetServiceTitle: 'Nairobi Studio Consultation',
     entityCategory: 'LocalBusiness',
     synonyms: [
@@ -149,7 +149,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Fintech Intent',
     relevanceScore: 98,
     targetArticleId: 'mpesa-daraja-zero-loss',
-    targetUrl: '/#/services/ecommerce-development',
+    targetUrl: '/services/ecommerce-development',
     targetServiceTitle: 'M-Pesa Daraja 3.0 Integration',
     entityCategory: 'FintechService',
     synonyms: [
@@ -166,7 +166,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Technical Intent',
     relevanceScore: 94,
     targetArticleId: 'headless-nextjs-vs-wordpress',
-    targetUrl: '/#/services/web-development',
+    targetUrl: '/services/web-development',
     targetServiceTitle: 'Modern Next.js Frontend Engineering',
     entityCategory: 'ComputerSoftware',
     synonyms: [
@@ -183,7 +183,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Audit & SEO',
     relevanceScore: 95,
     targetArticleId: 'local-seo-core-web-vitals',
-    targetUrl: '/#/tools/audit',
+    targetUrl: '/tools/audit',
     targetServiceTitle: 'Instant Core Web Vitals & SEO Scanner',
     entityCategory: 'AuditService',
     synonyms: [
@@ -200,7 +200,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Enterprise Intent',
     relevanceScore: 96,
     targetArticleId: 'bespoke-crm-vs-spreadsheets',
-    targetUrl: '/#/services/custom-crm-development',
+    targetUrl: '/services/custom-crm-development',
     targetServiceTitle: 'Custom Cloud CRM & ERP Systems',
     entityCategory: 'EnterpriseSoftware',
     synonyms: [
@@ -217,7 +217,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Hardware & Retail',
     relevanceScore: 99,
     targetArticleId: 'bespoke-crm-vs-spreadsheets',
-    targetUrl: '/#/services/pos-systems',
+    targetUrl: '/services/pos-systems',
     targetServiceTitle: 'Point of Sale (POS) Systems & Hardware',
     entityCategory: 'RetailHardware',
     synonyms: [
@@ -236,7 +236,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
     intentLabel: 'Agency Search',
     relevanceScore: 99,
     targetArticleId: 'website-design-in-kenya-2026',
-    targetUrl: '/#/services/web-development',
+    targetUrl: '/services/web-development',
     targetServiceTitle: 'Custom Website Development',
     entityCategory: 'AgencyServices',
     synonyms: [
@@ -335,7 +335,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
   return {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
-    '@id': `https://domaintechhub.com/#/insights/${article.slug}`,
+    '@id': `https://domaintechhub.com/insights/${article.slug}`,
     headline: article.title,
     description: article.excerpt,
     image: [article.coverImage],
@@ -344,7 +344,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
     inLanguage: 'en-US',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://domaintechhub.com/#/insights/${article.slug}`
+      '@id': `https://domaintechhub.com/insights/${article.slug}`
     },
     author: {
       '@type': 'Person',

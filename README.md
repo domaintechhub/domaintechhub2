@@ -128,7 +128,7 @@ In the repository's **Settings → Pages → Build and deployment**, set **Sourc
 ### Deploy to cPanel / Traditional Web Hosting (.co.ke)
 1. Run `npm run build`.
 2. Upload all files from the `dist/` folder directly to your server's `public_html/` root.
-3. The included `.htaccess` ensures all links and refreshes work seamlessly.
+3. The included `.htaccess` supplies rewrites needed for clean pathname URLs on direct visits and refreshes.
 
 ---
 

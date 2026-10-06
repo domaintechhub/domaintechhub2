@@ -40,73 +40,9 @@ import {
   CheckCircle, MessageSquare, PhoneCall, Code, Layers 
 } from 'lucide-react';
 import { AGENCY_INFO } from './data/portfolioData';
+import { getCanonicalLocation, getCurrentAppRoute, getPathForRoute, parseAppRoute } from './utils/routing';
 
 export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about';
-
-function parseHashRoute(): { page: PageRoute; subTab?: string } {
-  if (typeof window === 'undefined') return { page: 'home' };
-  const rawHash = window.location.hash.replace(/^#\/?/, '').toLowerCase().trim();
-  
-  if (!rawHash || rawHash === 'home' || rawHash === 'hero') {
-    return { page: 'home' };
-  }
-  if (rawHash === 'about' || rawHash === 'about-us') {
-    return { page: 'about' };
-  }
-  if (rawHash.startsWith('blog') || rawHash.startsWith('articles') || rawHash.startsWith('posts')) {
-    return { page: 'more', subTab: 'blog' };
-  }
-  if (rawHash.startsWith('roadmap') || rawHash.startsWith('process') || rawHash.startsWith('sprint-roadmap')) {
-    return { page: 'more', subTab: 'roadmap' };
-  }
-  if (rawHash.startsWith('team') || rawHash.startsWith('our-team') || rawHash.startsWith('engineers')) {
-    return { page: 'more', subTab: 'team' };
-  }
-  if (rawHash.startsWith('more')) {
-    const parts = rawHash.split('/');
-    const sub = (parts[1] as MoreTab) || 'roadmap';
-    return { page: 'more', subTab: sub };
-  }
-  if (rawHash.startsWith('service') || rawHash === 'tech-stack') {
-    const parts = rawHash.split('/');
-    let serviceSlug = parts[1] || undefined;
-    if (serviceSlug === 'ecommerce-mpesa' || serviceSlug === 'ecommerce') serviceSlug = 'ecommerce-development';
-    if (serviceSlug === 'seo-optimization' || serviceSlug === 'seo') serviceSlug = 'seo-services';
-    if (serviceSlug === 'custom-software' || serviceSlug === 'crm') serviceSlug = 'custom-crm-development';
-    if (serviceSlug === 'branding-design' || serviceSlug === 'branding') serviceSlug = 'graphic-design-branding';
-    return { page: 'services', subTab: serviceSlug };
-  }
-  if (rawHash.startsWith('portfolio') || rawHash.startsWith('case-stud')) {
-    return { page: 'portfolio' };
-  }
-  if (rawHash.startsWith('tools')) {
-    const parts = rawHash.split('/');
-    const subTab = parts[1] || 'calculator';
-    return { page: 'tools', subTab };
-  }
-  if (rawHash === 'calculator') {
-    return { page: 'tools', subTab: 'calculator' };
-  }
-  if (rawHash === 'audit') {
-    return { page: 'tools', subTab: 'audit' };
-  }
-  if (rawHash === 'domains') {
-    return { page: 'tools', subTab: 'domains' };
-  }
-  if (rawHash.startsWith('insight') || rawHash.startsWith('blog')) {
-    return { page: 'insights' };
-  }
-  if (rawHash.startsWith('portal') || rawHash.startsWith('client-portal')) {
-    return { page: 'portal' };
-  }
-  if (rawHash.startsWith('faq')) {
-    return { page: 'faq' };
-  }
-  if (rawHash.startsWith('contact') || rawHash.startsWith('booking')) {
-    return { page: 'contact' };
-  }
-  return { page: 'home' };
-}
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
@@ -137,15 +73,13 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Sync route on mount and hash changes
+  // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
   useEffect(() => {
-    if (window.location.hash === '#') {
-      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
-    }
-
-    const handleHashChange = () => {
+    const syncRoute = () => {
       setIsPageTransitioning(true);
-      const { page, subTab } = parseHashRoute();
+      const route = getCurrentAppRoute();
+      const page = route.page as PageRoute;
+      const subTab = route.subTab;
       setCurrentPage(page);
       if (page === 'tools') {
         if (subTab) setActiveToolTab(subTab as ToolTab);
@@ -164,14 +98,19 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
 
+      const canonicalLocation = getCanonicalLocation();
+      if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== canonicalLocation) {
+        window.history.replaceState(null, '', canonicalLocation);
+      }
+
       setTimeout(() => {
         setIsPageTransitioning(false);
       }, 200);
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    syncRoute();
+    window.addEventListener('popstate', syncRoute);
+    return () => window.removeEventListener('popstate', syncRoute);
   }, []);
 
   // Dynamically update document title, meta descriptions, and Schema.org JSON-LD for SEO
@@ -209,7 +148,10 @@ export default function App() {
     } else if (target === 'dth-owner-vault') {
       setIsLeadInboxOpen(true);
       return;
-    } else if (target === 'services' || target === 'tech-stack') {
+    } else if (target === 'tech-stack') {
+      targetPage = 'more';
+      targetSub = 'tech-stack';
+    } else if (target === 'services') {
       targetPage = 'services';
     } else if (target === 'portfolio') {
       targetPage = 'portfolio';
@@ -254,14 +196,9 @@ export default function App() {
       setActiveServiceId(null);
     }
 
-    // Update URL hash
-    if (targetPage !== 'home') {
-      const newHash = targetSub ? `#/${targetPage}/${targetSub}` : `#/${targetPage}`;
-      if (window.location.hash !== newHash) {
-        window.location.hash = newHash;
-      }
-    } else if (window.location.hash) {
-      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    const newPath = getPathForRoute(targetPage, targetSub);
+    if (`${window.location.pathname}${window.location.search}` !== newPath) {
+      window.history.pushState(null, '', newPath);
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -269,6 +206,15 @@ export default function App() {
     setTimeout(() => {
       setIsPageTransitioning(false);
     }, 200);
+  };
+
+  const navigateToInternalPath = (url: string) => {
+    const destination = new URL(url, window.location.origin);
+    const legacyPath = destination.hash.startsWith('#/')
+      ? destination.hash.slice(1).split('?')[0]
+      : destination.pathname;
+    const route = parseAppRoute(legacyPath);
+    navigateTo(route.page, route.subTab);
   };
 
   const handleSelectForQuote = (serviceId: string) => {
@@ -543,10 +489,7 @@ export default function App() {
                   onSelectDomainForSetup={handleSelectDomainForSetup}
                   calculatorServiceId={calculatorServiceId}
                   onTabChange={(tab) => {
-                    setActiveToolTab(tab);
-                    if (window.location.hash !== `#/tools/${tab}`) {
-                      window.location.hash = `#/tools/${tab}`;
-                    }
+                    navigateTo('tools', tab);
                   }}
                 />
               </div>
@@ -570,6 +513,7 @@ export default function App() {
                 <div className="py-6">
                   <InsightsSection 
                     onScheduleConsultation={handleScheduleFromInsight}
+                    onNavigatePath={navigateToInternalPath}
                   />
                 </div>
               </div>
@@ -658,8 +602,7 @@ export default function App() {
                   onScheduleWithMember={handleScheduleWithTeamMember}
                   onSelectTechForProject={handleSelectTechForProject}
                   onTabChange={(tab) => {
-                    setActiveMoreTab(tab);
-                    window.location.hash = `#/more/${tab}`;
+                    navigateTo('more', tab);
                   }}
                 />
               </div>

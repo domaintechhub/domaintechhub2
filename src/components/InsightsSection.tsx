@@ -19,6 +19,7 @@ import {
 
 interface InsightsSectionProps {
   onScheduleConsultation?: (topic: string) => void;
+  onNavigatePath?: (url: string) => void;
   initialLoading?: boolean;
 }
 
@@ -100,8 +101,12 @@ const parseTextWithLinks = (text: string, onInternalNavigate?: (url: string) => 
             if (onInternalNavigate) {
               onInternalNavigate(url);
             } else {
-              const hash = url.startsWith('/#') ? url.substring(2) : url.startsWith('#') ? url.substring(1) : url;
-              window.location.hash = hash;
+              const destination = new URL(url, window.location.origin);
+              const path = destination.hash.startsWith('#/')
+                ? destination.hash.slice(1).split('?')[0]
+                : destination.pathname;
+              window.history.pushState(null, '', path + destination.search);
+              window.dispatchEvent(new PopStateEvent('popstate'));
             }
           }
         }}
@@ -152,6 +157,7 @@ const renderRichBody = (body: string, onInternalNavigate?: (url: string) => void
 
 export const InsightsSection: React.FC<InsightsSectionProps> = ({ 
   onScheduleConsultation,
+  onNavigatePath,
   initialLoading = true
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All Articles');
@@ -167,8 +173,16 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
   const handleInternalNavigate = (url: string) => {
     setSelectedArticle(null);
-    const hash = url.startsWith('/#') ? url.substring(2) : url.startsWith('#') ? url.substring(1) : url;
-    window.location.hash = hash;
+    if (onNavigatePath) {
+      onNavigatePath(url);
+    } else {
+      const destination = new URL(url, window.location.origin);
+      const path = destination.hash.startsWith('#/')
+        ? destination.hash.slice(1).split('?')[0]
+        : destination.pathname;
+      window.history.pushState(null, '', path + destination.search);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -198,10 +212,8 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     };
     checkKeywordParam();
     window.addEventListener('popstate', checkKeywordParam);
-    window.addEventListener('hashchange', checkKeywordParam);
     return () => {
       window.removeEventListener('popstate', checkKeywordParam);
-      window.removeEventListener('hashchange', checkKeywordParam);
     };
   }, []);
 

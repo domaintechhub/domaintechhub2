@@ -42,4 +42,4 @@ Unlike traditional agencies that sell fragile WordPress templates that fail Goog
 Book a 30-minute discovery consultation directly with our Lead Solutions Architect:
 - WhatsApp: +254 118746676
 - Email: info@domaintechhub.com
-- Consultation Form: https://domaintechhub.com/#/contact
+- Consultation Form: https://domaintechhub.com/contact

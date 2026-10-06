@@ -50,13 +50,13 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   about: () => ({
     title: 'About Us | Nairobi Web Engineering Studio | Domain Tech Hub',
     description: 'Learn about Domain Tech Hub: Nairobi premier web engineering agency. Our mission, verified track record, 100% in-house engineering team, and client philosophy.',
-    canonicalPath: '/#/about',
+    canonicalPath: '/about',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
       name: 'About Domain Tech Hub',
       description: 'Nairobi-based digital engineering agency architecting modern web apps, M-Pesa e-commerce systems, and high-performance cloud infrastructure.',
-      url: 'https://domaintechhub.com/#/about',
+      url: 'https://domaintechhub.com/about',
       publisher: {
         '@type': 'Organization',
         name: 'Domain Tech Hub',
@@ -78,7 +78,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
           return {
             title: 'Point of Sale (POS) Systems & Hardware Prices Kenya | Domain Tech Hub',
             description: 'Point of sale (POS) system prices in Kenya range from KSh 500/mo cloud software to over KSh 100,000 complete hardware bundles (80mm printers, barcode scanners, cash drawers, touchscreens) with KRA e-TIMS.',
-            canonicalPath: '/#/services/pos-systems',
+            canonicalPath: '/services/pos-systems',
             jsonLd: {
               '@context': 'https://schema.org',
               '@type': 'Service',
@@ -107,7 +107,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
         return {
           title: `${matched.title} | Pricing & Deliverables | Domain Tech Hub`,
           description: matched.shortDesc,
-          canonicalPath: `/#/services/${matched.id}`,
+          canonicalPath: `/services/${matched.id}`,
           jsonLd: {
             '@context': 'https://schema.org',
             '@type': 'Service',
@@ -132,7 +132,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     return {
       title: 'Engineering Services & Solutions | Domain Tech Hub',
       description: 'Explore 15+ turnkey digital services: React & mobile app development, Safaricom Daraja STK Push e-commerce, Google Ads PPC, and custom enterprise CRMs.',
-      canonicalPath: '/#/services',
+      canonicalPath: '/services',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'Service',
@@ -186,7 +186,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   portfolio: () => ({
     title: 'Case Studies & Production ROI Impact | Domain Tech Hub',
     description: 'See how Domain Tech Hub generated over KSh 280M+ in mobile money revenue, boosted conversion rates by 4.6x, and built scalable cloud systems.',
-    canonicalPath: '/#/portfolio',
+    canonicalPath: '/portfolio',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -204,7 +204,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       return {
         title: 'Free Core Web Vitals & SEO Speed Audit Scanner | Domain Tech Hub',
         description: 'Instant site health diagnostics: scan your domain for mobile responsiveness, page speed metrics, Core Web Vitals, and technical SEO tags.',
-        canonicalPath: '/#/tools/audit',
+        canonicalPath: '/tools/audit',
         jsonLd: {
           '@context': 'https://schema.org',
           '@type': 'WebApplication',
@@ -224,7 +224,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       return {
         title: '.co.ke Domain Registration & NVMe Cloud Hosting | Domain Tech Hub',
         description: 'Instant .ke domain lookup and high-speed NVMe SSD cloud hosting configurations with 99.9% uptime SLA and automated daily backups.',
-        canonicalPath: '/#/tools/domains',
+        canonicalPath: '/tools/domains',
         jsonLd: {
           '@context': 'https://schema.org',
           '@type': 'WebApplication',
@@ -238,7 +238,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     return {
       title: 'Project Cost & Scope Estimator (USD & KES) | Domain Tech Hub',
       description: 'Transparent scope planning: select custom features, cloud architecture, and get real-time price and timeline estimates in USD and KES.',
-      canonicalPath: '/#/tools/calculator',
+      canonicalPath: '/tools/calculator',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'WebApplication',
@@ -257,7 +257,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   insights: (subTab?: string) => ({
     title: 'Website Development & Technical SEO Insights Kenya | Domain Tech Hub',
     description: 'Deep-dive architectural guides on website development in Kenya, Safaricom Daraja M-Pesa checkouts, and professional website engineering for growing brands.',
-    canonicalPath: '/#/insights',
+    canonicalPath: '/insights',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Blog',
@@ -276,7 +276,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   portal: () => ({
     title: 'Interactive Client Portal & Staging Tracker | Domain Tech Hub',
     description: 'Experience real-time milestone tracking, live staging review links, Safaricom Daraja webhook simulators, and SLA monitoring.',
-    canonicalPath: '/#/portal',
+    canonicalPath: '/portal',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
@@ -289,7 +289,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   roadmap: () => ({
     title: '4 to 8 Week Agile Sprint Roadmap & Delivery Timeline | Domain Tech Hub',
     description: 'Explore our predictable 5-stage sprint engineering methodology: Discovery, UI/UX Design Tokens, Fullstack Development, UAT, and Cloud Production Launch.',
-    canonicalPath: '/#/roadmap',
+    canonicalPath: '/roadmap',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'HowTo',
@@ -328,7 +328,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   team: () => ({
     title: 'Senior Engineering Team & Technical Architects | Domain Tech Hub',
     description: 'Meet our senior software architects, fintech leads, and product designers in Nairobi. 100% in-house engineering and direct technical advisory.',
-    canonicalPath: '/#/team',
+    canonicalPath: '/team',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
@@ -348,7 +348,13 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     description: subTab === 'blog'
       ? 'Explore in-depth engineering breakdowns, Safaricom Daraja 3.0 M-Pesa API playbooks, Next.js architecture benchmarks, and technical SEO guides by senior Nairobi architects.'
       : 'Explore Domain Tech Hub sprint delivery roadmap, meet our senior software engineering team, and review our modern fullstack architecture.',
-    canonicalPath: subTab ? `/#/more/${subTab}` : '/#/more',
+    canonicalPath: subTab === 'blog'
+      ? '/blog'
+      : subTab === 'team'
+      ? '/team'
+      : subTab === 'tech-stack'
+      ? '/tech-stack'
+      : '/roadmap',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': subTab === 'blog' ? 'Blog' : 'WebPage',
@@ -362,7 +368,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   faq: () => ({
     title: 'Frequently Asked Questions & Pricing Tiers | Domain Tech Hub',
     description: 'Answers to questions on development sprint timelines, M-Pesa integration security, code repository ownership, and monthly SLA retainers.',
-    canonicalPath: '/#/faq',
+    canonicalPath: '/faq',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -398,7 +404,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   contact: () => ({
     title: 'Book Strategy Consultation & Discovery Call | Domain Tech Hub',
     description: 'Schedule a 30-minute discovery consultation with senior digital strategists in Nairobi, or reach our engineering hotline directly on WhatsApp.',
-    canonicalPath: '/#/contact',
+    canonicalPath: '/contact',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'ContactPage',
