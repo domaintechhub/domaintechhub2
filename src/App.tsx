@@ -139,6 +139,10 @@ export default function App() {
 
   // Sync route on mount and hash changes
   useEffect(() => {
+    if (window.location.hash === '#') {
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    }
+
     const handleHashChange = () => {
       setIsPageTransitioning(true);
       const { page, subTab } = parseHashRoute();
@@ -251,13 +255,13 @@ export default function App() {
     }
 
     // Update URL hash
-    let newHash = '';
     if (targetPage !== 'home') {
-      newHash = targetSub ? `#/${targetPage}/${targetSub}` : `#/${targetPage}`;
-    }
-    
-    if (window.location.hash !== newHash) {
-      window.location.hash = newHash;
+      const newHash = targetSub ? `#/${targetPage}/${targetSub}` : `#/${targetPage}`;
+      if (window.location.hash !== newHash) {
+        window.location.hash = newHash;
+      }
+    } else if (window.location.hash) {
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });

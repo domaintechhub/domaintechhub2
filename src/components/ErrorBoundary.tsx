@@ -68,7 +68,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </p>
             <button
               onClick={() => {
-                window.location.hash = '';
+                window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
                 window.location.reload();
               }}
               style={{
