@@ -66,6 +66,54 @@ const ADDON_OPTIONS: AddonOption[] = [
     priceUSD: 300,
     priceKES: 39000,
     category: 'support'
+  },
+  {
+    id: 'printer-80mm',
+    name: 'Thermal Receipt Printer (80mm Auto-Cutter)',
+    desc: 'High-speed 80mm receipt printer (KSh 6,000 – KSh 18,000) with auto-cutter & USB/LAN/Bluetooth.',
+    priceUSD: 90,
+    priceKES: 12000,
+    category: 'pos_hardware'
+  },
+  {
+    id: 'scanner-barcode',
+    name: 'Barcode Scanner (1D / 2D / Omnidirectional)',
+    desc: 'Fast laser / 2D QR scanner (KSh 3,500 – KSh 14,000) with hands-free stand.',
+    priceUSD: 65,
+    priceKES: 8500,
+    category: 'pos_hardware'
+  },
+  {
+    id: 'cash-drawer',
+    name: 'Automatic Heavy-Duty Cash Drawer',
+    desc: '5-bill solid steel cash drawer (KSh 5,000 – KSh 10,000) with RJ11 printer trigger.',
+    priceUSD: 58,
+    priceKES: 7500,
+    category: 'pos_hardware'
+  },
+  {
+    id: 'touch-terminal',
+    name: 'Touch Screen Monitor / Terminal',
+    desc: 'Stand-alone monitor or Android/Celeron all-in-one unit (KSh 22,000 – KSh 50,000).',
+    priceUSD: 270,
+    priceKES: 35000,
+    category: 'pos_hardware'
+  },
+  {
+    id: 'smart-pos-handheld',
+    name: 'Android Smart POS / Mobile Terminal',
+    desc: 'Handheld unit with built-in printer (KSh 10,000 – KSh 40,000) ideal for small shops & restaurants.',
+    priceUSD: 190,
+    priceKES: 25000,
+    category: 'pos_hardware'
+  },
+  {
+    id: 'etims-cloud-sync',
+    name: 'KRA e-TIMS Integration & Cloud Sync (Annual)',
+    desc: 'Annual hosting fee (~KSh 5,000/yr) with continuous KRA e-TIMS fiscal invoice generation.',
+    priceUSD: 38,
+    priceKES: 5000,
+    category: 'pos_hardware'
   }
 ];
 
@@ -83,8 +131,11 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
   const [selectedServiceId, setSelectedServiceId] = useState<string>(
     initialServiceId || 'web-development'
   );
+  const [showAllServices, setShowAllServices] = useState<boolean>(false);
   const [selectedTier, setSelectedTier] = useState<'starter' | 'growth' | 'enterprise'>('growth');
-  const [selectedAddons, setSelectedAddons] = useState<string[]>(['mpesa-gateway', 'seo-accelerator']);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>(
+    initialServiceId === 'pos-systems' ? ['printer-80mm', 'etims-cloud-sync'] : ['mpesa-gateway', 'seo-accelerator']
+  );
   const [isRushTimeline, setIsRushTimeline] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -92,10 +143,14 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
   useEffect(() => {
     if (initialServiceId) {
       setSelectedServiceId(initialServiceId);
+      if (initialServiceId === 'pos-systems') {
+        setSelectedAddons(['printer-80mm', 'etims-cloud-sync']);
+      }
     }
   }, [initialServiceId]);
 
   const currentService = SERVICES_LIST.find(s => s.id === selectedServiceId) || SERVICES_LIST[0];
+  const isPos = currentService.id === 'pos-systems';
 
   // Tier multiplier
   const tierMultiplier = {
@@ -104,15 +159,69 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
     enterprise: 1.85
   }[selectedTier];
 
-  const tierLabels = {
+  const tierLabels = isPos ? {
+    starter: 'Cloud-Based POS Software (Monthly: KSh 500 – KSh 5,000/mo)',
+    growth: 'On-Premise Lifetime POS License (KSh 15,000 – KSh 35,000 per PC)',
+    enterprise: 'Complete All-in-One Touchscreen Bundle (KSh 37,000 – KSh 105,000)'
+  } : {
     starter: 'Startup MVP Tier (Essential Scope)',
     growth: 'Growth & Business Tier (Full Production)',
     enterprise: 'Enterprise & Scale Tier (High Volume & Custom Architecture)'
   };
 
+  const tierList = isPos ? [
+    {
+      id: 'starter' as const,
+      title: 'Cloud-Based (Monthly)',
+      desc: 'From KSh 500 to KSh 5,000 / month depending on features & multi-user access.',
+      multiplier: 'From KSh 500 / mo'
+    },
+    {
+      id: 'growth' as const,
+      title: 'On-Premise Lifetime',
+      desc: 'KSh 15,000 to KSh 35,000 per PC lifetime license with local install, offline mode & KRA e-TIMS.',
+      multiplier: 'KSh 25,000 one-off'
+    },
+    {
+      id: 'enterprise' as const,
+      title: 'All-in-One Touch Bundle',
+      desc: 'KSh 37,000 to KSh 105,000 complete bundle (Core i3/i5 touch terminal, 80mm printer, scanner, cash drawer).',
+      multiplier: 'KSh 90,000 complete'
+    }
+  ] : [
+    {
+      id: 'starter' as const,
+      title: 'Starter / MVP',
+      desc: 'Essential features, rapid launch, lean setup for new ventures.',
+      multiplier: '0.75x'
+    },
+    {
+      id: 'growth' as const,
+      title: 'Growth / Business',
+      desc: 'Most popular. Full custom design, high conversions & integrations.',
+      multiplier: '1.0x (Standard)'
+    },
+    {
+      id: 'enterprise' as const,
+      title: 'Enterprise / Scale',
+      desc: 'High traffic, multi-role security, custom API & dedicated SLA.',
+      multiplier: '1.85x'
+    }
+  ];
+
   // Base price calculation
-  const calculatedBaseUSD = Math.round(currentService.basePriceUSD * tierMultiplier);
-  const calculatedBaseKES = Math.round(currentService.basePriceKES * tierMultiplier);
+  const calculatedBaseUSD = isPos
+    ? (selectedTier === 'starter' ? 5 : selectedTier === 'growth' ? 195 : 690)
+    : Math.round(currentService.basePriceUSD * tierMultiplier);
+
+  const calculatedBaseKES = isPos
+    ? (selectedTier === 'starter' ? 500 : selectedTier === 'growth' ? 25000 : 90000)
+    : Math.round(currentService.basePriceKES * tierMultiplier);
+
+  // Addons calculation
+  const displayedAddons = isPos
+    ? [...ADDON_OPTIONS].sort((a, b) => (a.category === 'pos_hardware' ? -1 : 1))
+    : ADDON_OPTIONS;
 
   // Addons calculation
   const addonsTotalUSD = selectedAddons.reduce((acc, addonId) => {
@@ -231,11 +340,24 @@ Generated at domaintechhub.com tool.`;
             
             {/* Step 1: Select Primary Service */}
             <div>
-              <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
-                {t('calc.step1')}
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {SERVICES_LIST.slice(0, 8).map((srv) => (
+              <div className="flex items-center justify-between mb-3">
+                <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                  {t('calc.step1')}
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setShowAllServices(!showAllServices)}
+                  className="text-xs font-mono text-cyan-400 hover:text-cyan-300 underline"
+                >
+                  {showAllServices ? 'Show popular services' : `View all services (${SERVICES_LIST.length})`}
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 sm:max-h-80 overflow-y-auto pr-1">
+                {(showAllServices 
+                  ? SERVICES_LIST 
+                  : [...SERVICES_LIST.slice(0, 6), SERVICES_LIST.find(s => s.id === 'pos-systems')!, SERVICES_LIST[7]].filter(Boolean)
+                ).map((srv) => (
                   <button
                     key={srv.id}
                     onClick={() => setSelectedServiceId(srv.id)}
@@ -245,9 +367,18 @@ Generated at domaintechhub.com tool.`;
                         : 'bg-slate-950/60 border-slate-800/80 text-slate-300 hover:border-slate-700 hover:text-white'
                     }`}
                   >
-                    <div className="font-semibold">{srv.title}</div>
+                    <div className="font-semibold flex items-center justify-between">
+                      <span>{srv.title}</span>
+                      {srv.id === 'pos-systems' && (
+                        <span className="text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/40 px-1.5 py-0.5 rounded font-mono">
+                          POS Hardware
+                        </span>
+                      )}
+                    </div>
                     <div className="text-[11px] text-slate-400 mt-1 font-mono">
-                      From {formatPrice(srv.basePriceUSD, srv.basePriceKES)}
+                      {srv.id === 'pos-systems' 
+                        ? 'From KSh 500/mo or KSh 15k lifetime' 
+                        : `From ${formatPrice(srv.basePriceUSD, srv.basePriceKES)}`}
                     </div>
                   </button>
                 ))}
@@ -260,29 +391,10 @@ Generated at domaintechhub.com tool.`;
                 {t('calc.step2')}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {[
-                  {
-                    id: 'starter',
-                    title: 'Starter / MVP',
-                    desc: 'Essential features, rapid launch, lean setup for new ventures.',
-                    multiplier: '0.75x'
-                  },
-                  {
-                    id: 'growth',
-                    title: 'Growth / Business',
-                    desc: 'Most popular. Full custom design, high conversions & integrations.',
-                    multiplier: '1.0x (Standard)'
-                  },
-                  {
-                    id: 'enterprise',
-                    title: 'Enterprise / Scale',
-                    desc: 'High traffic, multi-role security, custom API & dedicated SLA.',
-                    multiplier: '1.85x'
-                  }
-                ].map((tier) => (
+                {tierList.map((tier) => (
                   <button
                     key={tier.id}
-                    onClick={() => setSelectedTier(tier.id as any)}
+                    onClick={() => setSelectedTier(tier.id)}
                     className={`text-left p-4 rounded-xl border transition-all ${
                       selectedTier === tier.id
                         ? 'bg-cyan-950/70 border-cyan-500 text-white shadow-md'
@@ -296,7 +408,7 @@ Generated at domaintechhub.com tool.`;
                     <p className="text-xs text-slate-400 leading-relaxed mb-2">
                       {tier.desc}
                     </p>
-                    <span className="text-[11px] font-mono text-cyan-400">
+                    <span className="text-[11px] font-mono text-cyan-400 font-semibold">
                       Scale: {tier.multiplier}
                     </span>
                   </button>
@@ -308,15 +420,15 @@ Generated at domaintechhub.com tool.`;
             <div>
               <div className="flex items-center justify-between mb-3">
                 <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-                  {t('calc.step3')}
+                  {t('calc.step3')} {isPos ? '(Includes POS Hardware & Cloud Sync)' : ''}
                 </label>
                 <span className="text-xs text-slate-400">
                   {selectedAddons.length} selected
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {ADDON_OPTIONS.map((addon) => {
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 sm:max-h-96 overflow-y-auto pr-1">
+                {displayedAddons.map((addon) => {
                   const isChecked = selectedAddons.includes(addon.id);
                   return (
                     <div

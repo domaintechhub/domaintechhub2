@@ -34,6 +34,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
+  const resultItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Pre-index all searchable items
   const allItems: SearchResultItem[] = [
@@ -49,7 +52,19 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       subTab: s.id,
     })),
 
-    // 2. Case Studies
+    // 2. Point of Sale & e-TIMS quick tools
+    {
+      id: 'tool-pos-pricing',
+      type: 'service' as const,
+      categoryLabel: 'POS & Hardware',
+      title: 'Point of Sale (POS) Systems & Hardware Prices Kenya',
+      description: 'Cloud POS from KSh 500/mo, on-premise KSh 15,000–35,000, thermal printers, barcode scanners & all-in-one touchscreen bundles KSh 37,000–105,000 with KRA e-TIMS.',
+      tags: ['pos', 'point of sale', 'etims', 'e-tims', 'kra', 'thermal printer', 'barcode scanner', 'cash drawer', 'hardware', 'retail'],
+      target: 'services',
+      subTab: 'pos-systems',
+    },
+
+    // 3. Case Studies
     ...CASE_STUDIES.map((c) => ({
       id: `portfolio-${c.id}`,
       type: 'portfolio' as const,
@@ -60,7 +75,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       target: 'portfolio',
     })),
 
-    // 3. Insights / Blog Posts
+    // 4. Insights / Blog Posts
     ...INSIGHT_ARTICLES.map((a) => ({
       id: `insight-${a.id}`,
       type: 'insight' as const,
@@ -71,14 +86,14 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       target: 'insights',
     })),
 
-    // 4. Client & Developer Tools
+    // 5. Client & Developer Tools
     {
       id: 'tool-calculator',
       type: 'tool' as const,
       categoryLabel: 'Interactive Tool',
       title: 'Project Cost & Scope Calculator',
       description: 'Configure custom modules, payment gateways, and generate real-time budgets in USD & KES.',
-      tags: ['pricing', 'budget', 'quote', 'cost', 'estimator', 'USD', 'KES'],
+      tags: ['pricing', 'budget', 'quote', 'cost', 'estimator', 'USD', 'KES', 'pos'],
       target: 'calculator',
       subTab: 'calculator',
     },
@@ -134,33 +149,82 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
     return matchTitle || matchDesc || matchTags;
   });
 
-  // Focus input on open
+  // Focus input on open and restore focus on close
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      previouslyFocusedElementRef.current = document.activeElement as HTMLElement | null;
       setSelectedIndex(0);
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
     } else {
       setQuery('');
       setActiveCategory('all');
+      if (previouslyFocusedElementRef.current && typeof previouslyFocusedElementRef.current.focus === 'function') {
+        previouslyFocusedElementRef.current.focus();
+      }
     }
   }, [isOpen]);
 
-  // Handle keyboard navigation
+  // Keep selected index in sync and scroll into view
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
+    if (filteredItems.length > 0 && selectedIndex >= filteredItems.length) {
+      setSelectedIndex(0);
+    }
+    const selectedBtn = resultItemsRef.current[selectedIndex];
+    if (selectedBtn && typeof selectedBtn.scrollIntoView === 'function') {
+      selectedBtn.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }, [selectedIndex, filteredItems.length]);
 
+  // Handle keyboard navigation, focus trap, and Escape key closing
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // 1. Escape closing
       if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
         onClose();
-      } else if (e.key === 'ArrowDown') {
+        return;
+      }
+
+      // 2. Focus Trap on Tab
+      if (e.key === 'Tab' && modalContentRef.current) {
+        const focusableElements = modalContentRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableElements.length > 0) {
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              e.preventDefault();
+              lastElement.focus();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              e.preventDefault();
+              firstElement.focus();
+            }
+          }
+        }
+      }
+
+      // 3. Arrow navigation
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         setSelectedIndex((prev) => (prev + 1) % (filteredItems.length || 1));
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % (filteredItems.length || 1));
       } else if (e.key === 'Enter') {
-        e.preventDefault();
+        // If an item in the list is selected
         if (filteredItems[selectedIndex]) {
+          e.preventDefault();
           const item = filteredItems[selectedIndex];
           if (query.trim()) {
             sessionStorage.setItem('dth_search_intent', query.trim());
@@ -171,9 +235,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, filteredItems, selectedIndex, onNavigate, onClose]);
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, [isOpen, filteredItems, selectedIndex, onNavigate, onClose, query]);
 
   if (!isOpen) return null;
 
@@ -212,6 +276,10 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       onClick={onClose}
     >
       <div 
+        ref={modalContentRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Global Search and Quick Navigation"
         className="w-full max-w-2xl bg-white dark:bg-slate-950 rounded-3xl shadow-2xl border border-stone-200/90 dark:border-slate-800 overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
@@ -292,6 +360,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
               return (
                 <button
                   key={item.id}
+                  ref={(el) => {
+                    resultItemsRef.current[index] = el;
+                  }}
                   onClick={() => {
                     if (query.trim()) {
                       sessionStorage.setItem('dth_search_intent', query.trim());

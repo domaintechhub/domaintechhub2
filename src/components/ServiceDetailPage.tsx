@@ -4,7 +4,7 @@ import {
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
   Smartphone, ArrowRight, ArrowLeft, Check, Clock, 
   CheckCircle2, Plus, HelpCircle, ChevronDown, ChevronRight,
-  ExternalLink, Layers
+  ExternalLink, Layers, Printer, Scan, Monitor, Receipt
 } from 'lucide-react';
 import { ServiceDetail, ServiceCategory } from '../types';
 import { SERVICES_LIST } from '../data/servicesData';
@@ -384,6 +384,297 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* 3.5 DEDICATED POS PRICING & HARDWARE MATRIX (KENYA MARKET SPECIFICATION) */}
+      {service.id === 'pos-systems' && (
+        <section className="py-16 sm:py-20 bg-gradient-to-b from-stone-50 via-white to-stone-50 dark:from-slate-900/80 dark:via-slate-950 dark:to-slate-900/80 border-b border-stone-200 dark:border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            {/* Header */}
+            <div className="max-w-3xl">
+              <span className="text-xs font-mono text-teal-600 dark:text-teal-400 uppercase tracking-wider font-semibold">
+                Official Kenya Market Price Guide
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+                Point of Sale (POS) System Prices in Kenya
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                Point of sale (POS) system prices in Kenya range from <strong className="text-teal-600 dark:text-teal-400 font-mono">KSh 500 per month</strong> for basic cloud software to <strong className="text-teal-600 dark:text-teal-400 font-mono">over KSh 100,000</strong> for complete high-performance hardware bundles. Explore transparent software tiers, certified hardware components, and turn-key bundles below.
+              </p>
+            </div>
+
+            {/* Part 1: POS Software Prices */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Receipt className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  1. POS Software Prices
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800 mb-3">
+                      Monthly Cloud
+                    </span>
+                    <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                      Cloud-Based Software
+                    </h4>
+                    <div className="text-xl sm:text-2xl font-black text-teal-600 dark:text-teal-400 font-mono my-2">
+                      KSh 500 – KSh 5,000 <span className="text-xs text-slate-500 font-normal">/ month</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                      From KSh 500 to KSh 5,000 per month depending on features and multi-user access. Manage sales and inventory remotely from anywhere on laptops, tablets, or phones.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-stone-100 dark:border-slate-800">
+                    <button
+                      onClick={() => onBookService(service.title, 'Cloud-Based POS Software (KSh 500 - 5,000/mo)')}
+                      className="w-full py-2.5 rounded-xl bg-stone-100 dark:bg-slate-800 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-600 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all"
+                    >
+                      Choose Cloud Monthly
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-teal-500 shadow-md flex flex-col justify-between relative">
+                  <div className="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-teal-600 text-white font-mono text-[10px] font-bold uppercase tracking-wide">
+                    Lifetime License
+                  </div>
+                  <div>
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 mb-3">
+                      One-Off per PC
+                    </span>
+                    <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                      On-Premise Software
+                    </h4>
+                    <div className="text-xl sm:text-2xl font-black text-teal-600 dark:text-teal-400 font-mono my-2">
+                      KSh 15,000 – KSh 35,000 <span className="text-xs text-slate-500 font-normal">/ computer</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                      KSh 15,000 to KSh 35,000 per computer for a lifetime license with local installation. Permanent ownership with zero recurring monthly subscription costs.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-stone-100 dark:border-slate-800">
+                    <button
+                      onClick={() => onBookService(service.title, 'On-Premise Lifetime POS License (KSh 15,000 - 35,000)')}
+                      className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold shadow-sm transition-all"
+                    >
+                      Choose On-Premise Lifetime
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 mb-3">
+                      KRA e-TIMS Sync
+                    </span>
+                    <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                      Hosting / Offline Setup
+                    </h4>
+                    <div className="text-xl sm:text-2xl font-black text-teal-600 dark:text-teal-400 font-mono my-2">
+                      ~ KSh 5,000 <span className="text-xs text-slate-500 font-normal">/ year</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                      Offline versions are usually one-off, while cloud or online sync setups may add an annual hosting fee of about KSh 5,000. Fully includes support for KRA e-TIMS integration.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-stone-100 dark:border-slate-800">
+                    <button
+                      onClick={() => onBookService(service.title, 'POS Hosting / Offline Setup with KRA e-TIMS (KSh 5,000/yr)')}
+                      className="w-full py-2.5 rounded-xl bg-stone-100 dark:bg-slate-800 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-600 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all"
+                    >
+                      Inquire e-TIMS Setup
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Part 2: POS Hardware Component Prices */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Printer className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  2. POS Hardware Component Prices
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 flex items-center justify-center text-sky-600 dark:text-sky-400 mb-2">
+                    <Printer className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                    Thermal Receipt Printers (80mm)
+                  </h4>
+                  <div className="text-base font-bold font-mono text-teal-600 dark:text-teal-400">
+                    KSh 6,000 – KSh 18,000
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    High-speed 80mm receipt printers with auto-cutter, USB, LAN, or Bluetooth interface.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-2">
+                    <Scan className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                    Barcode Scanners
+                  </h4>
+                  <div className="text-base font-bold font-mono text-teal-600 dark:text-teal-400">
+                    KSh 3,500 – KSh 14,000
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    1D laser scanners to high-speed 2D QR and hands-free omnidirectional supermarket scanners.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-2">
+                    <Receipt className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                    Automatic Cash Drawers
+                  </h4>
+                  <div className="text-base font-bold font-mono text-teal-600 dark:text-teal-400">
+                    KSh 5,000 – KSh 10,000
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Heavy-duty 5-note steel construction with RJ11 printer cable for automatic pop-open on receipt.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-2">
+                    <Monitor className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                    Touch Screen Monitors / Terminals
+                  </h4>
+                  <div className="text-base font-bold font-mono text-teal-600 dark:text-teal-400">
+                    KSh 22,000 – KSh 50,000
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Stand-alone touch monitors or high-response Android/Celeron commercial all-in-one touch units.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Part 3: Complete POS Bundles */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Layers className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  3. Complete POS Bundles
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-md flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400 uppercase">
+                        Handheld & Mobile
+                      </span>
+                      <span className="text-xs font-mono bg-stone-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400">
+                        Plug & Play
+                      </span>
+                    </div>
+                    <h4 className="text-xl font-black text-slate-900 dark:text-white">
+                      Android Smart POS / Mobile Terminals
+                    </h4>
+                    <div className="text-2xl font-black font-mono text-teal-600 dark:text-teal-400 my-2">
+                      KSh 10,000 – KSh 40,000
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                      Handheld or compact units with built-in thermal printers, long-lasting battery, and touch interface. Ideal for small shops, kiosks, bars, food trucks, or restaurants.
+                    </p>
+                    <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>Built-in 58mm thermal receipt printer</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>Camera barcode scanner & Wi-Fi / 4G SIM slot</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>Pre-installed POS software with M-Pesa tracking</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-6 mt-4 border-t border-stone-100 dark:border-slate-800">
+                    <button
+                      onClick={() => onBookService(service.title, 'Android Smart POS / Mobile Terminal Bundle (KSh 10,000 - 40,000)')}
+                      className="w-full py-3 rounded-xl bg-stone-100 dark:bg-slate-800 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-600 text-slate-800 dark:text-slate-200 text-xs font-bold transition-all"
+                    >
+                      Order Android Smart POS Terminal
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border-2 border-teal-500 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute top-0 right-0 px-4 py-1 bg-teal-600 text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-bl-xl">
+                    Full Hardware Rig
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400 uppercase">
+                        Supermarket & Retail Rig
+                      </span>
+                    </div>
+                    <h4 className="text-xl font-black text-slate-900 dark:text-white">
+                      All-in-One Touchscreen Bundles (Core i3 / i5 / Celeron)
+                    </h4>
+                    <div className="text-2xl font-black font-mono text-teal-600 dark:text-teal-400 my-2">
+                      KSh 37,000 – KSh 105,000
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                      Complete enterprise setup including the touch terminal, high-speed 80mm receipt printer, barcode scanner, and automatic steel cash drawer.
+                    </p>
+                    <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>Core i3 / i5 / Celeron high-response touchscreen terminal</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>High-speed 80mm thermal receipt printer with auto-cutter</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>1D/2D or omnidirectional hands-free barcode scanner</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                        <span>Heavy-duty 5-note automatic RJ11 cash drawer & KRA e-TIMS</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-6 mt-4 border-t border-stone-100 dark:border-slate-800">
+                    <button
+                      onClick={() => onBookService(service.title, 'All-in-One Touchscreen Bundle Rig (KSh 37,000 - 105,000)')}
+                      className="w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold shadow-md transition-all"
+                    >
+                      Order Complete Touchscreen Bundle
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </section>
       )}

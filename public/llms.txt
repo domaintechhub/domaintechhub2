@@ -9,6 +9,7 @@
 - **Custom Enterprise Software**: Scalable REST & GraphQL APIs, Node.js, Python, PostgreSQL, Docker containers, Cloudflare edge hosting.
 - **Corporate Branding & Design Tokens**: UI/UX design in Figma, comprehensive brand identity guidelines, design systems, vector asset kits.
 - **Technical & Generative SEO**: Semantic HTML5, Schema.org JSON-LD structured data, Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), Core Web Vitals tuning.
+- **Point of Sale (POS) Systems & Hardware (Kenya)**: Cloud-based software (from KSh 500/mo), on-premise lifetime licenses (KSh 15,000–35,000), thermal printers (KSh 6,000–18,000), barcode scanners (KSh 3,500–14,000), cash drawers (KSh 5,000–10,000), touch monitors (KSh 22,000–50,000), and complete bundles (KSh 37,000–105,000) with KRA e-TIMS.
 
 ## Verified Agency Performance Metrics
 - **Projects Completed**: 65+ commercial deployments

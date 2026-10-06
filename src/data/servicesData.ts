@@ -412,6 +412,39 @@ export const SERVICES_LIST: ServiceDetail[] = [
     basePriceUSD: 1400,
     basePriceKES: 185000,
     duration: '6 - 10 Weeks'
+  },
+  {
+    id: 'pos-systems',
+    title: 'Point of Sale (POS) Systems & Hardware',
+    category: 'crm_software',
+    badge: 'e-TIMS & Hardware',
+    iconName: 'ShoppingCart',
+    shortDesc: 'Point of sale (POS) systems in Kenya ranging from KSh 500/mo cloud software to complete high-performance hardware bundles with KRA e-TIMS.',
+    fullDesc: 'Point of sale (POS) system prices in Kenya range from KSh 500 per month for basic cloud software to over KSh 100,000 for complete high-performance hardware bundles. We engineer and supply cloud-based software, on-premise lifetime licenses, KRA e-TIMS fiscal integrations, barcode scanners, 80mm thermal receipt printers, automatic cash drawers, and all-in-one touchscreen terminals tailored for retail, supermarkets, pharmacies, bars, and restaurants.',
+    features: [
+      'Cloud-Based Software (Monthly): From KSh 500 to KSh 5,000/mo depending on features & multi-user access',
+      'On-Premise / One-Off: KSh 15,000 to KSh 35,000 per computer for a lifetime license with local installation',
+      'Hosting & Offline Setup: Offline versions are one-off; cloud sync adds ~KSh 5,000/yr with full KRA e-TIMS support',
+      'Thermal Receipt Printers (80mm): KSh 6,000 – KSh 18,000 with auto-cutter & high-speed USB/LAN/Bluetooth',
+      'Barcode Scanners: KSh 3,500 – KSh 14,000 (1D laser, 2D QR code, and hands-free omnidirectional types)',
+      'Automatic Cash Drawers: KSh 5,000 – KSh 10,000 heavy-duty steel drawers with RJ11 printer trigger',
+      'Touch Screen Monitors / Terminals: KSh 22,000 – KSh 50,000 (standalone touch monitors or Android/Celeron units)',
+      'Android Smart POS / Mobile Terminals: KSh 10,000 – KSh 40,000 (handheld units with built-in printers & M-Pesa)',
+      'All-in-One Touchscreen Bundles (Core i3 / i5 / Celeron): KSh 37,000 – KSh 105,000 (terminal, printer, scanner & drawer)'
+    ],
+    deliverables: [
+      'Fully configured POS software (Cloud or On-premise lifetime)',
+      'KRA e-TIMS direct fiscal transmission & QR tax receipt setup',
+      'Tested hardware bundle (printer, scanner, cash drawer, touch terminal)',
+      'Product catalog database import, barcodes & category setup',
+      'Cashier & supervisor training with user manuals',
+      '30-day technical support warranty with priority SLA'
+    ],
+    technologies: ['Cloud POS', 'KRA e-TIMS', 'Android Smart POS', 'Thermal Printers', 'Barcode Scanners', 'Cash Drawers'],
+    basePriceUSD: 5,
+    basePriceKES: 500,
+    duration: '1 - 3 Days',
+    popular: true
   }
 ];
 

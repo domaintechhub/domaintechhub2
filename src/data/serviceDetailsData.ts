@@ -1375,5 +1375,137 @@ export const SERVICE_DEEP_DIVES: Record<string, ServiceDeepDive> = {
     ],
     caseStudyId: 'finpulse-crm-automation',
     relatedServiceIds: ['web-development', 'custom-crm-development', 'ecommerce-development']
+  },
+  'pos-systems': {
+    serviceId: 'pos-systems',
+    tagline: 'Point of Sale (POS) software & hardware solutions in Kenya: Cloud monthly plans from KSh 500/mo, lifetime licenses, and complete KRA e-TIMS touchscreen bundles.',
+    whyChooseUs: [
+      'Transparent market pricing: Basic cloud software from KSh 500/mo to complete high-performance bundles up to KSh 105,000.',
+      'Full KRA e-TIMS compliance: Automated fiscal electronic signature and QR code generation on every printed customer receipt.',
+      'Offline-first reliability: Keep ringing up sales during power or network outages with auto-sync when back online.',
+      'Grade-A tested hardware: 80mm thermal receipt printers, laser & 2D barcode scanners, cash drawers, and commercial touchscreen terminals with warranty.'
+    ],
+    packages: [
+      {
+        id: 'starter',
+        name: 'Cloud-Based POS Software (Monthly)',
+        badge: 'From KSh 500 / mo',
+        priceUSD: 5,
+        priceKES: 500,
+        timeline: 'Same Day Deployment',
+        description: 'From KSh 500 to KSh 5,000 per month depending on features and multi-user access. Ideal for small shops, kiosks, cafes, and growing retailers.',
+        features: [
+          'Cloud-Based (Monthly): From KSh 500 to KSh 5,000 / month',
+          'Multi-user access & granular role permissions',
+          'Real-time inventory tracking, low-stock & reorder alerts',
+          'Compatible with any existing laptop, Android tablet, or phone',
+          'Safaricom M-Pesa STK push & digital sales receipts',
+          'Optional cloud sync / hosting (~KSh 5,000/yr) with KRA e-TIMS support'
+        ]
+      },
+      {
+        id: 'pro',
+        name: 'On-Premise Lifetime POS License',
+        badge: 'Most Popular for Retail',
+        popular: true,
+        priceUSD: 195,
+        priceKES: 25000,
+        timeline: '1 - 2 Business Days',
+        description: 'KSh 15,000 to KSh 35,000 per computer for a lifetime license with local installation. Permanent offline speed with zero recurring monthly subscription costs.',
+        features: [
+          'Lifetime license: KSh 15,000 to KSh 35,000 per computer',
+          'Zero recurring monthly fees — permanent software ownership',
+          '100% offline functionality — operates seamlessly without internet',
+          'Direct KRA e-TIMS integration & fiscal QR printing',
+          'Daily sales Z-report reconciliation & cashier shift tracking',
+          'Compatible with standard 80mm printers, barcode scanners & cash drawers'
+        ]
+      },
+      {
+        id: 'enterprise',
+        name: 'All-in-One Touchscreen Complete Bundle',
+        badge: 'Turnkey Hardware & Software',
+        priceUSD: 690,
+        priceKES: 90000,
+        timeline: '2 - 3 Days On-Site',
+        description: 'All-in-One Touchscreen Bundles (Core i3 / i5 / Celeron): KSh 37,000 to KSh 105,000 (includes the touch terminal, receipt printer, scanner, and cash drawer).',
+        features: [
+          'Core i3 / i5 / Celeron All-in-One touchscreen terminal (KSh 37,000 – KSh 105,000 bundle range)',
+          'High-speed 80mm thermal receipt printer with auto-cutter (KSh 6,000 – KSh 18,000 value)',
+          '1D/2D or hands-free omnidirectional barcode scanner (KSh 3,500 – KSh 14,000 value)',
+          'Automatic heavy-duty 5-note cash drawer (KSh 5,000 – KSh 10,000 value)',
+          'Complete POS software pre-configured with KRA e-TIMS fiscal setup',
+          'On-site installation in Nairobi, staff training, and 1-year hardware warranty'
+        ]
+      }
+    ],
+    addons: [
+      {
+        id: 'printer-80mm',
+        name: 'Thermal Receipt Printer (80mm Auto-Cutter)',
+        priceUSD: 90,
+        priceKES: 12000,
+        description: 'High-speed 80mm receipt printer with auto-cutter (KSh 6,000 – KSh 18,000 range) with USB, LAN & Bluetooth support.'
+      },
+      {
+        id: 'scanner-barcode',
+        name: 'Barcode Scanner (1D / 2D / Omnidirectional)',
+        priceUSD: 65,
+        priceKES: 8500,
+        description: 'Fast barcode scanner (KSh 3,500 – KSh 14,000 range) for laser, 2D QR codes, or hands-free omnidirectional scanning.'
+      },
+      {
+        id: 'cash-drawer',
+        name: 'Automatic Heavy-Duty Cash Drawer',
+        priceUSD: 58,
+        priceKES: 7500,
+        description: 'Solid steel 5-bill cash drawer (KSh 5,000 – KSh 10,000 range) with automatic RJ11 printer trigger.'
+      },
+      {
+        id: 'touch-monitor',
+        name: 'Touch Screen Monitor / Terminal',
+        priceUSD: 270,
+        priceKES: 35000,
+        description: 'Stand-alone monitor or Android/Celeron all-in-one unit (KSh 22,000 – KSh 50,000 range) responsive capacitive display.'
+      },
+      {
+        id: 'smart-pos-handheld',
+        name: 'Android Smart POS / Mobile Terminal',
+        priceUSD: 190,
+        priceKES: 25000,
+        description: 'Handheld unit with built-in printer (KSh 10,000 – KSh 40,000 range), ideal for small shops, bars, or restaurants.'
+      },
+      {
+        id: 'etims-annual-sync',
+        name: 'KRA e-TIMS Integration & Cloud Sync (Annual)',
+        priceUSD: 38,
+        priceKES: 5000,
+        description: 'Annual hosting & cloud sync fee (~KSh 5,000/yr) with continuous KRA e-TIMS tax transmission support.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'What are the Point of Sale (POS) system prices in Kenya?',
+        answer: 'Point of sale (POS) system prices in Kenya range from KSh 500 per month for basic cloud software to over KSh 100,000 for complete high-performance hardware bundles. Software options include Cloud-based (KSh 500 to KSh 5,000/mo) or On-Premise lifetime licenses (KSh 15,000 to KSh 35,000 one-off). Hardware ranges from individual items like thermal printers (KSh 6,000 - 18,000) to full touchscreen bundles (KSh 37,000 - 105,000).'
+      },
+      {
+        question: 'What is the price difference between Cloud-Based and On-Premise POS software in Kenya?',
+        answer: 'Cloud-Based POS software costs from KSh 500 to KSh 5,000 per month depending on features and multi-user access, allowing remote tracking from any phone or laptop. On-Premise / One-Off costs KSh 15,000 to KSh 35,000 per computer for a lifetime license with local installation. Offline setups are one-off, while cloud or online sync setups may add an annual hosting fee of about KSh 5,000 with support for KRA e-TIMS.'
+      },
+      {
+        question: 'What are the individual POS hardware component prices in Kenya?',
+        answer: 'Individual POS hardware components are priced as follows: Thermal Receipt Printers (80mm) cost KSh 6,000 – KSh 18,000; Barcode Scanners cost KSh 3,500 – KSh 14,000 (higher for hands-free or 2D/omnidirectional types); Automatic Cash Drawers cost KSh 5,000 – KSh 10,000; Touch Screen Monitors / Terminals cost KSh 22,000 – KSh 50,000 (stand-alone monitors or Android/Celeron all-in-one units).'
+      },
+      {
+        question: 'What complete POS bundles do you supply and what are their prices?',
+        answer: 'We supply two main complete bundle types: 1) Android Smart POS / Mobile Terminals priced from KSh 10,000 – KSh 40,000 (handheld or compact units with built-in printers, ideal for small shops, kiosks, or restaurants); 2) All-in-One Touchscreen Bundles (Core i3 / i5 / Celeron) priced from KSh 37,000 – KSh 105,000, which includes the touch terminal, receipt printer, scanner, and cash drawer.'
+      },
+      {
+        question: 'Does your POS system support KRA e-TIMS fiscal compliance?',
+        answer: 'Yes! Both our cloud and on-premise solutions include support for KRA e-TIMS integration. Every receipt automatically includes the official KRA fiscal QR code, control unit number, and invoice validation data required by the Kenya Revenue Authority.'
+      }
+    ],
+    caseStudyId: 'finpulse-crm-automation',
+    relatedServiceIds: ['custom-crm-development', 'ecommerce-development', 'website-maintenance']
   }
 };

@@ -13,7 +13,7 @@ export const FAQ_CATEGORIES = [
   { id: 'payments', label: 'M-Pesa & Payments' },
   { id: 'seo_hosting', label: 'SEO, Speed & Hosting' },
   { id: 'ownership_support', label: 'Ownership & Support' },
-  { id: 'custom_dev', label: 'CRM & Custom Systems' },
+  { id: 'custom_dev', label: 'CRM, POS & Custom Systems' },
 ] as const;
 
 export const FAQ_ITEMS: FaqItem[] = [
@@ -96,5 +96,32 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Can you replace our existing manual Excel spreadsheets with a custom web CRM?',
     answer: 'Yes, this is one of our most requested enterprise services. We audit your current Excel/Sheets workflows, map out your customer lifecycle stages, and engineer a role-based cloud CRM featuring drag-and-drop lead pipelines, automated PDF quotation/invoice generation, client communication timelines, and executive financial dashboards.',
     highlights: ['Data migration from existing Excel/CSV sheets', 'Role-based access control (Admin, Sales, Ops)', 'Automated invoice generation & WhatsApp/Email alerts']
+  },
+  {
+    id: 'pos-pricing-kenya',
+    category: 'custom_dev',
+    categoryLabel: 'CRM & Custom Systems',
+    question: 'What are Point of Sale (POS) system prices in Kenya?',
+    answer: 'Point of sale (POS) system prices in Kenya range from KSh 500 per month for basic cloud software to over KSh 100,000 for complete high-performance hardware bundles. Cloud-Based software is available from KSh 500 to KSh 5,000 per month depending on features and multi-user access. On-Premise / One-Off lifetime licenses range from KSh 15,000 to KSh 35,000 per computer with local installation. Offline setups are usually one-off, while cloud or online sync setups may add an annual hosting fee of about KSh 5,000 with KRA e-TIMS support.',
+    highlights: [
+      'Cloud Software: From KSh 500 to KSh 5,000 / month',
+      'On-Premise Lifetime: KSh 15,000 to KSh 35,000 per computer',
+      'Annual Cloud Sync & KRA e-TIMS: ~KSh 5,000 / year'
+    ]
+  },
+  {
+    id: 'pos-hardware-prices-kenya',
+    category: 'custom_dev',
+    categoryLabel: 'CRM & Custom Systems',
+    question: 'What are the individual POS hardware component and bundle prices in Kenya?',
+    answer: 'We supply high-grade POS hardware components and complete bundles: Thermal Receipt Printers (80mm) cost KSh 6,000 – KSh 18,000; Barcode Scanners cost KSh 3,500 – KSh 14,000 (higher for hands-free or 2D/omnidirectional types); Automatic Cash Drawers cost KSh 5,000 – KSh 10,000; Touch Screen Monitors / Terminals cost KSh 22,000 – KSh 50,000 (stand-alone monitors or Android/Celeron all-in-one units). For complete bundles, Android Smart POS / Mobile Terminals cost KSh 10,000 – KSh 40,000 (handheld units with built-in printers, ideal for small shops or restaurants), and All-in-One Touchscreen Bundles (Core i3 / i5 / Celeron) cost KSh 37,000 – KSh 105,000 (includes touch terminal, receipt printer, scanner, and cash drawer).',
+    highlights: [
+      '80mm Thermal Printers: KSh 6,000 – KSh 18,000',
+      'Barcode Scanners: KSh 3,500 – KSh 14,000',
+      'Cash Drawers: KSh 5,000 – KSh 10,000',
+      'Touch Monitors: KSh 22,000 – KSh 50,000',
+      'Android Smart POS: KSh 10,000 – KSh 40,000',
+      'All-in-One Touch Bundles: KSh 37,000 – KSh 105,000'
+    ]
   }
 ];

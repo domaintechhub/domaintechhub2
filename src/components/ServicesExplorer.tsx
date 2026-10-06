@@ -84,6 +84,8 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
     const matchesQuery = searchQuery === '' || 
       service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       service.shortDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.fullDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.features.some(f => f.toLowerCase().includes(searchQuery.toLowerCase())) ||
       service.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesQuery;
   });
