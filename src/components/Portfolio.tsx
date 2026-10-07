@@ -210,13 +210,13 @@ export const Portfolio: React.FC<PortfolioProps> = ({
             </div>
 
             {/* Key Metrics Banner */}
-            <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-950/80 border border-slate-800 mb-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-800 mb-6">
               {selectedCase.metrics.map((m, idx) => (
-                <div key={idx} className="text-center">
-                  <span className="text-xl sm:text-2xl font-extrabold font-mono text-emerald-400 block">
+                <div key={idx} className="text-center min-w-0">
+                  <span className="text-base sm:text-2xl font-extrabold font-mono text-emerald-400 block truncate">
                     {m.value}
                   </span>
-                  <span className="text-xs text-slate-400 block mt-0.5">
+                  <span className="text-[10px] sm:text-xs text-slate-400 block mt-0.5 leading-tight">
                     {m.label}
                   </span>
                 </div>

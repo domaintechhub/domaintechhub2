@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Compass, Palette, Code2, CheckSquare2, Rocket, 
   Calendar, Clock, CheckCircle2, ShieldCheck, ArrowRight, 
-  Sparkles, Layers, Users, RefreshCw, FileText, ChevronRight, 
+  Sparkles, Layers, Users, RefreshCw, FileText, ChevronRight, ChevronLeft,
   Lock, Zap, Check, HelpCircle, AlertCircle, MessageSquare, Mail
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/portfolioData';
@@ -341,7 +341,7 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
             </div>
 
             {/* Segmented Duration Switcher */}
-            <div className="inline-flex p-1 rounded-2xl bg-stone-100 dark:bg-slate-950 border border-stone-200 dark:border-slate-800">
+            <div className="flex w-full sm:w-auto p-1 rounded-2xl bg-stone-100 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 justify-between">
               {(['4-weeks', '6-weeks', '8-weeks'] as SprintTimeline[]).map((timeline) => {
                 const isSelected = selectedTimeline === timeline;
                 return (
@@ -349,7 +349,7 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                     key={timeline}
                     type="button"
                     onClick={() => setSelectedTimeline(timeline)}
-                    className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`flex-1 sm:flex-initial px-2.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                       isSelected
                         ? 'bg-teal-600 text-white shadow-md'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -588,12 +588,12 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+              <div className="flex flex-col sm:flex-row flex-wrap sm:items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <a
                   href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=${encodeURIComponent(`Hello Domain Tech Hub, I want to initiate a ${selectedTimeline} sprint (${activeStage.shortLabel} stage).`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>WhatsApp Kickoff</span>
@@ -601,7 +601,7 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
 
                 <a
                   href={`mailto:${AGENCY_INFO.email}?subject=${encodeURIComponent(`Sprint Kickoff Request: ${selectedTimeline} (${activeStage.shortLabel})`)}&body=${encodeURIComponent(`Hello Domain Tech Hub Team,\n\nI want to initiate a ${selectedTimeline} sprint for our project starting at the ${activeStage.name} stage.\n\nTimeline: ${activeStage.timeRange[selectedTimeline]}\n\nPlease let me know your available times for the kickoff consultation.\n`)}`}
-                  className="px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm"
                 >
                   <Mail className="w-3.5 h-3.5" />
                   <span>Email Kickoff</span>
@@ -610,52 +610,113 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                 <button
                   type="button"
                   onClick={() => onStartSprint?.(selectedTimeline, activeStage.id)}
-                  className="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all whitespace-nowrap cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 font-bold text-xs shadow-md transition-all text-center cursor-pointer"
                 >
                   Schedule Discovery Kickoff
                 </button>
               </div>
             </div>
 
-            {/* Stepper Navigation Footer */}
-            <div className="pt-4 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between text-xs font-mono">
-              <button
-                type="button"
-                disabled={activeStageIndex === 0}
-                onClick={() => {
-                  if (activeStageIndex > 0) {
-                    setActiveStageId(ROADMAP_STAGES[activeStageIndex - 1].id);
-                  }
-                }}
-                className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
-                  activeStageIndex === 0 
-                    ? 'text-slate-400 cursor-not-allowed opacity-50' 
-                    : 'text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-cyan-400 font-semibold'
-                }`}
-              >
-                <span>← Previous Stage: {ROADMAP_STAGES[Math.max(0, activeStageIndex - 1)].shortLabel}</span>
-              </button>
+            {/* Stepper Navigation Footer - Mobile UI Design Optimized */}
+            <div className="pt-6 mt-6 border-t border-stone-100 dark:border-slate-800">
+              <div className="grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:justify-between w-full">
+                
+                {/* Previous Stage Button */}
+                <button
+                  type="button"
+                  disabled={activeStageIndex === 0}
+                  onClick={() => {
+                    if (activeStageIndex > 0) {
+                      setActiveStageId(ROADMAP_STAGES[activeStageIndex - 1].id);
+                    }
+                  }}
+                  className={`flex-1 sm:flex-initial sm:min-w-[190px] p-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all text-left flex items-center gap-2.5 ${
+                    activeStageIndex === 0 
+                      ? 'border-stone-200/60 dark:border-slate-800/60 bg-stone-50/40 dark:bg-slate-950/40 opacity-40 cursor-not-allowed text-slate-400' 
+                      : 'border-stone-200 dark:border-slate-700/80 bg-stone-50 hover:bg-stone-100 dark:bg-slate-800/70 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 hover:border-teal-400 dark:hover:border-cyan-500 shadow-xs cursor-pointer active:scale-[0.98]'
+                  }`}
+                  aria-label={activeStageIndex > 0 ? `Go to previous stage: ${ROADMAP_STAGES[activeStageIndex - 1].name}` : 'Previous stage disabled'}
+                >
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                    activeStageIndex === 0 
+                      ? 'bg-stone-200/50 dark:bg-slate-800/50 text-slate-400' 
+                      : 'bg-white dark:bg-slate-900 text-teal-600 dark:text-cyan-400 shadow-xs'
+                  }`}>
+                    <ChevronLeft className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold leading-tight">
+                      Previous
+                    </span>
+                    <span className="block text-xs font-bold text-slate-800 dark:text-white truncate">
+                      {activeStageIndex > 0 
+                        ? ROADMAP_STAGES[activeStageIndex - 1].shortLabel 
+                        : 'Stage 01'}
+                    </span>
+                  </div>
+                </button>
 
-              <div className="text-slate-400 hidden sm:block">
-                Click any stage bubble above to inspect deliverables
+                {/* Middle Stage Dots Stepper (Hidden on small mobile screens to prevent overlap) */}
+                <div className="hidden md:flex flex-col items-center justify-center text-center px-2">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    {ROADMAP_STAGES.map((s, idx) => (
+                      <button
+                        key={s.id}
+                        type="button"
+                        onClick={() => setActiveStageId(s.id)}
+                        className={`transition-all rounded-full ${
+                          idx === activeStageIndex
+                            ? 'w-6 h-2 bg-teal-500 dark:bg-cyan-400 shadow-xs'
+                            : idx < activeStageIndex
+                            ? 'w-2 h-2 bg-emerald-500/80 dark:bg-emerald-400/80'
+                            : 'w-2 h-2 bg-stone-200 dark:bg-slate-700 hover:bg-stone-300 dark:hover:bg-slate-600'
+                        }`}
+                        title={`Stage 0${s.stepNumber}: ${s.name}`}
+                        aria-label={`Jump to stage 0${s.stepNumber}`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-400">
+                    Stage 0{activeStageIndex + 1} of 05 · Tap to jump
+                  </span>
+                </div>
+
+                {/* Next Stage Button */}
+                <button
+                  type="button"
+                  disabled={activeStageIndex === ROADMAP_STAGES.length - 1}
+                  onClick={() => {
+                    if (activeStageIndex < ROADMAP_STAGES.length - 1) {
+                      setActiveStageId(ROADMAP_STAGES[activeStageIndex + 1].id);
+                    }
+                  }}
+                  className={`flex-1 sm:flex-initial sm:min-w-[190px] p-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all text-right flex items-center justify-end gap-2.5 ${
+                    activeStageIndex === ROADMAP_STAGES.length - 1 
+                      ? 'border-stone-200/60 dark:border-slate-800/60 bg-stone-50/40 dark:bg-slate-950/40 opacity-40 cursor-not-allowed text-slate-400' 
+                      : 'border-teal-500/40 dark:border-cyan-500/40 bg-teal-50/80 hover:bg-teal-100 dark:bg-teal-950/40 dark:hover:bg-teal-900/40 text-teal-950 dark:text-cyan-100 hover:border-teal-500 dark:hover:border-cyan-400 shadow-xs cursor-pointer active:scale-[0.98]'
+                  }`}
+                  aria-label={activeStageIndex < ROADMAP_STAGES.length - 1 ? `Go to next stage: ${ROADMAP_STAGES[activeStageIndex + 1].name}` : 'Next stage disabled'}
+                >
+                  <div className="min-w-0 flex-1">
+                    <span className="block text-[10px] font-mono uppercase tracking-wider text-teal-600 dark:text-cyan-400 font-semibold leading-tight">
+                      Next Stage
+                    </span>
+                    <span className="block text-xs font-bold text-teal-950 dark:text-white truncate">
+                      {activeStageIndex < ROADMAP_STAGES.length - 1 
+                        ? ROADMAP_STAGES[activeStageIndex + 1].shortLabel 
+                        : 'Launch'}
+                    </span>
+                  </div>
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                    activeStageIndex === ROADMAP_STAGES.length - 1
+                      ? 'bg-stone-200/50 dark:bg-slate-800/50 text-slate-400' 
+                      : 'bg-teal-600 text-white shadow-xs'
+                  }`}>
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
+                </button>
+
               </div>
-
-              <button
-                type="button"
-                disabled={activeStageIndex === ROADMAP_STAGES.length - 1}
-                onClick={() => {
-                  if (activeStageIndex < ROADMAP_STAGES.length - 1) {
-                    setActiveStageId(ROADMAP_STAGES[activeStageIndex + 1].id);
-                  }
-                }}
-                className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
-                  activeStageIndex === ROADMAP_STAGES.length - 1 
-                    ? 'text-slate-400 cursor-not-allowed opacity-50' 
-                    : 'text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-cyan-400 font-semibold'
-                }`}
-              >
-                <span>Next Stage: {ROADMAP_STAGES[Math.min(ROADMAP_STAGES.length - 1, activeStageIndex + 1)].shortLabel} →</span>
-              </button>
             </div>
 
           </div>

@@ -552,7 +552,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 380, damping: 26 }}
-            className="fixed bottom-6 left-4 sm:left-6 z-50 flex items-center gap-3.5 p-4 rounded-2xl bg-slate-900/95 border border-emerald-500/50 text-white shadow-2xl shadow-emerald-950/60 backdrop-blur-xl max-w-sm"
+            className="fixed bottom-4 sm:bottom-6 left-4 right-4 sm:right-auto sm:left-6 z-50 flex items-center gap-3.5 p-3.5 sm:p-4 rounded-2xl bg-slate-900/95 border border-emerald-500/50 text-white shadow-2xl shadow-emerald-950/60 backdrop-blur-xl max-w-sm"
           >
             <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30">
               <motion.div

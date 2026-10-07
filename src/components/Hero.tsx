@@ -239,18 +239,18 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
 
                 {/* Floating Bottom Card */}
-                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-white/95 dark:bg-slate-950/90 backdrop-blur-md border border-stone-200/80 dark:border-slate-800 shadow-lg">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 p-3 sm:p-3.5 rounded-2xl bg-white/95 dark:bg-slate-950/90 backdrop-blur-md border border-stone-200/80 dark:border-slate-800 shadow-lg">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">
                         DTH
                       </div>
-                      <div>
-                        <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                          <span>Nairobi Engineering Team</span>
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping" />
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 truncate">
+                          <span className="truncate">Nairobi Engineering Team</span>
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping shrink-0" />
                         </div>
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate">
                           Senior Architects & Local Support
                         </div>
                       </div>
@@ -258,7 +258,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
 
                     <button
                       onClick={() => onNavigate('contact')}
-                      className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition-colors shrink-0 cursor-pointer"
                     >
                       Connect
                     </button>
