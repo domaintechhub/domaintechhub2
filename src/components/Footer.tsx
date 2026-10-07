@@ -24,6 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <button 
               onClick={() => onNavigate('home')} 
               className="text-left cursor-pointer p-0 focus:outline-none"
+              aria-label="Domain Tech Hub - Return to Home"
               title="Domain Tech Hub - Return to Home"
             >
               <Logo variant="horizontal" size="md" />
@@ -415,7 +416,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               className="absolute top-5 right-5 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
 
             {/* Modal Navigation Tabs */}

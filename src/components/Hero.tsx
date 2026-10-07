@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { 
   ArrowRight, ShieldCheck, TrendingUp, CheckCircle2, 
   Code2, Globe2, PhoneCall, Laptop, Layers, 
@@ -18,6 +18,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorService }) => {
   const { t } = useLanguage();
+  const heroSearchInputId = useId();
   const [searchQuery, setSearchQuery] = useState('');
   const [intent, setIntent] = useState<DynamicHeroIntent>(() => detectDynamicIntent());
 
@@ -125,10 +126,12 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
             <div className="pt-2">
               <div className="relative max-w-xl group">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                  <Search className="w-4 h-4 text-slate-400 group-focus-within:text-teal-600 transition-colors" />
+                  <Search className="w-4 h-4 text-slate-400 group-focus-within:text-teal-600 transition-colors" aria-hidden="true" />
                 </div>
                 <input
+                  id={heroSearchInputId}
                   type="text"
+                  aria-label="Search a service"
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="Search a service (e.g., M-Pesa store, SEO ranking, custom CRM, branding)..."
@@ -136,11 +139,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                 />
                 {searchQuery && (
                   <button
+                    type="button"
                     onClick={() => handleSearchChange('')}
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                     title="Reset to all capabilities"
+                    aria-label="Clear service search"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                 )}
               </div>

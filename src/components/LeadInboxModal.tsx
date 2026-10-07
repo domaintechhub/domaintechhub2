@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { 
   X, Mail, MessageSquare, Phone, Download, Trash2, 
   Search, ShieldCheck, RefreshCw, Lock, KeyRound, ShieldAlert,
@@ -16,6 +16,8 @@ interface LeadInboxModalProps {
 }
 
 export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose }) => {
+  const passkeyInputId = useId();
+  const leadSearchInputId = useId();
   const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
     try {
       return sessionStorage.getItem('dth_owner_vault_auth') === 'true';
@@ -189,7 +191,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
             className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
 
           <div className="text-center space-y-4">
@@ -212,14 +214,17 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
 
             <form onSubmit={handleUnlock} className="space-y-3 pt-2 text-left">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label id={`${passkeyInputId}-label`} htmlFor={passkeyInputId} className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Owner Passkey
                 </label>
                 <div className="relative">
-                  <KeyRound className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                  <KeyRound className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
                   <input
+                    id={passkeyInputId}
+                    aria-labelledby={`${passkeyInputId}-label`}
                     ref={passkeyInputRef}
                     type="password"
+                    autoComplete="current-password"
                     value={passkeyInput}
                     onChange={(e) => {
                       setPasskeyInput(e.target.value);
@@ -302,7 +307,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
               className="p-2 rounded-full hover:bg-stone-200 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors cursor-pointer shrink-0"
               aria-label="Close Modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -342,10 +347,12 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
         {/* Search & Filter Bar */}
         <div className="p-4 border-b border-stone-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
             <input
+              id={leadSearchInputId}
               ref={searchInputRef}
               type="text"
+              aria-label="Search leads by name, email, or phone"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search leads by name, email, phone..."
@@ -482,8 +489,9 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
                           href={`tel:${lead.phone}`}
                           className="p-2 rounded-xl bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-stone-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                           title="Call client"
+                          aria-label={`Call ${lead.fullName || 'client'}`}
                         >
-                          <Phone className="w-3.5 h-3.5" />
+                          <Phone className="w-3.5 h-3.5" aria-hidden="true" />
                         </a>
                       )}
 
@@ -491,8 +499,9 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
                         onClick={() => handleDelete(lead.id)}
                         className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 transition-colors cursor-pointer"
                         title="Delete lead record"
+                        aria-label={`Delete lead record for ${lead.fullName || 'client'}`}
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                       </button>
                     </div>
                   </div>

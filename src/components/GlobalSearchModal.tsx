@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { 
   Search, X, Globe, ShoppingCart, Database, 
   ArrowRight, FolderGit2, BookOpen, Calculator, Server,
@@ -30,6 +30,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   onClose,
   onNavigate,
 }) => {
+  const searchInputId = useId();
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -271,24 +272,29 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   };
 
   return (
-    <div 
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-150"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-150">
+      <button
+        type="button"
+        aria-label="Close search modal"
+        tabIndex={-1}
+        onClick={onClose}
+        className="fixed inset-0 w-full h-full cursor-default focus:outline-none"
+      />
       <div 
         ref={modalContentRef}
         role="dialog"
         aria-modal="true"
         aria-label="Global Search and Quick Navigation"
-        className="w-full max-w-2xl bg-white dark:bg-slate-950 rounded-3xl shadow-2xl border border-stone-200/90 dark:border-slate-800 overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150"
-        onClick={(e) => e.stopPropagation()}
+        className="relative z-10 w-full max-w-2xl bg-white dark:bg-slate-950 rounded-3xl shadow-2xl border border-stone-200/90 dark:border-slate-800 overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150"
       >
         {/* Search Input Bar */}
         <div className="relative p-4 sm:p-5 border-b border-stone-200 dark:border-slate-800 flex items-center gap-3">
-          <Search className="w-5 h-5 text-teal-600 dark:text-teal-400 shrink-0" />
+          <Search className="w-5 h-5 text-teal-600 dark:text-teal-400 shrink-0" aria-hidden="true" />
           <input
+            id={searchInputId}
             ref={inputRef}
             type="text"
+            aria-label="Search services, case studies, articles, and tools"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -299,13 +305,17 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
           />
           {query && (
             <button
+              type="button"
+              aria-label="Clear search query"
               onClick={() => setQuery('')}
               className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           )}
           <button
+            type="button"
+            aria-label="Close search modal"
             onClick={onClose}
             className="px-2.5 py-1 text-xs font-mono text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg bg-stone-100 dark:bg-slate-900 border border-stone-200 dark:border-slate-800"
           >

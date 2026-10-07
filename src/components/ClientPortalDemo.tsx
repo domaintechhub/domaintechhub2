@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { 
   FolderGit2, CheckCircle2, Clock, AlertCircle, Send, 
   ExternalLink, FileText, ShieldCheck, LifeBuoy, Check,
@@ -26,6 +26,9 @@ export interface RoadmapStage {
 }
 
 export const ClientPortalDemo: React.FC = () => {
+  const categorySelectId = useId();
+  const subjectInputId = useId();
+  const descriptionTextareaId = useId();
   const [ticketSubject, setTicketSubject] = useState('');
   const [ticketCategory, setTicketCategory] = useState('bug');
   const [ticketDescription, setTicketDescription] = useState('');
@@ -688,10 +691,11 @@ export const ClientPortalDemo: React.FC = () => {
                 ) : (
                   <form onSubmit={handleTicketSubmit} className="space-y-3">
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label htmlFor={categorySelectId} className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Category
                       </label>
                       <select
+                        id={categorySelectId}
                         value={ticketCategory}
                         onChange={(e) => setTicketCategory(e.target.value)}
                         className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
@@ -704,12 +708,15 @@ export const ClientPortalDemo: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label id={`${subjectInputId}-label`} htmlFor={subjectInputId} className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Subject
                       </label>
                       <input
+                        id={subjectInputId}
+                        aria-labelledby={`${subjectInputId}-label`}
                         type="text"
                         required
+                        autoComplete="off"
                         value={ticketSubject}
                         onChange={(e) => setTicketSubject(e.target.value)}
                         placeholder="e.g. Update M-Pesa Shortcode in staging"
@@ -718,10 +725,12 @@ export const ClientPortalDemo: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label id={`${descriptionTextareaId}-label`} htmlFor={descriptionTextareaId} className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Description / Details
                       </label>
                       <textarea
+                        id={descriptionTextareaId}
+                        aria-labelledby={`${descriptionTextareaId}-label`}
                         required
                         rows={3}
                         value={ticketDescription}

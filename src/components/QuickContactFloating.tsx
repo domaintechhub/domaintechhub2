@@ -30,7 +30,7 @@ export const QuickContactFloating: React.FC<QuickContactFloatingProps> = ({ onOp
           className="pointer-events-auto p-2.5 rounded-full bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white shadow-lg shadow-stone-200/50 dark:shadow-black/40 hover:bg-stone-50 dark:hover:bg-slate-800 transition-all hover:scale-105 cursor-pointer"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="w-4 h-4" />
+          <ArrowUp className="w-4 h-4" aria-hidden="true" />
         </button>
       )}
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useId } from 'react';
 import { 
   BookOpen, Clock, Calendar, Search, ArrowRight, 
   ArrowUpRight, X, Check, Share2, Tag, Terminal,
@@ -160,6 +160,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   onNavigatePath,
   initialLoading = true
 }) => {
+  const insightsSearchInputId = useId();
   const [activeCategory, setActiveCategory] = useState<string>('All Articles');
   const [durationFilter, setDurationFilter] = useState<ReadDurationFilter>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -402,9 +403,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
             {/* Quick Keyword Search */}
             <div className="relative min-w-[240px]">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
               <input
+                id={insightsSearchInputId}
                 type="text"
+                aria-label="Search insights by topics, tech, or tags"
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Search topics, tech, or tags..."
@@ -692,18 +695,17 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       </div>
                     </div>
 
-                    <h3 
-                      onClick={() => setSelectedArticle(article)}
-                      className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug cursor-pointer"
-                    >
-                      {article.title}
+                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedArticle(article)}
+                        className="text-left cursor-pointer hover:text-cyan-300 transition-colors"
+                      >
+                        {article.title}
+                      </button>
                     </h3>
 
-                    <p 
-                      onClick={() => setSelectedArticle(article)}
-                      className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4 cursor-pointer hover:text-slate-100 transition-colors"
-                      title="Click to read full article"
-                    >
+                    <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4">
                       {article.excerpt}
                     </p>
                   </div>
@@ -819,7 +821,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                 className="absolute top-5 right-5 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors z-20"
                 aria-label="Close article"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" aria-hidden="true" />
               </button>
 
               {/* Header Metadata */}
@@ -943,6 +945,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       <a
                         key={kw.slug}
                         href={kw.targetUrl}
+                        aria-label={`${kw.keyword} - ${kw.targetServiceTitle}`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleInternalNavigate(kw.targetUrl);

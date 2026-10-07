@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { 
   Calendar, Clock, Video, Phone, MapPin, CheckCircle2, 
   Send, MessageSquare, Download, Check, Mail, User, ShieldCheck, X, ArrowRight
@@ -18,6 +18,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
   prefilledNotes 
 }) => {
   const { t } = useLanguage();
+  const meetingFormatGroupId = useId();
+  const dateInputId = useId();
+  const timeSlotGroupId = useId();
+  const fullNameInputId = useId();
+  const emailInputId = useId();
+  const phoneInputId = useId();
+  const serviceInputId = useId();
+  const notesInputId = useId();
   const [meetingType, setMeetingType] = useState<'google_meet' | 'phone' | 'nairobi_office'>('google_meet');
   const [selectedDate, setSelectedDate] = useState(() => {
     const d = new Date();
@@ -360,10 +368,10 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 
                 {/* Meeting Type Selection */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
+                  <div id={meetingFormatGroupId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
                     1. Meeting Format
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  </div>
+                  <div role="group" aria-labelledby={meetingFormatGroupId} className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     {[
                       { id: 'google_meet', label: 'Google Meet', icon: Video, desc: 'Virtual Video Call' },
                       { id: 'phone', label: 'Phone Call', icon: Phone, desc: 'Direct Cellular Line' },
@@ -374,6 +382,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                         <button
                           key={type.id}
                           type="button"
+                          aria-pressed={meetingType === type.id}
                           onClick={() => setMeetingType(type.id as any)}
                           className={`p-3 rounded-xl border text-left transition-all ${
                             meetingType === type.id
@@ -382,7 +391,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                           }`}
                         >
                           <div className="flex items-center gap-2 mb-1">
-                            <Icon className="w-4 h-4 text-cyan-400" />
+                            <Icon className="w-4 h-4 text-cyan-400" aria-hidden="true" />
                             <span className="font-semibold text-xs sm:text-sm text-white">{type.label}</span>
                           </div>
                           <span className="text-[11px] text-slate-400">{type.desc}</span>
@@ -395,12 +404,14 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 {/* Date and Time Selector */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                    <label id={`${dateInputId}-label`} htmlFor={dateInputId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                       2. Select Preferred Date
                     </label>
                     <div className="relative">
-                      <Calendar className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <Calendar className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                       <input
+                        id={dateInputId}
+                        aria-labelledby={`${dateInputId}-label`}
                         type="date"
                         required
                         value={selectedDate}
@@ -411,14 +422,15 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                    <div id={timeSlotGroupId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                       3. Select Time Slot (East Africa Time)
-                    </label>
-                    <div className="grid grid-cols-3 gap-1.5">
+                    </div>
+                    <div role="group" aria-labelledby={timeSlotGroupId} className="grid grid-cols-3 gap-1.5">
                       {timeSlots.map(slot => (
                         <button
                           key={slot}
                           type="button"
+                          aria-pressed={selectedTime === slot}
                           onClick={() => setSelectedTime(slot)}
                           className={`py-2 px-1 text-center rounded-lg text-xs font-mono transition-colors ${
                             selectedTime === slot
@@ -437,12 +449,15 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 <div className="space-y-4 pt-2 border-t border-slate-800">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label id={`${fullNameInputId}-label`} htmlFor={fullNameInputId} className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Your Full Name
                       </label>
                       <input
+                        id={fullNameInputId}
+                        aria-labelledby={`${fullNameInputId}-label`}
                         type="text"
                         required
+                        autoComplete="name"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="e.g. Grace Wanjiru"
@@ -451,12 +466,15 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label id={`${emailInputId}-label`} htmlFor={emailInputId} className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Business Email
                       </label>
                       <input
+                        id={emailInputId}
+                        aria-labelledby={`${emailInputId}-label`}
                         type="email"
                         required
+                        autoComplete="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="grace@company.co.ke"
@@ -467,12 +485,15 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label id={`${phoneInputId}-label`} htmlFor={phoneInputId} className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Phone / WhatsApp Number
                       </label>
                       <input
+                        id={phoneInputId}
+                        aria-labelledby={`${phoneInputId}-label`}
                         type="tel"
                         required
+                        autoComplete="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+254 7XX XXX XXX"
@@ -481,11 +502,14 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label id={`${serviceInputId}-label`} htmlFor={serviceInputId} className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Primary Service of Interest
                       </label>
                       <input
+                        id={serviceInputId}
+                        aria-labelledby={`${serviceInputId}-label`}
                         type="text"
+                        autoComplete="off"
                         value={service}
                         onChange={(e) => setService(e.target.value)}
                         placeholder="e.g. E-Commerce & SEO"
@@ -495,10 +519,12 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                    <label id={`${notesInputId}-label`} htmlFor={notesInputId} className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                       Project Goals & Requirements
                     </label>
                     <textarea
+                      id={notesInputId}
+                      aria-labelledby={`${notesInputId}-label`}
                       rows={3}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
@@ -579,7 +605,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
               className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
               aria-label="Dismiss notification"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           </motion.div>
         )}

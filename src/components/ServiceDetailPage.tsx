@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { 
   Globe, Layout, ShoppingCart, FileCode, Search, TrendingUp, Target, 
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
@@ -30,6 +30,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   onNavigateToCaseStudy,
 }) => {
   const { formatPrice, currency } = useCurrency();
+  const baseTierGroupId = useId();
+  const addonsGroupId = useId();
   const deepDive = SERVICE_DEEP_DIVES[service.id];
 
   // Selected package tier for the interactive configurator
@@ -806,13 +808,15 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
             
             {/* Step 1: Base Tier Selection */}
             <div>
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block mb-3 font-semibold">
+              <div id={baseTierGroupId} className="text-xs font-mono text-slate-500 uppercase tracking-wider block mb-3 font-semibold">
                 1. Select Base Package Tier
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              </div>
+              <div role="group" aria-labelledby={baseTierGroupId} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {packages.map(p => (
                   <button
                     key={p.id}
+                    type="button"
+                    aria-pressed={selectedTierId === p.id}
                     onClick={() => setSelectedTierId(p.id)}
                     className={`p-4 rounded-2xl text-left border transition-all ${
                       selectedTierId === p.id
@@ -825,7 +829,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                         {p.name.split(' - ')[1] || p.name}
                       </span>
                       {selectedTierId === p.id && (
-                        <CheckCircle2 className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                        <CheckCircle2 className="w-4 h-4 text-teal-600 dark:text-teal-400" aria-hidden="true" />
                       )}
                     </div>
                     <div className="text-xs font-mono font-bold text-teal-700 dark:text-teal-300">
@@ -841,16 +845,18 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
 
             {/* Step 2: Service-Specific Add-ons */}
             <div>
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block mb-3 font-semibold">
+              <div id={addonsGroupId} className="text-xs font-mono text-slate-500 uppercase tracking-wider block mb-3 font-semibold">
                 2. Optional Add-ons & Accelerators for {service.title}
-              </label>
-              <div className="space-y-3">
+              </div>
+              <div role="group" aria-labelledby={addonsGroupId} className="space-y-3">
                 {addons.map(addon => {
                   const isChecked = selectedAddonIds.includes(addon.id);
                   return (
                     <button
                       key={addon.id}
                       type="button"
+                      aria-pressed={isChecked}
+                      aria-label={`${addon.name} (+${formatPrice(addon.priceUSD, addon.priceKES)})`}
                       onClick={() => toggleAddon(addon.id)}
                       className={`w-full p-4 rounded-2xl text-left border flex items-center justify-between gap-4 transition-all ${
                         isChecked
@@ -1025,6 +1031,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                     className="rounded-2xl border border-stone-200 dark:border-slate-800 bg-[#faf8f5] dark:bg-slate-900 overflow-hidden"
                   >
                     <button
+                      type="button"
+                      aria-expanded={isOpen}
                       onClick={() => setExpandedFaqIndex(isOpen ? null : idx)}
                       className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 dark:text-white"
                     >
@@ -1071,6 +1079,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
               {relatedServices.map((rel) => (
                 <button
                   key={rel.id}
+                  type="button"
+                  aria-label={`Explore ${rel.title}`}
                   onClick={() => onSelectService(rel.id)}
                   className="text-left p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 hover:border-teal-500/50 hover:shadow-lg transition-all group flex flex-col justify-between"
                 >
