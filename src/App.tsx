@@ -56,11 +56,14 @@ export default function App() {
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
 
-  // Smoothly dismiss the instant preloader once React has mounted and painted
+  // Smoothly dismiss the instant preloader once stylesheets are confirmed loaded and React has painted
   useEffect(() => {
-    const timer = setTimeout(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+    let fallbackId: NodeJS.Timeout | null = null;
+
+    const dismissPreloader = () => {
       const preloader = document.getElementById('dth-preloader');
-      if (preloader) {
+      if (preloader && !preloader.classList.contains('dth-preloader-hidden')) {
         preloader.classList.add('dth-preloader-hidden');
         setTimeout(() => {
           if (preloader.parentNode) {
@@ -68,9 +71,68 @@ export default function App() {
           }
         }, 550);
       }
-    }, 450);
+    };
 
-    return () => clearTimeout(timer);
+    const isCssReady = () => {
+      // In dev mode or when styles are active, document.styleSheets has loaded rules
+      if (typeof document !== 'undefined' && document.styleSheets && document.styleSheets.length > 0) {
+        for (let i = 0; i < document.styleSheets.length; i++) {
+          try {
+            if (document.styleSheets[i].cssRules && document.styleSheets[i].cssRules.length > 0) {
+              return true;
+            }
+          } catch {
+            // Cross-origin stylesheet loaded
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const waitForCssAndDismiss = () => {
+      const styleLinks = Array.from(
+        document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"], link[as="style"]')
+      );
+
+      const triggerDismiss = () => {
+        // Allow brief paint frame so newly applied CSS renders cleanly before preloader fades out
+        timeoutId = setTimeout(dismissPreloader, 350);
+      };
+
+      if (styleLinks.length === 0 || isCssReady()) {
+        triggerDismiss();
+        return;
+      }
+
+      let loadedCount = 0;
+      const targetCount = styleLinks.length;
+      const onLinkLoaded = () => {
+        loadedCount++;
+        if (loadedCount >= targetCount) {
+          triggerDismiss();
+        }
+      };
+
+      styleLinks.forEach((link) => {
+        if ((link as any).sheet) {
+          onLinkLoaded();
+        } else {
+          link.addEventListener('load', onLinkLoaded, { once: true });
+          link.addEventListener('error', onLinkLoaded, { once: true });
+        }
+      });
+
+      // Safety timeout: dismiss after max 1.2s if no event fired
+      fallbackId = setTimeout(dismissPreloader, 1200);
+    };
+
+    waitForCssAndDismiss();
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (fallbackId) clearTimeout(fallbackId);
+    };
   }, []);
 
   // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
