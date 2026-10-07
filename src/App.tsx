@@ -10,22 +10,9 @@ import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { PageHeader } from './components/PageHeader';
 import { Hero } from './components/Hero';
-import { StatsSection } from './components/StatsSection';
-import { ServicesExplorer } from './components/ServicesExplorer';
-import { TechStackSection } from './components/TechStackSection';
-import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
+import type { SprintTimeline } from './components/ProjectRoadmap';
 import type { MoreTab } from './components/MorePage';
 import type { ToolTab } from './components/ToolsPage';
-import { CostCalculator } from './components/CostCalculator';
-import { SeoAuditTool } from './components/SeoAuditTool';
-import { DomainChecker } from './components/DomainChecker';
-import { Portfolio } from './components/Portfolio';
-import { ClientPortalDemo } from './components/ClientPortalDemo';
-import { Testimonials } from './components/Testimonials';
-import { TeamSection } from './components/TeamSection';
-import { InsightsSection } from './components/InsightsSection';
-import { FaqSection } from './components/FaqSection';
-import { BookingSection } from './components/BookingSection';
 import { Footer } from './components/Footer';
 import { QuickContactFloating } from './components/QuickContactFloating';
 import { applyPageSeo } from './utils/seo';
@@ -42,6 +29,15 @@ const MorePage = lazy(() => import('./components/MorePage').then(({ MorePage }) 
 const AboutPage = lazy(() => import('./components/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })));
 const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
 const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })));
+const HomeSections = lazy(() => import('./components/HomeSections').then(({ HomeSections }) => ({ default: HomeSections })));
+const ServicesExplorer = lazy(() => import('./components/ServicesExplorer').then(({ ServicesExplorer }) => ({ default: ServicesExplorer })));
+const TechStackSection = lazy(() => import('./components/TechStackSection').then(({ TechStackSection }) => ({ default: TechStackSection })));
+const Portfolio = lazy(() => import('./components/Portfolio').then(({ Portfolio }) => ({ default: Portfolio })));
+const Testimonials = lazy(() => import('./components/Testimonials').then(({ Testimonials }) => ({ default: Testimonials })));
+const InsightsSection = lazy(() => import('./components/InsightsSection').then(({ InsightsSection }) => ({ default: InsightsSection })));
+const ClientPortalDemo = lazy(() => import('./components/ClientPortalDemo').then(({ ClientPortalDemo }) => ({ default: ClientPortalDemo })));
+const FaqSection = lazy(() => import('./components/FaqSection').then(({ FaqSection }) => ({ default: FaqSection })));
+const BookingSection = lazy(() => import('./components/BookingSection').then(({ BookingSection }) => ({ default: BookingSection })));
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
 
@@ -61,23 +57,6 @@ export default function App() {
 
   useEffect(() => {
     discardPersistedLeadData();
-  }, []);
-
-  // Smoothly dismiss the instant preloader once React has mounted and painted
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const preloader = document.getElementById('dth-preloader');
-      if (preloader) {
-        preloader.classList.add('dth-preloader-hidden');
-        setTimeout(() => {
-          if (preloader.parentNode) {
-            preloader.parentNode.removeChild(preloader);
-          }
-        }, 550);
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
   }, []);
 
   // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
@@ -315,54 +294,23 @@ export default function App() {
                   onNavigate={navigateTo} 
                   onSelectCalculatorService={setCalculatorServiceId}
                 />
-
-                <StatsSection 
-                  onNavigateToCaseStudies={() => navigateTo('portfolio')}
-                  onNavigateToBooking={() => navigateTo('contact')}
-                />
-
-                <ServicesExplorer 
-                  onSelectForQuote={handleSelectForQuote}
-                  onBookService={handleBookService}
-                />
-
-                <TechStackSection 
-                  onSelectTechForProject={handleSelectTechForProject}
-                />
-
-                <CostCalculator 
-                  initialServiceId={calculatorServiceId}
-                  onProceedToBooking={handleProceedToBooking}
-                />
-
-                <SeoAuditTool 
-                  onFixWithAgency={handleFixAuditWithAgency}
-                />
-
-                <DomainChecker 
-                  onSelectDomainForSetup={handleSelectDomainForSetup}
-                />
-
-                <Portfolio 
-                  onBookSimilarProject={handleBookSimilarProject}
-                />
-
-                <ClientPortalDemo />
-
-                <Testimonials />
-
-                <InsightsSection 
-                  onScheduleConsultation={handleScheduleFromInsight}
-                />
-
-                <FaqSection 
-                  onScheduleCall={() => navigateTo('contact')}
-                />
-
-                <BookingSection 
-                  prefilledService={prefilledService}
-                  prefilledNotes={prefilledNotes}
-                />
+                <Suspense fallback={null}>
+                  <HomeSections
+                    calculatorServiceId={calculatorServiceId}
+                    prefilledService={prefilledService}
+                    prefilledNotes={prefilledNotes}
+                    onNavigate={navigateTo}
+                    onSelectForQuote={handleSelectForQuote}
+                    onBookService={handleBookService}
+                    onSelectTechForProject={handleSelectTechForProject}
+                    onProceedToBooking={handleProceedToBooking}
+                    onFixAuditWithAgency={handleFixAuditWithAgency}
+                    onSelectDomainForSetup={handleSelectDomainForSetup}
+                    onBookSimilarProject={handleBookSimilarProject}
+                    onScheduleConsultation={handleScheduleFromInsight}
+                    onNavigatePath={navigateToInternalPath}
+                  />
+                </Suspense>
               </div>
             )}
 

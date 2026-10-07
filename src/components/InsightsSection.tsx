@@ -607,6 +607,8 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                         src={featuredArticle.author.avatar}
                         alt={featuredArticle.author.name}
                         className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div>
                         <div className="text-xs font-bold text-white">{featuredArticle.author.name}</div>
@@ -707,6 +709,8 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                         src={article.author.avatar}
                         alt={article.author.name}
                         className="w-7 h-7 rounded-full object-cover border border-slate-700"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="text-[11px] font-mono text-slate-300 font-medium">
                         {article.author.name}
@@ -847,6 +851,8 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     src={selectedArticle.author.avatar}
                     alt={selectedArticle.author.name}
                     className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div>
                     <div className="text-xs font-bold text-white">{selectedArticle.author.name}</div>

@@ -262,6 +262,8 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onScheduleWithMember }
                   src={selectedMember.image} 
                   alt={selectedMember.name} 
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
