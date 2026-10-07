@@ -1,5 +1,5 @@
 import { CaseStudy } from '../types';
-import solarGridImg from '../assets/images/commercial_solar_grid_kenya_1791048420279.jpg';
+import solarGridImg from '../assets/images/commercial_solar_grid_kenya_1791048420279.webp';
 
 export const CASE_STUDIES: CaseStudy[] = [
   {

@@ -9,7 +9,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { AnimatedCounter } from './AnimatedCounter';
 import { SproutEmblem } from './Logo';
 import { detectDynamicIntent, DynamicHeroIntent, DEFAULT_HERO_INTENT } from '../utils/dynamicIntent';
-import heroImage from '../assets/images/kenyan_developer_laptop_1790409653138.jpg';
+import heroImage from '../assets/images/kenyan_developer_laptop_1790409653138.webp';
 
 interface HeroProps {
   onNavigate: (sectionId: string, subTab?: string) => void;
@@ -226,6 +226,11 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                 <img
                   src={heroImage}
                   alt="Kenyan software developer working on a laptop at Domain Tech Hub Nairobi studio"
+                  width={960}
+                  height={717}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-full h-[360px] sm:h-[420px] object-cover object-center hover:scale-105 transition-transform duration-500"
                 />

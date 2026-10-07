@@ -533,8 +533,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   <img
                     src={featuredArticle.coverImage}
                     alt={featuredArticle.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                    width={800}
+                    height={450}
                     loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/80" />
                   
@@ -606,6 +609,10 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       <img
                         src={featuredArticle.author.avatar}
                         alt={featuredArticle.author.name}
+                        width={40}
+                        height={40}
+                        loading="lazy"
+                        decoding="async"
                         className="w-10 h-10 rounded-full object-cover border border-slate-700"
                       />
                       <div>
@@ -645,8 +652,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     <img
                       src={article.coverImage}
                       alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                      width={640}
+                      height={360}
                       loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
                     
@@ -706,6 +716,10 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       <img
                         src={article.author.avatar}
                         alt={article.author.name}
+                        width={28}
+                        height={28}
+                        loading="lazy"
+                        decoding="async"
                         className="w-7 h-7 rounded-full object-cover border border-slate-700"
                       />
                       <div className="text-[11px] font-mono text-slate-300 font-medium">
@@ -846,6 +860,10 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   <img
                     src={selectedArticle.author.avatar}
                     alt={selectedArticle.author.name}
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    decoding="async"
                     className="w-10 h-10 rounded-full object-cover border border-slate-700"
                   />
                   <div>

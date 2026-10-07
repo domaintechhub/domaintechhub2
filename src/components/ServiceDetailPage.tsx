@@ -987,8 +987,11 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                   <img
                     src={matchedCaseStudy.image}
                     alt={matchedCaseStudy.title}
-                    className="w-full h-64 object-cover"
+                    width={640}
+                    height={360}
                     loading="lazy"
+                    decoding="async"
+                    className="w-full h-64 object-cover"
                   />
                 </div>
               </div>
