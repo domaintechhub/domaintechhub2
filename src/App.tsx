@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -14,9 +14,8 @@ import { StatsSection } from './components/StatsSection';
 import { ServicesExplorer } from './components/ServicesExplorer';
 import { TechStackSection } from './components/TechStackSection';
 import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
-import { RoadmapPage } from './components/RoadmapPage';
-import { MorePage, MoreTab } from './components/MorePage';
-import { AboutPage } from './components/AboutPage';
+import type { MoreTab } from './components/MorePage';
+import type { ToolTab } from './components/ToolsPage';
 import { CostCalculator } from './components/CostCalculator';
 import { SeoAuditTool } from './components/SeoAuditTool';
 import { DomainChecker } from './components/DomainChecker';
@@ -27,10 +26,6 @@ import { TeamSection } from './components/TeamSection';
 import { InsightsSection } from './components/InsightsSection';
 import { FaqSection } from './components/FaqSection';
 import { BookingSection } from './components/BookingSection';
-import { ToolsPage, ToolTab } from './components/ToolsPage';
-import { ServiceDetailPage } from './components/ServiceDetailPage';
-import { GlobalSearchModal } from './components/GlobalSearchModal';
-import { LeadInboxModal } from './components/LeadInboxModal';
 import { Footer } from './components/Footer';
 import { QuickContactFloating } from './components/QuickContactFloating';
 import { applyPageSeo } from './utils/seo';
@@ -40,7 +35,15 @@ import {
   CheckCircle, MessageSquare, PhoneCall, Code, Layers 
 } from 'lucide-react';
 import { AGENCY_INFO } from './data/portfolioData';
+import { discardPersistedLeadData } from './utils/leadDispatch';
 import { getCanonicalLocation, getCurrentAppRoute, getPathForRoute, parseAppRoute } from './utils/routing';
+
+const MorePage = lazy(() => import('./components/MorePage').then(({ MorePage }) => ({ default: MorePage })));
+const AboutPage = lazy(() => import('./components/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })));
+const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
+const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })));
+const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
+const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
 
 export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about';
 
@@ -56,6 +59,10 @@ export default function App() {
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
 
+  useEffect(() => {
+    discardPersistedLeadData();
+  }, []);
+
   // Smoothly dismiss the instant preloader once React has mounted and painted
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -68,7 +75,7 @@ export default function App() {
           }
         }, 550);
       }
-    }, 450);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
@@ -298,6 +305,7 @@ export default function App() {
           />
 
           {/* Main Content Page Container */}
+          <Suspense fallback={<div className="flex-1 min-h-[50vh]" role="status">Loading page...</div>}>
           <main className="flex-1">
 
             {/* 1. DEDICATED PAGE: HOME / LANDING OVERVIEW */}
@@ -623,6 +631,7 @@ export default function App() {
             )}
 
           </main>
+          </Suspense>
 
           {/* Footer */}
           <Footer 
@@ -635,17 +644,25 @@ export default function App() {
           />
 
           {/* Global Search Modal */}
-          <GlobalSearchModal 
-            isOpen={isSearchOpen}
-            onClose={() => setIsSearchOpen(false)}
-            onNavigate={(target, subTab) => navigateTo(target, subTab)}
-          />
+          {isSearchOpen && (
+            <Suspense fallback={null}>
+              <GlobalSearchModal
+                isOpen
+                onClose={() => setIsSearchOpen(false)}
+                onNavigate={(target, subTab) => navigateTo(target, subTab)}
+              />
+            </Suspense>
+          )}
 
           {/* Agency Owner Lead & Submission Inbox */}
-          <LeadInboxModal 
-            isOpen={isLeadInboxOpen}
-            onClose={() => setIsLeadInboxOpen(false)}
-          />
+          {isLeadInboxOpen && (
+            <Suspense fallback={null}>
+              <LeadInboxModal
+                isOpen
+                onClose={() => setIsLeadInboxOpen(false)}
+              />
+            </Suspense>
+          )}
 
         </div>
       </LanguageProvider>

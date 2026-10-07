@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { useLanguage } from '../context/LanguageContext';
 import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
+import { getEATCalendarRange, getTodayDateInputValue, getTomorrowDateInputValue } from '../utils/calendar';
 
 interface BookingSectionProps {
   prefilledService?: string;
@@ -19,11 +20,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 }) => {
   const { t } = useLanguage();
   const [meetingType, setMeetingType] = useState<'google_meet' | 'phone' | 'nairobi_office'>('google_meet');
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().split('T')[0];
-  });
+  const [selectedDate, setSelectedDate] = useState(() => getTomorrowDateInputValue());
   const [selectedTime, setSelectedTime] = useState('10:00 AM');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -78,7 +75,10 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
     }, 8000);
   };
 
-  const handleEmailDirect = () => {
+  const handleEmailDirect = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const form = event.currentTarget.form;
+    if (form && !form.reportValidity()) return;
+
     const leadData = {
       source: 'booking' as const,
       sourceTitle: 'Strategy Session Booking',
@@ -93,21 +93,26 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       },
       notes: notes || undefined,
     };
-    saveLead(leadData);
+
+    if (form) {
+      saveLead(leadData);
+      setIsSubmitted(true);
+    }
     sendToEmail(leadData);
   };
 
   const generateIcsCalendar = () => {
+    const { start, end } = getEATCalendarRange(selectedDate, selectedTime);
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Domain Tech Hub//Strategy Session//EN
 BEGIN:VEVENT
 SUMMARY:Domain Tech Hub Strategy Session - ${service}
 DESCRIPTION:Strategy and technical architecture consultation with Domain Tech Hub (Nairobi). Contact: ${AGENCY_INFO.email} / +${AGENCY_INFO.whatsapp}.
-LOCATION:${meetingType === 'google_meet' ? 'Google Meet (Link will be sent to email)' : meetingType === 'phone' ? 'Phone Call' : 'Nairobi Office, Kenya'}
-DTSTART:${selectedDate.replace(/-/g, '')}T070000Z
-DTEND:${selectedDate.replace(/-/g, '')}T074500Z
-STATUS:CONFIRMED
+LOCATION:${meetingType === 'google_meet' ? 'Google Meet (to be arranged)' : meetingType === 'phone' ? 'Phone Call' : 'Nairobi Office, Kenya'}
+DTSTART:${start}
+DTEND:${end}
+STATUS:TENTATIVE
 END:VEVENT
 END:VCALENDAR`;
 
@@ -121,7 +126,7 @@ END:VCALENDAR`;
   };
 
   const getWhatsAppBookingText = () => {
-    const text = `Hello Domain Tech Hub team, I scheduled a consultation:
+    const text = `Hello Domain Tech Hub team, I'd like to request a consultation:
 - Name: ${fullName}
 - Service: ${service}
 - Date: ${selectedDate} at ${selectedTime} (${meetingType})
@@ -176,11 +181,11 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   <Mail className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-semibold text-white block">Email Direct</span>
-                    <a href={`mailto:${AGENCY_INFO.email}`} className="text-cyan-300 hover:underline font-mono block">
+                    <a href={`mailto:${AGENCY_INFO.email}`} className="text-cyan-300 hover:underline font-mono inline-flex min-h-6 items-center">
                       {AGENCY_INFO.email}
                     </a>
                     {AGENCY_INFO.secondaryEmail && (
-                      <a href={`mailto:${AGENCY_INFO.secondaryEmail}`} className="text-slate-400 hover:text-cyan-300 text-xs hover:underline font-mono block">
+                      <a href={`mailto:${AGENCY_INFO.secondaryEmail}`} className="text-slate-400 hover:text-cyan-300 text-xs hover:underline font-mono inline-flex min-h-6 items-center">
                         {AGENCY_INFO.secondaryEmail}
                       </a>
                     )}
@@ -194,7 +199,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     <div className="font-mono space-y-0.5">
                       {AGENCY_INFO.phones.map(p => (
                         <div key={p}>
-                          <a href={`tel:${p.replace(/\s+/g, '')}`} className="hover:text-cyan-300">
+                          <a href={`tel:${p.replace(/\s+/g, '')}`} className="inline-flex min-h-6 items-center hover:text-cyan-300">
                             {p}
                           </a>
                         </div>
@@ -292,14 +297,14 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   >
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800 text-emerald-300 text-xs font-mono mb-2">
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Request Successfully Received</span>
+                      <span>Contact message draft prepared</span>
                     </div>
 
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                      Strategy Session Confirmed!
+                      Send your consultation request
                     </h3>
                     <p className="text-sm text-slate-300 max-w-md mx-auto mt-2 leading-relaxed">
-                      Thank you, <span className="text-cyan-300 font-semibold">{fullName}</span>. We reserved your strategy session for <span className="text-white font-mono font-bold">{selectedDate}</span> at <span className="text-white font-mono font-bold">{selectedTime}</span> ({meetingType}).
+                      Thank you, <span className="text-cyan-300 font-semibold">{fullName}</span>. Send the prepared message in WhatsApp or email. Your requested slot for <span className="text-white font-mono font-bold">{selectedDate}</span> at <span className="text-white font-mono font-bold">{selectedTime}</span> ({meetingType}) is not reserved until our team confirms it.
                     </p>
                   </motion.div>
 
@@ -316,7 +321,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                       className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.02] shadow-md"
                     >
                       <MessageSquare className="w-4 h-4 text-white" />
-                      <span>Chat Directly on WhatsApp (+254 118746676)</span>
+                      <span>Open WhatsApp message draft</span>
                     </a>
 
                     <button
@@ -325,7 +330,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                       className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors hover:scale-[1.02]"
                     >
                       <Mail className="w-4 h-4 text-white" />
-                      <span>Email {AGENCY_INFO.email}</span>
+                      <span>Open email draft ({AGENCY_INFO.secondaryEmail || AGENCY_INFO.email})</span>
                     </button>
 
                     <button
@@ -395,15 +400,17 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 {/* Date and Time Selector */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                    <label htmlFor="booking-date" className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                       2. Select Preferred Date
                     </label>
                     <div className="relative">
                       <Calendar className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                       <input
+                        id="booking-date"
                         type="date"
                         required
                         value={selectedDate}
+                        min={getTodayDateInputValue()}
                         onChange={(e) => setSelectedDate(e.target.value)}
                         className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-cyan-500 font-mono"
                       />
@@ -509,11 +516,11 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 </div>
 
                 {/* Direct Delivery Channels Notice */}
-                <div className="p-3.5 rounded-xl bg-teal-950/40 border border-teal-800/60 text-xs text-teal-200 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-xl bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800/60 text-xs text-teal-900 dark:text-teal-200 flex items-start gap-2.5">
                   <ShieldCheck className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-white block">Direct Delivery Guarantee:</span>
-                    <span>Submissions are delivered instantly to WhatsApp (<strong>+254 118746676</strong>) and Email (<strong>{AGENCY_INFO.email}</strong>). Our team replies in &lt;20 minutes.</span>
+                    <span className="font-bold text-white block">Choose how to contact us:</span>
+                      <span>WhatsApp and email buttons open a message draft; you must press Send in that app. This form cannot deliver messages or reserve appointments automatically.</span>
                   </div>
                 </div>
 
@@ -524,7 +531,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/60 transition-all cursor-pointer"
                   >
                     <MessageSquare className="w-4 h-4" />
-                    <span>Send to WhatsApp (+254 118746676)</span>
+                    <span>Open WhatsApp draft (+254 118746676)</span>
                   </button>
 
                   <button
@@ -533,7 +540,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     className="w-full py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
                     <Mail className="w-4 h-4 text-blue-400" />
-                    <span>Send via Email ({AGENCY_INFO.email})</span>
+                    <span>Open email draft ({AGENCY_INFO.secondaryEmail || AGENCY_INFO.email})</span>
                   </button>
                 </div>
 
@@ -566,11 +573,11 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
 
             <div className="flex-1 pr-1">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-white">Booking Confirmed!</span>
+                <span className="text-xs font-bold text-white">Request draft prepared</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </div>
               <p className="text-[11px] text-slate-300 leading-tight mt-0.5">
-                Strategy session scheduled. Confirmation link sent to your email.
+                Send the message in your email or WhatsApp app; the appointment is not booked until confirmed by our team.
               </p>
             </div>
 

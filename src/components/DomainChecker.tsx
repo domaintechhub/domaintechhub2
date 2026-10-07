@@ -95,7 +95,10 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                   <input
                     type="text"
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setHasSearched(false);
+                    }}
                     placeholder="Enter your company or idea name (e.g. savannahcoffee)"
                     className="w-full pl-11 pr-4 py-3.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
                   />
@@ -108,6 +111,12 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                   <span>{t('domain.btnCheck')}</span>
                 </button>
               </form>
+
+              {hasSearched && (
+                <p role="status" className="mt-3 text-xs text-amber-300">
+                  This page does not check a live domain registry. The options below are suggestions; use the WhatsApp button on a domain to ask the team to verify it.
+                </p>
+              )}
 
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 mt-4 pt-4 border-t border-slate-800/80">
                 <span className="font-mono text-slate-500">Popular in Kenya:</span>
@@ -180,7 +189,7 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                           onClick={() => onSelectDomainForSetup(cleanName || 'mybrand', tld.ext)}
                           className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-semibold transition-colors flex items-center gap-1.5"
                         >
-                          <span>Reserve</span>
+                          <span>Configure quote</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>

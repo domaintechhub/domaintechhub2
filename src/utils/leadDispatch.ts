@@ -19,7 +19,20 @@ export interface LeadRecord {
   status: 'new' | 'contacted' | 'closed';
 }
 
-const STORAGE_KEY = 'dth_all_leads';
+export function discardPersistedLeadData(): void {
+  try {
+    localStorage.removeItem('dth_all_leads');
+    localStorage.removeItem('dth_bookings');
+  } catch (err) {
+    console.error('Error clearing locally stored lead data:', err);
+  }
+
+  try {
+    sessionStorage.removeItem('dth_owner_vault_auth');
+  } catch (err) {
+    console.error('Error clearing local lead-viewer state:', err);
+  }
+}
 
 export function saveLead(lead: Omit<LeadRecord, 'id' | 'createdAt' | 'status'>): LeadRecord {
   const newLead: LeadRecord = {
@@ -29,49 +42,21 @@ export function saveLead(lead: Omit<LeadRecord, 'id' | 'createdAt' | 'status'>):
     status: 'new',
   };
 
-  try {
-    const existing: LeadRecord[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const updated = [newLead, ...existing];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-
-    // Also mirror to legacy keys for compatibility
-    if (lead.source === 'booking') {
-      const existingBookings = JSON.parse(localStorage.getItem('dth_bookings') || '[]');
-      localStorage.setItem('dth_bookings', JSON.stringify([newLead, ...existingBookings]));
-    }
-  } catch (err) {
-    console.error('Error saving lead to storage:', err);
-  }
-
+  discardPersistedLeadData();
   return newLead;
 }
 
 export function getAllLeads(): LeadRecord[] {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch {
-    return [];
-  }
+  discardPersistedLeadData();
+  return [];
 }
 
-export function deleteLead(id: string): void {
-  try {
-    const existing = getAllLeads();
-    const updated = existing.filter(l => l.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  } catch (err) {
-    console.error('Error deleting lead:', err);
-  }
+export function deleteLead(_id: string): void {
+  discardPersistedLeadData();
 }
 
-export function updateLeadStatus(id: string, status: LeadRecord['status']): void {
-  try {
-    const existing = getAllLeads();
-    const updated = existing.map(l => l.id === id ? { ...l, status } : l);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  } catch (err) {
-    console.error('Error updating lead status:', err);
-  }
+export function updateLeadStatus(_id: string, _status: LeadRecord['status']): void {
+  discardPersistedLeadData();
 }
 
 /**
@@ -110,13 +95,13 @@ export function sendToWhatsApp(lead: Partial<LeadRecord>): void {
 }
 
 /**
- * Triggers an Email directly to info@domaintechhub.com (with cc to domaintechhub@gmail.com)
+ * Opens an email draft addressed to the Gmail inbox, with the business email copied.
  */
 export function sendToEmail(lead: Partial<LeadRecord>): void {
   const subject = `[Domain Tech Hub Inquiry] ${lead.serviceOrItem || lead.sourceTitle || 'New Customer Lead'}${lead.fullName ? ` - ${lead.fullName}` : ''}`;
   
   let body = `Hello Domain Tech Hub Team,\n\n`;
-  body += `A new inquiry has been submitted through the website:\n\n`;
+  body += `Inquiry details prepared on the website (send this email to deliver the request):\n\n`;
   body += `Source: ${lead.sourceTitle || lead.source || 'Website'}\n`;
   if (lead.fullName) body += `Client Name: ${lead.fullName}\n`;
   if (lead.phone) body += `Phone / WhatsApp: ${lead.phone}\n`;
@@ -131,8 +116,10 @@ export function sendToEmail(lead: Partial<LeadRecord>): void {
   }
   body += `\nPlease reply directly to this email or contact the client via WhatsApp at ${lead.phone || 'their phone number'}.\n`;
 
-  const ccParam = AGENCY_INFO.secondaryEmail ? `&cc=${encodeURIComponent(AGENCY_INFO.secondaryEmail)}` : '';
-  const mailtoUrl = `mailto:${AGENCY_INFO.email}?subject=${encodeURIComponent(subject)}${ccParam}&body=${encodeURIComponent(body)}`;
+  const recipient = AGENCY_INFO.secondaryEmail || AGENCY_INFO.email;
+  const ccAddress = recipient === AGENCY_INFO.email ? AGENCY_INFO.secondaryEmail : AGENCY_INFO.email;
+  const ccParam = ccAddress ? `&cc=${encodeURIComponent(ccAddress)}` : '';
+  const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}${ccParam}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoUrl;
 }
 

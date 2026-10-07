@@ -8,8 +8,14 @@ import { AGENCY_INFO } from '../data/portfolioData';
 import { useLanguage } from '../context/LanguageContext';
 import { AnimatedCounter } from './AnimatedCounter';
 import { SproutEmblem } from './Logo';
-import { detectDynamicIntent, DynamicHeroIntent, DEFAULT_HERO_INTENT } from '../utils/dynamicIntent';
-import heroImage from '../assets/images/kenyan_developer_laptop_1790409653138.jpg';
+import { detectDynamicIntent, DynamicHeroIntent, storeSearchIntent } from '../utils/dynamicIntent';
+const heroImage = `${import.meta.env.BASE_URL}assets/kenyan-developer.webp`;
+const heroImageAvifSrcSet = [
+  `${import.meta.env.BASE_URL}assets/kenyan-developer-480.avif 480w`,
+  `${import.meta.env.BASE_URL}assets/kenyan-developer-741.avif 741w`,
+  `${import.meta.env.BASE_URL}assets/kenyan-developer-960.avif 960w`,
+].join(', ');
+const heroImageSizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 512px';
 
 interface HeroProps {
   onNavigate: (sectionId: string, subTab?: string) => void;
@@ -44,11 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
     setSearchQuery(val);
     const detected = detectDynamicIntent(val);
     setIntent(detected);
-    if (val.trim()) {
-      sessionStorage.setItem('dth_search_intent', val.trim());
-    } else {
-      sessionStorage.removeItem('dth_search_intent');
-    }
+    storeSearchIntent(val);
   };
 
   return (
@@ -99,7 +101,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                   }
                   onNavigate(intent.primaryButtonTarget);
                 }}
-                className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm shadow-md shadow-teal-600/20 transition-all active:scale-[0.98]"
+                className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-teal-700 hover:bg-teal-800 text-white font-semibold text-sm shadow-md shadow-teal-600/20 transition-all active:scale-[0.98]"
               >
                 <span>{intent.primaryButtonText}</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -125,10 +127,11 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
             <div className="pt-2">
               <div className="relative max-w-xl group">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                  <Search className="w-4 h-4 text-slate-400 group-focus-within:text-teal-600 transition-colors" />
+                  <Search className="w-4 h-4 text-slate-400 group-focus-within:text-teal-600 transition-colors" aria-hidden="true" />
                 </div>
                 <input
                   type="text"
+                  aria-label="Search a service"
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="Search a service (e.g., M-Pesa store, SEO ranking, custom CRM, branding)..."
@@ -136,18 +139,20 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                 />
                 {searchQuery && (
                   <button
+                    type="button"
                     onClick={() => handleSearchChange('')}
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                     title="Reset to all capabilities"
+                    aria-label="Clear service search"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                 )}
               </div>
 
               {/* Instant suggested query chips for fast testing */}
               <div className="flex flex-wrap items-center gap-1.5 mt-2.5">
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mr-1">Quick match:</span>
+                <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 mr-1">Quick match:</span>
                 {[
                   { label: '⚡ M-Pesa E-Commerce', q: 'ecommerce mpesa' },
                   { label: '🚀 Sub-Second Web Apps', q: 'web development' },
@@ -162,7 +167,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                       onClick={() => handleSearchChange(chip.q)}
                       className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
                         isActive
-                          ? 'bg-teal-600 text-white border-teal-600 font-medium shadow-xs'
+                          ? 'bg-teal-700 text-white border-teal-700 font-medium shadow-xs'
                           : 'bg-white/80 dark:bg-slate-900/80 border-stone-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-teal-600 hover:border-teal-400'
                       }`}
                     >
@@ -223,12 +228,25 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
 
               {/* Main Image Card with Rounded Shape */}
               <div className="overflow-hidden rounded-3xl border-4 border-white dark:border-slate-800 shadow-2xl bg-stone-100 dark:bg-slate-900 relative">
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={heroImageAvifSrcSet}
+                    sizes={heroImageSizes}
+                  />
                 <img
                   src={heroImage}
+                  sizes={heroImageSizes}
                   alt="Kenyan software developer working on a laptop at Domain Tech Hub Nairobi studio"
+                  width={960}
+                  height={717}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-full h-[360px] sm:h-[420px] object-cover object-center hover:scale-105 transition-transform duration-500"
                 />
+                </picture>
 
                 {/* Subtle warm gradient overlay at the base */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
@@ -237,7 +255,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                 <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-white/95 dark:bg-slate-950/90 backdrop-blur-md border border-stone-200/80 dark:border-slate-800 shadow-lg">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                      <div className="w-8 h-8 rounded-xl bg-teal-700 text-white flex items-center justify-center font-bold text-xs shadow-sm">
                         DTH
                       </div>
                       <div>
@@ -245,7 +263,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
                           <span>Nairobi Engineering Team</span>
                           <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-ping" />
                         </div>
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                        <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium">
                           Senior Architects & Local Support
                         </div>
                       </div>
@@ -253,7 +271,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
 
                     <button
                       onClick={() => onNavigate('contact')}
-                      className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs transition-colors"
                     >
                       Connect
                     </button>
@@ -363,9 +381,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
             <div className="w-10 h-10 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-4 shadow-sm">
               <Code2 className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-base font-extrabold text-teal-950 dark:text-teal-200 mb-2">
+            <h2 className="text-base font-extrabold text-teal-950 dark:text-teal-200 mb-2">
               {t('hero.modernEng')}
-            </h3>
+            </h2>
             <p className="text-xs sm:text-sm text-teal-900/90 dark:text-teal-300/80 leading-relaxed mb-4 font-normal">
               {t('hero.modernEngDesc')}
             </p>
@@ -379,9 +397,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
             <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-sm">
               <ShieldCheck className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-base font-extrabold text-emerald-950 dark:text-emerald-200 mb-2">
+            <h2 className="text-base font-extrabold text-emerald-950 dark:text-emerald-200 mb-2">
               {t('hero.mpesaNative')}
-            </h3>
+            </h2>
             <p className="text-xs sm:text-sm text-emerald-900/90 dark:text-emerald-300/80 leading-relaxed mb-4 font-normal">
               {t('hero.mpesaNativeDesc')}
             </p>
@@ -395,9 +413,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCalculatorServic
             <div className="w-10 h-10 rounded-2xl bg-amber-600 text-white flex items-center justify-center mb-4 shadow-sm">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-base font-extrabold text-amber-950 dark:text-amber-200 mb-2">
+            <h2 className="text-base font-extrabold text-amber-950 dark:text-amber-200 mb-2">
               {t('hero.growthLeads')}
-            </h3>
+            </h2>
             <p className="text-xs sm:text-sm text-amber-900/90 dark:text-amber-300/80 leading-relaxed mb-4 font-normal">
               {t('hero.growthLeadsDesc')}
             </p>

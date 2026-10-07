@@ -74,5 +74,3 @@ Allow: /
 
 # Sitemaps & LLM Machine-Readable Mirrors
 Sitemap: https://domaintechhub.com/sitemap.xml
-LLMs-Txt: https://domaintechhub.com/llms.txt
-LLMs-Full-Txt: https://domaintechhub.com/llms-full.txt

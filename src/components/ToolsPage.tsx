@@ -50,14 +50,14 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       label: 'Core Web Vitals & SEO Scanner',
       shortLabel: 'Performance Scanner',
       icon: Gauge,
-      description: 'Run diagnostic health checks on speed, mobile responsiveness, and SEO tags.'
+      description: 'Preview an illustrative report; this static demo does not scan a live website.'
     },
     {
       id: 'domains' as ToolTab,
       label: '.co.ke Domain & NVMe Hosting',
       shortLabel: 'Domain Lookup',
       icon: Server,
-      description: 'Search .ke domains, verify registry availability, and configure cloud hosting.'
+      description: 'Explore domain options and ask the team to check availability; no live registry lookup is connected.'
     }
   ];
 
@@ -66,7 +66,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       <PageHeader
         badge="Developer & Client Tools"
         title="Interactive Engineering Tools & Estimators"
-        description="Instant diagnostic utilities, scope planning calculators, and infrastructure checkers created by Domain Tech Hub to provide complete transparency before you write a single line of code."
+        description="Planning calculators and demo utilities. Live registry lookups and website scans are not connected."
         currentBreadcrumb="Developer & Client Tools"
         onNavigateHome={onNavigateHome}
       />

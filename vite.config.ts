@@ -7,9 +7,10 @@ import { defineConfig } from 'vite';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
-const base = process.env.GITHUB_ACTIONS && repositoryName && !repositoryName.endsWith('.github.io')
+const defaultBase = process.env.GITHUB_ACTIONS && repositoryName && !repositoryName.endsWith('.github.io')
   ? `/${repositoryName}/`
   : '/';
+const base = process.env.VITE_BASE_PATH || defaultBase;
 
 export default defineConfig(({ mode }) => {
   return {

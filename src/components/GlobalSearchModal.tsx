@@ -7,6 +7,7 @@ import {
 import { SERVICES_LIST } from '../data/servicesData';
 import { CASE_STUDIES } from '../data/portfolioData';
 import { INSIGHT_ARTICLES } from '../data/insightsData';
+import { storeSearchIntent } from '../utils/dynamicIntent';
 
 interface SearchResultItem {
   id: string;
@@ -112,7 +113,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       type: 'tool' as const,
       categoryLabel: 'Interactive Tool',
       title: '.co.ke Domain Registration & NVMe Hosting',
-      description: 'Search .ke domains, verify KeNIC registry availability, and configure NVMe cloud hosting.',
+      description: 'Explore domain options and ask the team to check availability; no live registry lookup is connected.',
       tags: ['domains', 'hosting', 'cloud', 'co.ke', 'server', 'ssl', 'kenic'],
       target: 'domains',
       subTab: 'domains',
@@ -227,7 +228,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
           e.preventDefault();
           const item = filteredItems[selectedIndex];
           if (query.trim()) {
-            sessionStorage.setItem('dth_search_intent', query.trim());
+            storeSearchIntent(query);
           }
           onNavigate(item.target, item.subTab);
           onClose();
@@ -365,7 +366,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                   }}
                   onClick={() => {
                     if (query.trim()) {
-                      sessionStorage.setItem('dth_search_intent', query.trim());
+                      storeSearchIntent(query);
                     }
                     onNavigate(item.target, item.subTab);
                     onClose();

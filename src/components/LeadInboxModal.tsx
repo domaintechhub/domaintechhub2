@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, Mail, MessageSquare, Phone, Download, Trash2, 
-  Search, ShieldCheck, RefreshCw, Lock, KeyRound, ShieldAlert,
+  Search, ShieldCheck, RefreshCw, Lock, ShieldAlert,
   LogOut, CheckCircle2
 } from 'lucide-react';
 import { 
@@ -16,15 +16,7 @@ interface LeadInboxModalProps {
 }
 
 export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose }) => {
-  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
-    try {
-      return sessionStorage.getItem('dth_owner_vault_auth') === 'true';
-    } catch {
-      return false;
-    }
-  });
-  const [passkeyInput, setPasskeyInput] = useState('');
-  const [authError, setAuthError] = useState('');
+  const [isUnlocked, setIsUnlocked] = useState(false);
 
   const [leads, setLeads] = useState<LeadRecord[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -33,7 +25,6 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
 
   const dialogRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
-  const passkeyInputRef = useRef<HTMLInputElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const refreshLeads = () => {
@@ -53,7 +44,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
       previouslyFocusedElementRef.current = document.activeElement as HTMLElement | null;
       const timer = setTimeout(() => {
         if (!isUnlocked) {
-          passkeyInputRef.current?.focus();
+          dialogRef.current?.querySelector<HTMLElement>('button:not([disabled])')?.focus();
         } else {
           searchInputRef.current?.focus();
         }
@@ -109,34 +100,8 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
 
   if (!isOpen) return null;
 
-  const handleUnlock = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cleanPass = passkeyInput.trim().toLowerCase();
-    // Authorized owner credentials (confidential administrative keys)
-    if (cleanPass === 'domain2026' || cleanPass === 'dth@admin' || cleanPass === 'admin' || cleanPass === 'domaintechhub') {
-      try {
-        sessionStorage.setItem('dth_owner_vault_auth', 'true');
-      } catch {
-        // ignore storage error
-      }
-      setIsUnlocked(true);
-      setAuthError('');
-      setPasskeyInput('');
-      refreshLeads();
-    } else {
-      setAuthError('Invalid administrator passkey. Access denied.');
-    }
-  };
-
-  const handleLockVault = () => {
-    try {
-      sessionStorage.removeItem('dth_owner_vault_auth');
-    } catch {
-      // ignore storage error
-    }
+  const handleCloseContactOptions = () => {
     setIsUnlocked(false);
-    setPasskeyInput('');
-    setAuthError('');
   };
 
   const filteredLeads = leads.filter(lead => {
@@ -173,7 +138,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
     return cleaned;
   };
 
-  // 1. Password Verification Screen for Owner Privacy
+  // Contact options only; this static demo has no authenticated lead inbox.
   if (!isUnlocked) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
@@ -182,7 +147,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
           className="w-full max-w-md bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 sm:p-8 text-slate-900 dark:text-slate-100 relative"
           role="dialog"
           aria-modal="true"
-          aria-label="Private Vault Verification"
+          aria-label="Contact options"
         >
           <button
             onClick={onClose}
@@ -200,49 +165,25 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
             <div>
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase bg-stone-100 dark:bg-slate-800 text-stone-600 dark:text-slate-300 mb-2 border border-stone-200 dark:border-slate-700">
                 <ShieldAlert className="w-3 h-3 text-amber-500" />
-                <span>Restricted Private Access</span>
+                <span>Local demo data</span>
               </div>
               <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                 Customer Leads &amp; Inquiries
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                This page contains confidential customer inquiries and contact records. It is strictly private and hidden from public view.
+                This static site has no authenticated inbox, and personal details are not stored on this device. Contact messages must be sent by the visitor.
               </p>
             </div>
 
-            <form onSubmit={handleUnlock} className="space-y-3 pt-2 text-left">
-              <div>
-                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Owner Passkey
-                </label>
-                <div className="relative">
-                  <KeyRound className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                  <input
-                    ref={passkeyInputRef}
-                    type="password"
-                    value={passkeyInput}
-                    onChange={(e) => {
-                      setPasskeyInput(e.target.value);
-                      if (authError) setAuthError('');
-                    }}
-                    placeholder="Enter security passkey..."
-                    className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  />
-                </div>
-                {authError && (
-                  <p className="text-xs text-rose-500 mt-1.5 font-medium flex items-center gap-1">
-                    <span>•</span> {authError}
-                  </p>
-                )}
-              </div>
-
+            <div className="flex items-center gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setIsUnlocked(true)}
+                className="flex-1 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors cursor-pointer shadow-sm"
+              >
+                View contact options
+              </button>
               <div className="flex items-center gap-2 pt-1">
-                <button
-                  type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors cursor-pointer shadow-sm"
-                >
-                  Verify &amp; Unlock
-                </button>
                 <button
                   type="button"
                   onClick={onClose}
@@ -251,14 +192,14 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
                   Return to Site
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  // 2. Unlocked Authenticated Management View (Owner Only)
+  // Contact options only; this static demo has no authenticated lead inbox.
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
@@ -274,7 +215,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
-                Agency Private Vault
+                No submissions stored
               </span>
               <span className="text-xs text-slate-400 font-mono">
                 {leads.length} Total Submissions
@@ -284,18 +225,18 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
               Customer Leads &amp; Form Submissions
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              All website interactions automatically forward to <strong className="text-teal-600 dark:text-cyan-400">WhatsApp ({AGENCY_INFO.whatsapp})</strong> and <strong className="text-teal-600 dark:text-cyan-400">Email ({AGENCY_INFO.email})</strong>.
+              The static demo has no shared inbox. Contact messages must be sent manually.
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             <button
-              onClick={handleLockVault}
+              onClick={handleCloseContactOptions}
               className="px-3 py-1.5 rounded-xl border border-stone-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer"
-              title="Lock private vault"
+              title="Close contact options"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Lock Vault</span>
+              <span>Close</span>
             </button>
             <button
               onClick={onClose}
@@ -307,16 +248,16 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
           </div>
         </div>
 
-        {/* Live Notification Channels Banner */}
+        {/* Contact draft shortcuts; no messages are sent automatically. */}
         <div className="px-5 py-3 bg-teal-50 dark:bg-cyan-950/40 border-b border-teal-100 dark:border-cyan-900/40 text-xs flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-1.5 font-medium text-teal-900 dark:text-cyan-200">
               <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>WhatsApp Receiver: <strong>+{AGENCY_INFO.whatsapp}</strong></span>
+              <span>WhatsApp contact: <strong>+{AGENCY_INFO.whatsapp}</strong></span>
             </div>
             <div className="flex items-center gap-1.5 font-medium text-teal-900 dark:text-cyan-200">
               <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>Email Receiver: <strong>{AGENCY_INFO.email}</strong> {AGENCY_INFO.secondaryEmail && <span className="opacity-75">(&amp; {AGENCY_INFO.secondaryEmail})</span>}</span>
+              <span>Email contact: <strong>{AGENCY_INFO.email}</strong> {AGENCY_INFO.secondaryEmail && <span className="opacity-75">(&amp; {AGENCY_INFO.secondaryEmail})</span>}</span>
             </div>
           </div>
 
@@ -388,7 +329,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
                 No Leads Found in This View
               </h4>
               <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
-                When visitors submit a booking, request a quote, or dispatch a support ticket, all data immediately logs here and sends to your WhatsApp and Email.
+                No submissions are stored here. Use the contact options to send a message draft; this site cannot notify the team automatically.
               </p>
             </div>
           ) : (
