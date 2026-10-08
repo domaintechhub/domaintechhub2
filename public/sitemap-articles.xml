@@ -3,105 +3,126 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Engineering Blog & Technical Knowledge Base -->
+  <!-- Knowledge Base & Blog Hubs -->
   <url>
     <loc>https://www.domaintechhubs.com/insights</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
     <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/insights.md" />
   </url>
 
   <url>
     <loc>https://www.domaintechhubs.com/blog</loc>
     <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
     <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/insights.md" />
   </url>
 
-  <!-- Article: Zero-Loss M-Pesa STK Push Architecture -->
+  <!-- Blog Post: Zero-Loss M-Pesa STK Push: Architecting Resilient Webhooks on Safaricom Daraja API -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/zero-loss-mpesa-stk-push-architecture</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://www.domaintechhubs.com/blog/zero-loss-mpesa-stk-push-architecture</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>Zero-Loss M-Pesa STK Push Architecture</image:title>
-    </image:image>
   </url>
 
-  <!-- Article: Headless Next.js vs WordPress in Kenya -->
+  <!-- Blog Post: Why Top Kenyan Brands are Migrating from Monolithic WordPress to Headless Next.js -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/headless-nextjs-vs-wordpress-kenya</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
   <url>
     <loc>https://www.domaintechhubs.com/blog/headless-nextjs-vs-wordpress-kenya</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>Headless Next.js vs WordPress in Kenya</image:title>
-    </image:image>
+    <priority>0.90</priority>
   </url>
 
-  <!-- Article: Local SEO & Core Web Vitals Nairobi Kenya -->
+  <!-- Blog Post: Mastering Local Technical SEO in East Africa: How to Rank #1 on Google in Nairobi -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/local-seo-core-web-vitals-nairobi-kenya</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://www.domaintechhubs.com/blog/local-seo-core-web-vitals-nairobi-kenya</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>Local SEO and Core Web Vitals for Nairobi Businesses</image:title>
-    </image:image>
   </url>
 
-  <!-- Article: WhatsApp Cloud API Sales Automation -->
+  <!-- Blog Post: Transforming Inbound Leads: Architecting Meta WhatsApp Cloud API Sales Bots -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/whatsapp-cloud-api-sales-automation</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://www.domaintechhubs.com/blog/whatsapp-cloud-api-sales-automation</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>WhatsApp Cloud API Sales Automation in East Africa</image:title>
-    </image:image>
   </url>
 
-  <!-- Article: Bespoke CRM vs Spreadsheets Kenya -->
+  <!-- Blog Post: Outgrowing Excel: Why Kenyan Mid-Market Enterprises are Building Custom Cloud CRMs -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/bespoke-crm-vs-spreadsheets-kenya</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://www.domaintechhubs.com/blog/bespoke-crm-vs-spreadsheets-kenya</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>Why Kenyan SMEs Outgrow Excel Spreadsheets for Custom CRM</image:title>
-    </image:image>
   </url>
 
-  <!-- Article: Cybersecurity & E-Commerce Fraud Prevention Kenya -->
+  <!-- Blog Post: Fortifying African E-Commerce: Protecting Cross-Border Payments Against Fraud &amp; Chargebacks -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/cybersecurity-ecommerce-kenya-fraud-prevention</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://www.domaintechhubs.com/blog/cybersecurity-ecommerce-kenya-fraud-prevention</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>Cybersecurity and Fraud Prevention in Kenya E-Commerce</image:title>
-    </image:image>
   </url>
 
-  <!-- Article: Website Design in Kenya Business Guide 2026 -->
+  <!-- Blog Post: Website Design in Kenya: Why Every Business Needs a Professional Website in 2026 -->
   <url>
-    <loc>https://www.domaintechhubs.com/blog/website-design-in-kenya-business-guide-2026</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.domaintechhubs.com/insights/website-design-in-kenya-business-guide-2026</loc>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1581291518655-9523c932694b?auto=format&amp;fit=crop&amp;w=1000&amp;q=80</image:loc>
-      <image:title>Website Design in Kenya 2026 Definitive Business Guide</image:title>
-    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.domaintechhubs.com/blog/website-design-in-kenya-business-guide-2026</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
 </urlset>

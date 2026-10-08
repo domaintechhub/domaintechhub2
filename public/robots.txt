@@ -9,5 +9,11 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
 
-# Sitemap Index
+# Sitemap Index & Master Sitemaps
 Sitemap: https://www.domaintechhubs.com/sitemap_index.xml
+Sitemap: https://www.domaintechhubs.com/sitemap.xml
+Sitemap: https://www.domaintechhubs.com/sitemap-pages.xml
+Sitemap: https://www.domaintechhubs.com/sitemap-services.xml
+Sitemap: https://www.domaintechhubs.com/sitemap-articles.xml
+Sitemap: https://www.domaintechhubs.com/sitemap-portfolio.xml
+Sitemap: https://www.domaintechhubs.com/sitemap-tools.xml

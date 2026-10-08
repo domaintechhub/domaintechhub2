@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Portfolio Hub -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/portfolio.md" />
+  </url>
+
+  <!-- Case Study: Savannah Crafts: Modern E-Commerce &amp; M-Pesa Checkout -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio#savannah-crafts-ecommerce</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Case Study: Apex Law Advocates: Local SEO &amp; Corporate Identity -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio#apex-legal-seo-growth</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Case Study: FinPulse Capital: Custom Loan &amp; Lead Pipeline CRM -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio#finpulse-crm-automation</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Case Study: Mara Wild Expeditions: Luxury Safari Booking Portal -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio#mara-wild-expeditions</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Case Study: SolarGrid Kenya: Commercial Solar Lead Gen with Google Ads -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio#solarpower-kenya-ppc</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Case Study: KaziWorks Co-Working: Full Brand Identity &amp; Wayfinding -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio#kazi-hub-branding</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+</urlset>

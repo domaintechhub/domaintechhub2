@@ -33,13 +33,26 @@ function nonBlockingCssPlugin(): Plugin {
   };
 }
 
+// Dynamic sitemap crawler plugin: crawls App.tsx routes and data registries before build bundle
+function dynamicSitemapPlugin(): Plugin {
+  return {
+    name: 'vite-plugin-dynamic-sitemap-crawler',
+    apply: 'build',
+    async buildStart() {
+      const { runCrawler } = await import('./generate-sitemaps.js');
+      runCrawler();
+    }
+  };
+}
+
 export default defineConfig(({ mode }) => {
   return {
     base,
     plugins: [
       react(), 
       tailwindcss(),
-      nonBlockingCssPlugin()
+      nonBlockingCssPlugin(),
+      dynamicSitemapPlugin()
     ],
     resolve: {
       alias: {

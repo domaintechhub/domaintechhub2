@@ -281,10 +281,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
     },
   ], []);
 
-  // Ensure structured data JSON-LD for the searchable directory is always injected in document head
+  // Ensure structured data JSON-LD and <meta name="search-index"> tags are injected for search crawlers
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
+    // 1. JSON-LD structured data injection
     const scriptId = 'dth-search-directory-jsonld';
     let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
     if (!scriptTag) {
@@ -296,6 +297,36 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
     const structuredData = buildSearchDirectoryJsonLd(allItems);
     scriptTag.textContent = JSON.stringify(structuredData);
+
+    // 2. Dynamic injection of <meta name="search-index" ...> tags for each content item
+    const CONTAINER_ATTR = 'data-dth-search-index-meta';
+    // Clean up any previously injected search-index meta tags to prevent duplicates
+    document.querySelectorAll(`meta[${CONTAINER_ATTR}]`).forEach((el) => el.remove());
+
+    const metaFragment = document.createDocumentFragment();
+    allItems.forEach((item) => {
+      const meta = document.createElement('meta');
+      meta.setAttribute('name', 'search-index');
+      meta.setAttribute(CONTAINER_ATTR, item.id);
+      meta.setAttribute('data-id', item.id);
+      meta.setAttribute('data-type', item.type);
+      meta.setAttribute('data-category', item.categoryLabel);
+      meta.setAttribute('data-url', getSearchResultItemUrl(item));
+      meta.setAttribute('data-tags', (item.tags || []).join(', '));
+      // Content attribute formatted with title, url, category, and description for bots
+      meta.setAttribute(
+        'content',
+        `title=${encodeURIComponent(item.title)};type=${item.type};url=${getSearchResultItemUrl(item)};description=${encodeURIComponent(item.description)};keywords=${encodeURIComponent((item.tags || []).join(','))}`
+      );
+      metaFragment.appendChild(meta);
+    });
+
+    document.head.appendChild(metaFragment);
+
+    return () => {
+      // Optional cleanup on unmount
+      document.querySelectorAll(`meta[${CONTAINER_ATTR}]`).forEach((el) => el.remove());
+    };
   }, [allItems]);
 
   // Filter items based on query and activeCategory
@@ -588,6 +619,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                   }`}
                 >
                   {/* ListItem Structured Data Metas */}
+                  <meta name="search-index" content={`title=${item.title};type=${item.type};url=${canonicalUrl};description=${item.description};keywords=${(item.tags || []).join(',')}`} />
                   <meta itemProp="position" content={String(index + 1)} />
                   <meta itemProp="url" content={canonicalUrl} />
                   <meta itemProp="name" content={item.title} />

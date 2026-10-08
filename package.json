@@ -11,12 +11,13 @@
   },
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
+    "prebuild": "node generate-sitemaps.js",
     "build": "vite build",
     "start": "vite preview --port=3000 --host=0.0.0.0",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit && eslint src",
-    "generate:sitemaps": "tsx scripts/generate-sitemaps.ts",
+    "generate:sitemaps": "node generate-sitemaps.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
