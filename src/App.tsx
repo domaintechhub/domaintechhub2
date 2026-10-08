@@ -284,7 +284,7 @@ export default function App() {
           />
 
           {/* Main Content Page Container */}
-          <Suspense fallback={<div className="flex-1 min-h-[50vh]" role="status">Loading page...</div>}>
+          <Suspense fallback={null}>
           <main className="flex-1">
 
             {/* 1. DEDICATED PAGE: HOME / LANDING OVERVIEW */}
