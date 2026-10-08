@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Search, X, Globe, ShoppingCart, Database, 
+  Search, X, Globe, ShoppingCart, Database,
   ArrowRight, FolderGit2, BookOpen, Calculator, Server,
   Layers, Tag, Gauge
 } from 'lucide-react';
@@ -272,7 +272,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-150"
       onClick={onClose}
     >
