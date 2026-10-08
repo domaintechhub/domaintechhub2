@@ -35,7 +35,9 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   const prefix = overridePrefix !== undefined ? overridePrefix : parsedPrefix;
   const suffix = overrideSuffix !== undefined ? overrideSuffix : parsedSuffix;
 
-  const [displayValue, setDisplayValue] = useState<string>(isNumeric ? (0).toFixed(decimals) : value);
+  const [displayValue, setDisplayValue] = useState<string>(
+    isNumeric ? number.toFixed(decimals) : value
+  );
 
   useEffect(() => {
     const element = ref.current;
