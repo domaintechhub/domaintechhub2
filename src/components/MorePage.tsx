@@ -177,22 +177,22 @@ export const MorePage: React.FC<MorePageProps> = ({
           <div className="animate-in fade-in duration-200">
             {/* Engineering Commitments Bar */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs text-xs font-mono">
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs text-xs font-mono">
+                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 min-w-0">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>Fixed-Bid Scope Contract</span>
+                  <span className="truncate">Fixed-Bid Scope Contract</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 min-w-0">
                   <Clock className="w-4 h-4 text-teal-500 shrink-0" />
-                  <span>Weekly Staging &amp; Video Demos</span>
+                  <span className="truncate">Weekly Staging &amp; Video Demos</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 min-w-0">
                   <ShieldCheck className="w-4 h-4 text-cyan-500 shrink-0" />
-                  <span>30-Day Zero-Cost Bug Warranty</span>
+                  <span className="truncate">30-Day Zero-Cost Bug Warranty</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 min-w-0">
                   <FileCode2 className="w-4 h-4 text-purple-500 shrink-0" />
-                  <span>Full Source Code &amp; IP Transfer</span>
+                  <span className="truncate">Full Source Code &amp; IP Transfer</span>
                 </div>
               </div>
             </div>

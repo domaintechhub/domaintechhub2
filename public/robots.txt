@@ -1,78 +1,13 @@
-# robots.txt for Domain Tech Hub (https://domaintechhub.com)
-# Configured for High-Performance Search, Answer Engine & Generative Engine Crawlers (Google, Gemini, ChatGPT, Claude, Perplexity)
+# robots.txt for Domain Tech Hub (https://www.domaintechhubs.com)
+# Allows all crawlers across public content while protecting user privacy
 
 User-agent: *
 Allow: /
+Disallow: /portal
+Disallow: /portal/
 Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
 
-# Google & Bing Web Crawlers
-User-agent: Googlebot
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# OpenAI / ChatGPT Crawlers (Model Training, Search & Live Browsing)
-User-agent: GPTBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-# Anthropic / Claude Crawlers
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-# Google Gemini & Generative AI Indexing
-User-agent: Google-Extended
-Allow: /
-
-# Perplexity AI Engine
-User-agent: PerplexityBot
-Allow: /
-
-# Apple Intelligence
-User-agent: Applebot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-# Meta AI & Llama Crawlers
-User-agent: Meta-ExternalAgent
-Allow: /
-
-User-agent: FacebookBot
-Allow: /
-
-# Common Open AI Crawlers
-User-agent: CCBot
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: Diffbot
-Allow: /
-
-# Sitemaps & LLM Machine-Readable Mirrors
-Sitemap: https://domaintechhub.com/sitemap.xml
-LLMs-Txt: https://domaintechhub.com/llms.txt
-LLMs-Full-Txt: https://domaintechhub.com/llms-full.txt
+# Sitemap Index
+Sitemap: https://www.domaintechhubs.com/sitemap_index.xml

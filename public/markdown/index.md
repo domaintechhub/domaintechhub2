@@ -3,9 +3,9 @@
 > Official Web & Software Engineering Agency in Nairobi, Kenya. We engineer high-performance web systems, Safaricom Daraja 3.0 M-Pesa platforms, custom software, and corporate branding.
 
 - **Location**: Delta Corner Tower, Westlands, Nairobi, Kenya
-- **Email**: info@domaintechhub.com / domaintechhub@gmail.com
+- **Email**: info@domaintechhubs.com / domaintechhub@gmail.com
 - **WhatsApp / Phone**: +254 118746676 / +254 706 943383
-- **Website**: https://domaintechhub.com
+- **Website**: https://www.domaintechhubs.com
 
 ---
 
@@ -41,5 +41,5 @@ Unlike traditional agencies that sell fragile WordPress templates that fail Goog
 ## Contact & Discovery Session
 Book a 30-minute discovery consultation directly with our Lead Solutions Architect:
 - WhatsApp: +254 118746676
-- Email: info@domaintechhub.com
-- Consultation Form: https://domaintechhub.com/contact
+- Email: info@domaintechhubs.com
+- Consultation Form: https://www.domaintechhubs.com/contact

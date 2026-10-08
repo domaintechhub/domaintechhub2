@@ -95,7 +95,7 @@ export function formatWhatsAppMessage(lead: Partial<LeadRecord>): string {
     msg += `\n*Details / Requirements:*\n${lead.notes}\n`;
   }
   msg += `--------------------------------\n`;
-  msg += `Submitted via domaintechhub.com`;
+  msg += `Submitted via domaintechhubs.com`;
 
   return msg;
 }
@@ -110,7 +110,7 @@ export function sendToWhatsApp(lead: Partial<LeadRecord>): void {
 }
 
 /**
- * Triggers an Email directly to info@domaintechhub.com (with cc to domaintechhub@gmail.com)
+ * Triggers an Email directly to info@domaintechhubs.com (with cc to domaintechhub@gmail.com)
  */
 export function sendToEmail(lead: Partial<LeadRecord>): void {
   const subject = `[Domain Tech Hub Inquiry] ${lead.serviceOrItem || lead.sourceTitle || 'New Customer Lead'}${lead.fullName ? ` - ${lead.fullName}` : ''}`;

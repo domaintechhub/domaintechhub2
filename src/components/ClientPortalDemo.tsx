@@ -214,7 +214,7 @@ export const ClientPortalDemo: React.FC = () => {
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
               </div>
               <span className="text-xs font-mono text-slate-400 truncate">
-                portal.domaintechhub.com / client / PRJ-2026-884
+                portal.domaintechhubs.com / client / PRJ-2026-884
               </span>
             </div>
 
@@ -588,13 +588,13 @@ export const ClientPortalDemo: React.FC = () => {
           {/* ============================================================ */}
           {/* WORKSPACE LOWER GRID (Project Details, Docs & Ticket Desk)   */}
           {/* ============================================================ */}
-          <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
             
             {/* Left Column: Project Overview & Deliverables (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
               
               {/* Active Project Card */}
-              <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <span className="text-xs font-mono text-cyan-400 uppercase font-semibold">
                     Current Active Repository & Build
@@ -613,29 +613,32 @@ export const ClientPortalDemo: React.FC = () => {
 
                 {/* Staging link pill - Mobile-Optimized Zero Overlap */}
                 <div className="space-y-2">
-                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs flex flex-col md:flex-row md:items-center justify-between gap-2.5">
                     <div className="flex items-center gap-2 text-slate-400 font-mono shrink-0">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                      <span className="font-semibold text-slate-300">Staging URL:</span>
+                      <span className="font-semibold text-slate-300 text-xs">Staging URL:</span>
                     </div>
-                    <button
-                      type="button" 
-                      onClick={() => {
+                    <a
+                      href="https://staging.afritrade.domaintechhubs.dev"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => {
+                        e.preventDefault();
                         setStagingNotice(true);
                         setTimeout(() => setStagingNotice(false), 4500);
                       }}
-                      className="text-cyan-400 hover:text-cyan-300 font-mono flex items-center gap-1.5 text-left cursor-pointer min-w-0 max-w-full group"
-                      title="Inspect staging build for AfriTrade"
+                      className="text-cyan-400 hover:text-cyan-300 font-mono inline-flex items-center gap-1.5 text-left cursor-pointer min-w-0 max-w-full group break-all"
+                      title="Inspect staging build for AfriTrade (https://staging.afritrade.domaintechhubs.dev)"
                     >
-                      <span className="break-all sm:break-normal sm:truncate underline decoration-cyan-500/40 underline-offset-4 group-hover:decoration-cyan-300 text-[11px] sm:text-xs">
-                        https://staging.afritrade.domaintechhub.dev
+                      <span className="break-all underline decoration-cyan-500/40 underline-offset-4 group-hover:decoration-cyan-300 text-[11px] sm:text-xs">
+                        https://staging.afritrade.domaintechhubs.dev
                       </span>
-                      <ExternalLink className="w-3.5 h-3.5 shrink-0 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
+                      <ExternalLink className="w-3.5 h-3.5 shrink-0 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
+                    </a>
                   </div>
                   {stagingNotice && (
                     <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-start sm:items-center gap-2 animate-in fade-in">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5 sm:mt-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" />
                       <span className="leading-relaxed">Preview Verified: Automated integration tests & M-Pesa Daraja Sandbox 100% Passing.</span>
                     </div>
                   )}

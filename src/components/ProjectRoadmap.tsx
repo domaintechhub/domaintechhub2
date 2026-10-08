@@ -554,14 +554,14 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                     key={idx}
                     className="p-4 sm:p-5 rounded-2xl bg-stone-50/80 dark:bg-slate-950/70 border border-stone-200 dark:border-slate-800 hover:border-stone-300 dark:hover:border-slate-700 transition-colors space-y-2"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-3">
+                      <div className="flex items-center gap-2 min-w-0">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                         <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">
                           {item.title}
                         </span>
                       </div>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono text-teal-700 dark:text-cyan-300 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shrink-0">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono text-teal-700 dark:text-cyan-300 bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 self-start sm:self-auto max-w-full break-all sm:break-normal shrink-0">
                         {item.outputArtifact}
                       </span>
                     </div>

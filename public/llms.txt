@@ -38,11 +38,12 @@ The following clean markdown endpoints are provided for LLM ingestion, semantic 
 - [Full LLM Context](/llms-full.txt): Complete consolidated single-file context document.
 
 ## Official Contact Channels & Endpoints
-- **Primary Email**: info@domaintechhub.com
+- **Primary Email**: info@domaintechhubs.com
 - **Secondary / Direct**: domaintechhub@gmail.com
 - **WhatsApp Direct**: +254 118746676 (https://wa.me/254118746676)
 - **Phone Lines**: +254 118746676 / +254 706 943383
 - **Headquarters**: Delta Corner Tower, Westlands, Nairobi, Kenya
 - **Operating Hours**: Monday – Friday: 8:00 AM – 5:00 PM EAT
-- **Website**: https://domaintechhub.com
-- **Sitemap**: https://domaintechhub.com/sitemap.xml
+- **Website**: https://www.domaintechhubs.com
+- **Sitemap Index**: https://www.domaintechhubs.com/sitemap_index.xml
+- **Sitemap**: https://www.domaintechhubs.com/sitemap.xml

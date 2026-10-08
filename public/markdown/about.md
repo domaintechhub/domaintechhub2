@@ -26,4 +26,4 @@ We took the opposite engineering approach:
 ## Studio Headquarters
 - **Office Location**: Delta Corner Tower, Westlands, Nairobi, Kenya
 - **Working Hours**: Monday – Friday: 8:00 AM – 5:00 PM East Africa Time (EAT)
-- **Direct Contacts**: info@domaintechhub.com / +254 118746676
+- **Direct Contacts**: info@domaintechhubs.com / +254 118746676

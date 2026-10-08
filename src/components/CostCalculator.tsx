@@ -268,7 +268,7 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
 - Add-ons: ${selectedAddonNames || 'None'}
 - Timeline: ${isRushTimeline ? 'Expedited Rush Sprint (+25%)' : 'Standard Delivery'}
 - Estimated Total: ${currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`}
-Generated at domaintechhub.com tool.`;
+Generated at domaintechhubs.com tool.`;
   };
 
   const handleCopyQuote = () => {

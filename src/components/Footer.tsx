@@ -487,7 +487,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   </ul>
                 </div>
                 <p className="text-slate-400 text-[11px]">
-                  For data requests or privacy compliance queries, reach our legal officer at <span className="text-cyan-300 font-mono">legal@domaintechhub.com</span>.
+                  For data requests or privacy compliance queries, reach our legal officer at <span className="text-cyan-300 font-mono">legal@domaintechhubs.com</span>.
                 </p>
               </div>
             )}

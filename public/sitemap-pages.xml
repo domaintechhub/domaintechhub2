@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Home - Domain Tech Hub -->
+  <url>
+    <loc>https://www.domaintechhubs.com/</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.domaintechhubs.com/" />
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/index.md" />
+    <image:image>
+      <image:loc>https://www.domaintechhubs.com/og-image.svg</image:loc>
+      <image:title>Domain Tech Hub - Nairobi Premier Software Engineering Agency</image:title>
+      <image:caption>Modern Web Applications, Safaricom M-Pesa Integrations and Enterprise Software</image:caption>
+    </image:image>
+  </url>
+
+  <!-- About Us -->
+  <url>
+    <loc>https://www.domaintechhubs.com/about</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/about.md" />
+  </url>
+
+  <!-- Engineering Services -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/services.md" />
+  </url>
+
+  <!-- Case Studies & Portfolio -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portfolio</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/portfolio.md" />
+  </url>
+
+  <!-- Interactive Engineering Tools -->
+  <url>
+    <loc>https://www.domaintechhubs.com/tools</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Engineering Insights & Knowledge Base -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/insights.md" />
+  </url>
+
+  <!-- Interactive Client Portal & Staging Tracker -->
+  <url>
+    <loc>https://www.domaintechhubs.com/portal</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Frequently Asked Questions -->
+  <url>
+    <loc>https://www.domaintechhubs.com/faq</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/faq.md" />
+  </url>
+
+  <!-- Contact & Discovery Session -->
+  <url>
+    <loc>https://www.domaintechhubs.com/contact</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sprint Roadmap & Delivery Methodology -->
+  <url>
+    <loc>https://www.domaintechhubs.com/roadmap</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/roadmap.md" />
+  </url>
+
+  <!-- Engineering Team & Leadership -->
+  <url>
+    <loc>https://www.domaintechhubs.com/team</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/team.md" />
+  </url>
+
+  <!-- More Services & Resources -->
+  <url>
+    <loc>https://www.domaintechhubs.com/more</loc>
+    <lastmod>2026-10-08T09:30:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

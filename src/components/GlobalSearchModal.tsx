@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef, useId } from 'react';
+import React, { useState, useEffect, useRef, useId, useMemo } from 'react';
 import { 
-  Search, X, Globe, ShoppingCart, Database, 
-  ArrowRight, FolderGit2, BookOpen, Calculator, Server,
-  Layers, Tag, Gauge
+  Search, X, Globe, FolderGit2, BookOpen, 
+  ArrowRight, Gauge
 } from 'lucide-react';
 import { SERVICES_LIST } from '../data/servicesData';
 import { CASE_STUDIES } from '../data/portfolioData';
 import { INSIGHT_ARTICLES } from '../data/insightsData';
 
-interface SearchResultItem {
+const BASE_URL = 'https://www.domaintechhubs.com';
+
+export interface SearchResultItem {
   id: string;
   type: 'service' | 'portfolio' | 'insight' | 'tool';
   categoryLabel: string;
@@ -19,10 +20,159 @@ interface SearchResultItem {
   subTab?: string;
 }
 
-interface GlobalSearchModalProps {
+export interface GlobalSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigate: (target: string, subTab?: string) => void;
+}
+
+/**
+ * Returns canonical destination URL for each indexed content piece
+ */
+export function getSearchResultItemUrl(item: SearchResultItem): string {
+  switch (item.type) {
+    case 'service':
+      return item.subTab
+        ? `${BASE_URL}/services/${item.subTab}`
+        : `${BASE_URL}/services`;
+    case 'portfolio':
+      return `${BASE_URL}/portfolio#${item.id.replace('portfolio-', '')}`;
+    case 'insight':
+      return item.subTab
+        ? `${BASE_URL}/insights/${item.subTab}`
+        : `${BASE_URL}/insights`;
+    case 'tool':
+      if (item.subTab === 'calculator' || item.target === 'calculator') {
+        return `${BASE_URL}/tools/calculator`;
+      }
+      if (item.subTab === 'audit' || item.target === 'audit') {
+        return `${BASE_URL}/tools/audit`;
+      }
+      if (item.subTab === 'domains' || item.target === 'domains') {
+        return `${BASE_URL}/tools/domains`;
+      }
+      if (item.target === 'roadmap') {
+        return `${BASE_URL}/roadmap`;
+      }
+      if (item.subTab === 'pos-systems') {
+        return `${BASE_URL}/services/pos-systems`;
+      }
+      return `${BASE_URL}/tools`;
+    default:
+      return `${BASE_URL}/`;
+  }
+}
+
+/**
+ * Returns Schema.org type descriptors for rich snippet indexing
+ */
+export function getSchemaTypeForType(type: SearchResultItem['type']): {
+  jsonLdType: string;
+  schemaUri: string;
+} {
+  switch (type) {
+    case 'service':
+      return { jsonLdType: 'Service', schemaUri: 'https://schema.org/Service' };
+    case 'insight':
+      return { jsonLdType: 'TechArticle', schemaUri: 'https://schema.org/TechArticle' };
+    case 'portfolio':
+      return { jsonLdType: 'CreativeWork', schemaUri: 'https://schema.org/CreativeWork' };
+    case 'tool':
+      return { jsonLdType: 'WebApplication', schemaUri: 'https://schema.org/WebApplication' };
+  }
+}
+
+/**
+ * Generates Schema.org JSON-LD structured data for the searchable directory catalog
+ */
+export function buildSearchDirectoryJsonLd(items: SearchResultItem[]): Record<string, any> {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'DataCatalog',
+        '@id': `${BASE_URL}/#search-directory`,
+        name: 'Domain Tech Hub Searchable Content Directory',
+        description: 'Comprehensive directory indexing 15+ software engineering services, verified client case studies, technical insights, and interactive developer tools.',
+        url: `${BASE_URL}/`,
+        provider: {
+          '@type': 'ProfessionalService',
+          name: 'Domain Tech Hub',
+          url: `${BASE_URL}/`,
+          telephone: '+254118746676',
+          email: 'info@domaintechhubs.com',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Delta Corner Tower, Westlands',
+            addressLocality: 'Nairobi',
+            addressCountry: 'KE'
+          }
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${BASE_URL}/?search={search_term_string}`
+          },
+          'query-input': 'required name=search_term_string'
+        }
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${BASE_URL}/#directory-itemlist`,
+        name: 'Domain Tech Hub Indexed Content Directory',
+        description: 'Searchable inventory of verified engineering offerings, insights, case studies, and tools.',
+        numberOfItems: items.length,
+        itemListElement: items.map((item, index) => {
+          const itemUrl = getSearchResultItemUrl(item);
+          const { jsonLdType } = getSchemaTypeForType(item.type);
+
+          const itemDetails: Record<string, any> = {
+            '@type': jsonLdType,
+            name: item.title,
+            description: item.description,
+            url: itemUrl,
+            keywords: item.tags?.join(', ')
+          };
+
+          if (item.type === 'service') {
+            itemDetails.serviceType = item.categoryLabel;
+            itemDetails.provider = {
+              '@type': 'Organization',
+              name: 'Domain Tech Hub',
+              url: BASE_URL
+            };
+          } else if (item.type === 'insight') {
+            itemDetails.headline = item.title;
+            itemDetails.inLanguage = 'en-US';
+            itemDetails.publisher = {
+              '@type': 'Organization',
+              name: 'Domain Tech Hub',
+              url: BASE_URL
+            };
+          } else if (item.type === 'portfolio') {
+            itemDetails.genre = item.categoryLabel;
+            itemDetails.publisher = {
+              '@type': 'Organization',
+              name: 'Domain Tech Hub'
+            };
+          } else if (item.type === 'tool') {
+            itemDetails.applicationCategory = 'UtilityApplication';
+            itemDetails.operatingSystem = 'All';
+          }
+
+          return {
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.title,
+            description: item.description,
+            url: itemUrl,
+            item: itemDetails
+          };
+        })
+      }
+    ]
+  };
 }
 
 export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
@@ -39,8 +189,8 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
   const resultItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Pre-index all searchable items
-  const allItems: SearchResultItem[] = [
+  // Pre-index all searchable content pieces (services, case studies, insights, tools)
+  const allItems: SearchResultItem[] = useMemo(() => [
     // 1. Services
     ...SERVICES_LIST.map((s) => ({
       id: `service-${s.id}`,
@@ -65,7 +215,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       subTab: 'pos-systems',
     },
 
-    // 3. Case Studies
+    // 3. Case Studies / Portfolio Items
     ...CASE_STUDIES.map((c) => ({
       id: `portfolio-${c.id}`,
       type: 'portfolio' as const,
@@ -74,9 +224,10 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       description: c.summary,
       tags: [...c.techStack, c.client, c.category, c.location],
       target: 'portfolio',
+      subTab: c.id,
     })),
 
-    // 4. Insights / Blog Posts
+    // 4. Insights / Technical Articles
     ...INSIGHT_ARTICLES.map((a) => ({
       id: `insight-${a.id}`,
       type: 'insight' as const,
@@ -85,9 +236,10 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       description: a.excerpt,
       tags: [...a.tags, a.category, a.author.name],
       target: 'insights',
+      subTab: a.slug,
     })),
 
-    // 5. Client & Developer Tools
+    // 5. Client & Developer Interactive Tools
     {
       id: 'tool-calculator',
       type: 'tool' as const,
@@ -127,28 +279,47 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       tags: ['roadmap', 'sprint', 'timeline', 'schedule', 'delivery', 'discovery', 'design', 'development', 'uat', 'deployment'],
       target: 'roadmap',
     },
-  ];
+  ], []);
+
+  // Ensure structured data JSON-LD for the searchable directory is always injected in document head
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const scriptId = 'dth-search-directory-jsonld';
+    let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.id = scriptId;
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+
+    const structuredData = buildSearchDirectoryJsonLd(allItems);
+    scriptTag.textContent = JSON.stringify(structuredData);
+  }, [allItems]);
 
   // Filter items based on query and activeCategory
-  const filteredItems = allItems.filter((item) => {
-    const matchesCategory =
-      activeCategory === 'all' ||
-      (activeCategory === 'services' && item.type === 'service') ||
-      (activeCategory === 'portfolio' && item.type === 'portfolio') ||
-      (activeCategory === 'insights' && item.type === 'insight') ||
-      (activeCategory === 'tools' && item.type === 'tool');
+  const filteredItems = useMemo(() => {
+    return allItems.filter((item) => {
+      const matchesCategory =
+        activeCategory === 'all' ||
+        (activeCategory === 'services' && item.type === 'service') ||
+        (activeCategory === 'portfolio' && item.type === 'portfolio') ||
+        (activeCategory === 'insights' && item.type === 'insight') ||
+        (activeCategory === 'tools' && item.type === 'tool');
 
-    if (!matchesCategory) return false;
+      if (!matchesCategory) return false;
 
-    if (!query.trim()) return true;
+      if (!query.trim()) return true;
 
-    const q = query.toLowerCase().trim();
-    const matchTitle = item.title.toLowerCase().includes(q);
-    const matchDesc = item.description.toLowerCase().includes(q);
-    const matchTags = item.tags?.some((t) => t.toLowerCase().includes(q));
+      const q = query.toLowerCase().trim();
+      const matchTitle = item.title.toLowerCase().includes(q);
+      const matchDesc = item.description.toLowerCase().includes(q);
+      const matchTags = item.tags?.some((t) => t.toLowerCase().includes(q));
 
-    return matchTitle || matchDesc || matchTags;
-  });
+      return matchTitle || matchDesc || matchTags;
+    });
+  }, [allItems, activeCategory, query]);
 
   // Focus input on open and restore focus on close
   useEffect(() => {
@@ -240,7 +411,16 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, [isOpen, filteredItems, selectedIndex, onNavigate, onClose, query]);
 
-  if (!isOpen) return null;
+  // If closed, return the hidden structured data script for crawler indexability
+  if (!isOpen) {
+    return (
+      <script
+        id="dth-search-directory-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildSearchDirectoryJsonLd(allItems)) }}
+      />
+    );
+  }
 
   const getTypeStyles = (type: SearchResultItem['type']) => {
     switch (type) {
@@ -273,6 +453,12 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-150">
+      {/* Background script tag containing filtered structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildSearchDirectoryJsonLd(filteredItems)) }}
+      />
+
       <button
         type="button"
         aria-label="Close search modal"
@@ -349,8 +535,17 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
           ))}
         </div>
 
-        {/* Results List */}
-        <div className="flex-1 overflow-y-auto p-3 space-y-1.5 divide-y divide-stone-100 dark:divide-slate-900">
+        {/* Results List: Semantic Microdata Searchable Directory */}
+        <div 
+          itemScope
+          itemType="https://schema.org/ItemList"
+          className="flex-1 overflow-y-auto p-3 space-y-1.5 divide-y divide-stone-100 dark:divide-slate-900"
+        >
+          {/* ItemList Structured Data Metas */}
+          <meta itemProp="name" content="Domain Tech Hub Search Directory" />
+          <meta itemProp="description" content="Searchable index of software services, verified case studies, insights, and interactive developer tools." />
+          <meta itemProp="numberOfItems" content={String(filteredItems.length)} />
+
           {filteredItems.length === 0 ? (
             <div className="text-center py-12 px-4 space-y-2">
               <Search className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto mb-2" />
@@ -366,6 +561,8 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
               const style = getTypeStyles(item.type);
               const Icon = style.icon;
               const isSelected = index === selectedIndex;
+              const canonicalUrl = getSearchResultItemUrl(item);
+              const schemaType = getSchemaTypeForType(item.type);
 
               return (
                 <button
@@ -373,6 +570,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                   ref={(el) => {
                     resultItemsRef.current[index] = el;
                   }}
+                  itemProp="itemListElement"
+                  itemScope
+                  itemType="https://schema.org/ListItem"
                   onClick={() => {
                     if (query.trim()) {
                       sessionStorage.setItem('dth_search_intent', query.trim());
@@ -387,6 +587,34 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                       : 'hover:bg-stone-50 dark:hover:bg-slate-900/50'
                   }`}
                 >
+                  {/* ListItem Structured Data Metas */}
+                  <meta itemProp="position" content={String(index + 1)} />
+                  <meta itemProp="url" content={canonicalUrl} />
+                  <meta itemProp="name" content={item.title} />
+                  <meta itemProp="description" content={item.description} />
+                  {item.tags && item.tags.length > 0 && (
+                    <meta itemProp="keywords" content={item.tags.join(', ')} />
+                  )}
+
+                  {/* Nested Item Microdata for the specific content entity */}
+                  <span itemProp="item" itemScope itemType={schemaType.schemaUri} className="sr-only">
+                    <meta itemProp="name" content={item.title} />
+                    <meta itemProp="description" content={item.description} />
+                    <meta itemProp="url" content={canonicalUrl} />
+                    {item.tags && item.tags.length > 0 && (
+                      <meta itemProp="keywords" content={item.tags.join(', ')} />
+                    )}
+                    {item.type === 'service' && (
+                      <meta itemProp="serviceType" content={item.categoryLabel} />
+                    )}
+                    {item.type === 'insight' && (
+                      <meta itemProp="headline" content={item.title} />
+                    )}
+                    {item.type === 'tool' && (
+                      <meta itemProp="applicationCategory" content="UtilityApplication" />
+                    )}
+                  </span>
+
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${style.iconBg}`}>
                     <Icon className="w-4 h-4" />
                   </div>

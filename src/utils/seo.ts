@@ -22,9 +22,9 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       '@type': 'ProfessionalService',
       name: 'Domain Tech Hub',
       description: 'Nairobi digital technology agency specializing in modern web applications, e-commerce, Safaricom Daraja M-Pesa integration, and SEO.',
-      url: 'https://domaintechhub.com',
+      url: 'https://www.domaintechhubs.com',
       telephone: '+254118746676',
-      email: 'info@domaintechhub.com',
+      email: 'info@domaintechhubs.com',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Nairobi',
@@ -56,11 +56,11 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       '@type': 'AboutPage',
       name: 'About Domain Tech Hub',
       description: 'Nairobi-based digital engineering agency architecting modern web apps, M-Pesa e-commerce systems, and high-performance cloud infrastructure.',
-      url: 'https://domaintechhub.com/about',
+      url: 'https://www.domaintechhubs.com/about',
       publisher: {
         '@type': 'Organization',
         name: 'Domain Tech Hub',
-        url: 'https://domaintechhub.com',
+        url: 'https://www.domaintechhubs.com',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Nairobi',
@@ -87,7 +87,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
               provider: {
                 '@type': 'Organization',
                 name: 'Domain Tech Hub',
-                url: 'https://domaintechhub.com',
+                url: 'https://www.domaintechhubs.com',
               },
               areaServed: {
                 '@type': 'Country',
@@ -116,7 +116,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
             provider: {
               '@type': 'Organization',
               name: 'Domain Tech Hub',
-              url: 'https://domaintechhub.com',
+              url: 'https://www.domaintechhubs.com',
             },
             areaServed: 'Kenya',
             offers: {
@@ -440,6 +440,13 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
 
   // 3. Update Standard Meta Description
   setMeta('description', config.description);
+
+  // 3b. Crawlers & Privacy Directives (Disallow crawling on portal to ensure user privacy)
+  if (route === 'portal') {
+    setMeta('robots', 'noindex, nofollow, noarchive');
+  } else {
+    setMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+  }
 
   // 4. Update OpenGraph Tags
   setMeta('og:title', config.ogTitle || config.title, true);
