@@ -620,7 +620,6 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
             {/* Stepper Navigation Footer - Mobile UI Design Optimized */}
             <div className="pt-6 mt-6 border-t border-stone-100 dark:border-slate-800">
               <div className="grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:justify-between w-full">
-                
                 {/* Previous Stage Button */}
                 <button
                   type="button"
