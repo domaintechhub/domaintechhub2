@@ -551,7 +551,7 @@ export const ClientPortalDemo: React.FC = () => {
                   <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
                     <span className="text-slate-400 font-mono">Staging URL:</span>
                     <button
-                      type="button" 
+                      type="button"
                       onClick={() => {
                         setStagingNotice(true);
                         setTimeout(() => setStagingNotice(false), 4500);
