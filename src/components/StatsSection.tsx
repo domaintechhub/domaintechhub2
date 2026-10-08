@@ -69,7 +69,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
               </span>
             </div>
             <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-mono tracking-tight mb-1 group-hover:text-cyan-300 transition-colors">
-              <AnimatedCounter value="50+" duration={2.2} />
+              <AnimatedCounter value="48+" duration={2.2} />
             </div>
             <div className="text-xs sm:text-sm font-bold text-slate-200 mb-1">
               Projects Completed
