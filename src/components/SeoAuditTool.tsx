@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { 
   Search, ShieldAlert, CheckCircle2, AlertTriangle, XCircle, 
   Gauge, ArrowRight, Printer, RefreshCw, Globe, Smartphone, Lock,
@@ -15,6 +15,8 @@ interface SeoAuditToolProps {
 
 export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) => {
   const { t } = useLanguage();
+  const urlInputId = useId();
+  const keywordInputId = useId();
   const [urlInput, setUrlInput] = useState('');
   const [keywordInput, setKeywordInput] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -175,14 +177,17 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
               
               <div className="md:col-span-7">
-                <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                <label id={`${urlInputId}-label`} htmlFor={urlInputId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                   {t('audit.urlLabel')}
                 </label>
                 <div className="relative">
-                  <Globe className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Globe className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                   <input
+                    id={urlInputId}
+                    aria-labelledby={`${urlInputId}-label`}
                     type="text"
                     required
+                    autoComplete="url"
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
                     placeholder="e.g. yourbusiness.co.ke or company.com"
@@ -192,13 +197,16 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
               </div>
 
               <div className="md:col-span-5">
-                <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                <label id={`${keywordInputId}-label`} htmlFor={keywordInputId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                   {t('audit.keywordLabel')}
                 </label>
                 <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                   <input
+                    id={keywordInputId}
+                    aria-labelledby={`${keywordInputId}-label`}
                     type="text"
+                    autoComplete="off"
                     value={keywordInput}
                     onChange={(e) => setKeywordInput(e.target.value)}
                     placeholder="e.g. Solar Installation Nairobi"

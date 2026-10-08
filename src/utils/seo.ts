@@ -1,5 +1,6 @@
 import { PageRoute } from '../App';
 import { ToolTab } from '../components/ToolsPage';
+import { SITE_URL } from '../config/site';
 import { SERVICES_LIST } from '../data/servicesData';
 import { HIGH_PERFORMING_KEYWORDS } from './keywordInjection';
 
@@ -20,11 +21,14 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
+      '@id': `${SITE_URL}/#organization`,
       name: 'Domain Tech Hub',
       description: 'Nairobi digital technology agency specializing in modern web applications, e-commerce, Safaricom Daraja M-Pesa integration, and SEO.',
-      url: 'https://www.domaintechhubs.com',
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo-icon.svg`,
+      image: `${SITE_URL}/og-image.svg`,
       telephone: '+254118746676',
-      email: 'info@domaintechhub.com',
+      email: 'info@domaintechhubs.com',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Nairobi',
@@ -44,6 +48,14 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
           closes: '17:00',
         },
       ],
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${SITE_URL}/services?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
     },
   }),
 
@@ -54,13 +66,16 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
+      '@id': `${SITE_URL}/about#webpage`,
       name: 'About Domain Tech Hub',
       description: 'Nairobi-based digital engineering agency architecting modern web apps, M-Pesa e-commerce systems, and high-performance cloud infrastructure.',
-      url: 'https://www.domaintechhubs.com/about',
+      url: `${SITE_URL}/about`,
       publisher: {
         '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
         name: 'Domain Tech Hub',
-        url: 'https://www.domaintechhubs.com',
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo-icon.svg`,
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Nairobi',
@@ -82,12 +97,16 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
             jsonLd: {
               '@context': 'https://schema.org',
               '@type': 'Service',
+              '@id': `${SITE_URL}/services/pos-systems#service`,
+              url: `${SITE_URL}/services/pos-systems`,
               name: 'Point of Sale (POS) Systems & Hardware Kenya',
               description: matched.fullDesc,
               provider: {
                 '@type': 'Organization',
+                '@id': `${SITE_URL}/#organization`,
                 name: 'Domain Tech Hub',
-                url: 'https://www.domaintechhubs.com',
+                url: SITE_URL,
+                logo: `${SITE_URL}/logo-icon.svg`,
               },
               areaServed: {
                 '@type': 'Country',
@@ -111,12 +130,16 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
           jsonLd: {
             '@context': 'https://schema.org',
             '@type': 'Service',
+            '@id': `${SITE_URL}/services/${matched.id}#service`,
+            url: `${SITE_URL}/services/${matched.id}`,
             name: matched.title,
             description: matched.fullDesc,
             provider: {
               '@type': 'Organization',
+              '@id': `${SITE_URL}/#organization`,
               name: 'Domain Tech Hub',
-              url: 'https://www.domaintechhubs.com',
+              url: SITE_URL,
+              logo: `${SITE_URL}/logo-icon.svg`,
             },
             areaServed: 'Kenya',
             offers: {
@@ -136,10 +159,15 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'Service',
+        '@id': `${SITE_URL}/services#service`,
+        url: `${SITE_URL}/services`,
         serviceType: 'Software & Web Development',
         provider: {
           '@type': 'Organization',
+          '@id': `${SITE_URL}/#organization`,
           name: 'Domain Tech Hub',
+          url: SITE_URL,
+          logo: `${SITE_URL}/logo-icon.svg`,
         },
         areaServed: {
           '@type': 'Country',
@@ -441,17 +469,26 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
   // 3. Update Standard Meta Description
   setMeta('description', config.description);
 
+  // 3b. Crawlers & Privacy Directives (Disallow crawling on portal to ensure user privacy)
+  if (route === 'portal') {
+    setMeta('robots', 'noindex, nofollow, noarchive');
+  } else {
+    setMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+  }
+
   // 4. Update OpenGraph Tags
+  const fullUrl = `${SITE_URL}${config.canonicalPath}`;
+  const ogImageUrl = `${SITE_URL}/og-image.svg`;
+
   setMeta('og:title', config.ogTitle || config.title, true);
   setMeta('og:description', config.ogDescription || config.description, true);
   setMeta('og:type', 'website', true);
   setMeta('og:site_name', 'Domain Tech Hub', true);
+  setMeta('og:url', fullUrl, true);
+  setMeta('og:image', ogImageUrl, true);
+  setMeta('og:image:secure_url', ogImageUrl, true);
 
   if (typeof window !== 'undefined') {
-    const origin = window.location.origin;
-    const fullUrl = `${origin}${config.canonicalPath}`;
-    setMeta('og:url', fullUrl, true);
-
     // Canonical link
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!canonical) {
@@ -460,12 +497,25 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', fullUrl);
+
+    // hreflang links
+    ['en', 'sw', 'fr', 'x-default'].forEach((lang) => {
+      let hreflangLink = document.querySelector(`link[rel="alternate"][hreflang="${lang}"]`) as HTMLLinkElement | null;
+      if (!hreflangLink) {
+        hreflangLink = document.createElement('link');
+        hreflangLink.setAttribute('rel', 'alternate');
+        hreflangLink.setAttribute('hreflang', lang);
+        document.head.appendChild(hreflangLink);
+      }
+      hreflangLink.setAttribute('href', fullUrl);
+    });
   }
 
   // 5. Update Twitter Cards
   setMeta('twitter:card', 'summary_large_image');
   setMeta('twitter:title', config.title);
   setMeta('twitter:description', config.description);
+  setMeta('twitter:image', ogImageUrl);
 
   // 6. Update Schema.org JSON-LD Structured Data
   let scriptTag = document.getElementById('dth-schema-jsonld') as HTMLScriptElement | null;
@@ -475,5 +525,32 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
     scriptTag.type = 'application/ld+json';
     document.head.appendChild(scriptTag);
   }
-  scriptTag.textContent = JSON.stringify(config.jsonLd, null, 2);
+  const enrichedJsonLd = {
+    ...config.jsonLd,
+    '@id': config.jsonLd['@id'] || `${fullUrl}#webpage`,
+    url: config.jsonLd.url || fullUrl,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      '@id': `${fullUrl}#breadcrumbs`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${SITE_URL}/`,
+        },
+        ...(config.canonicalPath !== '/'
+          ? [
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: config.title.split('|')[0].trim(),
+                item: fullUrl,
+              },
+            ]
+          : []),
+      ],
+    },
+  };
+  scriptTag.textContent = JSON.stringify(enrichedJsonLd, null, 2);
 }

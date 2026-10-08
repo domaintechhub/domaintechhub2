@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "description": "Domain Tech Hub - Leading Digital Technology & Web Agency in Nairobi, Kenya",
-  "homepage": "https://domaintechhub.github.io/domaintechhub2/",
+  "homepage": "https://www.domaintechhubs.com",
   "type": "module",
   "engines": {
-    "node": "^20.19.0 || >=22.12.0",
+    "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "scripts": {
@@ -15,9 +15,14 @@
     "start": "vite preview --port=3000 --host=0.0.0.0",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "generate:sitemaps": "node generate-sitemaps.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",
@@ -31,14 +36,19 @@
     "vite": "^8.3.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
+    "eslint": "^10.12.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
-    "typescript": "^7.0.2"
+    "typescript": "5.8.3",
+    "typescript-eslint": "^8.71.1"
   }
 }

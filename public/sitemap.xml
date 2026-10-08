@@ -1,195 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Primary Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- ==================== INDEXABLE PAGES ==================== -->
+  <!-- Home - Domain Tech Hub -->
   <url>
     <loc>https://www.domaintechhubs.com/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.domaintechhubs.com/" />
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/index.md" />
-    <image:image>
-      <image:loc>https://www.domaintechhubs.com/og-image.svg</image:loc>
-      <image:title>Domain Tech Hub - Nairobi Premier Web Engineering Agency</image:title>
-      <image:caption>Modern Web Applications, Safaricom M-Pesa Integrations and Enterprise Software</image:caption>
-    </image:image>
   </url>
 
-  <!-- About Us Page -->
-  <url>
-    <loc>https://www.domaintechhubs.com/about</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/about.md" />
-  </url>
-
-  <!-- Core Services Hub -->
+  <!-- Engineering Services -->
   <url>
     <loc>https://www.domaintechhubs.com/services</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/services.md" />
   </url>
 
-  <!-- Individual Service Canonical Routes -->
-  <url>
-    <loc>https://www.domaintechhubs.com/services/web-development</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/services/ecommerce-mpesa</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/services/digital-marketing</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/services/custom-software</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/services/branding-design</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/services/seo-optimization</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/services/pos-systems</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Portfolio & Verified Case Studies -->
+  <!-- Case Studies &amp; Portfolio -->
   <url>
     <loc>https://www.domaintechhubs.com/portfolio</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/portfolio.md" />
+    <priority>0.95</priority>
   </url>
 
-  <!-- 4-8 Week Sprint Roadmap -->
+  <!-- Engineering Insights &amp; Knowledge Base -->
   <url>
-    <loc>https://www.domaintechhubs.com/roadmap</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/roadmap.md" />
-  </url>
-
-  <!-- Engineering Leadership & Team -->
-  <url>
-    <loc>https://www.domaintechhubs.com/team</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/team.md" />
-  </url>
-
-  <!-- Enterprise Tech Stack & Standards -->
-  <url>
-    <loc>https://www.domaintechhubs.com/tech-stack</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/tech-stack.md" />
-  </url>
-
-  <!-- Engineering Blog & Technical Articles -->
-  <url>
-    <loc>https://www.domaintechhubs.com/blog</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/insights.md" />
-  </url>
-
-  <!-- Interactive Project Tools -->
-  <url>
-    <loc>https://www.domaintechhubs.com/tools/calculator</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/tools/audit</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.domaintechhubs.com/tools/domains</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.domaintechhubs.com/insights</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
 
   <!-- Frequently Asked Questions -->
   <url>
     <loc>https://www.domaintechhubs.com/faq</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/faq.md" />
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Contact & Discovery Session -->
+  <!-- Contact &amp; Discovery Session -->
   <url>
     <loc>https://www.domaintechhubs.com/contact</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Sprint Roadmap &amp; Delivery Methodology -->
+  <url>
+    <loc>https://www.domaintechhubs.com/roadmap</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Engineering Team &amp; Leadership -->
+  <url>
+    <loc>https://www.domaintechhubs.com/team</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- About Us -->
+  <url>
+    <loc>https://www.domaintechhubs.com/about</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Engineering Blog -->
+  <url>
+    <loc>https://www.domaintechhubs.com/blog</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Tech Stack &amp; Infrastructure -->
+  <url>
+    <loc>https://www.domaintechhubs.com/tech-stack</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Direct Machine-Readable Endpoints (LLMs & Answer Engines) -->
+  <!-- Project Cost &amp; Scope Calculator -->
   <url>
-    <loc>https://www.domaintechhubs.com/llms.txt</loc>
-    <lastmod>2026-10-04</lastmod>
+    <loc>https://www.domaintechhubs.com/tools/calculator</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.90</priority>
   </url>
 
+  <!-- Core Web Vitals &amp; SEO Speed Audit -->
   <url>
-    <loc>https://www.domaintechhubs.com/llms-full.txt</loc>
-    <lastmod>2026-10-04</lastmod>
+    <loc>https://www.domaintechhubs.com/tools/audit</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.90</priority>
   </url>
 
+  <!-- .co.ke Domain Registration &amp; Hosting -->
   <url>
-    <loc>https://www.domaintechhubs.com/markdown/index.md</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://www.domaintechhubs.com/tools/domains</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
+
+  <!-- Custom Website Development -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/web-development</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Modern Front-End Development -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/front-end-development</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- E-Commerce Store Development -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/ecommerce-development</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- CMS &amp; WordPress Development -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/cms-development</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Search Engine Optimization (SEO) -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/seo-services</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Result-Driven Digital Marketing -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/digital-marketing</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- PPC Management (Google Ads) -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/ppc-management</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- WhatsApp Marketing &amp; Automation -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/whatsapp-marketing</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Social Media Marketing &amp; Management -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/social-media-marketing</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Custom CRM &amp; Business Systems -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/custom-crm-development</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- AI-Powered Business Solutions -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/ai-powered-solutions</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Web &amp; Digital Consultancy -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/web-consultancy</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Website Maintenance &amp; Security -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/website-maintenance</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Graphic Design &amp; Corporate Branding -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/graphic-design-branding</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Mobile App Development -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/mobile-app-development</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Point of Sale (POS) Systems &amp; Hardware -->
+  <url>
+    <loc>https://www.domaintechhubs.com/services/pos-systems</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- ==================== INDEXABLE SERVICES ==================== -->
+
 
 </urlset>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { 
   Globe, Search, CheckCircle, Server, Shield, 
   ArrowRight, ExternalLink, HelpCircle, MessageSquare, Mail 
@@ -29,6 +29,7 @@ const TLDS: TldItem[] = [
 ];
 
 export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForSetup }) => {
+  const domainInputId = useId();
   const [searchTerm, setSearchTerm] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
   const [activeTab, setActiveTab] = useState<'domains' | 'hosting'>('domains');
@@ -91,9 +92,12 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
             <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-4xl mb-8">
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
-                  <Globe className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Globe className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                   <input
+                    id={domainInputId}
                     type="text"
+                    aria-label="Enter your company or domain name to check availability"
+                    autoComplete="off"
                     value={searchTerm}
                     onChange={(e) => {
                       setSearchTerm(e.target.value);
@@ -181,8 +185,9 @@ export const DomainChecker: React.FC<DomainCheckerProps> = ({ onSelectDomainForS
                           }}
                           className="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
                           title="Register via WhatsApp"
+                          aria-label={`Register ${displayName} via WhatsApp`}
                         >
-                          <MessageSquare className="w-3.5 h-3.5" />
+                          <MessageSquare className="w-3.5 h-3.5" aria-hidden="true" />
                         </button>
 
                         <button

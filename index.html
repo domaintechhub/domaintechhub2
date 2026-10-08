@@ -13,15 +13,16 @@
     <meta name="author" content="Domain Tech Hub" />
     <meta name="publisher" content="Domain Tech Hub" />
     <link rel="canonical" href="https://www.domaintechhubs.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.domaintechhubs.com/" />
+    <link rel="alternate" hreflang="sw" href="https://www.domaintechhubs.com/" />
+    <link rel="alternate" hreflang="fr" href="https://www.domaintechhubs.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.domaintechhubs.com/" />
 
     <!-- AEO & LLM Discoverability (llms.txt & Markdown Mirrors) -->
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="Domain Tech Hub LLM Specification (llms.txt)" />
-    <link rel="alternate" type="text/markdown" href="/llms.txt" title="Domain Tech Hub LLM Documentation (Markdown)" />
-    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Domain Tech Hub Full LLM Context" />
-    <link rel="alternate" type="text/markdown" href="/markdown/index.md" title="Domain Tech Hub Markdown Mirror" />
-    <link rel="ai-catalog" href="%BASE_URL%.well-known/ai-catalog.json" />
-    <link rel="ard" href="%BASE_URL%.well-known/ard.json" />
-    <link rel="preload" as="image" type="image/avif" href="%BASE_URL%assets/kenyan-developer-480.avif" imagesrcset="%BASE_URL%assets/kenyan-developer-480.avif 480w, %BASE_URL%assets/kenyan-developer-741.avif 741w, %BASE_URL%assets/kenyan-developer-960.avif 960w" imagesizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 512px" fetchpriority="high" />
+    <link rel="alternate" type="text/plain" href="https://www.domaintechhubs.com/llms.txt" title="Domain Tech Hub LLM Specification (llms.txt)" />
+    <link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/llms.txt" title="Domain Tech Hub LLM Documentation (Markdown)" />
+    <link rel="alternate" type="text/plain" href="https://www.domaintechhubs.com/llms-full.txt" title="Domain Tech Hub Full LLM Context" />
+    <link rel="alternate" type="text/markdown" href="https://www.domaintechhubs.com/markdown/index.md" title="Domain Tech Hub Markdown Mirror" />
 
     <!-- Crawlers & Indexing Directives (Allowing Search & Generative AI Bots) -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -44,9 +45,9 @@
     <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
 
     <!-- Icons & Favicons -->
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%logo-icon.svg" />
-    <link rel="alternate icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <link rel="apple-touch-icon" href="%BASE_URL%logo-icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
+    <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/logo-icon.svg" />
 
     <!-- OpenGraph Social Sharing Card (Facebook, LinkedIn, Discord, Slack) -->
     <meta property="og:type" content="website" />
@@ -54,8 +55,8 @@
     <meta property="og:title" content="Domain Tech Hub - Nairobi Premier Web Development &amp; Software Engineering Agency" />
     <meta property="og:description" content="Nairobi premier software engineering agency. High-performance web applications, Safaricom Daraja 3.0 M-Pesa e-commerce, custom CRM software, and high-ROI digital marketing." />
     <meta property="og:url" content="https://www.domaintechhubs.com/" />
-    <meta property="og:image" content="/og-image.svg" />
-    <meta property="og:image:secure_url" content="/og-image.svg" />
+    <meta property="og:image" content="https://www.domaintechhubs.com/og-image.svg" />
+    <meta property="og:image:secure_url" content="https://www.domaintechhubs.com/og-image.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -70,8 +71,11 @@
     <meta name="twitter:creator" content="@DomainTechhub" />
     <meta name="twitter:title" content="Domain Tech Hub - Nairobi Premier Web Development &amp; Software Engineering Agency" />
     <meta name="twitter:description" content="Nairobi premier software engineering agency. High-performance web applications, Safaricom Daraja 3.0 M-Pesa e-commerce, custom CRM software, and high-ROI digital marketing." />
-    <meta name="twitter:image" content="/og-image.svg" />
+    <meta name="twitter:image" content="https://www.domaintechhubs.com/og-image.svg" />
     <meta name="twitter:image:alt" content="Domain Tech Hub - Digital Engineering Studio Nairobi" />
+
+    <!-- Self-Hosted Typography: Preload Latin WOFF2 for Body Font (Plus Jakarta Sans) -->
+    <link rel="preload" href="/fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Schema.org JSON-LD Structured Data (Answer Engine & Generative Engine Optimized) -->
     <script type="application/ld+json">
@@ -89,7 +93,7 @@
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://www.domaintechhubs.com/#services?q={search_term_string}"
+              "urlTemplate": "https://www.domaintechhubs.com/services?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }
@@ -104,7 +108,7 @@
           "image": "https://www.domaintechhubs.com/og-image.svg",
           "description": "Nairobi premier software engineering studio building high-speed web apps, Safaricom Daraja 3.0 M-Pesa integrated e-commerce, custom CRMs, and data-driven SEO systems.",
           "telephone": "+254118746676",
-          "email": "info@domaintechhub.com",
+          "email": "info@domaintechhubs.com",
           "priceRange": "$$ - $$$",
           "currenciesAccepted": "KES, USD, EUR, GBP",
           "paymentAccepted": "M-Pesa, Lipa Na M-Pesa, Credit Card, Debit Card, Bank Transfer, Stripe, Pesapal",
@@ -297,25 +301,25 @@
               "@type": "ListItem",
               "position": 2,
               "name": "Services",
-              "item": "https://www.domaintechhubs.com/#services"
+              "item": "https://www.domaintechhubs.com/services"
             },
             {
               "@type": "ListItem",
               "position": 3,
               "name": "Portfolio",
-              "item": "https://www.domaintechhubs.com/#portfolio"
+              "item": "https://www.domaintechhubs.com/portfolio"
             },
             {
               "@type": "ListItem",
               "position": 4,
               "name": "Interactive Tools",
-              "item": "https://www.domaintechhubs.com/#tools"
+              "item": "https://www.domaintechhubs.com/tools"
             },
             {
               "@type": "ListItem",
               "position": 5,
               "name": "Contact",
-              "item": "https://www.domaintechhubs.com/#contact"
+              "item": "https://www.domaintechhubs.com/contact"
             }
           ]
         },

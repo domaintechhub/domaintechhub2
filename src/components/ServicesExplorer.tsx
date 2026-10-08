@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { 
   Globe, Layout, ShoppingCart, FileCode, Search, TrendingUp, Target, 
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
@@ -23,6 +23,7 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
   onOpenServicePage,
   initialLoading = true
 }) => {
+  const servicesSearchInputId = useId();
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('all');
   const [activeModalService, setActiveModalService] = useState<ServiceDetail | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -128,10 +129,12 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
           </div>
 
           {/* Quick Search */}
-          <div className="relative min-w-[240px]">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <div className="relative w-full md:w-auto md:min-w-[240px]">
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
             <input
+              id={servicesSearchInputId}
               type="text"
+              aria-label="Search services by name, feature, or technology"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder={t('services.searchPlaceholder')}
@@ -167,12 +170,15 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
                 </div>
 
                 {/* Title with link to Dedicated Service Page */}
-                <h3 
-                  onClick={() => onOpenServicePage ? onOpenServicePage(service.id) : setActiveModalService(service)}
-                  className="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors cursor-pointer flex items-center justify-between"
-                >
-                  <span>{service.title}</span>
-                  <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-1" />
+                <h3 className="text-lg font-bold text-white mb-2">
+                  <button
+                    type="button"
+                    onClick={() => onOpenServicePage ? onOpenServicePage(service.id) : setActiveModalService(service)}
+                    className="w-full text-left group-hover:text-cyan-300 transition-colors cursor-pointer flex items-center justify-between"
+                  >
+                    <span>{service.title}</span>
+                    <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-1" aria-hidden="true" />
+                  </button>
                 </h3>
 
                 {/* Short Description */}
@@ -268,7 +274,7 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
               className="absolute top-5 right-5 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
 
             {/* Modal Header */}

@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,12 +12,48 @@ const defaultBase = process.env.GITHUB_ACTIONS && repositoryName && !repositoryN
   : '/';
 const base = process.env.VITE_BASE_PATH || defaultBase;
 
+// Non-blocking CSS plugin: converts blocking stylesheet link into preload + onload swap during build
+function nonBlockingCssPlugin(): Plugin {
+  return {
+    name: 'vite-plugin-non-blocking-css',
+    apply: 'build',
+    enforce: 'post',
+    transformIndexHtml(html) {
+      return html.replace(
+        /<link\s+([^>]*?rel=["']stylesheet["'][^>]*?)>/gi,
+        (match) => {
+          const hrefMatch = match.match(/href=["']([^"']+)["']/i);
+          if (!hrefMatch) return match;
+          const href = hrefMatch[1];
+          const hasCrossorigin = /crossorigin/i.test(match);
+          const crossorigin = hasCrossorigin ? ' crossorigin' : '';
+          return `<link rel="preload" as="style" href="${href}"${crossorigin} onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${href}"${crossorigin}></noscript>`;
+        }
+      );
+    }
+  };
+}
+
+// Dynamic sitemap crawler plugin: crawls App.tsx routes and data registries before build bundle
+function dynamicSitemapPlugin(): Plugin {
+  return {
+    name: 'vite-plugin-dynamic-sitemap-crawler',
+    apply: 'build',
+    async buildStart() {
+      const { runCrawler } = await import('./generate-sitemaps.js');
+      runCrawler();
+    }
+  };
+}
+
 export default defineConfig(({ mode }) => {
   return {
     base,
     plugins: [
       react(), 
-      tailwindcss()
+      tailwindcss(),
+      nonBlockingCssPlugin(),
+      dynamicSitemapPlugin()
     ],
     resolve: {
       alias: {

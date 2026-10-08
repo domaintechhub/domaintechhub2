@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { 
   Cpu, Layers, ShieldCheck, Gauge, Search, 
   ExternalLink, ArrowRight, CheckCircle2, Terminal 
@@ -10,6 +10,7 @@ interface TechStackSectionProps {
 }
 
 export const TechStackSection: React.FC<TechStackSectionProps> = ({ onSelectTechForProject }) => {
+  const techSearchInputId = useId();
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -108,9 +109,11 @@ export const TechStackSection: React.FC<TechStackSectionProps> = ({ onSelectTech
 
           {/* Quick Search */}
           <div className="relative min-w-[220px]">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
             <input
+              id={techSearchInputId}
               type="text"
+              aria-label="Search technology stack"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search stack (e.g. AWS, Python)..."

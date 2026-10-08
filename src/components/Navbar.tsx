@@ -208,6 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
               >
                 <button
                   type="button"
+                  aria-expanded={servicesDropdownOpen}
                   onClick={() => {
                     if (servicesTimeoutRef.current) clearTimeout(servicesTimeoutRef.current);
                     setServicesDropdownOpen((prev) => !prev);
@@ -364,6 +365,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
               >
                 <button
                   type="button"
+                  aria-expanded={toolsDropdownOpen}
                   onClick={() => {
                     if (toolsTimeoutRef.current) clearTimeout(toolsTimeoutRef.current);
                     setToolsDropdownOpen((prev) => !prev);
@@ -471,6 +473,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
               >
                 <button
                   type="button"
+                  aria-expanded={moreDropdownOpen}
                   onClick={() => {
                     if (moreTimeoutRef.current) clearTimeout(moreTimeoutRef.current);
                     handleNavClick('more');
@@ -848,7 +851,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                     <div className="grid grid-cols-2 gap-1 font-mono text-xs">
                       {(['USD', 'KES'] as const).map((curr) => (
                         <button
+                          type="button"
                           key={curr}
+                          aria-pressed={currency === curr}
                           onClick={() => setCurrency(curr)}
                           className={`py-1.5 rounded-xl text-center transition-colors cursor-pointer ${
                             currency === curr 
@@ -865,11 +870,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                   {/* Theme */}
                   <div className="space-y-1">
                     <span className="text-[11px] font-mono text-slate-500 flex items-center gap-1">
-                      <Sun className="w-3 h-3 text-amber-500" />
+                      <Sun className="w-3 h-3 text-amber-500" aria-hidden="true" />
                       <span>{t('menu.theme')}</span>
                     </span>
                     <div className="grid grid-cols-2 gap-1 font-mono text-xs">
                       <button
+                        type="button"
+                        aria-pressed={theme === 'light'}
                         onClick={() => theme !== 'light' && toggleTheme()}
                         className={`py-1.5 rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer ${
                           theme === 'light' 
@@ -877,10 +884,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                             : 'text-slate-600 bg-white dark:bg-slate-950 border border-stone-200 dark:border-slate-800'
                         }`}
                       >
-                        <Sun className="w-3 h-3 text-amber-500" />
+                        <Sun className="w-3 h-3 text-amber-500" aria-hidden="true" />
                         <span>Light</span>
                       </button>
                       <button
+                        type="button"
+                        aria-pressed={theme === 'dark'}
                         onClick={() => theme !== 'dark' && toggleTheme()}
                         className={`py-1.5 rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer ${
                           theme === 'dark' 
@@ -888,7 +897,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                             : 'text-slate-600 bg-white dark:bg-slate-950 border border-stone-200 dark:border-slate-800'
                         }`}
                       >
-                        <Moon className="w-3 h-3 text-slate-400" />
+                        <Moon className="w-3 h-3 text-slate-400" aria-hidden="true" />
                         <span>Dark</span>
                       </button>
                     </div>

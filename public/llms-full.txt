@@ -4,7 +4,7 @@ Organization: Domain Tech Hub
 Entity Type: ProfessionalService / SoftwareAgency
 Headquarters: Delta Corner Tower, Westlands, Nairobi, Kenya
 Founded: 2018
-Primary Email: info@domaintechhub.com
+Primary Email: info@domaintechhubs.com
 Secondary Email: domaintechhub@gmail.com
 Direct WhatsApp: +254 118746676
 Phone Numbers: +254 118746676 / +254 706 943383
@@ -55,7 +55,7 @@ Key Agency Benchmarks:
 - Interactive Prototypes: Complete Figma prototypes with component design tokens matching frontend implementation.
 
 ### Service 6: Technical SEO, Answer Engine & Generative Optimization (AEO/GEO)
-- Scope: Schema.org JSON-LD microdata, Core Web Vitals speed optimization, sitemap.xml, robots.txt, llms.txt, AI answer snippet targeting.
+- Scope: Schema.org JSON-LD microdata, Core Web Vitals speed optimization, sitemap_index.xml, sitemap.xml, robots.txt, llms.txt, AI answer snippet targeting.
 - Outcome: Top Google organic search rankings for competitive commercial queries across Nairobi and East Africa.
 
 ### Service 7: Point of Sale (POS) Systems & Hardware (Kenya Market Specification)
@@ -151,4 +151,4 @@ Q: What post-launch warranty and support does Domain Tech Hub offer?
 A: Every project includes an ironclad 30-day zero-cost bug fix warranty. We also offer monthly Service Level Agreement (SLA) retainers covering security updates, database backups, uptime monitoring, and priority engineering support.
 
 Q: How can I contact Domain Tech Hub to start a project?
-A: You can reach our senior engineering leads via email at info@domaintechhub.com, WhatsApp/phone at +254 118746676, or schedule a 30-minute discovery consultation on our website at https://www.domaintechhubs.com.
+A: You can reach our senior engineering leads via email at info@domaintechhubs.com, WhatsApp/phone at +254 118746676, or schedule a 30-minute discovery consultation on our website at https://www.domaintechhubs.com.

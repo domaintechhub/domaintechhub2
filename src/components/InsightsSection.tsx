@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useId } from 'react';
 import { 
   BookOpen, Clock, Calendar, Search, ArrowRight, 
   ArrowUpRight, X, Check, Share2, Tag, Terminal,
@@ -160,6 +160,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   onNavigatePath,
   initialLoading = true
 }) => {
+  const insightsSearchInputId = useId();
   const [activeCategory, setActiveCategory] = useState<string>('All Articles');
   const [durationFilter, setDurationFilter] = useState<ReadDurationFilter>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -402,9 +403,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
             {/* Quick Keyword Search */}
             <div className="relative min-w-[240px]">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
               <input
+                id={insightsSearchInputId}
                 type="text"
+                aria-label="Search insights by topics, tech, or tags"
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Search topics, tech, or tags..."
@@ -533,8 +536,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   <img
                     src={featuredArticle.coverImage}
                     alt={featuredArticle.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                    width={800}
+                    height={450}
                     loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/80" />
                   
@@ -606,9 +612,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       <img
                         src={featuredArticle.author.avatar}
                         alt={featuredArticle.author.name}
-                        className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                        width={40}
+                        height={40}
                         loading="lazy"
                         decoding="async"
+                        className="w-10 h-10 rounded-full object-cover border border-slate-700"
                       />
                       <div>
                         <div className="text-xs font-bold text-white">{featuredArticle.author.name}</div>
@@ -647,8 +655,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     <img
                       src={article.coverImage}
                       alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                      width={640}
+                      height={360}
                       loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
                     
@@ -684,18 +695,17 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       </div>
                     </div>
 
-                    <h3 
-                      onClick={() => setSelectedArticle(article)}
-                      className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug cursor-pointer"
-                    >
-                      {article.title}
+                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedArticle(article)}
+                        className="text-left cursor-pointer hover:text-cyan-300 transition-colors"
+                      >
+                        {article.title}
+                      </button>
                     </h3>
 
-                    <p 
-                      onClick={() => setSelectedArticle(article)}
-                      className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4 cursor-pointer hover:text-slate-100 transition-colors"
-                      title="Click to read full article"
-                    >
+                    <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4">
                       {article.excerpt}
                     </p>
                   </div>
@@ -708,9 +718,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       <img
                         src={article.author.avatar}
                         alt={article.author.name}
-                        className="w-7 h-7 rounded-full object-cover border border-slate-700"
+                        width={28}
+                        height={28}
                         loading="lazy"
                         decoding="async"
+                        className="w-7 h-7 rounded-full object-cover border border-slate-700"
                       />
                       <div className="text-[11px] font-mono text-slate-300 font-medium">
                         {article.author.name}
@@ -809,7 +821,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                 className="absolute top-5 right-5 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors z-20"
                 aria-label="Close article"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" aria-hidden="true" />
               </button>
 
               {/* Header Metadata */}
@@ -850,9 +862,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   <img
                     src={selectedArticle.author.avatar}
                     alt={selectedArticle.author.name}
-                    className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                    width={40}
+                    height={40}
                     loading="lazy"
                     decoding="async"
+                    className="w-10 h-10 rounded-full object-cover border border-slate-700"
                   />
                   <div>
                     <div className="text-xs font-bold text-white">{selectedArticle.author.name}</div>
@@ -931,6 +945,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       <a
                         key={kw.slug}
                         href={kw.targetUrl}
+                        aria-label={`${kw.keyword} - ${kw.targetServiceTitle}`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleInternalNavigate(kw.targetUrl);

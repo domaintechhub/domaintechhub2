@@ -95,11 +95,11 @@ export const Portfolio: React.FC<PortfolioProps> = ({
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                    width={640}
+                    height={360}
                     loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1000&q=80';
-                    }}
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
                   
@@ -192,7 +192,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({
               className="absolute top-5 right-5 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
 
             {/* Header info */}
@@ -207,13 +207,13 @@ export const Portfolio: React.FC<PortfolioProps> = ({
             </div>
 
             {/* Key Metrics Banner */}
-            <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-950/80 border border-slate-800 mb-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-800 mb-6">
               {selectedCase.metrics.map((m, idx) => (
-                <div key={idx} className="text-center">
-                  <span className="text-xl sm:text-2xl font-extrabold font-mono text-emerald-400 block">
+                <div key={idx} className="text-center min-w-0">
+                  <span className="text-base sm:text-2xl font-extrabold font-mono text-emerald-400 block truncate">
                     {m.value}
                   </span>
-                  <span className="text-xs text-slate-400 block mt-0.5">
+                  <span className="text-[10px] sm:text-xs text-slate-400 block mt-0.5 leading-tight">
                     {m.label}
                   </span>
                 </div>

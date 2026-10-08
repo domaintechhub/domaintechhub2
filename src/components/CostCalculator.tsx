@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { 
   Calculator, Check, ArrowRight, Copy, CheckCheck, 
   MessageSquare, Shield, Clock, RefreshCw, Mail 
@@ -8,6 +8,7 @@ import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage } from '../context/LanguageContext';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToEmail, sendToWhatsApp } from '../utils/leadDispatch';
+import { SITE_URL } from '../config/site';
 
 interface AddonOption {
   id: string;
@@ -128,6 +129,10 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
 }) => {
   const { currency, formatPrice } = useCurrency();
   const { t } = useLanguage();
+  const step1GroupId = useId();
+  const step2GroupId = useId();
+  const step3GroupId = useId();
+  const step4GroupId = useId();
   const [selectedServiceId, setSelectedServiceId] = useState<string>(
     initialServiceId || 'web-development'
   );
@@ -264,7 +269,7 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
 - Add-ons: ${selectedAddonNames || 'None'}
 - Timeline: ${isRushTimeline ? 'Expedited Rush Sprint (+25%)' : 'Standard Delivery'}
 - Estimated Total: ${currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`}
-Generated at domaintechhub.com tool.`;
+Generated at ${SITE_URL} tool.`;
   };
 
   const handleCopyQuote = () => {
@@ -341,9 +346,9 @@ Generated at domaintechhub.com tool.`;
             {/* Step 1: Select Primary Service */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                <div id={step1GroupId} className="text-xs font-mono text-slate-400 uppercase tracking-wider">
                   {t('calc.step1')}
-                </label>
+                </div>
                 <button
                   type="button"
                   onClick={() => setShowAllServices(!showAllServices)}
@@ -353,7 +358,7 @@ Generated at domaintechhub.com tool.`;
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 sm:max-h-80 overflow-y-auto pr-1">
+              <div role="group" aria-labelledby={step1GroupId} className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 sm:max-h-80 overflow-y-auto pr-1">
                 {(showAllServices 
                   ? SERVICES_LIST 
                   : [...SERVICES_LIST.slice(0, 6), SERVICES_LIST.find(s => s.id === 'pos-systems')!, SERVICES_LIST[7]].filter(Boolean)
@@ -387,10 +392,10 @@ Generated at domaintechhub.com tool.`;
 
             {/* Step 2: Project Tier & Scope */}
             <div>
-              <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+              <div id={step2GroupId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
                 {t('calc.step2')}
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              </div>
+              <div role="group" aria-labelledby={step2GroupId} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {tierList.map((tier) => (
                   <button
                     key={tier.id}
@@ -419,22 +424,25 @@ Generated at domaintechhub.com tool.`;
             {/* Step 3: High-Value Integrations & Add-ons */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                <div id={step3GroupId} className="text-xs font-mono text-slate-400 uppercase tracking-wider">
                   {t('calc.step3')} {isPos ? '(Includes POS Hardware & Cloud Sync)' : ''}
-                </label>
+                </div>
                 <span className="text-xs text-slate-400">
                   {selectedAddons.length} selected
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 sm:max-h-96 overflow-y-auto pr-1">
+              <div role="group" aria-labelledby={step3GroupId} className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 sm:max-h-96 overflow-y-auto pr-1">
                 {displayedAddons.map((addon) => {
                   const isChecked = selectedAddons.includes(addon.id);
                   return (
-                    <div
+                    <button
                       key={addon.id}
+                      type="button"
+                      aria-pressed={isChecked}
+                      aria-label={`${addon.name} (+${formatPrice(addon.priceUSD, addon.priceKES)})`}
                       onClick={() => toggleAddon(addon.id)}
-                      className={`cursor-pointer p-3.5 rounded-xl border transition-all ${
+                      className={`text-left cursor-pointer p-3.5 rounded-xl border transition-all ${
                         isChecked 
                           ? 'bg-cyan-950/40 border-cyan-500/80 text-white' 
                           : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
@@ -446,7 +454,7 @@ Generated at domaintechhub.com tool.`;
                             ? 'bg-cyan-500 border-cyan-400 text-slate-950' 
                             : 'border-slate-700 bg-slate-900 text-transparent'
                         }`}>
-                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          <Check className="w-3.5 h-3.5 stroke-[3]" aria-hidden="true" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between gap-1">
@@ -460,7 +468,7 @@ Generated at domaintechhub.com tool.`;
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -468,11 +476,13 @@ Generated at domaintechhub.com tool.`;
 
             {/* Step 4: Timeline Priority */}
             <div>
-              <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+              <div id={step4GroupId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
                 {t('calc.step4')}
-              </label>
-              <div className="flex flex-col sm:flex-row gap-3">
+              </div>
+              <div role="group" aria-labelledby={step4GroupId} className="flex flex-col sm:flex-row gap-3">
                 <button
+                  type="button"
+                  aria-pressed={!isRushTimeline}
                   onClick={() => setIsRushTimeline(false)}
                   className={`flex-1 p-3.5 rounded-xl border text-left transition-all ${
                     !isRushTimeline 
@@ -487,6 +497,8 @@ Generated at domaintechhub.com tool.`;
                 </button>
 
                 <button
+                  type="button"
+                  aria-pressed={isRushTimeline}
                   onClick={() => setIsRushTimeline(true)}
                   className={`flex-1 p-3.5 rounded-xl border text-left transition-all ${
                     isRushTimeline 

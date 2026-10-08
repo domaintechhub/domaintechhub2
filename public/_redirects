@@ -1,6 +1,9 @@
-/llms.txt       /llms.txt       200
-/llms-full.txt  /llms-full.txt  200
-/sitemap.xml    /sitemap.xml    200
-/robots.txt     /robots.txt     200
+/llms.txt            /llms.txt            200
+/llms-full.txt       /llms-full.txt       200
+/sitemap_index.xml   /sitemap_index.xml   200
+/sitemap.xml         /sitemap.xml         200
+/sitemap-services.xml /sitemap-services.xml 200
+/sitemap-articles.xml /sitemap-articles.xml 200
+/robots.txt          /robots.txt          200
 /markdown/*     /markdown/:splat 200
 /*              /index.html     200

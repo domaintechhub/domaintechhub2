@@ -4,10 +4,10 @@ import {
   Linkedin, Github, ArrowRight, MessageSquare, Award, 
   Calendar, Layers, Sparkles, Terminal, Globe, ChevronRight
 } from 'lucide-react';
-import teamArchitectImg from '../assets/images/team_solutions_architect_1790853423651.jpg';
-import teamDesignerImg from '../assets/images/team_product_designer_1790853436226.jpg';
-import teamFintechImg from '../assets/images/team_fintech_lead_1790853447967.jpg';
-import teamGrowthImg from '../assets/images/team_growth_lead_1790853459528.jpg';
+import teamArchitectImg from '../assets/images/team_solutions_architect_1790853423651.webp';
+import teamDesignerImg from '../assets/images/team_product_designer_1790853436226.webp';
+import teamFintechImg from '../assets/images/team_fintech_lead_1790853447967.webp';
+import teamGrowthImg from '../assets/images/team_growth_lead_1790853459528.webp';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { Mail } from 'lucide-react';
 
@@ -181,8 +181,11 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onScheduleWithMember }
                     <img 
                       src={member.image} 
                       alt={`${member.name} - ${member.role} at Domain Tech Hub`}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      width={600}
+                      height={600}
                       loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                     
@@ -261,9 +264,11 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onScheduleWithMember }
                 <img 
                   src={selectedMember.image} 
                   alt={selectedMember.name} 
-                  className="w-full h-full object-cover"
+                  width={300}
+                  height={300}
                   loading="lazy"
                   decoding="async"
+                  className="w-full h-full object-cover"
                 />
               </div>
 

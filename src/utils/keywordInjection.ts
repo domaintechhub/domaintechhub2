@@ -1,3 +1,4 @@
+import { SITE_URL } from '../config/site';
 import { InsightArticle } from '../data/insightsData';
 
 export interface SecondaryKeywordMapping {
@@ -335,7 +336,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
   return {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
-    '@id': `https://www.domaintechhubs.com/insights/${article.slug}`,
+    '@id': `${SITE_URL}/insights/${article.slug}`,
     headline: article.title,
     description: article.excerpt,
     image: [article.coverImage],
@@ -344,7 +345,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
     inLanguage: 'en-US',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.domaintechhubs.com/insights/${article.slug}`
+      '@id': `${SITE_URL}/insights/${article.slug}`
     },
     author: {
       '@type': 'Person',
@@ -353,16 +354,16 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
       worksFor: {
         '@type': 'Organization',
         name: 'Domain Tech Hub',
-        url: 'https://www.domaintechhubs.com'
+        url: SITE_URL
       }
     },
     publisher: {
       '@type': 'Organization',
       name: 'Domain Tech Hub',
-      url: 'https://www.domaintechhubs.com',
+      url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.domaintechhubs.com/favicon.svg',
+        url: `${SITE_URL}/favicon.svg`,
         width: 192,
         height: 192
       },

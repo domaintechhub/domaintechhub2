@@ -1,5 +1,5 @@
 import { CaseStudy } from '../types';
-import solarGridImg from '../assets/images/commercial_solar_grid_kenya_1791048420279.jpg';
+import solarGridImg from '../assets/images/commercial_solar_grid_kenya_1791048420279.webp';
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
@@ -181,7 +181,7 @@ export const AGENCY_INFO = {
   name: 'Domain Tech Hub',
   tagline: 'Your Strategic Digital Technology & Growth Partner',
   description: 'Empowering businesses across Kenya, East Africa, and globally with cutting-edge web development, e-commerce, high-ROI digital marketing, custom software, and corporate branding.',
-  email: 'info@domaintechhub.com',
+  email: 'info@domaintechhubs.com',
   secondaryEmail: 'domaintechhub@gmail.com',
   phones: ['+254 118746676', '+254 706 943383'],
   whatsapp: '254118746676',

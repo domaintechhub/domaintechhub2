@@ -42,7 +42,7 @@ We operate with 100% price certainty—zero surprise invoices or hidden add-ons.
 ---
 
 ### Q7: How do I get started or request a quote?
-**A**: You can book a 30-minute discovery consultation on our website, reach us on WhatsApp at +254 118746676, or email us at info@domaintechhub.com. We will review your project requirements and provide a detailed technical proposal within 24 hours.
+**A**: You can book a 30-minute discovery consultation on our website, reach us on WhatsApp at +254 118746676, or email us at info@domaintechhubs.com. We will review your project requirements and provide a detailed technical proposal within 24 hours.
 
 ---
 

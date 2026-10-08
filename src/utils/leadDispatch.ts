@@ -1,3 +1,4 @@
+import { SITE_URL } from '../config/site';
 import { AGENCY_INFO } from '../data/portfolioData';
 
 export interface LeadRecord {
@@ -19,9 +20,11 @@ export interface LeadRecord {
   status: 'new' | 'contacted' | 'closed';
 }
 
+const STORAGE_KEY = 'dth_all_leads';
+
 export function discardPersistedLeadData(): void {
   try {
-    localStorage.removeItem('dth_all_leads');
+    localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem('dth_bookings');
   } catch (err) {
     console.error('Error clearing locally stored lead data:', err);
@@ -80,7 +83,7 @@ export function formatWhatsAppMessage(lead: Partial<LeadRecord>): string {
     msg += `\n*Details / Requirements:*\n${lead.notes}\n`;
   }
   msg += `--------------------------------\n`;
-  msg += `Submitted via domaintechhub.com`;
+  msg += `Submitted via ${SITE_URL}`;
 
   return msg;
 }
@@ -95,13 +98,13 @@ export function sendToWhatsApp(lead: Partial<LeadRecord>): void {
 }
 
 /**
- * Opens an email draft addressed to the Gmail inbox, with the business email copied.
+ * Triggers an Email directly to info@domaintechhubs.com (with cc to domaintechhub@gmail.com)
  */
 export function sendToEmail(lead: Partial<LeadRecord>): void {
   const subject = `[Domain Tech Hub Inquiry] ${lead.serviceOrItem || lead.sourceTitle || 'New Customer Lead'}${lead.fullName ? ` - ${lead.fullName}` : ''}`;
   
   let body = `Hello Domain Tech Hub Team,\n\n`;
-  body += `Inquiry details prepared on the website (send this email to deliver the request):\n\n`;
+  body += `A new inquiry has been submitted through the website:\n\n`;
   body += `Source: ${lead.sourceTitle || lead.source || 'Website'}\n`;
   if (lead.fullName) body += `Client Name: ${lead.fullName}\n`;
   if (lead.phone) body += `Phone / WhatsApp: ${lead.phone}\n`;
@@ -116,10 +119,8 @@ export function sendToEmail(lead: Partial<LeadRecord>): void {
   }
   body += `\nPlease reply directly to this email or contact the client via WhatsApp at ${lead.phone || 'their phone number'}.\n`;
 
-  const recipient = AGENCY_INFO.secondaryEmail || AGENCY_INFO.email;
-  const ccAddress = recipient === AGENCY_INFO.email ? AGENCY_INFO.secondaryEmail : AGENCY_INFO.email;
-  const ccParam = ccAddress ? `&cc=${encodeURIComponent(ccAddress)}` : '';
-  const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}${ccParam}&body=${encodeURIComponent(body)}`;
+  const ccParam = AGENCY_INFO.secondaryEmail ? `&cc=${encodeURIComponent(AGENCY_INFO.secondaryEmail)}` : '';
+  const mailtoUrl = `mailto:${AGENCY_INFO.email}?subject=${encodeURIComponent(subject)}${ccParam}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoUrl;
 }
 
