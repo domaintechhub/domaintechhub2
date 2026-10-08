@@ -620,7 +620,6 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
             {/* Stepper Navigation Footer - Mobile UI Design Optimized */}
             <div className="pt-6 mt-6 border-t border-stone-100 dark:border-slate-800">
               <div className="grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:justify-between w-full">
-                
                 {/* Previous Stage Button */}
                 <button
                   type="button"
@@ -631,15 +630,15 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                     }
                   }}
                   className={`flex-1 sm:flex-initial sm:min-w-[190px] p-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all text-left flex items-center gap-2.5 ${
-                    activeStageIndex === 0 
-                      ? 'border-stone-200/60 dark:border-slate-800/60 bg-stone-50/40 dark:bg-slate-950/40 opacity-40 cursor-not-allowed text-slate-400' 
+                    activeStageIndex === 0
+                      ? 'border-stone-200/60 dark:border-slate-800/60 bg-stone-50/40 dark:bg-slate-950/40 opacity-40 cursor-not-allowed text-slate-400'
                       : 'border-stone-200 dark:border-slate-700/80 bg-stone-50 hover:bg-stone-100 dark:bg-slate-800/70 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 hover:border-teal-400 dark:hover:border-cyan-500 shadow-xs cursor-pointer active:scale-[0.98]'
                   }`}
                   aria-label={activeStageIndex > 0 ? `Go to previous stage: ${ROADMAP_STAGES[activeStageIndex - 1].name}` : 'Previous stage disabled'}
                 >
                   <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                    activeStageIndex === 0 
-                      ? 'bg-stone-200/50 dark:bg-slate-800/50 text-slate-400' 
+                    activeStageIndex === 0
+                      ? 'bg-stone-200/50 dark:bg-slate-800/50 text-slate-400'
                       : 'bg-white dark:bg-slate-900 text-teal-600 dark:text-cyan-400 shadow-xs'
                   }`}>
                     <ChevronLeft className="w-4 h-4" />
@@ -649,8 +648,8 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                       Previous
                     </span>
                     <span className="block text-xs font-bold text-slate-800 dark:text-white truncate">
-                      {activeStageIndex > 0 
-                        ? ROADMAP_STAGES[activeStageIndex - 1].shortLabel 
+                      {activeStageIndex > 0
+                        ? ROADMAP_STAGES[activeStageIndex - 1].shortLabel
                         : 'Stage 01'}
                     </span>
                   </div>
@@ -691,8 +690,8 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                     }
                   }}
                   className={`flex-1 sm:flex-initial sm:min-w-[190px] p-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all text-right flex items-center justify-end gap-2.5 ${
-                    activeStageIndex === ROADMAP_STAGES.length - 1 
-                      ? 'border-stone-200/60 dark:border-slate-800/60 bg-stone-50/40 dark:bg-slate-950/40 opacity-40 cursor-not-allowed text-slate-400' 
+                    activeStageIndex === ROADMAP_STAGES.length - 1
+                      ? 'border-stone-200/60 dark:border-slate-800/60 bg-stone-50/40 dark:bg-slate-950/40 opacity-40 cursor-not-allowed text-slate-400'
                       : 'border-teal-500/40 dark:border-cyan-500/40 bg-teal-50/80 hover:bg-teal-100 dark:bg-teal-950/40 dark:hover:bg-teal-900/40 text-teal-950 dark:text-cyan-100 hover:border-teal-500 dark:hover:border-cyan-400 shadow-xs cursor-pointer active:scale-[0.98]'
                   }`}
                   aria-label={activeStageIndex < ROADMAP_STAGES.length - 1 ? `Go to next stage: ${ROADMAP_STAGES[activeStageIndex + 1].name}` : 'Next stage disabled'}
@@ -702,14 +701,14 @@ export const ProjectRoadmap: React.FC<ProjectRoadmapProps> = ({
                       Next Stage
                     </span>
                     <span className="block text-xs font-bold text-teal-950 dark:text-white truncate">
-                      {activeStageIndex < ROADMAP_STAGES.length - 1 
-                        ? ROADMAP_STAGES[activeStageIndex + 1].shortLabel 
+                      {activeStageIndex < ROADMAP_STAGES.length - 1
+                        ? ROADMAP_STAGES[activeStageIndex + 1].shortLabel
                         : 'Launch'}
                     </span>
                   </div>
                   <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
                     activeStageIndex === ROADMAP_STAGES.length - 1
-                      ? 'bg-stone-200/50 dark:bg-slate-800/50 text-slate-400' 
+                      ? 'bg-stone-200/50 dark:bg-slate-800/50 text-slate-400'
                       : 'bg-teal-600 text-white shadow-xs'
                   }`}>
                     <ChevronRight className="w-4 h-4" />

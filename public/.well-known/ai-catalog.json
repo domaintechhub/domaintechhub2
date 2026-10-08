@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:domaintechhubs.com:documentation:agency-services",
+      "displayName": "Domain Tech Hub Services Guide",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
+      "url": "https://www.domaintechhubs.com/agent-resources/domaintechhub-services/SKILL.md",
+      "description": "Machine-readable guide to Domain Tech Hub's web development, e-commerce, software, SEO, hosting, and digital engineering services in Kenya.",
+      "representativeQueries": [
+        "What web development and software services does Domain Tech Hub offer?",
+        "How can I build an e-commerce website with M-Pesa payments in Kenya?",
+        "How do I contact Domain Tech Hub for a website or software project?"
+      ],
+      "capabilities": [
+        "website-development",
+        "ecommerce",
+        "mpesa-integration",
+        "custom-software",
+        "digital-marketing"
+      ]
+    }
+  ]
+}

@@ -163,20 +163,20 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Audit
     'audit.kicker': 'DIAGNOSTIC UTILITY · 100% FREE',
-    'audit.title': 'Instant Website & SEO Health Audit Scanner',
-    'audit.subtitle': 'Uncover why your website might be losing customers to competitors. Run our deep diagnostic scanner to test Core Web Vitals, on-page SEO, mobile responsiveness, and security.',
+    'audit.title': 'Illustrative Website & SEO Audit Preview',
+    'audit.subtitle': 'Explore a sample report. This demo does not scan your website or measure Core Web Vitals, SEO, mobile support, or security.',
     'audit.urlLabel': 'Website URL / Domain Name',
     'audit.keywordLabel': 'Target Search Keyword (Optional)',
-    'audit.btnRun': 'Generate Free Audit Report',
-    'audit.analyzing': 'Analyzing Site Architecture...',
+    'audit.btnRun': 'Generate Demo Preview',
+    'audit.analyzing': 'Preparing demo preview...',
 
     // Domains
     'domain.kicker': 'INFRASTRUCTURE · DOMAINS & CLOUD HOSTING',
-    'domain.title': 'Secure your digital address & high-speed cloud infrastructure.',
-    'domain.subtitle': 'We handle everything from Kenyan .co.ke and global .com registrations to high-availability NVMe cloud servers, DNS security, and corporate email systems.',
+    'domain.title': 'Explore domain and hosting options.',
+    'domain.subtitle': 'Browse example domain options and hosting plans. Live registry availability is not checked on this page.',
     'domain.lookupTab': 'Domain Name Lookup',
     'domain.hostingTab': 'Managed Cloud Hosting Plans',
-    'domain.btnCheck': 'Check Availability',
+    'domain.btnCheck': 'Show Suggestions',
 
     // Portfolio
     'port.kicker': 'PROVEN TRACK RECORD · CASE STUDIES',
@@ -304,20 +304,20 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Audit
     'audit.kicker': 'OUTIL DE DIAGNOSTIC · 100% GRATUIT',
-    'audit.title': 'Scanner d’Audit de Santé SEO & Vitesse Web',
-    'audit.subtitle': 'Découvrez pourquoi votre site web perd des clients face à la concurrence. Testez vos Core Web Vitals, votre SEO on-page, votre compatibilité mobile et votre sécurité.',
+    'audit.title': 'Aperçu illustratif d’audit de site et SEO',
+    'audit.subtitle': 'Découvrez un exemple de rapport. Cette démo n’analyse pas votre site et ne mesure pas ses performances.',
     'audit.urlLabel': 'URL du Site Web / Nom de Domaine',
     'audit.keywordLabel': 'Mot-Clé de Recherche Cible (Optionnel)',
-    'audit.btnRun': 'Générer l’Audit Gratuit',
-    'audit.analyzing': 'Analyse de l’architecture du site...',
+    'audit.btnRun': 'Générer un aperçu de démo',
+    'audit.analyzing': 'Préparation de l’aperçu de démo...',
 
     // Domains
     'domain.kicker': 'INFRASTRUCTURE · DOMAINES & HÉBERGEMENT CLOUD',
-    'domain.title': 'Sécurisez votre adresse web & infrastructure cloud haute vitesse.',
-    'domain.subtitle': 'Nous gérons tout, de l’enregistrement de domaines kenyans (.co.ke) et mondiaux (.com) aux serveurs cloud NVMe haute disponibilité avec certificats SSL.',
+    'domain.title': 'Découvrez les options de domaines et d’hébergement.',
+    'domain.subtitle': 'Consultez des exemples de domaines et de forfaits. La disponibilité auprès du registre n’est pas vérifiée ici.',
     'domain.lookupTab': 'Recherche de Nom de Domaine',
     'domain.hostingTab': 'Plans d’Hébergement Cloud Géré',
-    'domain.btnCheck': 'Vérifier la Disponibilité',
+    'domain.btnCheck': 'Afficher les suggestions',
 
     // Portfolio
     'port.kicker': 'RÉSULTATS PROUVÉS · ÉTUDES DE CAS',
@@ -445,20 +445,20 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Audit
     'audit.kicker': 'ZANA YA UCHUNGUZI · BURE 100%',
-    'audit.title': 'Kaguzi ya Papo Hapo ya Afya ya Tovuti na SEO',
-    'audit.subtitle': 'Fahamu kwa nini tovuti yako inapoteza wateja kwa washindani. Pima kasi ya Google Core Web Vitals, usalama na mwonekano wa simu.',
+    'audit.title': 'Mfano wa ripoti ya ukaguzi wa tovuti na SEO',
+    'audit.subtitle': 'Tazama mfano wa ripoti. Onyesho hili halichunguzi tovuti yako wala kupima kasi, SEO, simu au usalama.',
     'audit.urlLabel': 'Anwani ya Tovuti / Jina la Domain',
     'audit.keywordLabel': 'Neno Kuu Unalolenga (Hiari)',
-    'audit.btnRun': 'Tengeneza Ripoti ya Bure',
-    'audit.analyzing': 'Tovuti inachunguzwa sasa...',
+    'audit.btnRun': 'Tengeneza mfano wa ripoti',
+    'audit.analyzing': 'Mfano wa ripoti unatayarishwa...',
 
     // Domains
     'domain.kicker': 'MIUNDOMBINU · MAJINA YA TOVUTI NA HOSTING',
-    'domain.title': 'Sajili anwani yako ya kidijitali na hosting ya haraka.',
-    'domain.subtitle': 'Tunashughulikia usajili wa .co.ke na .com pamoja na seva zenye kasi ya NVMe na cheti cha usalama cha SSL.',
+    'domain.title': 'Tazama chaguo za domain na hosting.',
+    'domain.subtitle': 'Tazama mifano ya domain na mipango ya hosting. Upatikanaji wa domain haukaguliwi hapa.',
     'domain.lookupTab': 'Tafuta Jina la Tovuti',
     'domain.hostingTab': 'Vifurushi vya Cloud Hosting',
-    'domain.btnCheck': 'Angalia Upatikanaji',
+    'domain.btnCheck': 'Onyesha mapendekezo',
 
     // Portfolio
     'port.kicker': 'MATOKEO YALIYOTHIBITISHWA',

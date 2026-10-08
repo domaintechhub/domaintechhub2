@@ -191,7 +191,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
             <button 
               onClick={() => handleNavClick('home')} 
               className="flex items-center text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 rounded-2xl p-1 shrink-0 cursor-pointer transition-transform active:scale-95"
-              aria-label="Domain Tech Hub - Return to Home"
               title="Domain Tech Hub - Innovate. Connect. Succeed."
             >
               <Logo variant="horizontal" size="md" />

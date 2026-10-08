@@ -269,43 +269,25 @@ export function generateMasterSitemap(pages, services) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ==================== CORE NAVIGATION PAGES ==================== -->
+  <!-- ==================== INDEXABLE PAGES ==================== -->
 ${pageItems}
 
-  <!-- ==================== ALL 16 ENGINEERING SERVICES ==================== -->
+  <!-- ==================== INDEXABLE SERVICES ==================== -->
 ${serviceItems}
 
 </urlset>
 `;
 }
 
-export function generateSitemapIndex() {
+export function generateSitemapIndex(sitemapNames) {
+  const entries = sitemapNames.map(name => `  <sitemap>
+    <loc>${BASE_URL}/${name}</loc>
+    <lastmod>${CURRENT_DATE}</lastmod>
+  </sitemap>`).join('\n');
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${BASE_URL}/sitemap-pages.xml</loc>
-    <lastmod>${CURRENT_DATE}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${BASE_URL}/sitemap-services.xml</loc>
-    <lastmod>${CURRENT_DATE}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${BASE_URL}/sitemap-articles.xml</loc>
-    <lastmod>${CURRENT_DATE}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${BASE_URL}/sitemap-portfolio.xml</loc>
-    <lastmod>${CURRENT_DATE}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${BASE_URL}/sitemap-tools.xml</loc>
-    <lastmod>${CURRENT_DATE}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${BASE_URL}/sitemap.xml</loc>
-    <lastmod>${CURRENT_DATE}</lastmod>
-  </sitemap>
+${entries}
 </sitemapindex>
 `;
 }
@@ -315,26 +297,44 @@ export function runCrawler() {
 
   const pages = crawlAppRoutes();
   const services = crawlServices();
-  const tools = crawlTools();
+  const uniqueEntries = [...pages, ...services].filter((entry, index, entries) =>
+    entries.findIndex(candidate => candidate.path === entry.path) === index
+  );
 
   console.log(`[sitemap-crawler] Discovered:
   - Core Pages: ${pages.length}
   - Real Services: ${services.length}
-  - Tools: ${tools.length}`);
+  - Unique indexable URLs: ${uniqueEntries.length}`);
 
   if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir, { recursive: true });
   }
 
-  fs.writeFileSync(path.join(publicDir, 'sitemap-pages.xml'), generatePagesSitemap(pages), 'utf-8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap-services.xml'), generateServicesSitemap(services), 'utf-8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap-articles.xml'), generateArticlesSitemap(), 'utf-8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap-portfolio.xml'), generatePortfolioSitemap(), 'utf-8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap-tools.xml'), generateToolsSitemap(tools), 'utf-8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateMasterSitemap(pages, services), 'utf-8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), generateSitemapIndex(), 'utf-8');
+  const sitemapNames = [];
+  if (uniqueEntries.length <= 500) {
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateMasterSitemap(uniqueEntries, []), 'utf-8');
+  } else {
+    const chunkSize = 500;
+    for (let offset = 0; offset < uniqueEntries.length; offset += chunkSize) {
+      const name = `sitemap-${Math.floor(offset / chunkSize) + 1}.xml`;
+      sitemapNames.push(name);
+      fs.writeFileSync(
+        path.join(publicDir, name),
+        generateMasterSitemap(uniqueEntries.slice(offset, offset + chunkSize), []),
+        'utf-8'
+      );
+    }
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateSitemapIndex(sitemapNames), 'utf-8');
+  }
 
-  console.log('[sitemap-crawler] Successfully updated all sitemaps in /public.');
+  const legacySitemapPattern = /^sitemap-(?:pages|services|articles|portfolio|tools|\d+)\.xml$|^sitemap_index\.xml$/;
+  for (const fileName of fs.readdirSync(publicDir)) {
+    if (legacySitemapPattern.test(fileName) && !sitemapNames.includes(fileName)) {
+      fs.rmSync(path.join(publicDir, fileName), { force: true });
+    }
+  }
+
+  console.log(`[sitemap-crawler] Wrote sitemap.xml${sitemapNames.length ? ` with ${sitemapNames.length} child sitemaps (>500 URLs)` : ' as a flat sitemap'}.`);
 }
 
 // Execute when invoked directly

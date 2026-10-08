@@ -3,34 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { PageHeader } from './components/PageHeader';
 import { Hero } from './components/Hero';
-import { StatsSection } from './components/StatsSection';
-import { ServicesExplorer } from './components/ServicesExplorer';
-import { TechStackSection } from './components/TechStackSection';
-import { ProjectRoadmap, SprintTimeline } from './components/ProjectRoadmap';
-import { RoadmapPage } from './components/RoadmapPage';
-import { MorePage, MoreTab } from './components/MorePage';
-import { AboutPage } from './components/AboutPage';
-import { CostCalculator } from './components/CostCalculator';
-import { SeoAuditTool } from './components/SeoAuditTool';
-import { DomainChecker } from './components/DomainChecker';
-import { Portfolio } from './components/Portfolio';
-import { ClientPortalDemo } from './components/ClientPortalDemo';
-import { Testimonials } from './components/Testimonials';
-import { TeamSection } from './components/TeamSection';
-import { InsightsSection } from './components/InsightsSection';
-import { FaqSection } from './components/FaqSection';
-import { BookingSection } from './components/BookingSection';
-import { ToolsPage, ToolTab } from './components/ToolsPage';
-import { ServiceDetailPage } from './components/ServiceDetailPage';
-import { GlobalSearchModal } from './components/GlobalSearchModal';
-import { LeadInboxModal } from './components/LeadInboxModal';
+import type { SprintTimeline } from './components/ProjectRoadmap';
+import type { MoreTab } from './components/MorePage';
+import type { ToolTab } from './components/ToolsPage';
 import { Footer } from './components/Footer';
 import { QuickContactFloating } from './components/QuickContactFloating';
 import { applyPageSeo } from './utils/seo';
@@ -40,7 +22,24 @@ import {
   CheckCircle, MessageSquare, PhoneCall, Code, Layers 
 } from 'lucide-react';
 import { AGENCY_INFO } from './data/portfolioData';
+import { discardPersistedLeadData } from './utils/leadDispatch';
 import { getCanonicalLocation, getCurrentAppRoute, getPathForRoute, parseAppRoute } from './utils/routing';
+
+const MorePage = lazy(() => import('./components/MorePage').then(({ MorePage }) => ({ default: MorePage })));
+const AboutPage = lazy(() => import('./components/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })));
+const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
+const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })));
+const HomeSections = lazy(() => import('./components/HomeSections').then(({ HomeSections }) => ({ default: HomeSections })));
+const ServicesExplorer = lazy(() => import('./components/ServicesExplorer').then(({ ServicesExplorer }) => ({ default: ServicesExplorer })));
+const TechStackSection = lazy(() => import('./components/TechStackSection').then(({ TechStackSection }) => ({ default: TechStackSection })));
+const Portfolio = lazy(() => import('./components/Portfolio').then(({ Portfolio }) => ({ default: Portfolio })));
+const Testimonials = lazy(() => import('./components/Testimonials').then(({ Testimonials }) => ({ default: Testimonials })));
+const InsightsSection = lazy(() => import('./components/InsightsSection').then(({ InsightsSection }) => ({ default: InsightsSection })));
+const ClientPortalDemo = lazy(() => import('./components/ClientPortalDemo').then(({ ClientPortalDemo }) => ({ default: ClientPortalDemo })));
+const FaqSection = lazy(() => import('./components/FaqSection').then(({ FaqSection }) => ({ default: FaqSection })));
+const BookingSection = lazy(() => import('./components/BookingSection').then(({ BookingSection }) => ({ default: BookingSection })));
+const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
+const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
 
 export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about';
 
@@ -56,83 +55,8 @@ export default function App() {
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
 
-  // Smoothly dismiss the instant preloader once stylesheets are confirmed loaded and React has painted
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null;
-    let fallbackId: NodeJS.Timeout | null = null;
-
-    const dismissPreloader = () => {
-      const preloader = document.getElementById('dth-preloader');
-      if (preloader && !preloader.classList.contains('dth-preloader-hidden')) {
-        preloader.classList.add('dth-preloader-hidden');
-        setTimeout(() => {
-          if (preloader.parentNode) {
-            preloader.parentNode.removeChild(preloader);
-          }
-        }, 550);
-      }
-    };
-
-    const isCssReady = () => {
-      // In dev mode or when styles are active, document.styleSheets has loaded rules
-      if (typeof document !== 'undefined' && document.styleSheets && document.styleSheets.length > 0) {
-        for (let i = 0; i < document.styleSheets.length; i++) {
-          try {
-            if (document.styleSheets[i].cssRules && document.styleSheets[i].cssRules.length > 0) {
-              return true;
-            }
-          } catch {
-            // Cross-origin stylesheet loaded
-            return true;
-          }
-        }
-      }
-      return false;
-    };
-
-    const waitForCssAndDismiss = () => {
-      const styleLinks = Array.from(
-        document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"], link[as="style"]')
-      );
-
-      const triggerDismiss = () => {
-        // Allow brief paint frame so newly applied CSS renders cleanly before preloader fades out
-        timeoutId = setTimeout(dismissPreloader, 350);
-      };
-
-      if (styleLinks.length === 0 || isCssReady()) {
-        triggerDismiss();
-        return;
-      }
-
-      let loadedCount = 0;
-      const targetCount = styleLinks.length;
-      const onLinkLoaded = () => {
-        loadedCount++;
-        if (loadedCount >= targetCount) {
-          triggerDismiss();
-        }
-      };
-
-      styleLinks.forEach((link) => {
-        if ((link as any).sheet) {
-          onLinkLoaded();
-        } else {
-          link.addEventListener('load', onLinkLoaded, { once: true });
-          link.addEventListener('error', onLinkLoaded, { once: true });
-        }
-      });
-
-      // Safety timeout: dismiss after max 1.2s if no event fired
-      fallbackId = setTimeout(dismissPreloader, 1200);
-    };
-
-    waitForCssAndDismiss();
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      if (fallbackId) clearTimeout(fallbackId);
-    };
+    discardPersistedLeadData();
   }, []);
 
   // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
@@ -360,6 +284,7 @@ export default function App() {
           />
 
           {/* Main Content Page Container */}
+          <Suspense fallback={<div className="flex-1 min-h-[50vh]" role="status">Loading page...</div>}>
           <main className="flex-1">
 
             {/* 1. DEDICATED PAGE: HOME / LANDING OVERVIEW */}
@@ -369,54 +294,23 @@ export default function App() {
                   onNavigate={navigateTo} 
                   onSelectCalculatorService={setCalculatorServiceId}
                 />
-
-                <StatsSection 
-                  onNavigateToCaseStudies={() => navigateTo('portfolio')}
-                  onNavigateToBooking={() => navigateTo('contact')}
-                />
-
-                <ServicesExplorer 
-                  onSelectForQuote={handleSelectForQuote}
-                  onBookService={handleBookService}
-                />
-
-                <TechStackSection 
-                  onSelectTechForProject={handleSelectTechForProject}
-                />
-
-                <CostCalculator 
-                  initialServiceId={calculatorServiceId}
-                  onProceedToBooking={handleProceedToBooking}
-                />
-
-                <SeoAuditTool 
-                  onFixWithAgency={handleFixAuditWithAgency}
-                />
-
-                <DomainChecker 
-                  onSelectDomainForSetup={handleSelectDomainForSetup}
-                />
-
-                <Portfolio 
-                  onBookSimilarProject={handleBookSimilarProject}
-                />
-
-                <ClientPortalDemo />
-
-                <Testimonials />
-
-                <InsightsSection 
-                  onScheduleConsultation={handleScheduleFromInsight}
-                />
-
-                <FaqSection 
-                  onScheduleCall={() => navigateTo('contact')}
-                />
-
-                <BookingSection 
-                  prefilledService={prefilledService}
-                  prefilledNotes={prefilledNotes}
-                />
+                <Suspense fallback={null}>
+                  <HomeSections
+                    calculatorServiceId={calculatorServiceId}
+                    prefilledService={prefilledService}
+                    prefilledNotes={prefilledNotes}
+                    onNavigate={navigateTo}
+                    onSelectForQuote={handleSelectForQuote}
+                    onBookService={handleBookService}
+                    onSelectTechForProject={handleSelectTechForProject}
+                    onProceedToBooking={handleProceedToBooking}
+                    onFixAuditWithAgency={handleFixAuditWithAgency}
+                    onSelectDomainForSetup={handleSelectDomainForSetup}
+                    onBookSimilarProject={handleBookSimilarProject}
+                    onScheduleConsultation={handleScheduleFromInsight}
+                    onNavigatePath={navigateToInternalPath}
+                  />
+                </Suspense>
               </div>
             )}
 
@@ -685,6 +579,7 @@ export default function App() {
             )}
 
           </main>
+          </Suspense>
 
           {/* Footer */}
           <Footer 
@@ -697,17 +592,25 @@ export default function App() {
           />
 
           {/* Global Search Modal */}
-          <GlobalSearchModal 
-            isOpen={isSearchOpen}
-            onClose={() => setIsSearchOpen(false)}
-            onNavigate={(target, subTab) => navigateTo(target, subTab)}
-          />
+          {isSearchOpen && (
+            <Suspense fallback={null}>
+              <GlobalSearchModal
+                isOpen
+                onClose={() => setIsSearchOpen(false)}
+                onNavigate={(target, subTab) => navigateTo(target, subTab)}
+              />
+            </Suspense>
+          )}
 
           {/* Agency Owner Lead & Submission Inbox */}
-          <LeadInboxModal 
-            isOpen={isLeadInboxOpen}
-            onClose={() => setIsLeadInboxOpen(false)}
-          />
+          {isLeadInboxOpen && (
+            <Suspense fallback={null}>
+              <LeadInboxModal
+                isOpen
+                onClose={() => setIsLeadInboxOpen(false)}
+              />
+            </Suspense>
+          )}
 
         </div>
       </LanguageProvider>

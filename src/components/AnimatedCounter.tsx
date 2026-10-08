@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useInView, animate } from 'framer-motion';
 
 interface AnimatedCounterProps {
   value: string; // e.g. "65+", "45+", "98%", "4.6x", "$1.8M+", "< 15m"
@@ -30,7 +29,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   suffix: overrideSuffix
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const [isInView, setIsInView] = useState(false);
   const { prefix: parsedPrefix, number, suffix: parsedSuffix, decimals, isNumeric } = parseCounterValue(value);
 
   const prefix = overridePrefix !== undefined ? overridePrefix : parsedPrefix;
@@ -39,20 +38,43 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   const [displayValue, setDisplayValue] = useState<string>(isNumeric ? (0).toFixed(decimals) : value);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element || !('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '-50px' });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!isInView || !isNumeric) {
       if (!isNumeric) setDisplayValue(value);
       return;
     }
 
-    const controls = animate(0, number, {
-      duration: duration,
-      ease: [0.16, 1, 0.3, 1], // easeOutExpo
-      onUpdate: (latest) => {
-        setDisplayValue(latest.toFixed(decimals));
-      }
-    });
+    const startTime = performance.now();
+    const durationMs = Math.max(duration * 1000, 1);
+    let frameId = 0;
 
-    return () => controls.stop();
+    const update = (now: number) => {
+      const progress = Math.min((now - startTime) / durationMs, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
+      setDisplayValue((number * easedProgress).toFixed(decimals));
+      if (progress < 1) frameId = requestAnimationFrame(update);
+    };
+
+    frameId = requestAnimationFrame(update);
+
+    return () => cancelAnimationFrame(frameId);
   }, [isInView, number, decimals, duration, isNumeric, value]);
 
   return (

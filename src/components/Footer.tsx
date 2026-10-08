@@ -42,13 +42,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <a href={`mailto:${AGENCY_INFO.email}`} className="hover:text-cyan-300">
+                  <a href={`mailto:${AGENCY_INFO.email}`} className="inline-flex min-h-6 items-center hover:text-cyan-300">
                     {AGENCY_INFO.email}
                   </a>
                   {AGENCY_INFO.secondaryEmail && (
                     <>
                       <span className="text-slate-600">/</span>
-                      <a href={`mailto:${AGENCY_INFO.secondaryEmail}`} className="text-slate-400 hover:text-cyan-300">
+                      <a href={`mailto:${AGENCY_INFO.secondaryEmail}`} className="inline-flex min-h-6 items-center text-slate-400 hover:text-cyan-300">
                         {AGENCY_INFO.secondaryEmail}
                       </a>
                     </>

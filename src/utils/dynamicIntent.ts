@@ -289,6 +289,18 @@ function toTitleCase(str: string): string {
   });
 }
 
+export function storeSearchIntent(query?: string): void {
+  try {
+    if (query?.trim()) {
+      sessionStorage.setItem('dth_search_intent', query.trim());
+    } else {
+      sessionStorage.removeItem('dth_search_intent');
+    }
+  } catch {
+    // Search intent is optional; private browsing must not prevent search or page rendering.
+  }
+}
+
 /**
  * Detects the search intent from an explicit query string, or automatically from
  * window.location.search, window.location.hash, or referrer search queries.
@@ -324,8 +336,12 @@ export function detectDynamicIntent(explicitQuery?: string): DynamicHeroIntent {
 
     // Check stored intent in sessionStorage if present
     if (!query) {
-      const saved = sessionStorage.getItem('dth_search_intent');
-      if (saved) query = saved;
+      try {
+        const saved = sessionStorage.getItem('dth_search_intent');
+        if (saved) query = saved;
+      } catch {
+        // Search intent is optional; private browsing must not prevent page rendering.
+      }
     }
   }
 

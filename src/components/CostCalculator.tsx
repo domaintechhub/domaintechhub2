@@ -375,7 +375,7 @@ Generated at ${SITE_URL} tool.`;
                     <div className="font-semibold flex items-center justify-between">
                       <span>{srv.title}</span>
                       {srv.id === 'pos-systems' && (
-                        <span className="text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/40 px-1.5 py-0.5 rounded font-mono">
+                        <span className="text-[10px] bg-teal-100 text-teal-900 dark:bg-teal-950/60 dark:text-teal-200 border border-teal-200 dark:border-teal-500/40 px-1.5 py-0.5 rounded font-mono">
                           POS Hardware
                         </span>
                       )}

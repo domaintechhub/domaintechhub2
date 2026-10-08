@@ -166,6 +166,9 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
           <p className="text-base sm:text-lg text-slate-300">
             {t('audit.subtitle')}
           </p>
+          <p role="note" className="mt-3 rounded-xl border border-amber-700/50 bg-amber-950/30 p-3 text-sm text-amber-900 dark:text-amber-200">
+            Demo preview only: this static page does not fetch or scan the URL. Scores and recommendations are illustrative, not measured results.
+          </p>
         </div>
 
         {/* Input Form Card */}
@@ -217,7 +220,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
               <div className="flex items-center gap-2 text-xs text-slate-400">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Checks Google Core Web Vitals, Schema JSON-LD, SSL & Mobile UX</span>
+                <span>No external website checks are performed; this creates a sample report only.</span>
               </div>
 
               <button
@@ -264,7 +267,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
               <div>
                 <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">
-                  EXECUTIVE AUDIT REPORT · {report.analyzedAt}
+                  ILLUSTRATIVE AUDIT PREVIEW · {report.analyzedAt}
                 </div>
                 <h3 className="text-2xl font-bold text-white flex items-center gap-2">
                   <span>{report.url}</span>

@@ -8,7 +8,7 @@
 
 ## Overview
 
-**Domain Tech Hub** is a modern, high-performance web agency application built with **React 19**, **TypeScript**, **Vite**, and **Tailwind CSS v4**. It features a modern glassmorphism design, real-time client utilities, multi-currency display (USD / KES), multi-language localization (English, Français, Kiswahili), and seamless light/dark mode support.
+**Domain Tech Hub** is a modern, high-performance web agency application built with **React 19**, **TypeScript**, **Vite**, and **Tailwind CSS v4**. It features a modern glassmorphism design, planning/demo utilities, multi-currency display (USD / KES), multi-language localization (English, Français, Kiswahili), and light/dark mode support.
 
 ---
 
@@ -17,7 +17,7 @@
 - **5 Core Navigation Sections**:
   - **Services**: Web applications, e-commerce, SEO & speed optimization, custom CRM, and cloud DevOps.
   - **About Us**: Verified track record, company mission, team principles, and Nairobi headquarters overview.
-  - **Client Tools**: Instant client utilities (Project Cost Calculator, Live Core Web Vitals SEO diagnostic, and `.co.ke` Domain Lookup).
+  - **Client Tools**: Project cost estimator, illustrative SEO audit preview, and domain suggestions (the static demo does not perform live scans or registry lookups).
   - **Projects**: Real client case studies, verified before/after metrics, and revenue growth benchmarks.
   - **Contact Us**: Instant consultation booking and direct communication channels.
 
@@ -80,12 +80,12 @@
 ## Quick Start
 
 ### 1. Prerequisites
-- **Node.js**: `>=18.0.0` (LTS 18, 20, or 22 recommended)
+- **Node.js**: `>=20.19.0` or `>=22.12.0` (required by Vite 8)
 - **npm**: `>=9.0.0` (or `bun` / `pnpm` / `yarn`)
 
 ### 2. Installation
 ```bash
-npm install
+npm ci --legacy-peer-deps
 ```
 
 ### 3. Local Development
@@ -111,16 +111,21 @@ npm start
 
 ## Deployment Guide
 
-### Deploy to Vercel
-1. Push this repository to GitHub or GitLab.
-2. Import the project into Vercel.
-3. Vercel automatically detects Vite with `npm run build` and `dist` output.
+### Deploy to Vercel, Netlify, or Cloudflare Pages
+These services can deploy directly from a Git repository on GitHub, GitLab, or another supported Git provider. GitHub is not required for hosting.
 
-### Deploy to Netlify
-1. Connect your repository to Netlify.
-2. Build command: `npm run build`
-3. Publish directory: `dist`
-4. The included `_redirects` file handles client-side routing automatically.
+Use these build settings:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm ci --legacy-peer-deps && npm run build` |
+| Publish/output directory | `dist` |
+| Root directory | Repository root |
+
+The included `vercel.json` and `public/_redirects` provide hosting rewrites and security headers for Vercel, Netlify, and Cloudflare Pages. Set the environment variable `VITE_BASE_PATH` to `/` if the provider builds this site inside GitHub Actions; outside GitHub Actions, `/` is the default.
+
+### Deploy to any static web host
+The production build is static and does not require a Node server at runtime. Run `npm ci --legacy-peer-deps && npm run build`, then upload the **contents** of `dist/` to the host's public web root (often named `public_html`, `www`, or `htdocs`). The app uses clean pathname URLs, so configure the host to serve `index.html` for application routes on direct visits and refreshes. The included Vercel, Netlify/Cloudflare, Apache, and GitHub Pages fallback configurations provide this behavior. For hosting under a subdirectory, set `VITE_BASE_PATH` to that path, including leading and trailing slashes (for example, `/my-site/`); the default `/` is for hosting at the domain root.
 
 ### Deploy to GitHub Pages
 In the repository's **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. The deployment workflow builds `dist/` and publishes that artifact; the branch-based Pages source serves the unbuilt Vite `index.html` and results in a blank page. After changing the source, pushes to `main` deploy automatically. Vite reads the repository name from `GITHUB_REPOSITORY` and builds asset URLs with the GitHub Pages project path; local builds without that variable use the site root.
@@ -128,7 +133,7 @@ In the repository's **Settings → Pages → Build and deployment**, set **Sourc
 ### Deploy to cPanel / Traditional Web Hosting (.co.ke)
 1. Run `npm run build`.
 2. Upload all files from the `dist/` folder directly to your server's `public_html/` root.
-3. The included `.htaccess` supplies rewrites needed for clean pathname URLs on direct visits and refreshes.
+3. The included `.htaccess` supplies Apache rewrite rules and security headers. Clean application routes require these rewrites so direct visits and browser refreshes serve the SPA entry point.
 
 ---
 

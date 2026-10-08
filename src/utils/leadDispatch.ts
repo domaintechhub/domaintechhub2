@@ -22,6 +22,21 @@ export interface LeadRecord {
 
 const STORAGE_KEY = 'dth_all_leads';
 
+export function discardPersistedLeadData(): void {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('dth_bookings');
+  } catch (err) {
+    console.error('Error clearing locally stored lead data:', err);
+  }
+
+  try {
+    sessionStorage.removeItem('dth_owner_vault_auth');
+  } catch (err) {
+    console.error('Error clearing local lead-viewer state:', err);
+  }
+}
+
 export function saveLead(lead: Omit<LeadRecord, 'id' | 'createdAt' | 'status'>): LeadRecord {
   const newLead: LeadRecord = {
     ...lead,
@@ -30,49 +45,21 @@ export function saveLead(lead: Omit<LeadRecord, 'id' | 'createdAt' | 'status'>):
     status: 'new',
   };
 
-  try {
-    const existing: LeadRecord[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const updated = [newLead, ...existing];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-
-    // Also mirror to legacy keys for compatibility
-    if (lead.source === 'booking') {
-      const existingBookings = JSON.parse(localStorage.getItem('dth_bookings') || '[]');
-      localStorage.setItem('dth_bookings', JSON.stringify([newLead, ...existingBookings]));
-    }
-  } catch (err) {
-    console.error('Error saving lead to storage:', err);
-  }
-
+  discardPersistedLeadData();
   return newLead;
 }
 
 export function getAllLeads(): LeadRecord[] {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch {
-    return [];
-  }
+  discardPersistedLeadData();
+  return [];
 }
 
-export function deleteLead(id: string): void {
-  try {
-    const existing = getAllLeads();
-    const updated = existing.filter(l => l.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  } catch (err) {
-    console.error('Error deleting lead:', err);
-  }
+export function deleteLead(_id: string): void {
+  discardPersistedLeadData();
 }
 
-export function updateLeadStatus(id: string, status: LeadRecord['status']): void {
-  try {
-    const existing = getAllLeads();
-    const updated = existing.map(l => l.id === id ? { ...l, status } : l);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  } catch (err) {
-    console.error('Error updating lead status:', err);
-  }
+export function updateLeadStatus(_id: string, _status: LeadRecord['status']): void {
+  discardPersistedLeadData();
 }
 
 /**

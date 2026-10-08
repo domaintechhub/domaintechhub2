@@ -1,4 +1,4 @@
-import React, { useState, useId } from 'react';
+import React, { useState } from 'react';
 import { 
   FolderGit2, CheckCircle2, Clock, AlertCircle, Send, 
   ExternalLink, FileText, ShieldCheck, LifeBuoy, Check,
@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
-import { SITE_URL } from '../config/site';
 
 export interface RoadmapStage {
   id: 'discovery' | 'design' | 'development' | 'uat' | 'deployment';
@@ -27,9 +26,6 @@ export interface RoadmapStage {
 }
 
 export const ClientPortalDemo: React.FC = () => {
-  const categorySelectId = useId();
-  const subjectInputId = useId();
-  const descriptionTextareaId = useId();
   const [ticketSubject, setTicketSubject] = useState('');
   const [ticketCategory, setTicketCategory] = useState('bug');
   const [ticketDescription, setTicketDescription] = useState('');
@@ -208,14 +204,14 @@ export const ClientPortalDemo: React.FC = () => {
           
           {/* Top Mock Window Bar */}
           <div className="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0 max-w-full">
-              <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5">
                 <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
               </div>
-              <span className="text-xs font-mono text-slate-400 truncate">
-                {SITE_URL}/portal / client / PRJ-2026-884
+              <span className="text-xs font-mono text-slate-400">
+                portal.domaintechhub.com / client / PRJ-2026-884
               </span>
             </div>
 
@@ -289,7 +285,7 @@ export const ClientPortalDemo: React.FC = () => {
 
               {/* 5 Horizontal Steps Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-2 relative z-10">
-                {roadmapStages.map((stage, idx) => {
+                {roadmapStages.map((stage) => {
                   const isSelected = activeStageId === stage.id;
                   const isCompleted = stage.status === 'completed';
                   const isInProgress = stage.status === 'in_progress';
@@ -300,13 +296,10 @@ export const ClientPortalDemo: React.FC = () => {
                       type="button"
                       onClick={() => setActiveStageId(stage.id)}
                       className={`text-left md:text-center p-3.5 md:p-3 rounded-2xl transition-all duration-200 cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
-                        idx === 4 ? 'col-span-2 sm:col-span-1' : ''
-                      } ${
                         isSelected 
                           ? 'bg-slate-900 border-2 border-cyan-500/80 shadow-lg shadow-cyan-950/40 md:-translate-y-1' 
                           : 'bg-slate-900/40 hover:bg-slate-900/80 border border-slate-800 hover:border-slate-700'
                       }`}
-                      aria-label={`View stage ${stage.stepNumber}: ${stage.shortLabel}`}
                     >
                       {/* Step Indicator Node (Icon Circle) */}
                       <div className="flex md:justify-center mb-3">
@@ -390,7 +383,7 @@ export const ClientPortalDemo: React.FC = () => {
                       </span>
                     )}
                     {activeStage.status === 'in_progress' && (
-                      <span className="px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30 animate-pulse">
+                      <span className="px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
                         CURRENT ACTIVE SPRINT (85%)
                       </span>
                     )}
@@ -410,23 +403,23 @@ export const ClientPortalDemo: React.FC = () => {
                 </div>
 
                 {/* Squad Lead & Timeline Meta */}
-                <div className="flex flex-col sm:flex-row flex-wrap sm:flex-nowrap items-stretch sm:items-center gap-3 w-full sm:w-auto shrink-0">
-                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-left w-full sm:w-auto min-w-0 sm:min-w-[170px] flex-1">
+                <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-left min-w-[170px]">
                     <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-0.5 flex items-center gap-1">
                       <UserCheck className="w-3 h-3 text-cyan-400" />
                       <span>Accountable Lead</span>
                     </div>
-                    <div className="text-xs font-semibold text-slate-200 truncate">
+                    <div className="text-xs font-semibold text-slate-200">
                       {activeStage.leadRole}
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-left w-full sm:w-auto min-w-0 sm:min-w-[140px] flex-1">
+                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-left min-w-[140px]">
                     <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-0.5 flex items-center gap-1">
                       <Clock className="w-3 h-3 text-cyan-400" />
                       <span>Sprint Timeline</span>
                     </div>
-                    <div className="text-xs font-semibold text-slate-200 truncate">
+                    <div className="text-xs font-semibold text-slate-200">
                       {activeStage.duration}
                     </div>
                   </div>
@@ -480,106 +473,47 @@ export const ClientPortalDemo: React.FC = () => {
                 </div>
               </div>
 
-              {/* Stage Navigation Stepper Buttons - Mobile UI Design Optimized */}
-              <div className="pt-6 mt-6 border-t border-slate-800/80">
-                <div className="grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:justify-between w-full">
-                  
-                  {/* Previous Stage Button */}
-                  <button
-                    type="button"
-                    disabled={currentStageIndex === 0}
-                    onClick={() => {
-                      if (currentStageIndex > 0) {
-                        setActiveStageId(roadmapStages[currentStageIndex - 1].id);
-                      }
-                    }}
-                    className={`flex-1 sm:flex-initial sm:min-w-[190px] p-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all text-left flex items-center gap-2.5 ${
-                      currentStageIndex === 0
-                        ? 'border-slate-850 bg-slate-950/40 text-slate-600 opacity-40 cursor-not-allowed'
-                        : 'border-slate-800 bg-slate-900/90 hover:bg-slate-850 hover:border-slate-700 text-slate-200 shadow-xs cursor-pointer active:scale-[0.98]'
-                    }`}
-                    aria-label={currentStageIndex > 0 ? `Go to previous stage: ${roadmapStages[currentStageIndex - 1].name}` : 'Previous stage disabled'}
-                  >
-                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                      currentStageIndex === 0
-                        ? 'bg-slate-900 text-slate-600'
-                        : 'bg-slate-800 text-cyan-400 shadow-xs'
-                    }`}>
-                      <ChevronLeft className="w-4 h-4" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold leading-tight">
-                        Previous
-                      </span>
-                      <span className="block text-xs font-bold text-white truncate">
-                        {currentStageIndex > 0
-                          ? roadmapStages[currentStageIndex - 1].shortLabel
-                          : 'Stage 01'}
-                      </span>
-                    </div>
-                  </button>
+              {/* Stage Navigation Stepper Buttons */}
+              <div className="pt-6 mt-6 border-t border-slate-800/80 flex items-center justify-between">
+                <button
+                  type="button"
+                  disabled={currentStageIndex === 0}
+                  onClick={() => {
+                    if (currentStageIndex > 0) {
+                      setActiveStageId(roadmapStages[currentStageIndex - 1].id);
+                    }
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-colors ${
+                    currentStageIndex === 0
+                      ? 'text-slate-600 cursor-not-allowed'
+                      : 'text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700'
+                  }`}
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                  <span>Previous Stage ({roadmapStages[Math.max(0, currentStageIndex - 1)].shortLabel})</span>
+                </button>
 
-                  {/* Middle Stage Dots Stepper (Hidden on small mobile screens to prevent overlap) */}
-                  <div className="hidden md:flex flex-col items-center justify-center text-center px-2">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      {roadmapStages.map((s, idx) => (
-                        <button
-                          key={s.id}
-                          type="button"
-                          onClick={() => setActiveStageId(s.id)}
-                          className={`transition-all rounded-full ${
-                            idx === currentStageIndex
-                              ? 'w-6 h-2 bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.5)]'
-                              : idx < currentStageIndex
-                              ? 'w-2 h-2 bg-emerald-400/80'
-                              : 'w-2 h-2 bg-slate-800 hover:bg-slate-700'
-                          }`}
-                          title={`Stage 0${s.stepNumber}: ${s.name}`}
-                          aria-label={`Jump to stage 0${s.stepNumber}`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-[11px] font-mono text-slate-400">
-                      Stage 0{currentStageIndex + 1} of 05 · Tap to jump
-                    </span>
-                  </div>
-
-                  {/* Next Stage Button */}
-                  <button
-                    type="button"
-                    disabled={currentStageIndex === roadmapStages.length - 1}
-                    onClick={() => {
-                      if (currentStageIndex < roadmapStages.length - 1) {
-                        setActiveStageId(roadmapStages[currentStageIndex + 1].id);
-                      }
-                    }}
-                    className={`flex-1 sm:flex-initial sm:min-w-[190px] p-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all text-right flex items-center justify-end gap-2.5 ${
-                      currentStageIndex === roadmapStages.length - 1
-                        ? 'border-slate-850 bg-slate-950/40 text-slate-600 opacity-40 cursor-not-allowed'
-                        : 'border-cyan-500/40 bg-cyan-950/30 hover:bg-cyan-950/60 hover:border-cyan-400 text-cyan-200 shadow-xs cursor-pointer active:scale-[0.98]'
-                    }`}
-                    aria-label={currentStageIndex < roadmapStages.length - 1 ? `Go to next stage: ${roadmapStages[currentStageIndex + 1].name}` : 'Next stage disabled'}
-                  >
-                    <div className="min-w-0 flex-1">
-                      <span className="block text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-semibold leading-tight">
-                        Next Stage
-                      </span>
-                      <span className="block text-xs font-bold text-white truncate">
-                        {currentStageIndex < roadmapStages.length - 1
-                          ? roadmapStages[currentStageIndex + 1].shortLabel
-                          : 'Deployment'}
-                      </span>
-                    </div>
-                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                      currentStageIndex === roadmapStages.length - 1
-                        ? 'bg-slate-900 text-slate-600'
-                        : 'bg-cyan-500 text-slate-950 font-bold shadow-xs'
-                    }`}>
-                      <ChevronRight className="w-4 h-4" />
-                    </div>
-                  </button>
-
+                <div className="text-[11px] font-mono text-slate-500">
+                  Click any stage circle to inspect deliverables
                 </div>
+
+                <button
+                  type="button"
+                  disabled={currentStageIndex === roadmapStages.length - 1}
+                  onClick={() => {
+                    if (currentStageIndex < roadmapStages.length - 1) {
+                      setActiveStageId(roadmapStages[currentStageIndex + 1].id);
+                    }
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-colors ${
+                    currentStageIndex === roadmapStages.length - 1
+                      ? 'text-slate-600 cursor-not-allowed'
+                      : 'text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700'
+                  }`}
+                >
+                  <span>Next Stage ({roadmapStages[Math.min(roadmapStages.length - 1, currentStageIndex + 1)].shortLabel})</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </div>
 
             </div>
@@ -589,13 +523,13 @@ export const ClientPortalDemo: React.FC = () => {
           {/* ============================================================ */}
           {/* WORKSPACE LOWER GRID (Project Details, Docs & Ticket Desk)   */}
           {/* ============================================================ */}
-          <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+          <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             {/* Left Column: Project Overview & Deliverables (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
               
               {/* Active Project Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
+              <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <span className="text-xs font-mono text-cyan-400 uppercase font-semibold">
                     Current Active Repository & Build
@@ -612,35 +546,26 @@ export const ClientPortalDemo: React.FC = () => {
                   Custom Next.js 15 storefront, Safaricom Daraja API callbacks, Redis caching, and automated vendor payout pipeline.
                 </p>
 
-                {/* Staging link pill - Mobile-Optimized Zero Overlap */}
-                <div className="space-y-2">
-                  <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-                    <div className="flex items-center gap-2 text-slate-400 font-mono shrink-0">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                      <span className="font-semibold text-slate-300 text-xs">Staging URL:</span>
-                    </div>
-                    <a
-                      href="https://staging.afritrade.domaintechhubs.dev"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => {
-                        e.preventDefault();
+                {/* Staging link pill */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+                    <span className="text-slate-400 font-mono">Staging URL:</span>
+                    <button
+                      type="button"
+                      onClick={() => {
                         setStagingNotice(true);
                         setTimeout(() => setStagingNotice(false), 4500);
                       }}
-                      className="text-cyan-400 hover:text-cyan-300 font-mono inline-flex items-center gap-1.5 text-left cursor-pointer min-w-0 max-w-full group break-all"
-                      title="Inspect staging build for AfriTrade (https://staging.afritrade.domaintechhubs.dev)"
+                      className="text-cyan-400 hover:underline font-mono flex items-center gap-1 text-left cursor-pointer"
                     >
-                      <span className="break-all underline decoration-cyan-500/40 underline-offset-4 group-hover:decoration-cyan-300 text-[11px] sm:text-xs">
-                        https://staging.afritrade.domaintechhubs.dev
-                      </span>
-                      <ExternalLink className="w-3.5 h-3.5 shrink-0 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
-                    </a>
+                      <span>https://staging.afritrade.domaintechhub.dev</span>
+                      <ExternalLink className="w-3 h-3 shrink-0" />
+                    </button>
                   </div>
                   {stagingNotice && (
-                    <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-start sm:items-center gap-2 animate-in fade-in">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" />
-                      <span className="leading-relaxed">Preview Verified: Automated integration tests & M-Pesa Daraja Sandbox 100% Passing.</span>
+                    <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-center gap-2 animate-in fade-in">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span>Preview Verified: Automated integration tests & M-Pesa Daraja Sandbox 100% Passing.</span>
                     </div>
                   )}
                 </div>
@@ -652,19 +577,19 @@ export const ClientPortalDemo: React.FC = () => {
                   Verified Deliverables & Engineering Documentation
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-2 text-slate-300 min-w-0">
-                    <span className="flex items-center gap-2 min-w-0 flex-1">
-                      <FileText className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                      <span className="truncate">Figma Design Tokens & UI Kit.pdf</span>
+                  <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-slate-300">
+                    <span className="flex items-center gap-2">
+                      <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Figma Design Tokens & UI Kit.pdf</span>
                     </span>
-                    <span className="font-mono text-[10px] text-slate-500 shrink-0">4.2 MB</span>
+                    <span className="font-mono text-[10px] text-slate-500">4.2 MB</span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-2 text-slate-300 min-w-0">
-                    <span className="flex items-center gap-2 min-w-0 flex-1">
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                      <span className="truncate">M-Pesa Daraja Architecture.pdf</span>
+                  <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-slate-300">
+                    <span className="flex items-center gap-2">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>M-Pesa Daraja Architecture.pdf</span>
                     </span>
-                    <span className="font-mono text-[10px] text-slate-500 shrink-0">1.8 MB</span>
+                    <span className="font-mono text-[10px] text-slate-500">1.8 MB</span>
                   </div>
                 </div>
               </div>
@@ -687,19 +612,19 @@ export const ClientPortalDemo: React.FC = () => {
                 {ticketSubmitted ? (
                   <div className="p-6 rounded-xl bg-emerald-950/60 border border-emerald-800 text-center animate-in fade-in">
                     <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto mb-2" />
-                    <h5 className="font-bold text-sm text-white">Ticket #DTH-8492 Logged!</h5>
+                    <h5 className="font-bold text-sm text-white">Support message draft opened</h5>
                     <p className="text-xs text-slate-300 mt-1">
-                      Our on-call engineer has been notified on Slack & WhatsApp. Estimated response: 18 minutes.
+                      Press Send in WhatsApp or your email app to deliver this request. This demo does not create a support ticket or notify an engineer.
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleTicketSubmit} className="space-y-3">
                     <div>
-                      <label htmlFor={categorySelectId} className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label htmlFor="ticket-category" className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Category
                       </label>
                       <select
-                        id={categorySelectId}
+                        id="ticket-category"
                         value={ticketCategory}
                         onChange={(e) => setTicketCategory(e.target.value)}
                         className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
@@ -712,15 +637,12 @@ export const ClientPortalDemo: React.FC = () => {
                     </div>
 
                     <div>
-                      <label id={`${subjectInputId}-label`} htmlFor={subjectInputId} className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Subject
                       </label>
                       <input
-                        id={subjectInputId}
-                        aria-labelledby={`${subjectInputId}-label`}
                         type="text"
                         required
-                        autoComplete="off"
                         value={ticketSubject}
                         onChange={(e) => setTicketSubject(e.target.value)}
                         placeholder="e.g. Update M-Pesa Shortcode in staging"
@@ -729,12 +651,10 @@ export const ClientPortalDemo: React.FC = () => {
                     </div>
 
                     <div>
-                      <label id={`${descriptionTextareaId}-label`} htmlFor={descriptionTextareaId} className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Description / Details
                       </label>
                       <textarea
-                        id={descriptionTextareaId}
-                        aria-labelledby={`${descriptionTextareaId}-label`}
                         required
                         rows={3}
                         value={ticketDescription}
@@ -750,7 +670,7 @@ export const ClientPortalDemo: React.FC = () => {
                         className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
-                        <span>Send to WhatsApp</span>
+                        <span>Open WhatsApp draft</span>
                       </button>
 
                       <button
@@ -759,7 +679,7 @@ export const ClientPortalDemo: React.FC = () => {
                         className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
                       >
                         <Mail className="w-3.5 h-3.5" />
-                        <span>Send via Email</span>
+                        <span>Open email draft</span>
                       </button>
                     </div>
                   </form>
