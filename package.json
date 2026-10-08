@@ -17,8 +17,7 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "generate:sitemaps": "node generate-sitemaps.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
@@ -45,7 +44,6 @@
     "esbuild": "^0.25.0",
     "eslint": "^10.12.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "gh-pages": "^6.3.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "5.8.3",
