@@ -4,6 +4,8 @@
  * and thought leadership articles published by Domain Tech Hub.
  */
 
+import { SITE_URL } from '../config/site';
+
 export interface ArticleAuthor {
   name: string;
   role: string;
@@ -28,7 +30,7 @@ export interface ArticleData {
   changefreq: 'daily' | 'weekly' | 'monthly' | 'yearly';
 }
 
-const BASE_URL = 'https://www.domaintechhubs.com';
+const BASE_URL = SITE_URL;
 
 export const ARTICLES_DATA: ArticleData[] = [
   {

@@ -6,8 +6,9 @@ import {
 import { SERVICES_LIST } from '../data/servicesData';
 import { CASE_STUDIES } from '../data/portfolioData';
 import { INSIGHT_ARTICLES } from '../data/insightsData';
+import { SITE_URL } from '../config/site';
 
-const BASE_URL = 'https://www.domaintechhubs.com';
+const BASE_URL = SITE_URL;
 
 export interface SearchResultItem {
   id: string;

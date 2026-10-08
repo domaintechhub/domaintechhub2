@@ -1,3 +1,4 @@
+import { SITE_URL } from '../config/site';
 import { AGENCY_INFO } from '../data/portfolioData';
 
 export interface LeadRecord {
@@ -95,7 +96,7 @@ export function formatWhatsAppMessage(lead: Partial<LeadRecord>): string {
     msg += `\n*Details / Requirements:*\n${lead.notes}\n`;
   }
   msg += `--------------------------------\n`;
-  msg += `Submitted via domaintechhubs.com`;
+  msg += `Submitted via ${SITE_URL}`;
 
   return msg;
 }

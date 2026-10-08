@@ -8,6 +8,7 @@ import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage } from '../context/LanguageContext';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToEmail, sendToWhatsApp } from '../utils/leadDispatch';
+import { SITE_URL } from '../config/site';
 
 interface AddonOption {
   id: string;
@@ -268,7 +269,7 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
 - Add-ons: ${selectedAddonNames || 'None'}
 - Timeline: ${isRushTimeline ? 'Expedited Rush Sprint (+25%)' : 'Standard Delivery'}
 - Estimated Total: ${currency === 'KES' ? `KSh ${finalTotalKES.toLocaleString()}` : `$${finalTotalUSD.toLocaleString()}`}
-Generated at domaintechhubs.com tool.`;
+Generated at ${SITE_URL} tool.`;
   };
 
   const handleCopyQuote = () => {

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
+import { SITE_URL } from '../config/site';
 
 export interface RoadmapStage {
   id: 'discovery' | 'design' | 'development' | 'uat' | 'deployment';
@@ -214,7 +215,7 @@ export const ClientPortalDemo: React.FC = () => {
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
               </div>
               <span className="text-xs font-mono text-slate-400 truncate">
-                portal.domaintechhubs.com / client / PRJ-2026-884
+                {SITE_URL}/portal / client / PRJ-2026-884
               </span>
             </div>
 
