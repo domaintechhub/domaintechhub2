@@ -1,4 +1,4 @@
-# robots.txt for Domain Tech Hub (https://domaintechhub.com)
+# robots.txt for Domain Tech Hub (https://www.domaintechhubs.com)
 # Configured for High-Performance Search, Answer Engine & Generative Engine Crawlers (Google, Gemini, ChatGPT, Claude, Perplexity)
 
 User-agent: *
@@ -73,4 +73,4 @@ User-agent: Diffbot
 Allow: /
 
 # Sitemaps & LLM Machine-Readable Mirrors
-Sitemap: https://domaintechhub.com/sitemap.xml
+Sitemap: https://www.domaintechhubs.com/sitemap.xml

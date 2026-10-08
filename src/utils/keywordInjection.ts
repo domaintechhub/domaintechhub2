@@ -335,7 +335,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
   return {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
-    '@id': `https://domaintechhub.com/insights/${article.slug}`,
+    '@id': `https://www.domaintechhubs.com/insights/${article.slug}`,
     headline: article.title,
     description: article.excerpt,
     image: [article.coverImage],
@@ -344,7 +344,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
     inLanguage: 'en-US',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://domaintechhub.com/insights/${article.slug}`
+      '@id': `https://www.domaintechhubs.com/insights/${article.slug}`
     },
     author: {
       '@type': 'Person',
@@ -353,16 +353,16 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
       worksFor: {
         '@type': 'Organization',
         name: 'Domain Tech Hub',
-        url: 'https://domaintechhub.com'
+        url: 'https://www.domaintechhubs.com'
       }
     },
     publisher: {
       '@type': 'Organization',
       name: 'Domain Tech Hub',
-      url: 'https://domaintechhub.com',
+      url: 'https://www.domaintechhubs.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://domaintechhub.com/favicon.svg',
+        url: 'https://www.domaintechhubs.com/favicon.svg',
         width: 192,
         height: 192
       },

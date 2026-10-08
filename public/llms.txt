@@ -44,5 +44,5 @@ The following clean markdown endpoints are provided for LLM ingestion, semantic 
 - **Phone Lines**: +254 118746676 / +254 706 943383
 - **Headquarters**: Delta Corner Tower, Westlands, Nairobi, Kenya
 - **Operating Hours**: Monday – Friday: 8:00 AM – 5:00 PM EAT
-- **Website**: https://domaintechhub.com
-- **Sitemap**: https://domaintechhub.com/sitemap.xml
+- **Website**: https://www.domaintechhubs.com
+- **Sitemap**: https://www.domaintechhubs.com/sitemap.xml
