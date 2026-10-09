@@ -1,12 +1,6 @@
 import React from 'react';
 import { StatsSection } from './StatsSection';
-import { ServicesExplorer } from './ServicesExplorer';
-import { TechStackSection } from './TechStackSection';
 import { CostCalculator } from './CostCalculator';
-import { SeoAuditTool } from './SeoAuditTool';
-import { DomainChecker } from './DomainChecker';
-import { Portfolio } from './Portfolio';
-import { ClientPortalDemo } from './ClientPortalDemo';
 import { Testimonials } from './Testimonials';
 import { InsightsSection } from './InsightsSection';
 import { FaqSection } from './FaqSection';
@@ -26,20 +20,14 @@ interface HomeSectionsProps {
   onBookSimilarProject: (projectTitle: string) => void;
   onScheduleConsultation: (topic: string) => void;
   onNavigatePath: (url: string) => void;
-};
+}
 
 export const HomeSections: React.FC<HomeSectionsProps> = ({
   calculatorServiceId,
   prefilledService,
   prefilledNotes,
   onNavigate,
-  onSelectForQuote,
-  onBookService,
-  onSelectTechForProject,
   onProceedToBooking,
-  onFixAuditWithAgency,
-  onSelectDomainForSetup,
-  onBookSimilarProject,
   onScheduleConsultation,
   onNavigatePath,
 }) => (
@@ -48,21 +36,17 @@ export const HomeSections: React.FC<HomeSectionsProps> = ({
       onNavigateToCaseStudies={() => onNavigate('portfolio')}
       onNavigateToBooking={() => onNavigate('contact')}
     />
-    <ServicesExplorer
-      onSelectForQuote={onSelectForQuote}
-      onBookService={onBookService}
-    />
-    <TechStackSection onSelectTechForProject={onSelectTechForProject} />
     <CostCalculator
       initialServiceId={calculatorServiceId}
       onProceedToBooking={onProceedToBooking}
     />
-    <SeoAuditTool onFixWithAgency={onFixAuditWithAgency} />
-    <DomainChecker onSelectDomainForSetup={onSelectDomainForSetup} />
-    <Portfolio onBookSimilarProject={onBookSimilarProject} />
-    <ClientPortalDemo />
     <Testimonials />
-    <InsightsSection onScheduleConsultation={onScheduleConsultation} onNavigatePath={onNavigatePath} />
+    <InsightsSection
+      previewMode={true}
+      onScheduleConsultation={onScheduleConsultation}
+      onNavigatePath={onNavigatePath}
+      onViewAllArticles={() => onNavigate('insights')}
+    />
     <FaqSection onScheduleCall={() => onNavigate('contact')} />
     <BookingSection
       prefilledService={prefilledService}

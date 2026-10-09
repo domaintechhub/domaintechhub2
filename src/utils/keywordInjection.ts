@@ -333,13 +333,17 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
     ...article.tags
   ];
 
+  const fullCoverImage = article.coverImage.startsWith('http')
+    ? article.coverImage
+    : `${SITE_URL}${article.coverImage}`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
     '@id': `${SITE_URL}/insights/${article.slug}`,
     headline: article.title,
     description: article.excerpt,
-    image: [article.coverImage],
+    image: [fullCoverImage],
     datePublished: '2026-10-01T08:00:00+03:00',
     dateModified: new Date().toISOString(),
     inLanguage: 'en-US',

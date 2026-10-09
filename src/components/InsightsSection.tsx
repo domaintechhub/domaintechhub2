@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
 import { 
-  BookOpen, Clock, Calendar, Search, ArrowRight, 
+  BookOpen, Clock, Calendar, Search, ArrowRight, ArrowLeft,
   ArrowUpRight, X, Check, Share2, Tag, Terminal,
-  MessageSquare, ChevronRight, FileText,
+  MessageSquare, ChevronRight, ChevronLeft, FileText,
   Layers, BarChart2
 } from 'lucide-react';
 import { INSIGHT_ARTICLES, INSIGHT_CATEGORIES, InsightArticle } from '../data/insightsData';
@@ -20,7 +20,9 @@ import {
 interface InsightsSectionProps {
   onScheduleConsultation?: (topic: string) => void;
   onNavigatePath?: (url: string) => void;
+  onViewAllArticles?: () => void;
   initialLoading?: boolean;
+  previewMode?: boolean;
 }
 
 export type ReadDurationFilter = 'all' | 'quick' | 'deep';
@@ -158,7 +160,9 @@ const renderRichBody = (body: string, onInternalNavigate?: (url: string) => void
 export const InsightsSection: React.FC<InsightsSectionProps> = ({ 
   onScheduleConsultation,
   onNavigatePath,
-  initialLoading = true
+  onViewAllArticles,
+  initialLoading = true,
+  previewMode = false
 }) => {
   const insightsSearchInputId = useId();
   const [activeCategory, setActiveCategory] = useState<string>('All Articles');
@@ -169,8 +173,11 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   const [copiedLink, setCopiedLink] = useState(false);
   const [modalReadProgress, setModalReadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(initialLoading);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ARTICLES_PER_PAGE = 6;
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
+  const gridTopRef = useRef<HTMLDivElement>(null);
 
   const handleInternalNavigate = (url: string) => {
     setSelectedArticle(null);
@@ -259,6 +266,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     if (cat === activeCategory) return;
     setIsLoading(true);
     setActiveCategory(cat);
+    setCurrentPage(1);
     setTimeout(() => {
       setIsLoading(false);
     }, 280);
@@ -268,6 +276,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     if (dur === durationFilter) return;
     setIsLoading(true);
     setDurationFilter(dur);
+    setCurrentPage(1);
     setTimeout(() => {
       setIsLoading(false);
     }, 250);
@@ -275,11 +284,21 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
+    setCurrentPage(1);
     if (!isLoading) {
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
       }, 200);
+    }
+  };
+
+  const handlePageChange = (newPage: number, totalPagesCount: number) => {
+    const clampedPage = Math.max(1, Math.min(totalPagesCount, newPage));
+    if (clampedPage === currentPage) return;
+    setCurrentPage(clampedPage);
+    if (gridTopRef.current) {
+      gridTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -332,8 +351,18 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     return matchesCategory && matchesQuery && matchesDuration && matchesKeyword;
   });
 
-  const featuredArticle = filteredArticles.find(a => a.featured) || filteredArticles[0];
-  const gridArticles = filteredArticles.filter(a => a.id !== featuredArticle?.id);
+  const isUnfilteredView = activeCategory === 'All Articles' && searchQuery === '' && durationFilter === 'all' && !selectedKeywordSlug;
+  const featuredArticle = isUnfilteredView
+    ? (filteredArticles.find(a => a.featured) || filteredArticles[0])
+    : undefined;
+  const gridArticles = featuredArticle
+    ? filteredArticles.filter(a => a.id !== featuredArticle.id)
+    : filteredArticles;
+
+  const totalPages = Math.max(1, Math.ceil(gridArticles.length / ARTICLES_PER_PAGE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * ARTICLES_PER_PAGE;
+  const paginatedGridArticles = gridArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
 
   const handleShare = (article: InsightArticle) => {
     try {
@@ -370,15 +399,33 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             </p>
           </div>
 
-          <div className="shrink-0 flex items-center gap-2">
+          <div className="shrink-0 flex items-center gap-3">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-400">
               <Clock className="w-3.5 h-3.5 text-cyan-400" />
               <span>Time-to-Read Verified</span>
             </div>
+            {previewMode && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (onViewAllArticles) {
+                    onViewAllArticles();
+                  } else {
+                    handleInternalNavigate('/insights');
+                  }
+                }}
+                className="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
+              >
+                <span>View All {INSIGHT_ARTICLES.length} Articles</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Category Filters, Reading Time Filter & Search */}
+        {/* Category Filters, Reading Time Filter & Search (Hidden in Home previewMode to keep home page clean) */}
+        {!previewMode && (
+        <>
         <div className="space-y-4 mb-10 pb-6 border-b border-slate-800/80">
           
           {/* Row 1: Category Filter Buttons */}
@@ -477,7 +524,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             </div>
             {selectedKeywordSlug && (
               <button
-                onClick={() => setSelectedKeywordSlug(null)}
+                onClick={() => { setSelectedKeywordSlug(null); setCurrentPage(1); }}
                 className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors cursor-pointer"
               >
                 <span>Clear keyword filter</span>
@@ -494,6 +541,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   key={kw.slug}
                   onClick={() => {
                     setSelectedKeywordSlug(isActive ? null : kw.slug);
+                    setCurrentPage(1);
                   }}
                   className={`text-xs px-2.5 py-1.5 rounded-lg border font-mono transition-all flex items-center gap-1.5 cursor-pointer ${
                     isActive
@@ -515,12 +563,14 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             })}
           </div>
         </div>
+        </>
+        )}
 
         {/* Articles Content or Skeleton */}
         {isLoading ? (
           <InsightsGridSkeleton 
-            showFeatured={activeCategory === 'All Articles' && searchQuery === '' && durationFilter === 'all'} 
-            count={6} 
+            showFeatured={true} 
+            count={previewMode ? 0 : 6} 
           />
         ) : (
           <>
@@ -639,9 +689,73 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
           );
         })()}
 
+        {previewMode ? (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 sm:p-6 mb-12 rounded-2xl bg-slate-900/60 border border-slate-800/90">
+            <div className="text-center sm:text-left">
+              <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">
+                Full Engineering Library · {INSIGHT_ARTICLES.length} Published Guides
+              </div>
+              <p className="text-xs sm:text-sm text-slate-300">
+                Browse all {INSIGHT_ARTICLES.length} deep-dive technical articles on M-Pesa Daraja 3.0, KRA eTIMS POS, Next.js 15, AI RAG agents, and Local SEO on our dedicated Insights page.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (onViewAllArticles) {
+                  onViewAllArticles();
+                } else {
+                  handleInternalNavigate('/insights');
+                }
+              }}
+              className="w-full sm:w-auto shrink-0 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
+            >
+              <span>Explore All {INSIGHT_ARTICLES.length} Articles</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+        <>
+        {/* Scroll target & Top Pagination Summary Bar */}
+        <div ref={gridTopRef} className="scroll-mt-24 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-cyan-400" />
+            <span>
+              Showing <strong className="text-white">{gridArticles.length === 0 ? 0 : startIndex + 1}–{Math.min(startIndex + ARTICLES_PER_PAGE, gridArticles.length)}</strong> of <strong className="text-white">{gridArticles.length}</strong> articles
+              {activeCategory !== 'All Articles' ? ` in ${activeCategory}` : ''}
+            </span>
+          </div>
+
+          {totalPages > 1 && (
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handlePageChange(safeCurrentPage - 1, totalPages)}
+                disabled={safeCurrentPage <= 1}
+                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-xs font-mono text-slate-300 hover:text-cyan-300 disabled:opacity-40 disabled:pointer-events-none flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span>Previous</span>
+              </button>
+              <span className="text-xs font-mono text-slate-400 px-2">
+                Page <strong className="text-cyan-300">{safeCurrentPage}</strong> of <strong className="text-white">{totalPages}</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => handlePageChange(safeCurrentPage + 1, totalPages)}
+                disabled={safeCurrentPage >= totalPages}
+                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-xs font-mono text-slate-300 hover:text-cyan-300 disabled:opacity-40 disabled:pointer-events-none flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <span>Next</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {gridArticles.map((article) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          {paginatedGridArticles.map((article) => {
             const stats = calculateReadStats(article);
 
             return (
@@ -743,16 +857,67 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
           })}
         </div>
 
+        {/* Bottom Pagination Controls (Previous Page / Page Numbers / Next Page) */}
+        {totalPages > 1 && (
+          <nav
+            aria-label="Articles pagination"
+            className="mb-14 p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800/90 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg"
+          >
+            <button
+              type="button"
+              onClick={() => handlePageChange(safeCurrentPage - 1, totalPages)}
+              disabled={safeCurrentPage <= 1}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-slate-200 hover:text-cyan-300 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-mono font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Previous Page</span>
+            </button>
+
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNum) => {
+                const isCurrent = pageNum === safeCurrentPage;
+                return (
+                  <button
+                    key={pageNum}
+                    type="button"
+                    onClick={() => handlePageChange(pageNum, totalPages)}
+                    aria-current={isCurrent ? 'page' : undefined}
+                    className={`w-9 h-9 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center justify-center ${
+                      isCurrent
+                        ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 border border-cyan-400'
+                        : 'bg-slate-950/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handlePageChange(safeCurrentPage + 1, totalPages)}
+              disabled={safeCurrentPage >= totalPages}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-mono font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+            >
+              <span>Next Page</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </nav>
+        )}
+
         {filteredArticles.length === 0 && (
-          <div className="text-center py-14 bg-slate-900/30 rounded-2xl border border-slate-800">
+          <div className="text-center py-14 bg-slate-900/30 rounded-2xl border border-slate-800 mb-12">
             <p className="text-slate-400 text-sm">No articles match your search or reading time filters.</p>
             <button
-              onClick={() => { setSearchQuery(''); setActiveCategory('All Articles'); setDurationFilter('all'); }}
+              onClick={() => { setSearchQuery(''); setActiveCategory('All Articles'); setDurationFilter('all'); setSelectedKeywordSlug(null); setCurrentPage(1); }}
               className="mt-3 text-cyan-400 text-xs hover:underline"
             >
               Reset all filters
             </button>
           </div>
+        )}
+        </>
         )}
         </>
         )}
@@ -982,6 +1147,56 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   </span>
                 ))}
               </div>
+
+              {/* Previous / Next Article Reader Navigation */}
+              {(() => {
+                const currentIdx = filteredArticles.findIndex(a => a.id === selectedArticle.id);
+                const prevArticle = currentIdx > 0 ? filteredArticles[currentIdx - 1] : null;
+                const nextArticle = currentIdx >= 0 && currentIdx < filteredArticles.length - 1 ? filteredArticles[currentIdx + 1] : null;
+                if (!prevArticle && !nextArticle) return null;
+
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 pt-4 border-t border-slate-800">
+                    {prevArticle ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedArticle(prevArticle);
+                          if (modalContainerRef.current) modalContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="p-3.5 rounded-xl bg-slate-950/80 hover:bg-slate-800/80 border border-slate-800 hover:border-cyan-500/40 text-left transition-all group cursor-pointer flex flex-col justify-between"
+                      >
+                        <span className="text-[11px] font-mono text-slate-400 group-hover:text-cyan-400 flex items-center gap-1 mb-1">
+                          <ArrowLeft className="w-3.5 h-3.5" />
+                          <span>Previous Article</span>
+                        </span>
+                        <span className="text-xs font-bold text-slate-200 group-hover:text-white line-clamp-1">
+                          {prevArticle.title}
+                        </span>
+                      </button>
+                    ) : <div />}
+
+                    {nextArticle ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedArticle(nextArticle);
+                          if (modalContainerRef.current) modalContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="p-3.5 rounded-xl bg-slate-950/80 hover:bg-slate-800/80 border border-slate-800 hover:border-cyan-500/40 text-right transition-all group cursor-pointer flex flex-col justify-between items-end"
+                      >
+                        <span className="text-[11px] font-mono text-slate-400 group-hover:text-cyan-400 flex items-center gap-1 mb-1">
+                          <span>Next Article</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                        <span className="text-xs font-bold text-slate-200 group-hover:text-white line-clamp-1">
+                          {nextArticle.title}
+                        </span>
+                      </button>
+                    ) : <div />}
+                  </div>
+                );
+              })()}
 
               {/* Modal Bottom CTA */}
               <div className="p-5 rounded-xl bg-white dark:bg-slate-950 border border-stone-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">

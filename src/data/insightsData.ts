@@ -45,10 +45,10 @@ export const INSIGHT_ARTICLES: InsightArticle[] = [
     author: {
       name: 'Brian Mwangi',
       role: 'Lead Cloud & Fintech Architect',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-brian.webp'
     },
     excerpt: 'How Kenyan e-commerce platforms lose up to 14% of mobile revenue due to unhandled Daraja timeouts, and the exact idempotency and queuing architecture we use to guarantee 99.9% reconciliation.',
-    coverImage: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/mpesa-daraja-zero-loss.webp',
     tags: ['M-Pesa API', 'Fintech', 'Node.js', 'Redis', 'Kenya'],
     keyTakeaways: [
       'Daraja STK callbacks can arrive out-of-order or duplicate due to network re-transmissions.',
@@ -96,10 +96,10 @@ app.post('/api/payments/mpesa/callback', async (req, res) => {
     author: {
       name: 'Faith Chepngetich',
       role: 'Principal Frontend Engineer',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-faith.webp'
     },
     excerpt: 'A benchmark analysis comparing PHP/WooCommerce page speed against Next.js 15 on Kenyan mobile networks, showing how sub-second LCP directly increases conversion rates by 3.2x.',
-    coverImage: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/headless-nextjs-vs-wordpress.webp',
     tags: ['Next.js', 'React', 'Performance', 'Web Architecture'],
     keyTakeaways: [
       'Monolithic WordPress templates load an average of 42 separate CSS/JS files and 3.8MB payloads.',
@@ -141,10 +141,10 @@ export const revalidate = 60;`
     author: {
       name: 'Dennis Kiprop',
       role: 'Director of Search & Analytics',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-dennis.webp'
     },
     excerpt: 'The exact technical blueprint we use to propel legal, healthcare, engineering, and logistics companies from Google obscurity to the #1 Google 3-Pack and organic search results.',
-    coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/local-seo-core-web-vitals.webp',
     tags: ['SEO', 'Google Search', 'Schema JSON-LD', 'Core Web Vitals'],
     keyTakeaways: [
       'Google prioritizes local entity relevance: NAP (Name, Address, Phone) consistency across .ke directories.',
@@ -197,10 +197,10 @@ export const revalidate = 60;`
     author: {
       name: 'Amina Noor',
       role: 'Automation & Conversational AI Lead',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-amina.webp'
     },
     excerpt: 'Why cold email has a 12% open rate in Kenya while WhatsApp boasts 98%, and how automated qualifying flows generate pre-sold leads for sales teams 24/7.',
-    coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/whatsapp-cloud-api-automation.webp',
     tags: ['WhatsApp API', 'Automation', 'Meta Cloud', 'CRM'],
     keyTakeaways: [
       'Official Meta Cloud API eliminates the risk of phone number bans that plague unofficial web scrapers.',
@@ -234,10 +234,10 @@ export const revalidate = 60;`
     author: {
       name: 'Brian Mwangi',
       role: 'Lead Cloud & Fintech Architect',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-brian.webp'
     },
     excerpt: 'How multi-branch micro-finance, logistics, and real estate companies lose millions to version-control chaos and human error, and how custom web CRMs resolve it.',
-    coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/bespoke-crm-vs-spreadsheets.webp',
     tags: ['Custom CRM', 'Enterprise', 'PostgreSQL', 'Workflow Automation'],
     keyTakeaways: [
       'Spreadsheets lack granular role-based access control, exposing sensitive customer records to unauthorized exports.',
@@ -271,10 +271,10 @@ export const revalidate = 60;`
     author: {
       name: 'Faith Chepngetich',
       role: 'Principal Frontend Engineer',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-faith.webp'
     },
     excerpt: 'Essential security architectures for merchants accepting international Visa/Mastercard payments while shielding against stolen card testing and fraudulent disputes.',
-    coverImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/cybersecurity-ecommerce-kenya.webp',
     tags: ['Cybersecurity', 'Cloudflare', 'Stripe', 'Data Protection'],
     keyTakeaways: [
       'Card-testing bots target checkout forms to test thousands of stolen card numbers, causing huge gateway penalty fees.',
@@ -308,10 +308,10 @@ export const revalidate = 60;`
     author: {
       name: 'Dennis Kiprop',
       role: 'Director of Search & Analytics',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+      avatar: '/images/team/author-dennis.webp'
     },
     excerpt: 'Explore why a professional website design in Kenya is no longer just a digital brochure in 2026, but the core engine connecting Google search, social media, and native WhatsApp sales for sustainable business growth.',
-    coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/images/articles/website-design-in-kenya-2026.webp',
     tags: [
       'Website Design in Kenya',
       'Website Development in Kenya',
@@ -369,6 +369,509 @@ export const revalidate = 60;`
       {
         heading: '10. Partnering With Domain Tech Hub for Your 2026 Digital Presence',
         body: 'At Domain Tech Hub, we believe a website should be far more than a digital brochure. It should be a high-performance business tool engineered around your ideal customers, your revenue goals, and the modern digital habits of African consumers.\n\nHeadquartered at Delta Corner Tower in Westlands, Nairobi, our senior in-house architects specialize in:\n\n• Bespoke [website design in Kenya](/services/web-development) and modern Next.js frontend engineering\n• Native [ecommerce website development Kenya](/services/ecommerce-development) with zero-loss Safaricom Daraja 3.0 M-Pesa integration\n• High-ROI Google Ads campaigns, technical SEO, and conversion optimization\n• [Predictable 4 to 8 week agile sprint delivery](/roadmap) backed by an ironclad 30-day bug warranty\n• 100% intellectual property, source code, and GitHub repository ownership transferred to you\n\nIf your organization is ready for a digital presence that drives measurable commercial growth rather than just compliments, our senior architects are ready to collaborate.\n\n• Test your project budget with our [Instant Cost Calculator](/tools/calculator)\n• Run a free performance check with our [SEO Audit Tool](/tools/audit)\n• Schedule a discovery session directly via [WhatsApp Consultation](https://wa.me/254118746676) or our [Contact Page](/contact).'
+      }
+    ]
+  },
+  {
+    id: 'pos-systems-kra-etims-kenya-2026',
+    title: 'Point of Sale (POS) System Prices in Kenya & KRA eTIMS Integration Guide (2026)',
+    slug: 'pos-system-prices-kenya-kra-etims-guide',
+    category: 'Fintech & Payments',
+    publishedDate: 'October 2026',
+    readTime: '7 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'A complete breakdown of cloud POS software vs touchscreen hardware bundle pricing in Kenya, with architectural patterns for automated KRA eTIMS invoice transmission and M-Pesa Till reconciliation.',
+    coverImage: '/images/articles/pos-systems-kra-etims-kenya-2026.webp',
+    tags: ['POS Systems Kenya', 'KRA eTIMS', 'Retail Hardware', 'M-Pesa Till', 'Inventory Sync'],
+    keyTakeaways: [
+      'Cloud POS software subscriptions range from KSh 500 to KSh 3,500/month while complete touchscreen hardware kits range from KSh 45,000 to KSh 115,000.',
+      'Direct OSCU/VSCU API integration with KRA eTIMS signs fiscal receipts in under 400ms without manual portal uploads.',
+      'Automated M-Pesa Buy Goods Till callbacks eliminate cashier fake-SMS fraud at busy retail counters.',
+      'Offline IndexedDB queuing guarantees uninterrupted supermarket and pharmacy billing during internet outages.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Understanding POS System Pricing Tiers in Kenya',
+        body: 'Retailers, pharmacies, restaurants, and hardware stores in Nairobi face a confusing market when evaluating [Point of Sale POS system prices Kenya](/services/pos-systems). Pricing splits into two distinct layers: the cloud software license and the physical countertop terminal hardware.\n\n• Entry SME Cloud Software: KSh 500 – KSh 2,500/month for single-branch Android tablet or laptop billing.\n• Mid-Market Multi-Branch ERP POS: KSh 15,000 – KSh 45,000 one-time setup with unlimited registers and real-time warehouse stock transfers.\n• Complete Countertop Hardware Bundle: KSh 65,000 – KSh 110,000 including a 15.6" capacitive touchscreen terminal, 80mm auto-cutter thermal printer, 2D Honeywell barcode scanner, and heavy-duty RJ11 cash drawer.'
+      },
+      {
+        heading: '2. Real-Time KRA eTIMS Fiscalization (OSCU & VSCU)',
+        body: 'Under Kenya Revenue Authority mandates, every commercial tax invoice must be validated through the electronic Tax Invoice Management System (eTIMS). Our POS engineering integrates directly with the KRA Online Sales Control Unit (OSCU) so every cashier sale automatically receives a cryptographic receipt signature and QR verification code.',
+        codeSnippet: `// Automated KRA eTIMS OSCU Invoice Signing Hook
+async function signFiscalReceipt(sale: RetailSalePayload) {
+  const response = await fetch(process.env.KRA_OSCU_ENDPOINT + '/trnsSales/saveSales', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'cmcKey': process.env.KRA_CMC_KEY! },
+    body: JSON.stringify({
+      tin: sale.merchantPin,
+      bhfId: sale.branchId,
+      invcNo: sale.invoiceNumber,
+      totTaxblAmt: sale.netAmount,
+      totTaxAmt: sale.vatAmount,
+      totAmt: sale.grossAmount
+    })
+  });
+  return response.json(); // Returns rcptSign & intrlData for thermal QR print
+}`
+      },
+      {
+        heading: '3. Eliminating Cashier M-Pesa Fraud with C2B Till Webhooks',
+        body: 'Manual M-Pesa verification—where a cashier visually inspects a customer’s phone screen—exposes high-volume retailers to SMS spoofing apps. By linking your Safaricom Till or Paybill directly to our [POS Systems & Hardware](/services/pos-systems) stack, the thermal printer only releases a receipt once Safaricom Daraja confirms the exact shilling amount in your ledger.'
+      }
+    ]
+  },
+  {
+    id: 'b2b-c2b-mpesa-disbursement-architecture',
+    title: 'Automating B2C Bulk Payouts & Supplier Settlements with Safaricom Daraja 3.0',
+    slug: 'automating-b2c-bulk-payouts-safaricom-daraja',
+    category: 'Fintech & Payments',
+    publishedDate: 'October 2026',
+    readTime: '6 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'How SACCOs, agri-tech aggregators, and logistics fleets automate thousands of instant M-Pesa B2C disbursements with dual-custody maker-checker security and cryptographic X.509 certificates.',
+    coverImage: '/images/articles/b2b-c2b-mpesa-disbursement-architecture.webp',
+    tags: ['Daraja B2C', 'Bulk Payouts', 'Fintech Security', 'SACCO Software', 'Kenya'],
+    keyTakeaways: [
+      'Manual CSV uploads to the M-Pesa Org Portal introduce human spreadsheet errors and slow down driver or farmer payouts.',
+      'X.509 public key encryption protects Initiator SecurityCredentials in transit to Safaricom B2C endpoints.',
+      'Maker-checker approval workflows require two executive signatures before releasing payouts above configurable KES thresholds.',
+      'Double-entry PostgreSQL ledger tables prevent race conditions and balance mismatches.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Moving Beyond Manual M-Pesa Portal CSV Uploads',
+        body: 'Many Kenyan logistics companies, SACCOs, and agricultural buyers still pay hundreds of field agents by exporting Excel sheets and manually uploading them into the Safaricom portal. A single shifted column or duplicate phone number can send hundreds of thousands of shillings to the wrong recipient.\n\nOur [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) engineering replaces manual CSV uploads with programmatic B2C and B2B API pipelines.'
+      },
+      {
+        heading: '2. Double-Entry Ledger Locks & Maker-Checker Governance',
+        body: 'Before any disbursement leaves your float account, our backend creates an immutable `PENDING_DISBURSEMENT` journal entry and enforces role-based maker-checker authorization. Finance officers initiate the batch, while the CFO approves via two-factor OTP.',
+        codeSnippet: `// Cryptographic SecurityCredential Generation for Daraja B2C
+import crypto from 'crypto';
+import fs from 'fs';
+
+export function generateSecurityCredential(initiatorPassword: string): string {
+  const publicKey = fs.readFileSync('./certs/ProductionCertificate.cer');
+  const buffer = Buffer.from(initiatorPassword, 'utf8');
+  const encrypted = crypto.publicEncrypt(
+    { key: publicKey, padding: crypto.constants.RSA_PKCS1_PADDING },
+    buffer
+  );
+  return encrypted.toString('base64');
+}`
+      },
+      {
+        heading: '3. Real-Time Float Monitoring & Automated Reconciliation',
+        body: 'When Safaricom returns the asynchronous `ResultURL` webhook, our system matches the `ConversationID`, records the exact M-Pesa transaction receipt code, and updates your accounting dashboard in real time. Explore our [Portfolio Case Studies](/portfolio) to see how we scaled regional payouts to over $2.4M.'
+      }
+    ]
+  },
+  {
+    id: 'multi-currency-flutterwave-stripe-east-africa',
+    title: 'Architecting Multi-Currency Checkouts (KES, USD, EUR) for East African Safari & Export Brands',
+    slug: 'multi-currency-checkout-kes-usd-safari-export-kenya',
+    category: 'Fintech & Payments',
+    publishedDate: 'September 2026',
+    readTime: '5 min read',
+    featured: false,
+    author: {
+      name: 'Faith Chepngetich',
+      role: 'Principal Frontend Engineer',
+      avatar: '/images/team/author-faith.webp'
+    },
+    excerpt: 'How Kenyan tour operators, specialty coffee exporters, and hospitality groups eliminate 6.5% FX conversion losses by routing domestic buyers to M-Pesa and international guests to native USD/EUR gateways.',
+    coverImage: '/images/articles/multi-currency-flutterwave-stripe-east-africa.webp',
+    tags: ['Multi-Currency', 'Tourism Tech', 'Stripe', 'Pesapal', 'E-Commerce'],
+    keyTakeaways: [
+      'Displaying USD prices to European/US safari guests while settling into a local USD domiciliary bank account saves up to 6.5% in double FX conversion.',
+      'Edge IP geolocation automatically toggles currency display between KES and USD without page reloads.',
+      '3D Secure 2.0 biometric card verification prevents international chargebacks on high-ticket safari bookings.',
+      'Instant PDF booking vouchers and itinerary confirmations build immediate guest confidence.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Solving the Double FX Conversion Penalty',
+        body: 'When a luxury lodge in Maasai Mara or Diani charges an American guest in Kenyan Shillings on a foreign Visa card, the guest’s bank charges a foreign currency fee, and the local gateway converts USD to KES at an unfavorable spread—even though the lodge pays its aviation and conservation partners in USD.\n\nThrough our [Custom Website Development](/services/web-development), we build smart multi-currency payment routers that settle USD transactions directly into your Kenyan USD bank account and KES transactions via M-Pesa.'
+      },
+      {
+        heading: '2. Edge Geolocation & Frictionless Payment Routing',
+        body: 'Using Cloudflare Edge headers (`cf-ipcountry`), our checkout UI automatically detects whether a visitor is browsing from Nairobi, London, or New York, presenting native M-Pesa STK Push to East African residents and Apple Pay / 3DS2 Visa checkout to international travelers.\n\nEstimate your hospitality or export platform build using our [Instant Cost Calculator](/tools/calculator).'
+      }
+    ]
+  },
+  {
+    id: 'ai-rag-agents-kenyan-enterprises',
+    title: 'Deploying Private AI Knowledge Agents (RAG) on Internal Company Documents & Policies',
+    slug: 'private-ai-rag-agents-kenyan-enterprises',
+    category: 'AI & Automation',
+    publishedDate: 'September 2026',
+    readTime: '7 min read',
+    featured: false,
+    author: {
+      name: 'Amina Noor',
+      role: 'Automation & Conversational AI Lead',
+      avatar: '/images/team/author-amina.webp'
+    },
+    excerpt: 'How law firms, insurance underwriters, and SACCOs in Nairobi deploy Retrieval-Augmented Generation (RAG) over thousands of internal PDFs with zero data leakage and strict source citations.',
+    coverImage: '/images/articles/ai-rag-agents-kenyan-enterprises.webp',
+    tags: ['AI Agents', 'RAG', 'Vector Database', 'pgvector', 'Enterprise AI'],
+    keyTakeaways: [
+      'Generic AI chatbots hallucinate answers; Retrieval-Augmented Generation (RAG) restricts responses strictly to verified company documents.',
+      'PostgreSQL pgvector stores semantic embeddings alongside role-based access control permissions.',
+      'Every answer includes clickable page and paragraph citations from your HR manuals, policy underwriting rules, or legal statutes.',
+      'Zero customer data is ever used to train public third-party foundation models.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Why Off-the-Shelf AI Chatbots Fail in Regulated Industries',
+        body: 'When an insurance client asks whether a specific medical procedure is covered under their corporate inpatient tier, a generic chatbot cannot guess. Hallucinating a policy clause creates legal liability.\n\nOur [Custom Enterprise Software & CRM](/services/custom-crm-development) integrates private Retrieval-Augmented Generation (RAG) pipelines that search your exact PDF policy documents before formulating a grounded response.'
+      },
+      {
+        heading: '2. Semantic Vector Search with PostgreSQL pgvector',
+        body: 'We chunk your internal handbooks, legal contracts, and product catalogs into high-dimensional vector embeddings stored in PostgreSQL with `pgvector`. When a staff member or customer asks a question on Web or WhatsApp, the system retrieves the top 5 verified clauses in under 80 milliseconds.',
+        codeSnippet: `// Semantic Similarity Search with Role-Based Access Control in pgvector
+const { rows: matchedChunks } = await db.query(\`
+  SELECT document_title, page_number, content_chunk,
+         1 - (embedding <=> $1::vector) AS similarity
+  FROM knowledge_embeddings
+  WHERE allowed_roles @> ARRAY[$2]::text[]
+    AND 1 - (embedding <=> $1::vector) > 0.78
+  ORDER BY embedding <=> $1::vector
+  LIMIT 5;
+\`, [queryVector, userRole]);`
+      },
+      {
+        heading: '3. Omni-Channel Deployment Across Web Portals & WhatsApp',
+        body: 'Once your knowledge base is indexed, the same AI engine powers both your internal staff portal and your external 24/7 customer support desk on WhatsApp. Book a live architecture demonstration via our [Contact Page](/contact).'
+      }
+    ]
+  },
+  {
+    id: 'automated-invoice-ocr-erp-workflows',
+    title: 'Eliminating Manual Data Entry: AI Document Extraction & Automated LPO-to-Invoice Matching',
+    slug: 'automated-invoice-ocr-lpo-matching-erp-kenya',
+    category: 'AI & Automation',
+    publishedDate: 'August 2026',
+    readTime: '5 min read',
+    featured: false,
+    author: {
+      name: 'Amina Noor',
+      role: 'Automation & Conversational AI Lead',
+      avatar: '/images/team/author-amina.webp'
+    },
+    excerpt: 'How Kenyan distributors and manufacturing finance teams cut accounts payable processing time by 84% using structured AI vision extraction to match supplier invoices against LPOs and GRNs.',
+    coverImage: '/images/articles/automated-invoice-ocr-erp-workflows.webp',
+    tags: ['OCR Automation', 'ERP Workflows', 'Supply Chain', 'Finance Automation', 'Kenya'],
+    keyTakeaways: [
+      'Finance clerks spend up to 18 hours a week manually typing supplier PDF invoices and delivery notes into accounting systems.',
+      'Structured vision models extract line items, KRA PINs, eTIMS control numbers, and VAT totals with 99.4% accuracy.',
+      'Automated 3-way matching compares the Purchase Order (LPO), Goods Received Note (GRN), and Supplier Invoice.',
+      'Discrepancies in unit price or quantity are automatically flagged for procurement review.'
+    ],
+    contentSections: [
+      {
+        heading: '1. The Bottleneck in East African Accounts Payable',
+        body: 'In wholesale distribution, construction, and hospitality across Kenya, suppliers deliver goods accompanied by stamped paper delivery notes and varied PDF invoices. Manually keying thousands of SKUs into an ERP leads to delayed supplier payments and costly data entry errors.\n\nOur [Custom Enterprise Software & CRM](/services/custom-crm-development) automates document ingestion directly from email attachments and WhatsApp photo uploads.'
+      },
+      {
+        heading: '2. Automated 3-Way Matching (LPO + GRN + eTIMS Invoice)',
+        body: 'When a supplier invoice arrives, our pipeline extracts the line-item table, validates the KRA eTIMS invoice number, and cross-checks quantities against the warehouse Goods Received Note (GRN). If all tolerances match within 0.5%, the invoice is queued for CFO payment approval automatically.'
+      }
+    ]
+  },
+  {
+    id: 'progressive-web-apps-offline-first-africa',
+    title: 'Offline-First Progressive Web Apps (PWAs) for Field Sales & Agricultural Supply Chains in Kenya',
+    slug: 'offline-first-pwa-field-sales-agriculture-kenya',
+    category: 'Modern Engineering',
+    publishedDate: 'August 2026',
+    readTime: '6 min read',
+    featured: false,
+    author: {
+      name: 'Faith Chepngetich',
+      role: 'Principal Frontend Engineer',
+      avatar: '/images/team/author-faith.webp'
+    },
+    excerpt: 'Engineering resilient mobile web applications that work seamlessly in low-connectivity rural counties using Service Workers, IndexedDB, and background delta synchronization.',
+    coverImage: '/images/articles/progressive-web-apps-offline-first-africa.webp',
+    tags: ['PWA', 'Offline-First', 'Mobile Apps', 'IndexedDB', 'Field Operations'],
+    keyTakeaways: [
+      'Field agents in Rift Valley, Western, and Coastal regions frequently encounter dead zones where standard cloud apps freeze.',
+      'Progressive Web Apps install directly to Android home screens without Play Store approval delays or 30% app store commissions.',
+      'IndexedDB stores product catalogs, farmer registries, and order queues locally on the device.',
+      'Background Sync APIs automatically push queued transactions the moment 3G/4G signal returns.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Designing for Real-World African Network Conditions',
+        body: 'Software designed in Silicon Valley assumes uninterrupted 5G connectivity. In East African FMCG distribution and agricultural collection, field officers record deliveries in rural trading centers or warehouse basements where mobile data drops out.\n\nOur [Mobile App & PWA Development](/services/mobile-app-development) team builds offline-first architectures that treat network connectivity as an enhancement rather than a requirement.'
+      },
+      {
+        heading: '2. Local-First Storage with IndexedDB & Background Sync',
+        body: 'Every action a field sales rep takes—capturing GPS coordinates, scanning a crate barcode, or issuing a receipt—writes immediately to the device’s local IndexedDB store in under 15 milliseconds, then syncs idempotently to the cloud.',
+        codeSnippet: `// Offline Mutation Queue with Background Sync Registration
+export async function queueFieldOrder(order: FieldOrderPayload) {
+  await localDb.orders.put({ ...order, syncStatus: 'PENDING', updatedAt: Date.now() });
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    const reg = await navigator.serviceWorker.ready;
+    await (reg as any).sync.register('sync-field-orders');
+  }
+}`
+      },
+      {
+        heading: '3. Zero App Store Friction & Instant Over-the-Air Updates',
+        body: 'Unlike bulky 80MB native apps that field agents resist downloading on prepaid data bundles, our PWAs weigh under 600KB and update instantaneously across your entire workforce.'
+      }
+    ]
+  },
+  {
+    id: 'microservices-vs-modular-monoliths-nairobi',
+    title: 'Modular Monoliths vs. Microservices: Right-Sizing Cloud Architecture for Growing African Startups',
+    slug: 'modular-monoliths-vs-microservices-african-startups',
+    category: 'Modern Engineering',
+    publishedDate: 'July 2026',
+    readTime: '7 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'Why premature Kubernetes microservices drain engineering budgets, and how a well-bounded TypeScript Modular Monolith handles 50,000+ daily transactions at 1/5th the cloud cost.',
+    coverImage: '/images/articles/microservices-vs-modular-monoliths-nairobi.webp',
+    tags: ['System Architecture', 'TypeScript', 'Node.js', 'Cloud Cost', 'Scalability'],
+    keyTakeaways: [
+      'Splitting an early-stage product into 15 microservices multiplies DevOps overhead, network latency, and AWS NAT Gateway bills.',
+      'A Modular Monolith enforces strict domain boundaries in code while deploying as a single fast unit.',
+      'In-process function calls are 1,000x faster than serialized HTTP/gRPC network hops between containers.',
+      'High-load modules (like M-Pesa webhook workers) can be extracted into independent services only when metrics justify it.'
+    ],
+    contentSections: [
+      {
+        heading: '1. The Hidden Tax of Premature Microservices',
+        body: 'We frequently audit Nairobi startups burning $2,500/month on AWS EKS clusters while serving fewer than 5,000 daily active users. Their engineers spend 60% of their sprint debugging distributed tracing and Docker networking instead of shipping revenue-generating features.\n\nThrough our [Tech Stack & Architecture Advisory](/tech-stack), we help founders right-size their infrastructure for both speed and capital efficiency.'
+      },
+      {
+        heading: '2. Enforcing Strict Domain Boundaries Inside a Modular Monolith',
+        body: 'A Modular Monolith is not a "spaghetti monolith." Each business domain—`billing`, `inventory`, `identity`, `notifications`—lives in an isolated module with a public interface and isolated database schema tables, allowing seamless future extraction if required.'
+      }
+    ]
+  },
+  {
+    id: 'real-estate-property-management-portals-kenya',
+    title: 'Engineering Automated Property Management & Tenant Billing Portals in Nairobi',
+    slug: 'automated-property-management-tenant-billing-portals-kenya',
+    category: 'Modern Engineering',
+    publishedDate: 'July 2026',
+    readTime: '6 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'How residential and commercial property managers in Kilimani, Westlands, and Tatu City automate rent collection, water meter billing, and service charge reconciliation via unique unit Paybill codes.',
+    coverImage: '/images/articles/real-estate-property-management-portals-kenya.webp',
+    tags: ['PropTech Kenya', 'Real Estate ERP', 'M-Pesa Paybill', 'Tenant Portal', 'Automation'],
+    keyTakeaways: [
+      'Assigning a deterministic Paybill Account Number per apartment unit (e.g., BLK-A-402) eliminates unallocated rent deposits.',
+      'Automated WhatsApp invoices sent on the 1st and 5th of each month increase on-time rent collection from 64% to 93%.',
+      'Landlord portals provide real-time occupancy, arrears aging, and maintenance ticket deductions.',
+      'Digital lease signing and utility meter photo logs prevent move-out deposit disputes.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Ending the Monthly Rent Reconciliation Nightmare',
+        body: 'Property managing agents overseeing 200+ residential or commercial units often spend the first 10 days of every month scrolling through bank statements and forwarded M-Pesa screenshots to figure out which tenant paid rent.\n\nOur [Custom Cloud CRM & ERP Systems](/services/custom-crm-development) automate the entire property lifecycle from lease onboarding to instant Paybill reconciliation.'
+      },
+      {
+        heading: '2. Deterministic Unit Account Mapping & WhatsApp Receipts',
+        body: 'When a tenant pays via M-Pesa Paybill using their house number or clicks the STK Push link in their WhatsApp rent reminder, our system credits their unit ledger, clears utility arrears first, generates a stamped PDF receipt, and updates the landlord’s net payout statement immediately.'
+      }
+    ]
+  },
+  {
+    id: 'aeo-geo-ranking-ai-overviews-kenya',
+    title: 'Answer Engine Optimization (AEO): Getting Kenyan Brands Cited in ChatGPT, Perplexity & Google AI Overviews',
+    slug: 'answer-engine-optimization-aeo-geo-kenya-guide',
+    category: 'Technical SEO',
+    publishedDate: 'June 2026',
+    readTime: '6 min read',
+    featured: false,
+    author: {
+      name: 'Dennis Kiprop',
+      role: 'Director of Search & Analytics',
+      avatar: '/images/team/author-dennis.webp'
+    },
+    excerpt: 'Decision-makers increasingly ask AI assistants "Who is the best software agency or commercial provider in Nairobi?" Learn the exact llms.txt, entity schema, and citation architecture to win AI answers.',
+    coverImage: '/images/articles/aeo-geo-ranking-ai-overviews-kenya.webp',
+    tags: ['AEO', 'GEO', 'llms.txt', 'AI Search', 'Technical SEO Kenya'],
+    keyTakeaways: [
+      'Over 34% of B2B research queries now begin inside AI answer engines (Google AI Overviews, ChatGPT Search, Perplexity).',
+      'Publishing a structured /llms.txt and /llms-full.txt specification gives LLM crawlers clean markdown context without HTML noise.',
+      'AI models prioritize pages with verifiable numerical benchmarks, pricing tables, and authoritative Schema.org entity graphs.',
+      'Direct question-and-answer headings ("How much does X cost in Kenya?") match natural conversational prompts.'
+    ],
+    contentSections: [
+      {
+        heading: '1. From Blue Links to Direct AI Citations',
+        body: 'Traditional SEO focused on ranking among 10 blue links. In 2026, Google AI Overviews and conversational search engines synthesize a single authoritative recommendation at the top of the screen. If your brand is not part of that synthesized answer, you lose high-intent executive buyers.\n\nOur [Technical SEO & Optimization](/services/seo-services) incorporates full Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) as standard.'
+      },
+      {
+        heading: '2. Implementing the llms.txt Standard & Entity Graphs',
+        body: 'Just as `robots.txt` guides traditional crawlers, `/llms.txt` provides large language models with a concise, high-signal markdown map of your services, pricing, verified case studies, and contact endpoints.',
+        codeSnippet: `# Example /llms.txt Structure for Answer Engine Discoverability
+# Company Name
+> Concise 1-sentence authoritative summary of services, location, and core metrics.
+
+## Core Services & Pricing
+- [Custom Web Development](https://www.domaintechhubs.com/services/web-development): Sub-second Next.js apps
+- [E-Commerce & M-Pesa](https://www.domaintechhubs.com/services/ecommerce-development): Zero-loss Daraja 3.0`
+      },
+      {
+        heading: '3. Auditing Your Brand’s AI Search Visibility',
+        body: 'Test your current domain’s structured data and technical readiness right now using our [Instant SEO & Speed Audit Tool](/tools/audit).'
+      }
+    ]
+  },
+  {
+    id: 'google-ads-conversion-tracking-server-side',
+    title: 'Fixing Broken Attribution: Server-Side Google Ads Conversion Tracking for WhatsApp & M-Pesa Sales',
+    slug: 'server-side-google-ads-conversion-tracking-whatsapp-mpesa',
+    category: 'Technical SEO',
+    publishedDate: 'June 2026',
+    readTime: '5 min read',
+    featured: false,
+    author: {
+      name: 'Dennis Kiprop',
+      role: 'Director of Search & Analytics',
+      avatar: '/images/team/author-dennis.webp'
+    },
+    excerpt: 'Why counting button clicks as "conversions" trains Google Ads to send you low-quality traffic, and how offline GCLID tracking links actual WhatsApp and M-Pesa revenue back to your ad campaigns.',
+    coverImage: '/images/articles/google-ads-conversion-tracking-server-side.webp',
+    tags: ['Google Ads', 'Conversion API', 'WhatsApp Attribution', 'ROI Tracking', 'Analytics'],
+    keyTakeaways: [
+      'Tracking every WhatsApp button click as a conversion causes Smart Bidding to optimize for accidental clicks instead of paying buyers.',
+      'Capturing the Google Click ID (gclid) into your CRM allows you to report only qualified, closed-won sales back to Google Ads.',
+      'Server-side Tag Manager bypasses browser ad-blockers and iOS Safari ITP cookie expiration.',
+      'Clients shifting to revenue-backed offline conversion imports reduce Cost Per Acquisition (CPA) by an average of 44%.'
+    ],
+    contentSections: [
+      {
+        heading: '1. The Fatal Flaw in Standard Kenyan Ad Campaigns',
+        body: 'Most digital marketers in Kenya set up a Google Ads campaign and fire a conversion pixel whenever someone taps the WhatsApp icon. Within two weeks, Google’s algorithm learns to target people who tap buttons impulsively but never buy.\n\nIn our [Search Engine Marketing & PPC](/services/sem-ppc) engineering, we connect your ad spend directly to verified M-Pesa and CRM revenue.'
+      },
+      {
+        heading: '2. Capturing GCLID Through the WhatsApp & Checkout Funnel',
+        body: 'When a prospect lands on your site from a Google Search ad, our script captures the `gclid` parameter, stores it in a first-party session record, and attaches a reference token to the WhatsApp inquiry or M-Pesa STK Push checkout. When the payment clears, our server pings the Google Ads Offline Conversion API with the exact KES transaction value.'
+      }
+    ]
+  },
+  {
+    id: 'odpc-kenya-data-protection-cloud-compliance',
+    title: 'Technical Compliance with the Kenya Data Protection Act (ODPC): Encryption, Consent & Audit Logs',
+    slug: 'odpc-kenya-data-protection-act-technical-compliance',
+    category: 'Cloud & Security',
+    publishedDate: 'May 2026',
+    readTime: '7 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'A practical engineering checklist for FinTechs, healthcare providers, and e-commerce platforms to pass ODPC data controller audits and avoid KES 5M statutory penalties.',
+    coverImage: '/images/articles/odpc-kenya-data-protection-cloud-compliance.webp',
+    tags: ['ODPC Kenya', 'Data Protection Act', 'AES-256 Encryption', 'Compliance', 'Security'],
+    keyTakeaways: [
+      'The Office of the Data Protection Commissioner (ODPC) actively enforces penalties of up to KES 5 million or 1% of annual turnover.',
+      'Personally Identifiable Information (National ID, KRA PIN, phone numbers, medical records) must be encrypted at rest using AES-256-GCM.',
+      'Blindly indexing encrypted fields breaks search; HMAC blind indexes allow exact-match lookups without exposing plaintext.',
+      'Immutable audit logs must record which staff member viewed or exported a customer record and why.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Translating Legal Mandates into Database Architecture',
+        body: 'Registering as a Data Controller or Data Processor with the [Office of the Data Protection Commissioner (ODPC)](https://www.odpc.go.ke/) is only step one. Technical compliance requires proving that a leaked database snapshot or rogue employee cannot harvest plaintext customer identities.\n\nOur [Website Security & Compliance](/services/website-maintenance) engineering bakes privacy-by-design into every database schema we ship.'
+      },
+      {
+        heading: '2. Field-Level AES-256-GCM Encryption with HMAC Blind Indexes',
+        body: 'To allow fast customer lookups by phone number or National ID while keeping the database column encrypted, we compute a deterministic HMAC-SHA256 blind index alongside the randomized AES-256-GCM ciphertext.',
+        codeSnippet: `// Field-Level PII Encryption + Searchable Blind Index
+import crypto from 'crypto';
+
+export function encryptPII(plaintext: string, encKey: Buffer, hmacKey: Buffer) {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv('aes-256-gcm', encKey, iv);
+  const encrypted = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  const blindIndex = crypto.createHmac('sha256', hmacKey).update(plaintext.trim()).digest('hex');
+
+  return {
+    ciphertext: \`\${iv.toString('hex')}:\${tag.toString('hex')}:\${encrypted.toString('hex')}\`,
+    blindIndex
+  };
+}`
+      },
+      {
+        heading: '3. Automated Consent Ledgers & Right-to-Erasure Workflows',
+        body: 'Every opt-in checkbox on our client forms records a timestamped consent version hash, and our admin portals include one-click PII anonymization routines that preserve financial ledger integrity while satisfying customer deletion requests.'
+      }
+    ]
+  },
+  {
+    id: 'zero-downtime-database-migrations-postgresql',
+    title: 'Zero-Downtime PostgreSQL Migrations & Automated Disaster Recovery for High-Volume Web Apps',
+    slug: 'zero-downtime-postgresql-migrations-disaster-recovery',
+    category: 'Cloud & Security',
+    publishedDate: 'May 2026',
+    readTime: '6 min read',
+    featured: false,
+    author: {
+      name: 'Faith Chepngetich',
+      role: 'Principal Frontend Engineer',
+      avatar: '/images/team/author-faith.webp'
+    },
+    excerpt: 'How to evolve production database schemas without locking active checkout tables, paired with Point-in-Time Recovery (PITR) and automated multi-region cloud backups.',
+    coverImage: '/images/articles/zero-downtime-database-migrations-postgresql.webp',
+    tags: ['PostgreSQL', 'DevOps', 'High Availability', 'Cloud Hosting', 'Disaster Recovery'],
+    keyTakeaways: [
+      'Running naive ALTER TABLE statements during business hours acquires an ACCESS EXCLUSIVE lock that drops live M-Pesa checkouts.',
+      'The Expand-and-Contract migration pattern ships schema updates across three safe phases with zero downtime.',
+      'CREATE INDEX CONCURRENTLY builds database indexes in the background without blocking writes.',
+      'Continuous WAL archiving enables Point-in-Time Recovery (PITR) to any exact second within the last 30 days.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Why "Maintenance Windows" Cost Modern Businesses Money',
+        body: 'E-commerce stores and fintech portals operate 24/7. Taking your platform offline for two hours to deploy a new feature or database column frustrates customers and interrupts automated webhooks.\n\nIn our [Cloud Web Hosting & Infrastructure](/services/web-hosting) and [4 to 8 Week Agile Sprint Roadmap](/roadmap), every production release deploys with zero downtime.'
+      },
+      {
+        heading: '2. Safe Lock Timeouts & Concurrent Indexing in PostgreSQL',
+        body: 'We enforce strict `lock_timeout = 2000ms` guardrails on every migration script. If a migration cannot acquire a lock within 2 seconds, it aborts safely rather than queuing incoming customer transactions behind a blocked table.',
+        codeSnippet: `-- Safe Zero-DowntimePostgreSQL Migration Pattern
+SET lock_timeout = '2s';
+SET statement_timeout = '10s';
+
+-- 1. Add nullable column instantly (metadata-only in PG 11+)
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS kra_etims_signature TEXT;
+
+-- 2. Build index without blocking concurrent customer inserts
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_etims_sig 
+ON orders (kra_etims_signature) WHERE kra_etims_signature IS NOT NULL;`
+      },
+      {
+        heading: '3. Verifiable Backups & 15-Minute Recovery Time Objective (RTO)',
+        body: 'An untested backup is not a backup. Our automated infrastructure streams encrypted Write-Ahead Logs (WAL) to off-site Cloudflare R2 storage and runs weekly automated restoration drills to verify data integrity.'
       }
     ]
   }
