@@ -92,13 +92,14 @@ const parseTextWithLinks = (text: string, onInternalNavigate?: (url: string) => 
     }
     const [_, label, url] = match;
     const isExternal = url.startsWith('http://') || url.startsWith('https://');
+    const isNativeProtocol = url.startsWith('tel:') || url.startsWith('mailto:');
 
     parts.push(
       <a
         key={`${match.index}-${url}`}
         href={url}
         onClick={(e) => {
-          if (!isExternal) {
+          if (!isExternal && !isNativeProtocol) {
             e.preventDefault();
             if (onInternalNavigate) {
               onInternalNavigate(url);
@@ -113,7 +114,7 @@ const parseTextWithLinks = (text: string, onInternalNavigate?: (url: string) => 
           }
         }}
         className="text-cyan-400 hover:text-cyan-300 underline font-semibold transition-colors cursor-pointer inline-flex items-center gap-0.5"
-        target={isExternal ? '_blank' : '_self'}
+        target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
       >
         <span>{label}</span>

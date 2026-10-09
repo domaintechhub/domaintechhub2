@@ -34,6 +34,27 @@ const BASE_URL = SITE_URL;
 
 export const ARTICLES_DATA: ArticleData[] = [
   {
+    id: 'how-to-generate-an-etims-invoice',
+    title: 'How to Generate an eTIMS Invoice',
+    slug: 'how-to-generate-an-etims-invoice',
+    category: 'Fintech & Payments',
+    publishedDate: '2026-10-09',
+    readTime: '5 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'Every sale a Kenyan business makes now leaves a digital footprint with the Kenya Revenue Authority. The eTIMS invoice is how that footprint is created—and once the right technology is in place, the process is quick and largely automatic.',
+    coverImage: '/images/articles/how-to-generate-an-etims-invoice.webp',
+    tags: ['eTIMS Invoice', 'KRA eTIMS', 'Tax Compliance Kenya', 'POS Integration', 'E-Commerce Invoicing'],
+    canonicalUrl: `${BASE_URL}/insights/how-to-generate-an-etims-invoice`,
+    blogUrl: `${BASE_URL}/blog/how-to-generate-an-etims-invoice`,
+    priority: '0.90',
+    changefreq: 'monthly'
+  },
+  {
     id: 'mpesa-daraja-zero-loss',
     title: 'Zero-Loss M-Pesa STK Push: Architecting Resilient Webhooks on Safaricom Daraja API',
     slug: 'zero-loss-mpesa-stk-push-architecture',

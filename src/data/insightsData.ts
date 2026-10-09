@@ -35,6 +35,63 @@ export const INSIGHT_CATEGORIES = [
 
 export const INSIGHT_ARTICLES: InsightArticle[] = [
   {
+    id: 'how-to-generate-an-etims-invoice',
+    title: 'How to Generate an eTIMS Invoice',
+    slug: 'how-to-generate-an-etims-invoice',
+    category: 'Fintech & Payments',
+    publishedDate: 'October 9th, 2026',
+    readTime: '5 min read',
+    featured: false,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'Every sale a Kenyan business makes now leaves a digital footprint with the Kenya Revenue Authority. The eTIMS invoice is how that footprint is created—and once the right technology is in place, the process is quick and largely automatic.',
+    coverImage: '/images/articles/how-to-generate-an-etims-invoice.webp',
+    tags: ['eTIMS Invoice', 'KRA eTIMS', 'Tax Compliance Kenya', 'POS Integration', 'E-Commerce Invoicing'],
+    keyTakeaways: [
+      'An eTIMS invoice is digital proof validated by KRA in real time with a unique invoice number and verifiable QR code.',
+      'Before starting, you need a valid KRA PIN, eTIMS activated on iTax, and an eTIMS solution suited to your sales volume.',
+      'Integrated POS, ERP, or e-commerce systems automate tax calculation and eliminate manual end-of-day errors.',
+      'Domain Tech Hub sets up and supports turnkey eTIMS integrations for Kenyan shops, online stores, and enterprises.'
+    ],
+    contentSections: [
+      {
+        heading: 'What an eTIMS Invoice Is',
+        body: 'Every sale a Kenyan business makes now leaves a digital footprint with the Kenya Revenue Authority. The eTIMS invoice is how that footprint is created. Whether you run a shop, an online store, a service company or a growing enterprise, your invoicing system needs to talk to KRA correctly. The good news is that once the right technology is in place, the process is quick and largely automatic.\n\nAn eTIMS invoice is a tax-compliant invoice produced through the Electronic Tax Invoice Management System. Each time you issue one, the transaction details are sent to KRA’s system, which validates them and returns a unique invoice number and a QR code. In simple terms, it is digital proof that a sale happened and that the tax on it has been declared.'
+      },
+      {
+        heading: 'What You Need Before You Start',
+        body: 'Before you can generate your first invoice, three things must be in place. You need a valid KRA PIN. You need eTIMS activated on your iTax profile. And you need an eTIMS solution that fits how your business actually operates. That could be the eTIMS web portal, the mobile app, or an integrated [POS, ERP or accounting system](/services/pos-systems) connected directly to KRA. For businesses with higher volumes or online sales, an integrated system saves the most time and cuts down on manual errors.'
+      },
+      {
+        heading: 'How the Invoice Is Generated',
+        body: '• Log into your eTIMS platform or open your integrated invoicing system.\n• Enter the transaction details: customer information where applicable, a description of the goods or services, quantities, prices and tax categories.\n• Let the system calculate the tax automatically.\n• Review everything, then submit.\n• KRA validates the data and the system issues the final invoice with its unique number and QR code, which customers and officers can scan to verify.'
+      },
+      {
+        heading: 'What a Compliant Invoice Contains',
+        body: 'A valid eTIMS invoice shows your business name and KRA PIN, the invoice number and date, a clear description of what was sold, the taxable amount, the tax charged, the total payable, and the QR code. If any of these are missing or wrong, the invoice may be treated as non-compliant.'
+      },
+      {
+        heading: 'Common Mistakes to Avoid',
+        body: '• Running manual invoices alongside eTIMS invoices.\n• Editing or recreating an invoice outside the system after it has been issued.\n• Using the wrong tax category or rate for an item.\n• Delaying invoice generation until the end of the day or week.\n• Leaving staff untrained, so each person captures sales differently.\n\nMost compliance problems come from inconsistent processes, not from the system itself.'
+      },
+      {
+        heading: 'Why Getting It Right Matters',
+        body: 'Accurate eTIMS invoicing keeps your sales records in line with your VAT returns, lowers your audit risk, and makes expense claims smoother for your customers. It also gives you cleaner data to understand your own business. Compliance becomes a by-product of good systems rather than a monthly scramble.'
+      },
+      {
+        heading: 'When to Get Professional Support',
+        body: 'If you are struggling with eTIMS registration, connecting your [POS or accounting software](/services/pos-systems), setting up invoicing for your [website or online store](/services/ecommerce-development), or training your team, expert help will save you time and avoid penalties. Domain Tech Hubs can help you set up the right solution and keep it running smoothly. Reach out to us:\n\n• Call: [+254 118 746 676](tel:+254118746676) / [+254 706 943 383](tel:+254706943383)\n• Email: [info@domaintechhubs.com](mailto:info@domaintechhubs.com) / [domaintechhub@gmail.com](mailto:domaintechhub@gmail.com)\n• Web: [www.domaintechhubs.com](https://www.domaintechhubs.com)'
+      },
+      {
+        heading: 'Final Word',
+        body: 'eTIMS invoicing is more than a legal requirement. It is part of building a modern, tech-ready business in Kenya. With the right setup, it runs quietly in the background while you focus on growth.'
+      }
+    ]
+  },
+  {
     id: 'mpesa-daraja-zero-loss',
     title: 'Zero-Loss M-Pesa STK Push: Architecting Resilient Webhooks on Safaricom Daraja API',
     slug: 'zero-loss-mpesa-stk-push-architecture',
