@@ -1,8 +1,12 @@
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
+import { parseAppRoute } from './src/utils/routing';
+import { injectSeoIntoHtml } from './scripts/prerender-pages';
+import type { PageRoute } from './src/App';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,6 +50,90 @@ function dynamicSitemapPlugin(): Plugin {
   };
 }
 
+// Route-aware SEO HTML & HTTP 404 status plugin for dev and preview servers
+function routeSeoAnd404Plugin(): Plugin {
+  const isInternalOrStaticAsset = (pathname: string): boolean => {
+    if (
+      pathname.startsWith('/@') ||
+      pathname.startsWith('/src/') ||
+      pathname.startsWith('/node_modules/') ||
+      pathname.startsWith('/assets/') ||
+      pathname.startsWith('/images/') ||
+      pathname.startsWith('/fonts/') ||
+      pathname.startsWith('/markdown/') ||
+      pathname.startsWith('/.well-known/')
+    ) {
+      return true;
+    }
+    if (/\.[a-z0-9]+$/i.test(pathname) && !pathname.endsWith('.html')) {
+      return true;
+    }
+    const publicFile = path.join(__dirname, 'public', pathname);
+    if (pathname !== '/' && fs.existsSync(publicFile) && fs.statSync(publicFile).isFile()) {
+      return true;
+    }
+    return false;
+  };
+
+  return {
+    name: 'vite-plugin-route-seo-and-404',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (!req.url || (req.method !== 'GET' && req.method !== 'HEAD')) {
+          return next();
+        }
+        const pathname = req.url.split('?')[0];
+        if (isInternalOrStaticAsset(pathname)) {
+          return next();
+        }
+        const parsed = parseAppRoute(pathname);
+        if (parsed.page === 'not-found') {
+          res.statusCode = 404;
+          const origWriteHead = res.writeHead.bind(res);
+          res.writeHead = ((statusCode: number, ...args: any[]) => {
+            res.statusCode = 404;
+            return origWriteHead(404, ...args);
+          }) as typeof res.writeHead;
+        }
+        next();
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (!req.url || (req.method !== 'GET' && req.method !== 'HEAD')) {
+          return next();
+        }
+        const pathname = req.url.split('?')[0];
+        if (isInternalOrStaticAsset(pathname)) {
+          return next();
+        }
+        const parsed = parseAppRoute(pathname);
+        if (parsed.page === 'not-found') {
+          res.statusCode = 404;
+          const notFoundPath = path.join(__dirname, 'dist', '404.html');
+          if (fs.existsSync(notFoundPath)) {
+            res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            res.end(fs.readFileSync(notFoundPath, 'utf8'));
+            return;
+          }
+        }
+        next();
+      });
+    },
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        // Only transform on dev server requests where ctx.originalUrl is present;
+        // build pre-rendering is handled by scripts/prerender-pages.ts
+        if (!ctx.server || !ctx.originalUrl) return html;
+        const pathname = ctx.originalUrl.split('?')[0];
+        const parsed = parseAppRoute(pathname);
+        return injectSeoIntoHtml(html, parsed.page as PageRoute, parsed.subTab);
+      },
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   return {
     base,
@@ -53,7 +141,8 @@ export default defineConfig(({ mode }) => {
       react(), 
       tailwindcss(),
       nonBlockingCssPlugin(),
-      dynamicSitemapPlugin()
+      dynamicSitemapPlugin(),
+      routeSeoAnd404Plugin()
     ],
     resolve: {
       alias: {

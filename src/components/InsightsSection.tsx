@@ -20,6 +20,7 @@ import {
 interface InsightsSectionProps {
   onScheduleConsultation?: (topic: string) => void;
   onNavigatePath?: (url: string) => void;
+  onOpenArticle?: (slug: string) => void;
   onViewAllArticles?: () => void;
   initialLoading?: boolean;
   previewMode?: boolean;
@@ -161,6 +162,7 @@ const renderRichBody = (body: string, onInternalNavigate?: (url: string) => void
 export const InsightsSection: React.FC<InsightsSectionProps> = ({ 
   onScheduleConsultation,
   onNavigatePath,
+  onOpenArticle,
   onViewAllArticles,
   initialLoading = true,
   previewMode = false
@@ -195,7 +197,14 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Initial mount smooth skeleton
+  const handleOpenArticlePage = (article: InsightArticle, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (onOpenArticle) {
+      onOpenArticle(article.slug);
+    } else {
+      handleInternalNavigate(`/insights/${article.slug}`);
+    }
+  };
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -639,7 +648,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     </div>
 
                     <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-cyan-300 transition-colors leading-snug">
-                      {featuredArticle.title}
+                      <a
+                        href={`/insights/${featuredArticle.slug}`}
+                        onClick={(e) => handleOpenArticlePage(featuredArticle, e)}
+                        className="hover:text-cyan-300 transition-colors"
+                      >
+                        {featuredArticle.title}
+                      </a>
                     </h3>
 
                     <p className="text-sm text-slate-300 leading-relaxed mb-6">
@@ -675,13 +690,14 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => setSelectedArticle(featuredArticle)}
+                    <a
+                      href={`/insights/${featuredArticle.slug}`}
+                      onClick={(e) => handleOpenArticlePage(featuredArticle, e)}
                       className="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
-                      <span>Read More</span>
+                      <span>Read Full Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
+                    </a>
                   </div>
 
                 </div>
@@ -811,13 +827,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     </div>
 
                     <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedArticle(article)}
+                      <a
+                        href={`/insights/${article.slug}`}
+                        onClick={(e) => handleOpenArticlePage(article, e)}
                         className="text-left cursor-pointer hover:text-cyan-300 transition-colors"
                       >
                         {article.title}
-                      </button>
+                      </a>
                     </h3>
 
                     <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4">
@@ -844,13 +860,14 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => setSelectedArticle(article)}
+                    <a
+                      href={`/insights/${article.slug}`}
+                      onClick={(e) => handleOpenArticlePage(article, e)}
                       className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold group-hover:translate-x-0.5 transition-transform cursor-pointer"
                     >
                       <span>Read More</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </article>

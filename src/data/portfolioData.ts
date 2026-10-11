@@ -1,5 +1,6 @@
 import { CaseStudy } from '../types';
-import solarGridImg from '../assets/images/commercial_solar_grid_kenya_1791048420279.webp';
+
+const solarGridImg = '/images/portfolio/solar-grid.webp';
 
 export const CASE_STUDIES: CaseStudy[] = [
   {

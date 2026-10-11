@@ -2,13 +2,16 @@ import { PageRoute } from '../App';
 import { ToolTab } from '../components/ToolsPage';
 import { SITE_URL } from '../config/site';
 import { SERVICES_LIST } from '../data/servicesData';
-import { HIGH_PERFORMING_KEYWORDS } from './keywordInjection';
+import { INSIGHT_ARTICLES } from '../data/insightsData';
+import { HIGH_PERFORMING_KEYWORDS, generateArticleJsonLd } from './keywordInjection';
 
 export interface PageSeoConfig {
   title: string;
   description: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
   canonicalPath: string;
   jsonLd: Record<string, any>;
 }
@@ -282,24 +285,47 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     };
   },
 
-  insights: (subTab?: string) => ({
-    title: 'Website Development & Technical SEO Insights Kenya | Domain Tech Hub',
-    description: 'Deep-dive architectural guides on website development in Kenya, Safaricom Daraja M-Pesa checkouts, and professional website engineering for growing brands.',
-    canonicalPath: '/insights',
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Blog',
-      name: 'Domain Tech Hub Engineering Insights & Regional Trends',
-      description: 'Technical teardowns, payment gateway architectures, and conversion rate benchmarks for African and global digital ecosystems.',
-      keywords: HIGH_PERFORMING_KEYWORDS.map(k => k.keyword).join(', '),
-      about: HIGH_PERFORMING_KEYWORDS.map(k => ({
-        '@type': 'Thing',
-        name: k.keyword,
-        description: k.searchSnippetsDescription,
-        category: k.entityCategory,
-      })),
-    },
-  }),
+  insights: (subTab?: string) => {
+    if (subTab) {
+      const matchedArticle = INSIGHT_ARTICLES.find(
+        (a) => a.slug.toLowerCase() === subTab.toLowerCase() || a.id.toLowerCase() === subTab.toLowerCase()
+      );
+      if (matchedArticle) {
+        const fullImage = matchedArticle.coverImage.startsWith('http')
+          ? matchedArticle.coverImage
+          : `${SITE_URL}${matchedArticle.coverImage}`;
+        return {
+          title: `${matchedArticle.title} | Domain Tech Hub`,
+          description: matchedArticle.excerpt,
+          ogTitle: matchedArticle.title,
+          ogDescription: matchedArticle.excerpt,
+          ogImage: fullImage,
+          ogType: 'article',
+          canonicalPath: `/insights/${matchedArticle.slug}`,
+          jsonLd: generateArticleJsonLd(matchedArticle),
+        };
+      }
+    }
+
+    return {
+      title: 'Website Development & Technical SEO Insights Kenya | Domain Tech Hub',
+      description: 'Deep-dive architectural guides on website development in Kenya, Safaricom Daraja M-Pesa checkouts, and professional website engineering for growing brands.',
+      canonicalPath: '/insights',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: 'Domain Tech Hub Engineering Insights & Regional Trends',
+        description: 'Technical teardowns, payment gateway architectures, and conversion rate benchmarks for African and global digital ecosystems.',
+        keywords: HIGH_PERFORMING_KEYWORDS.map(k => k.keyword).join(', '),
+        about: HIGH_PERFORMING_KEYWORDS.map(k => ({
+          '@type': 'Thing',
+          name: k.keyword,
+          description: k.searchSnippetsDescription,
+          category: k.entityCategory,
+        })),
+      },
+    };
+  },
 
   portal: () => ({
     title: 'Interactive Client Portal & Staging Tracker | Domain Tech Hub',
@@ -440,6 +466,18 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       description: 'Complimentary 30-minute technical discovery session for ambitious businesses planning web, e-commerce, or custom software projects.',
     },
   }),
+
+  'not-found': () => ({
+    title: '404 Page Not Found | Domain Tech Hub',
+    description: 'The requested page could not be found on Domain Tech Hub. Explore our web development services, engineering insights, case studies, or project cost calculator.',
+    canonicalPath: '/404',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: '404 Page Not Found',
+      description: 'The requested URL was not found on this server.',
+    },
+  }),
 };
 
 /**
@@ -469,8 +507,8 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
   // 3. Update Standard Meta Description
   setMeta('description', config.description);
 
-  // 3b. Crawlers & Privacy Directives (Disallow crawling on portal to ensure user privacy)
-  if (route === 'portal') {
+  // 3b. Crawlers & Privacy Directives (Disallow crawling on portal and 404 pages)
+  if (route === 'portal' || route === 'not-found') {
     setMeta('robots', 'noindex, nofollow, noarchive');
   } else {
     setMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
@@ -478,11 +516,11 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
 
   // 4. Update OpenGraph Tags
   const fullUrl = `${SITE_URL}${config.canonicalPath}`;
-  const ogImageUrl = `${SITE_URL}/og-image.svg`;
+  const ogImageUrl = config.ogImage || `${SITE_URL}/og-image.svg`;
 
   setMeta('og:title', config.ogTitle || config.title, true);
   setMeta('og:description', config.ogDescription || config.description, true);
-  setMeta('og:type', 'website', true);
+  setMeta('og:type', config.ogType || 'website', true);
   setMeta('og:site_name', 'Domain Tech Hub', true);
   setMeta('og:url', fullUrl, true);
   setMeta('og:image', ogImageUrl, true);

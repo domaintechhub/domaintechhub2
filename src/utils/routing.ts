@@ -1,3 +1,6 @@
+import { SERVICES_LIST } from '../data/servicesData';
+import { INSIGHT_ARTICLES } from '../data/insightsData';
+
 export interface AppRoute {
   page: string;
   subTab?: string;
@@ -5,7 +8,7 @@ export interface AppRoute {
 
 const TOOL_TABS = ['calculator', 'audit', 'domains'];
 const MORE_TABS = ['roadmap', 'team', 'tech-stack', 'blog'];
-const BASE_URL = import.meta.env.BASE_URL;
+const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
 
 function removeBaseUrl(pathname: string): string {
   if (BASE_URL !== '/' && BASE_URL !== './' && pathname.startsWith(BASE_URL)) {
@@ -19,7 +22,7 @@ function addBaseUrl(pathname: string): string {
   return `${BASE_URL.replace(/\/$/, '')}${pathname}`;
 }
 
-function normalizeServiceSlug(slug?: string): string | undefined {
+export function normalizeServiceSlug(slug?: string): string | undefined {
   if (!slug) return undefined;
   const aliases: Record<string, string> = {
     'ecommerce-mpesa': 'ecommerce-development',
@@ -34,51 +37,87 @@ function normalizeServiceSlug(slug?: string): string | undefined {
   return aliases[slug] || slug;
 }
 
+export function normalizeArticleSlug(slug?: string): string | undefined {
+  if (!slug) return undefined;
+  const matched = INSIGHT_ARTICLES.find(
+    (a) => a.slug.toLowerCase() === slug.toLowerCase() || a.id.toLowerCase() === slug.toLowerCase()
+  );
+  return matched ? matched.slug : undefined;
+}
+
 export function parseAppRoute(path: string): AppRoute {
-  const segments = path.split('/').filter(Boolean).map((segment) => {
+  const cleanPath = path.split('?')[0].split('#')[0];
+  const segments = cleanPath.split('/').filter(Boolean).map((segment) => {
     try {
       return decodeURIComponent(segment).toLowerCase();
     } catch {
       return segment.toLowerCase();
     }
   });
+
+  if (segments.length === 0) return { page: 'home' };
+  if (segments.length > 2) return { page: 'not-found' };
+
   const [first, second] = segments;
 
-  if (!first || first === 'home' || first === 'hero') return { page: 'home' };
-  if (first === 'about' || first === 'about-us') return { page: 'about' };
+  if ((first === 'home' || first === 'hero') && !second) return { page: 'home' };
+  if ((first === 'about' || first === 'about-us') && !second) return { page: 'about' };
+
   if (first === 'services' || first === 'service') {
-    return { page: 'services', subTab: normalizeServiceSlug(second) };
+    if (!second) return { page: 'services' };
+    const normalized = normalizeServiceSlug(second);
+    if (normalized && SERVICES_LIST.some((s) => s.id === normalized)) {
+      return { page: 'services', subTab: normalized };
+    }
+    return { page: 'not-found' };
   }
-  if (first === 'portfolio' || first === 'case-studies' || first.startsWith('case-stud')) {
+
+  if ((first === 'portfolio' || first === 'case-studies' || first.startsWith('case-stud')) && !second) {
     return { page: 'portfolio' };
   }
+
   if (first === 'tools') {
-    const tab = TOOL_TABS.includes(second) ? second : 'calculator';
-    return { page: 'tools', subTab: tab };
+    if (!second) return { page: 'tools', subTab: 'calculator' };
+    if (TOOL_TABS.includes(second)) return { page: 'tools', subTab: second };
+    return { page: 'not-found' };
   }
-  if (first === 'calculator' || first === 'audit' || first === 'domains') {
+
+  if ((first === 'calculator' || first === 'audit' || first === 'domains') && !second) {
     return { page: 'tools', subTab: first };
   }
+
   if (first === 'more') {
-    const tab = MORE_TABS.includes(second) ? second : 'roadmap';
-    return { page: 'more', subTab: tab };
+    if (!second) return { page: 'more', subTab: 'roadmap' };
+    if (MORE_TABS.includes(second)) return { page: 'more', subTab: second };
+    return { page: 'not-found' };
   }
-  if (first === 'blog' || first === 'articles' || first === 'posts') {
-    return { page: 'more', subTab: 'blog' };
+
+  if (first === 'insights' || first === 'insight' || first === 'blog' || first === 'articles' || first === 'posts') {
+    if (!second) {
+      if (first === 'blog' || first === 'articles' || first === 'posts') {
+        return { page: 'more', subTab: 'blog' };
+      }
+      return { page: 'insights' };
+    }
+    const articleSlug = normalizeArticleSlug(second);
+    if (articleSlug) {
+      return { page: 'insights', subTab: articleSlug };
+    }
+    return { page: 'not-found' };
   }
-  if (first === 'roadmap' || first === 'process' || first === 'sprint-roadmap') {
+
+  if ((first === 'roadmap' || first === 'process' || first === 'sprint-roadmap') && !second) {
     return { page: 'more', subTab: 'roadmap' };
   }
-  if (first === 'team' || first === 'our-team' || first === 'engineers') {
+  if ((first === 'team' || first === 'our-team' || first === 'engineers') && !second) {
     return { page: 'more', subTab: 'team' };
   }
-  if (first === 'tech-stack') return { page: 'more', subTab: 'tech-stack' };
-  if (first === 'insights' || first === 'insight') return { page: 'insights' };
-  if (first === 'portal' || first === 'client-portal') return { page: 'portal' };
-  if (first === 'faq') return { page: 'faq' };
-  if (first === 'contact' || first === 'booking') return { page: 'contact' };
+  if (first === 'tech-stack' && !second) return { page: 'more', subTab: 'tech-stack' };
+  if ((first === 'portal' || first === 'client-portal') && !second) return { page: 'portal' };
+  if (first === 'faq' && !second) return { page: 'faq' };
+  if ((first === 'contact' || first === 'booking') && !second) return { page: 'contact' };
 
-  return { page: 'home' };
+  return { page: 'not-found' };
 }
 
 export function getPathForRoute(page: string, subTab?: string): string {
@@ -86,6 +125,9 @@ export function getPathForRoute(page: string, subTab?: string): string {
   switch (page) {
     case 'services':
       path = subTab ? `/services/${encodeURIComponent(normalizeServiceSlug(subTab) || subTab)}` : '/services';
+      break;
+    case 'insights':
+      path = subTab ? `/insights/${encodeURIComponent(normalizeArticleSlug(subTab) || subTab)}` : '/insights';
       break;
     case 'tools':
       path = `/tools/${TOOL_TABS.includes(subTab || '') ? subTab : 'calculator'}`;
@@ -98,12 +140,14 @@ export function getPathForRoute(page: string, subTab?: string): string {
         default: path = '/roadmap';
       }
       break;
-    case 'insights': path = '/insights'; break;
     case 'portfolio': path = '/portfolio'; break;
     case 'about': path = '/about'; break;
     case 'portal': path = '/portal'; break;
     case 'faq': path = '/faq'; break;
     case 'contact': path = '/contact'; break;
+    case 'not-found':
+      path = typeof window !== 'undefined' ? removeBaseUrl(window.location.pathname) : '/404';
+      break;
     default: path = '/';
   }
   return addBaseUrl(path);
@@ -128,6 +172,10 @@ export function getCurrentAppRoute(): AppRoute {
 
 export function getCanonicalLocation(): string {
   const route = getCurrentAppRoute();
+  if (route.page === 'not-found') {
+    return `${window.location.pathname}${window.location.search}`;
+  }
+
   const params = new URLSearchParams(window.location.search);
   params.delete('p');
 

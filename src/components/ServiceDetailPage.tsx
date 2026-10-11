@@ -149,13 +149,17 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
             
             {/* Breadcrumb + Back Button */}
             <div className="flex items-center gap-2 text-xs font-mono">
-              <button
-                onClick={onBackToCatalog}
+              <a
+                href="/services"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onBackToCatalog();
+                }}
                 className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-cyan-400 font-semibold transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>All Services</span>
-              </button>
+              </a>
               <span className="text-slate-400 dark:text-slate-600">/</span>
               <span className="text-teal-700 dark:text-teal-400 font-bold truncate max-w-[200px] sm:max-w-xs">
                 {service.title}
@@ -170,9 +174,13 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
               {SERVICES_LIST.map((s) => {
                 const isActive = s.id === service.id;
                 return (
-                  <button
+                  <a
                     key={s.id}
-                    onClick={() => onSelectService(s.id)}
+                    href={`/services/${s.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onSelectService(s.id);
+                    }}
                     className={`px-2.5 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                       isActive
                         ? 'bg-teal-600 text-white shadow-sm font-semibold'
@@ -180,7 +188,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                     }`}
                   >
                     {s.title.split(' ')[0]}
-                  </button>
+                  </a>
                 );
               })}
             </div>
@@ -1066,22 +1074,29 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                   Services frequently paired with {service.title}
                 </h2>
               </div>
-              <button
-                onClick={onBackToCatalog}
+              <a
+                href="/services"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onBackToCatalog();
+                }}
                 className="text-xs font-mono text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1 font-semibold"
               >
-                <span>View All 15 Services</span>
+                <span>View All 16 Services</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              </a>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedServices.map((rel) => (
-                <button
+                <a
                   key={rel.id}
-                  type="button"
+                  href={`/services/${rel.id}`}
                   aria-label={`Explore ${rel.title}`}
-                  onClick={() => onSelectService(rel.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectService(rel.id);
+                  }}
                   className="text-left p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 hover:border-teal-500/50 hover:shadow-lg transition-all group flex flex-col justify-between"
                 >
                   <div>
@@ -1107,7 +1122,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                       Explore Page <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
-                </button>
+                </a>
               ))}
             </div>
 

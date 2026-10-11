@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { SITE_URL } from '../src/config/site';
 import { SERVICES_LIST } from '../src/data/servicesData';
+import { INSIGHT_ARTICLES } from '../src/data/insightsData';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,14 +38,35 @@ const SERVICES = SERVICES_LIST.map((s) => ({
   changefreq: 'weekly',
 }));
 
+// 3. All 20 Real Engineering Articles from INSIGHT_ARTICLES
+const ARTICLES = INSIGHT_ARTICLES.map((a) => ({
+  path: `insights/${a.slug}`,
+  title: a.title,
+  priority: '0.85',
+  changefreq: 'weekly',
+}));
+
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 export function generateMasterSitemapXml(): string {
   const coreUrls = CORE_PAGES.map((p) => {
     const loc = p.path ? `${BASE_URL}/${p.path}` : `${BASE_URL}/`;
-    return `  <!-- ${p.title} -->\n  <url>\n    <loc>${loc}</loc>\n    <lastmod>${CURRENT_DATE}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`;
+    return `  <!-- ${escapeXml(p.title)} -->\n  <url>\n    <loc>${loc}</loc>\n    <lastmod>${CURRENT_DATE}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`;
   }).join('\n\n');
 
   const serviceUrls = SERVICES.map((s) => {
-    return `  <!-- ${s.title} -->\n  <url>\n    <loc>${BASE_URL}/${s.path}</loc>\n    <lastmod>${CURRENT_DATE}</lastmod>\n    <changefreq>${s.changefreq}</changefreq>\n    <priority>${s.priority}</priority>\n  </url>`;
+    return `  <!-- ${escapeXml(s.title)} -->\n  <url>\n    <loc>${BASE_URL}/${s.path}</loc>\n    <lastmod>${CURRENT_DATE}</lastmod>\n    <changefreq>${s.changefreq}</changefreq>\n    <priority>${s.priority}</priority>\n  </url>`;
+  }).join('\n\n');
+
+  const articleUrls = ARTICLES.map((a) => {
+    return `  <!-- ${escapeXml(a.title)} -->\n  <url>\n    <loc>${BASE_URL}/${a.path}</loc>\n    <lastmod>${CURRENT_DATE}</lastmod>\n    <changefreq>${a.changefreq}</changefreq>\n    <priority>${a.priority}</priority>\n  </url>`;
   }).join('\n\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -55,6 +77,9 @@ ${coreUrls}
 
   <!-- ==================== ALL 16 ENGINEERING SERVICES ==================== -->
 ${serviceUrls}
+
+  <!-- ==================== ALL 20 ENGINEERING ARTICLES ==================== -->
+${articleUrls}
 
 </urlset>
 `;

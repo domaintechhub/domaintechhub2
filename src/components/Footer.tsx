@@ -153,34 +153,39 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <button onClick={() => onNavigate('services', 'web-development')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/web-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'web-development'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Custom Website Development
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'front-end-development')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/front-end-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'front-end-development'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Front-End Engineering
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'ecommerce-development')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/ecommerce-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'ecommerce-development'); }} className="hover:text-cyan-300 text-left transition-colors">
                   E-Commerce & M-Pesa Stores
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'cms-development')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/cms-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'cms-development'); }} className="hover:text-cyan-300 text-left transition-colors">
                   CMS & WordPress Builds
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'mobile-app-development')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/mobile-app-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'mobile-app-development'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Mobile App Development
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'website-maintenance')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/website-maintenance" onClick={(e) => { e.preventDefault(); onNavigate('services', 'website-maintenance'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Website Maintenance SLA
-                </button>
+                </a>
+              </li>
+              <li>
+                <a href="/services/pos-systems" onClick={(e) => { e.preventDefault(); onNavigate('services', 'pos-systems'); }} className="hover:text-cyan-300 text-left transition-colors">
+                  POS Systems & KRA eTIMS
+                </a>
               </li>
             </ul>
           </div>
@@ -192,34 +197,39 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <button onClick={() => onNavigate('services', 'seo-services')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/seo-services" onClick={(e) => { e.preventDefault(); onNavigate('services', 'seo-services'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Search Engine Optimization (SEO)
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'ppc-management')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/ppc-management" onClick={(e) => { e.preventDefault(); onNavigate('services', 'ppc-management'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Google Ads PPC Management
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'whatsapp-marketing')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/whatsapp-marketing" onClick={(e) => { e.preventDefault(); onNavigate('services', 'whatsapp-marketing'); }} className="hover:text-cyan-300 text-left transition-colors">
                   WhatsApp Business API Bots
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'custom-crm-development')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/custom-crm-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'custom-crm-development'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Custom CRM Development
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'ai-powered-solutions')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/ai-powered-solutions" onClick={(e) => { e.preventDefault(); onNavigate('services', 'ai-powered-solutions'); }} className="hover:text-cyan-300 text-left transition-colors">
                   AI-Powered Solutions
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services', 'graphic-design-branding')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/graphic-design-branding" onClick={(e) => { e.preventDefault(); onNavigate('services', 'graphic-design-branding'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Brand Identity & Graphics
-                </button>
+                </a>
+              </li>
+              <li>
+                <a href="/services/digital-marketing" onClick={(e) => { e.preventDefault(); onNavigate('services', 'digital-marketing'); }} className="hover:text-cyan-300 text-left transition-colors">
+                  Digital Marketing Campaigns
+                </a>
               </li>
             </ul>
           </div>
@@ -231,62 +241,62 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <button onClick={() => onNavigate('roadmap')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-medium text-white">
+                <a href="/roadmap" onClick={(e) => { e.preventDefault(); onNavigate('roadmap'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-medium text-white">
                   <span>4–8 Week Sprint Roadmap</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('team')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/team" onClick={(e) => { e.preventDefault(); onNavigate('team'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Our Engineering Team</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('tech-stack')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tech-stack" onClick={(e) => { e.preventDefault(); onNavigate('tech-stack'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Our Tech Stack</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('calculator')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tools/calculator" onClick={(e) => { e.preventDefault(); onNavigate('calculator'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Project Cost Calculator</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('audit')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tools/audit" onClick={(e) => { e.preventDefault(); onNavigate('audit'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Free Live SEO Audit Tool</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('domains')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tools/domains" onClick={(e) => { e.preventDefault(); onNavigate('domains'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Domain & Hosting Checker</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('client-portal')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/portal" onClick={(e) => { e.preventDefault(); onNavigate('client-portal'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Client Project Portal (Demo)
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('portfolio')} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/portfolio" onClick={(e) => { e.preventDefault(); onNavigate('portfolio'); }} className="hover:text-cyan-300 text-left transition-colors">
                   Case Studies & Metrics
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('insights')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/insights" onClick={(e) => { e.preventDefault(); onNavigate('insights'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Insights & Tech Trends</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('faq')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/faq" onClick={(e) => { e.preventDefault(); onNavigate('faq'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Frequently Asked Questions</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
-                </button>
+                </a>
               </li>
               <li>
                 <a

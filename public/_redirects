@@ -1,9 +1,21 @@
-/llms.txt            /llms.txt            200
-/llms-full.txt       /llms-full.txt       200
-/sitemap_index.xml   /sitemap_index.xml   200
-/sitemap.xml         /sitemap.xml         200
-/sitemap-services.xml /sitemap-services.xml 200
-/sitemap-articles.xml /sitemap-articles.xml 200
-/robots.txt          /robots.txt          200
-/markdown/*     /markdown/:splat 200
-/*              /index.html     200
+# Redirect legacy domains to primary canonical domain https://www.domaintechhubs.com
+http://domaintechhub.com/* https://www.domaintechhubs.com/:splat 301!
+https://domaintechhub.com/* https://www.domaintechhubs.com/:splat 301!
+http://www.domaintechhub.com/* https://www.domaintechhubs.com/:splat 301!
+https://www.domaintechhub.com/* https://www.domaintechhubs.com/:splat 301!
+http://domaintechhubs.com/* https://www.domaintechhubs.com/:splat 301!
+https://domaintechhubs.com/* https://www.domaintechhubs.com/:splat 301!
+
+# Legacy alias redirects
+/services/ecommerce-mpesa /services/ecommerce-development 301!
+/services/ecommerce /services/ecommerce-development 301!
+/services/seo-optimization /services/seo-services 301!
+/services/seo /services/seo-services 301!
+/services/custom-software /services/custom-crm-development 301!
+/services/crm /services/custom-crm-development 301!
+/services/branding-design /services/graphic-design-branding 301!
+/services/branding /services/graphic-design-branding 301!
+/blog/:slug /insights/:slug 301!
+/calculator /tools/calculator 301!
+/audit /tools/audit 301!
+/domains /tools/domains 301!

@@ -17,6 +17,7 @@ import { Footer } from './components/Footer';
 import { QuickContactFloating } from './components/QuickContactFloating';
 import { applyPageSeo } from './utils/seo';
 import { SERVICES_LIST } from './data/servicesData';
+import { INSIGHT_ARTICLES } from './data/insightsData';
 import { 
   ArrowRight, ShieldCheck, 
   CheckCircle, MessageSquare, PhoneCall, Code, Layers 
@@ -29,6 +30,7 @@ const MorePage = lazy(() => import('./components/MorePage').then(({ MorePage }) 
 const AboutPage = lazy(() => import('./components/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })));
 const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
 const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })));
+const ArticleDetailPage = lazy(() => import('./components/ArticleDetailPage').then(({ ArticleDetailPage }) => ({ default: ArticleDetailPage })));
 const HomeSections = lazy(() => import('./components/HomeSections').then(({ HomeSections }) => ({ default: HomeSections })));
 const ServicesExplorer = lazy(() => import('./components/ServicesExplorer').then(({ ServicesExplorer }) => ({ default: ServicesExplorer })));
 const TechStackSection = lazy(() => import('./components/TechStackSection').then(({ TechStackSection }) => ({ default: TechStackSection })));
@@ -41,13 +43,14 @@ const BookingSection = lazy(() => import('./components/BookingSection').then(({ 
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
 
-export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about';
+export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about' | 'not-found';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
   const [activeToolTab, setActiveToolTab] = useState<ToolTab>('calculator');
   const [activeMoreTab, setActiveMoreTab] = useState<MoreTab>('roadmap');
   const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
+  const [activeArticleSlug, setActiveArticleSlug] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLeadInboxOpen, setIsLeadInboxOpen] = useState(false);
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
@@ -69,12 +72,21 @@ export default function App() {
       setCurrentPage(page);
       if (page === 'tools') {
         if (subTab) setActiveToolTab(subTab as ToolTab);
+        setActiveServiceId(null);
+        setActiveArticleSlug(null);
       } else if (page === 'services') {
         setActiveServiceId(subTab || null);
+        setActiveArticleSlug(null);
+      } else if (page === 'insights') {
+        setActiveArticleSlug(subTab || null);
+        setActiveServiceId(null);
       } else if (page === 'more') {
         setActiveMoreTab((subTab as MoreTab) || 'roadmap');
+        setActiveServiceId(null);
+        setActiveArticleSlug(null);
       } else {
         setActiveServiceId(null);
+        setActiveArticleSlug(null);
       }
 
       const rawHash = window.location.hash.replace(/^#\/?/, '').toLowerCase().trim();
@@ -105,11 +117,13 @@ export default function App() {
       currentPage, 
       currentPage === 'services' 
         ? (activeServiceId || undefined) 
+        : currentPage === 'insights'
+        ? (activeArticleSlug || undefined)
         : currentPage === 'more' 
         ? activeMoreTab 
         : activeToolTab
     );
-  }, [currentPage, activeToolTab, activeMoreTab, activeServiceId]);
+  }, [currentPage, activeToolTab, activeMoreTab, activeServiceId, activeArticleSlug]);
 
   const navigateTo = (target: string, subParam?: string) => {
     setIsPageTransitioning(true);
@@ -159,7 +173,6 @@ export default function App() {
       targetSub = 'blog';
     } else if (target === 'insights') {
       targetPage = 'insights';
-      targetSub = undefined;
     } else if (target === 'client-portal' || target === 'portal') {
       targetPage = 'portal';
       targetSub = undefined;
@@ -169,17 +182,29 @@ export default function App() {
     } else if (target === 'contact' || target === 'booking') {
       targetPage = 'contact';
       targetSub = undefined;
+    } else if (target === 'not-found') {
+      targetPage = 'not-found';
+      targetSub = undefined;
     }
 
     setCurrentPage(targetPage);
     if (targetPage === 'tools' && targetSub) {
       setActiveToolTab(targetSub as ToolTab);
+      setActiveServiceId(null);
+      setActiveArticleSlug(null);
     } else if (targetPage === 'services') {
       setActiveServiceId(targetSub || null);
+      setActiveArticleSlug(null);
+    } else if (targetPage === 'insights') {
+      setActiveArticleSlug(targetSub || null);
+      setActiveServiceId(null);
     } else if (targetPage === 'more') {
       setActiveMoreTab((targetSub as MoreTab) || 'roadmap');
+      setActiveServiceId(null);
+      setActiveArticleSlug(null);
     } else {
       setActiveServiceId(null);
+      setActiveArticleSlug(null);
     }
 
     const newPath = getPathForRoute(targetPage, targetSub);
@@ -454,24 +479,37 @@ export default function App() {
             {/* 5. DEDICATED PAGE: INSIGHTS & ENGINEERING TRENDS */}
             {currentPage === 'insights' && (
               <div className="animate-in fade-in duration-200">
-                <PageHeader
-                  badge="Engineering Insights & Digital Trends"
-                  title="African Digital Scale, Fintech & High-Performance Software"
-                  description="Practical architectural teardowns, conversion optimization playbooks, and regional market insights authored by Domain Tech Hub engineers in Nairobi. Every article includes verified reading time estimates."
-                  currentBreadcrumb="Engineering Insights"
-                  onNavigateHome={() => navigateTo('home')}
-                  actionButton={{
-                    label: "Request Stack Audit",
-                    onClick: () => navigateTo('contact')
-                  }}
-                />
-
-                <div className="py-6">
-                  <InsightsSection 
-                    onScheduleConsultation={handleScheduleFromInsight}
+                {activeArticleSlug && INSIGHT_ARTICLES.some(a => a.slug === activeArticleSlug || a.id === activeArticleSlug) ? (
+                  <ArticleDetailPage
+                    article={INSIGHT_ARTICLES.find(a => a.slug === activeArticleSlug || a.id === activeArticleSlug)!}
+                    onBackToInsights={() => navigateTo('insights')}
+                    onSelectArticle={(slug) => navigateTo('insights', slug)}
                     onNavigatePath={navigateToInternalPath}
+                    onScheduleConsultation={handleScheduleFromInsight}
                   />
-                </div>
+                ) : (
+                  <>
+                    <PageHeader
+                      badge="Engineering Insights & Digital Trends"
+                      title="African Digital Scale, Fintech & High-Performance Software"
+                      description="Practical architectural teardowns, conversion optimization playbooks, and regional market insights authored by Domain Tech Hub engineers in Nairobi. Every article includes verified reading time estimates."
+                      currentBreadcrumb="Engineering Insights"
+                      onNavigateHome={() => navigateTo('home')}
+                      actionButton={{
+                        label: "Request Stack Audit",
+                        onClick: () => navigateTo('contact')
+                      }}
+                    />
+
+                    <div className="py-6">
+                      <InsightsSection 
+                        onScheduleConsultation={handleScheduleFromInsight}
+                        onNavigatePath={navigateToInternalPath}
+                        onOpenArticle={(slug) => navigateTo('insights', slug)}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
@@ -575,6 +613,51 @@ export default function App() {
                   onNavigateToContact={() => navigateTo('contact')}
                   onNavigateToTools={() => navigateTo('tools')}
                 />
+              </div>
+            )}
+
+            {/* 11. 404 PAGE NOT FOUND */}
+            {currentPage === 'not-found' && (
+              <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center animate-in fade-in duration-200">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono uppercase tracking-wider mb-4">
+                  <span>HTTP 404 · Page Not Found</span>
+                </div>
+                <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                  This URL does not exist.
+                </h1>
+                <p className="text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto mb-10">
+                  The page you requested could not be found. Use the links below to explore our core engineering services, technical articles, or interactive cost calculator.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+                  <a
+                    href="/"
+                    onClick={(e) => { e.preventDefault(); navigateTo('home'); }}
+                    className="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs sm:text-sm font-semibold transition-colors"
+                  >
+                    Return to Homepage
+                  </a>
+                  <a
+                    href="/services"
+                    onClick={(e) => { e.preventDefault(); navigateTo('services'); }}
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
+                  >
+                    Browse All Services
+                  </a>
+                  <a
+                    href="/insights"
+                    onClick={(e) => { e.preventDefault(); navigateTo('insights'); }}
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
+                  >
+                    Read Engineering Articles
+                  </a>
+                  <a
+                    href="/contact"
+                    onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
+                  >
+                    Contact & Booking
+                  </a>
+                </div>
               </div>
             )}
 

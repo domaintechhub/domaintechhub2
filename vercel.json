@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/(.*)",
@@ -34,40 +36,64 @@
       "permanent": true
     },
     {
-      "source": "/sitemap_index.xml",
-      "destination": "/sitemap.xml",
+      "source": "/services/ecommerce-mpesa",
+      "destination": "/services/ecommerce-development",
       "permanent": true
     },
     {
-      "source": "/sitemap-pages.xml",
-      "destination": "/sitemap.xml",
+      "source": "/services/ecommerce",
+      "destination": "/services/ecommerce-development",
       "permanent": true
     },
     {
-      "source": "/sitemap-services.xml",
-      "destination": "/sitemap.xml",
+      "source": "/services/seo-optimization",
+      "destination": "/services/seo-services",
       "permanent": true
     },
     {
-      "source": "/sitemap-articles.xml",
-      "destination": "/sitemap.xml",
+      "source": "/services/seo",
+      "destination": "/services/seo-services",
       "permanent": true
     },
     {
-      "source": "/sitemap-portfolio.xml",
-      "destination": "/sitemap.xml",
+      "source": "/services/custom-software",
+      "destination": "/services/custom-crm-development",
       "permanent": true
     },
     {
-      "source": "/sitemap-tools.xml",
-      "destination": "/sitemap.xml",
+      "source": "/services/crm",
+      "destination": "/services/custom-crm-development",
       "permanent": true
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/((?!sitemap\\.xml|robots\\.txt|llms\\.txt|llms-full\\.txt|assets/|\\.well-known/).*)",
-      "destination": "/index.html"
+      "source": "/services/branding-design",
+      "destination": "/services/graphic-design-branding",
+      "permanent": true
+    },
+    {
+      "source": "/services/branding",
+      "destination": "/services/graphic-design-branding",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/insights/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/calculator",
+      "destination": "/tools/calculator",
+      "permanent": true
+    },
+    {
+      "source": "/audit",
+      "destination": "/tools/audit",
+      "permanent": true
+    },
+    {
+      "source": "/domains",
+      "destination": "/tools/domains",
+      "permanent": true
     }
   ],
   "headers": [
@@ -77,6 +103,10 @@
         {
           "key": "Content-Type",
           "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
         }
       ]
     },
@@ -86,6 +116,10 @@
         {
           "key": "Content-Type",
           "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
         }
       ]
     },
@@ -98,7 +132,7 @@
         },
         {
           "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
+          "value": "DENY"
         },
         {
           "key": "X-XSS-Protection",
@@ -107,10 +141,6 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
         }
       ]
     }

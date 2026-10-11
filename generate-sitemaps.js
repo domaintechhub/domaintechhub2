@@ -22,6 +22,7 @@ const CURRENT_DATE = new Date().toISOString().split('T')[0];
 
 const appTsxPath = path.resolve(__dirname, 'src/App.tsx');
 const servicesPath = path.resolve(__dirname, 'src/data/servicesData.ts');
+const insightsPath = path.resolve(__dirname, 'src/data/insightsData.ts');
 const publicDir = path.resolve(__dirname, 'public');
 
 function escapeXml(str) {
@@ -51,8 +52,10 @@ export function crawlAppRoutes() {
     ? pageRouteMatch[1].split('|').map(s => s.trim().replace(/['"]/g, '')).filter(Boolean)
     : [];
 
-  // Filter out internal/private or wrapper routes
-  const filteredDeclared = declaredRoutes.filter(r => r !== 'portal' && r !== 'more' && r !== 'tools');
+  // Filter out internal/private, wrapper, or 404 routes
+  const filteredDeclared = declaredRoutes.filter(
+    r => r !== 'portal' && r !== 'more' && r !== 'tools' && r !== 'not-found'
+  );
 
   const routeMeta = {
     home: { path: '', priority: '1.0', changefreq: 'daily', title: 'Home - Domain Tech Hub' },
@@ -125,7 +128,32 @@ export function crawlServices() {
 }
 
 /**
- * 3. Crawl interactive tools
+ * 3. Crawl all useful articles from src/data/insightsData.ts
+ */
+export function crawlArticles() {
+  if (!fs.existsSync(insightsPath)) return [];
+  const content = fs.readFileSync(insightsPath, 'utf8');
+  const articles = [];
+  const slugMatches = [...content.matchAll(/slug:\s*['"]([^'"]+)['"]/g)];
+  for (const m of slugMatches) {
+    const slug = m[1];
+    // Find nearest title around this slug
+    const windowStart = Math.max(0, m.index - 250);
+    const windowEnd = Math.min(content.length, m.index + 250);
+    const snippet = content.slice(windowStart, windowEnd);
+    const titleMatch = snippet.match(/title:\s*['"]([^'"]+)['"]/);
+    articles.push({
+      path: `insights/${slug}`,
+      title: titleMatch ? titleMatch[1] : slug,
+      priority: '0.85',
+      changefreq: 'weekly',
+    });
+  }
+  return articles;
+}
+
+/**
+ * 4. Crawl interactive tools
  */
 export function crawlTools() {
   return [
@@ -243,7 +271,7 @@ ${items}
 `;
 }
 
-export function generateMasterSitemap(pages, services) {
+export function generateMasterSitemap(pages, services, articles = []) {
   const seenLocs = new Set();
 
   const pageItems = pages
@@ -266,14 +294,27 @@ export function generateMasterSitemap(pages, services) {
     .filter(Boolean)
     .join('\n\n');
 
+  const articleItems = articles
+    .map(a => {
+      const loc = `${BASE_URL}/${a.path}`;
+      if (seenLocs.has(loc)) return null;
+      seenLocs.add(loc);
+      return `  <!-- ${escapeXml(a.title)} -->\n  <url>\n    <loc>${loc}</loc>\n    <lastmod>${CURRENT_DATE}</lastmod>\n    <changefreq>${a.changefreq}</changefreq>\n    <priority>${a.priority}</priority>\n  </url>`;
+    })
+    .filter(Boolean)
+    .join('\n\n');
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ==================== INDEXABLE PAGES ==================== -->
+  <!-- ==================== INDEXABLE CORE PAGES ==================== -->
 ${pageItems}
 
-  <!-- ==================== INDEXABLE SERVICES ==================== -->
+  <!-- ==================== INDEXABLE CORE SERVICES ==================== -->
 ${serviceItems}
+
+  <!-- ==================== INDEXABLE ENGINEERING ARTICLES ==================== -->
+${articleItems}
 
 </urlset>
 `;
@@ -293,17 +334,19 @@ ${entries}
 }
 
 export function runCrawler() {
-  console.log('[sitemap-crawler] Crawling real HTML routes from App.tsx and servicesData.ts...');
+  console.log('[sitemap-crawler] Crawling real HTML routes from App.tsx, servicesData.ts, and insightsData.ts...');
 
   const pages = crawlAppRoutes();
   const services = crawlServices();
-  const uniqueEntries = [...pages, ...services].filter((entry, index, entries) =>
+  const articles = crawlArticles();
+  const uniqueEntries = [...pages, ...services, ...articles].filter((entry, index, entries) =>
     entries.findIndex(candidate => candidate.path === entry.path) === index
   );
 
   console.log(`[sitemap-crawler] Discovered:
   - Core Pages: ${pages.length}
   - Real Services: ${services.length}
+  - Real Articles: ${articles.length}
   - Unique indexable URLs: ${uniqueEntries.length}`);
 
   if (!fs.existsSync(publicDir)) {
@@ -312,7 +355,7 @@ export function runCrawler() {
 
   const sitemapNames = [];
   if (uniqueEntries.length <= 500) {
-    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateMasterSitemap(uniqueEntries, []), 'utf-8');
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateMasterSitemap(pages, services, articles), 'utf-8');
   } else {
     const chunkSize = 500;
     for (let offset = 0; offset < uniqueEntries.length; offset += chunkSize) {

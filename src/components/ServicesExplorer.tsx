@@ -171,14 +171,21 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
 
                 {/* Title with link to Dedicated Service Page */}
                 <h3 className="text-lg font-bold text-white mb-2">
-                  <button
-                    type="button"
-                    onClick={() => onOpenServicePage ? onOpenServicePage(service.id) : setActiveModalService(service)}
+                  <a
+                    href={`/services/${service.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (onOpenServicePage) {
+                        onOpenServicePage(service.id);
+                      } else {
+                        setActiveModalService(service);
+                      }
+                    }}
                     className="w-full text-left group-hover:text-cyan-300 transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>{service.title}</span>
                     <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-1" aria-hidden="true" />
-                  </button>
+                  </a>
                 </h3>
 
                 {/* Short Description */}
@@ -222,14 +229,18 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
 
                 <div className="flex items-center gap-1.5">
                   {onOpenServicePage && (
-                    <button
-                      onClick={() => onOpenServicePage(service.id)}
+                    <a
+                      href={`/services/${service.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onOpenServicePage(service.id);
+                      }}
                       className="px-2.5 py-1.5 text-xs text-cyan-300 hover:text-white bg-cyan-950/70 hover:bg-cyan-900 border border-cyan-800/60 rounded-lg transition-colors font-semibold flex items-center gap-1 cursor-pointer"
                       title="Open dedicated service page with package tiers and scope"
                     >
                       <span>{t('services.details')}</span>
                       <ArrowRight className="w-3 h-3" />
-                    </button>
+                    </a>
                   )}
                   <button
                     onClick={() => setActiveModalService(service)}
