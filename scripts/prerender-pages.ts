@@ -19,6 +19,7 @@ import { SERVICES_LIST } from '../src/data/servicesData';
 import { INSIGHT_ARTICLES } from '../src/data/insightsData';
 import { CASE_STUDIES } from '../src/data/portfolioData';
 import { FAQ_ITEMS } from '../src/data/faqData';
+import { SERVICE_KEYWORD_MAP } from '../src/data/keywordMapData';
 import { PAGE_SEO_DATA } from '../src/utils/seo';
 import { injectSemanticKeywords } from '../src/utils/keywordInjection';
 import type { PageRoute } from '../src/App';
@@ -106,8 +107,33 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
   if (route === 'services' && subTab) {
     const service = SERVICES_LIST.find((s) => s.id === subTab);
     if (service) {
+      const keywordMap = SERVICE_KEYWORD_MAP[service.id];
       const otherServices = SERVICES_LIST.filter((s) => s.id !== service.id);
       const relatedArticles = INSIGHT_ARTICLES.slice(0, 6);
+      const customerFaqHtml = keywordMap
+        ? `
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-3">Kenyan Market Architecture &amp; Locations Served</h2>
+            <p class="text-slate-300 mb-3">${escapeHtml(keywordMap.localMarketArchitecture)}</p>
+            <p class="text-xs font-mono text-cyan-400 mb-2">Primary Search Focus: ${escapeHtml(keywordMap.primaryKeyword)} · Locations: ${keywordMap.targetLocations.map(escapeHtml).join(', ')}</p>
+            <p class="text-sm text-slate-400">${escapeHtml(keywordMap.distinctScopeBoundary.thisPageCovers)} <a href="${escapeHtml(keywordMap.distinctScopeBoundary.relatedPagePath)}" class="text-cyan-400 underline">${escapeHtml(keywordMap.distinctScopeBoundary.relatedPageLabel)}</a></p>
+          </section>
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-3">Customer Questions Answered (${escapeHtml(service.title)} in Kenya)</h2>
+            <div class="space-y-4">
+              ${keywordMap.customerQuestions
+                .map(
+                  (q) => `
+              <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                <h3 class="text-lg font-bold text-white mb-1">${escapeHtml(q.question)}</h3>
+                <p class="text-slate-300 text-sm">${escapeHtml(q.answer)}</p>
+              </div>`
+                )
+                .join('\n              ')}
+            </div>
+          </section>`
+        : '';
+
       return `
       ${renderNavHeaderHtml()}
       <main class="max-w-5xl mx-auto px-4 py-12 text-slate-100">
@@ -115,8 +141,9 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
           <a href="/">Home</a> &rsaquo; <a href="/services">Services &amp; Solutions</a> &rsaquo; <span>${escapeHtml(service.title)}</span>
         </nav>
         <article>
-          <span class="text-xs font-mono text-cyan-400 uppercase">${escapeHtml(service.badge)} · ${escapeHtml(service.duration)}</span>
-          <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-2 mb-4">${escapeHtml(service.title)}</h1>
+          <span class="text-xs font-mono text-cyan-400 uppercase">${escapeHtml(service.badge)} · ${escapeHtml(service.duration)} · Nairobi &amp; Kenya</span>
+          <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-2 mb-3">${escapeHtml(service.title)} in Nairobi &amp; Kenya</h1>
+          ${keywordMap ? `<p class="text-xl font-semibold text-cyan-300 mb-4">${escapeHtml(keywordMap.h1Subheadline)}</p>` : ''}
           <p class="text-lg text-slate-300 mb-6">${escapeHtml(service.fullDesc)}</p>
           <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 mb-8">
             <strong>Starting Investment:</strong> KSh ${service.basePriceKES.toLocaleString()} (USD $${service.basePriceUSD.toLocaleString()}) · Delivery Timeline: ${escapeHtml(service.duration)}
@@ -133,6 +160,7 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
               ${service.features.map((f) => `<li>${escapeHtml(f)}</li>`).join('\n              ')}
             </ul>
           </section>
+          ${customerFaqHtml}
           <section class="mb-8">
             <h2 class="text-2xl font-bold text-white mb-3">Technologies &amp; Stack</h2>
             <p class="text-slate-300">${service.technologies.map((t) => escapeHtml(t)).join(' · ')}</p>

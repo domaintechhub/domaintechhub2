@@ -3,6 +3,7 @@ import { ToolTab } from '../components/ToolsPage';
 import { SITE_URL } from '../config/site';
 import { SERVICES_LIST } from '../data/servicesData';
 import { INSIGHT_ARTICLES } from '../data/insightsData';
+import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { HIGH_PERFORMING_KEYWORDS, generateArticleJsonLd } from './keywordInjection';
 
 export interface PageSeoConfig {
@@ -92,72 +93,91 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     if (serviceId && serviceId !== 'all') {
       const matched = SERVICES_LIST.find(s => s.id === serviceId);
       if (matched) {
-        if (matched.id === 'pos-systems') {
-          return {
-            title: 'Point of Sale (POS) Systems & Hardware Prices Kenya | Domain Tech Hub',
-            description: 'Point of sale (POS) system prices in Kenya range from KSh 500/mo cloud software to over KSh 100,000 complete hardware bundles (80mm printers, barcode scanners, cash drawers, touchscreens) with KRA e-TIMS.',
-            canonicalPath: '/services/pos-systems',
-            jsonLd: {
-              '@context': 'https://schema.org',
-              '@type': 'Service',
-              '@id': `${SITE_URL}/services/pos-systems#service`,
-              url: `${SITE_URL}/services/pos-systems`,
-              name: 'Point of Sale (POS) Systems & Hardware Kenya',
-              description: matched.fullDesc,
-              provider: {
-                '@type': 'Organization',
-                '@id': `${SITE_URL}/#organization`,
-                name: 'Domain Tech Hub',
-                url: SITE_URL,
-                logo: `${SITE_URL}/logo-icon.svg`,
-              },
-              areaServed: {
-                '@type': 'Country',
-                name: 'Kenya'
-              },
-              offers: {
-                '@type': 'AggregateOffer',
-                priceCurrency: 'KES',
-                lowPrice: '500',
-                highPrice: '105000',
-                offerCount: '6',
-              },
+        const keywordMap = SERVICE_KEYWORD_MAP[matched.id];
+        const canonicalPath = `/services/${matched.id}`;
+        const pageUrl = `${SITE_URL}${canonicalPath}`;
+        const title = keywordMap
+          ? keywordMap.seoTitle
+          : `${matched.title} in Nairobi, Kenya | Pricing & Deliverables | Domain Tech Hub`;
+        const description = keywordMap ? keywordMap.seoDescription : matched.shortDesc;
+
+        const areaServedEntities = [
+          { '@type': 'City', name: 'Nairobi' },
+          { '@type': 'City', name: 'Mombasa' },
+          { '@type': 'City', name: 'Kisumu' },
+          { '@type': 'City', name: 'Nakuru' },
+          { '@type': 'City', name: 'Eldoret' },
+          { '@type': 'Country', name: 'Kenya' },
+        ];
+
+        const serviceSchema: Record<string, any> = {
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          '@id': `${pageUrl}#service`,
+          url: pageUrl,
+          name: matched.title,
+          serviceType: keywordMap?.primaryKeyword || matched.title,
+          description: matched.fullDesc,
+          keywords: keywordMap
+            ? [keywordMap.primaryKeyword, ...keywordMap.secondaryKeywords].join(', ')
+            : matched.technologies.join(', '),
+          provider: {
+            '@type': 'Organization',
+            '@id': `${SITE_URL}/#organization`,
+            name: 'Domain Tech Hub',
+            url: SITE_URL,
+            logo: `${SITE_URL}/logo-icon.svg`,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Delta Corner Tower, Westlands',
+              addressLocality: 'Nairobi',
+              addressCountry: 'KE',
             },
+          },
+          areaServed: areaServedEntities,
+          offers:
+            matched.id === 'pos-systems'
+              ? {
+                  '@type': 'AggregateOffer',
+                  priceCurrency: 'KES',
+                  lowPrice: '500',
+                  highPrice: '105000',
+                  offerCount: '6',
+                }
+              : {
+                  '@type': 'Offer',
+                  price: matched.basePriceKES,
+                  priceCurrency: 'KES',
+                },
+        };
+
+        if (keywordMap && keywordMap.customerQuestions.length > 0) {
+          serviceSchema.mainEntityOfPage = {
+            '@type': 'FAQPage',
+            '@id': `${pageUrl}#faq`,
+            mainEntity: keywordMap.customerQuestions.map((q) => ({
+              '@type': 'Question',
+              name: q.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: q.answer,
+              },
+            })),
           };
         }
 
         return {
-          title: `${matched.title} | Pricing & Deliverables | Domain Tech Hub`,
-          description: matched.shortDesc,
-          canonicalPath: `/services/${matched.id}`,
-          jsonLd: {
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            '@id': `${SITE_URL}/services/${matched.id}#service`,
-            url: `${SITE_URL}/services/${matched.id}`,
-            name: matched.title,
-            description: matched.fullDesc,
-            provider: {
-              '@type': 'Organization',
-              '@id': `${SITE_URL}/#organization`,
-              name: 'Domain Tech Hub',
-              url: SITE_URL,
-              logo: `${SITE_URL}/logo-icon.svg`,
-            },
-            areaServed: 'Kenya',
-            offers: {
-              '@type': 'Offer',
-              price: matched.basePriceKES,
-              priceCurrency: 'KES',
-            },
-          },
+          title,
+          description,
+          canonicalPath,
+          jsonLd: serviceSchema,
         };
       }
     }
 
     return {
-      title: 'Engineering Services & Solutions | Domain Tech Hub',
-      description: 'Explore 15+ turnkey digital services: React & mobile app development, Safaricom Daraja STK Push e-commerce, Google Ads PPC, and custom enterprise CRMs.',
+      title: 'Web Development, M-Pesa E-Commerce, CRM & SEO Services in Nairobi, Kenya | Domain Tech Hub',
+      description: 'Explore 15 distinct engineering services in Nairobi, Kenya: custom websites, Safaricom Daraja 3.0 M-Pesa e-commerce, KRA eTIMS POS systems, custom CRM/ERP software, and technical SEO.',
       canonicalPath: '/services',
       jsonLd: {
         '@context': 'https://schema.org',

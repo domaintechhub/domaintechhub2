@@ -7,6 +7,7 @@ import {
 import { SERVICES_LIST } from '../data/servicesData';
 import { CASE_STUDIES } from '../data/portfolioData';
 import { INSIGHT_ARTICLES } from '../data/insightsData';
+import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { storeSearchIntent } from '../utils/dynamicIntent';
 
 interface SearchResultItem {
@@ -151,24 +152,36 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   const allItems: SearchResultItem[] = useMemo(
     () => [
       // 1. Services
-      ...SERVICES_LIST.map((s) => ({
-        id: `service-${s.id}`,
-        type: 'service' as const,
-        categoryLabel: s.badge || 'Core Service',
-        title: s.title,
-        description: s.shortDesc,
-        searchableBody: [
-          s.fullDesc,
-          ...(s.features || []),
-          ...(s.deliverables || []),
-        ].join(' '),
-        metaBadge: `From KSh ${s.basePriceKES.toLocaleString()}`,
-        secondaryMeta: s.duration,
-        tags: [...s.technologies, s.category, s.badge],
-        target: 'services',
-        subTab: s.id,
-        href: `/services/${s.id}`,
-      })),
+      ...SERVICES_LIST.map((s) => {
+        const kwMap = SERVICE_KEYWORD_MAP[s.id];
+        return {
+          id: `service-${s.id}`,
+          type: 'service' as const,
+          categoryLabel: s.badge || 'Core Service',
+          title: s.title,
+          description: kwMap?.seoDescription || s.shortDesc,
+          searchableBody: [
+            s.fullDesc,
+            ...(s.features || []),
+            ...(s.deliverables || []),
+            kwMap?.primaryKeyword || '',
+            ...(kwMap?.secondaryKeywords || []),
+            ...(kwMap?.targetLocations || []),
+            ...(kwMap?.customerQuestions.map((q) => `${q.question} ${q.answer}`) || []),
+          ].join(' '),
+          metaBadge: `From KSh ${s.basePriceKES.toLocaleString()}`,
+          secondaryMeta: s.duration,
+          tags: [
+            ...(kwMap ? [kwMap.primaryKeyword] : []),
+            ...s.technologies,
+            s.category,
+            s.badge,
+          ],
+          target: 'services',
+          subTab: s.id,
+          href: `/services/${s.id}`,
+        };
+      }),
 
       // 2. Point of Sale & e-TIMS quick tools
       {
@@ -306,6 +319,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
     SERVICES_LIST.forEach((s) => {
       phrases.add(s.title);
       s.technologies.forEach((t) => phrases.add(t));
+      const kwMap = SERVICE_KEYWORD_MAP[s.id];
+      if (kwMap) {
+        phrases.add(kwMap.primaryKeyword);
+        kwMap.secondaryKeywords.slice(0, 3).forEach((kw) => phrases.add(kw));
+      }
     });
     INSIGHT_ARTICLES.forEach((a) => {
       phrases.add(a.title);

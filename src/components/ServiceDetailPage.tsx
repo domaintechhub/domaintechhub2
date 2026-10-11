@@ -4,11 +4,12 @@ import {
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
   Smartphone, ArrowRight, ArrowLeft, Check, Clock, 
   CheckCircle2, Plus, HelpCircle, ChevronDown, ChevronRight,
-  ExternalLink, Layers, Printer, Scan, Monitor, Receipt
+  ExternalLink, Layers, Printer, Scan, Monitor, Receipt, MapPin
 } from 'lucide-react';
 import { ServiceDetail, ServiceCategory } from '../types';
 import { SERVICES_LIST } from '../data/servicesData';
 import { SERVICE_DEEP_DIVES, ServicePackageTier, ServiceAddon } from '../data/serviceDetailsData';
+import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { CASE_STUDIES, AGENCY_INFO } from '../data/portfolioData';
 import { useCurrency } from '../context/CurrencyContext';
 
@@ -33,6 +34,21 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   const baseTierGroupId = useId();
   const addonsGroupId = useId();
   const deepDive = SERVICE_DEEP_DIVES[service.id];
+  const keywordMap = SERVICE_KEYWORD_MAP[service.id];
+
+  // Combine researched customer questions with service FAQs without duplicates
+  const combinedFaqs = [
+    ...(keywordMap?.customerQuestions || []).map((q) => ({
+      question: q.question,
+      answer: q.answer,
+      source: q.searchSource,
+    })),
+    ...(deepDive?.faqs || []).map((f) => ({
+      question: f.question,
+      answer: f.answer,
+      source: undefined as string | undefined,
+    })),
+  ];
 
   // Selected package tier for the interactive configurator
   const [selectedTierId, setSelectedTierId] = useState<'starter' | 'pro' | 'enterprise'>('pro');
@@ -212,6 +228,10 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                   <span>{service.badge}</span>
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono text-slate-600 dark:text-slate-400 bg-stone-100 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
+                  <MapPin className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                  <span>Nairobi &amp; Nationwide Kenya</span>
+                </span>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono text-slate-600 dark:text-slate-400 bg-stone-100 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
                   <Clock className="w-3.5 h-3.5 text-slate-400" />
                   <span>{service.duration}</span>
                 </span>
@@ -223,18 +243,41 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
 
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15]">
-                {service.title}
+                {service.title} in Nairobi &amp; Kenya
               </h1>
 
               {/* Value Proposition */}
-              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                {deepDive?.tagline || service.shortDesc}
+              <p className="text-base sm:text-lg text-slate-700 dark:text-slate-200 leading-relaxed font-semibold">
+                {keywordMap?.h1Subheadline || deepDive?.tagline || service.shortDesc}
               </p>
 
               {/* Detailed Scope */}
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 {service.fullDesc}
               </p>
+
+              {/* Distinct Page Intention & Anti-Cannibalization Cross-Link */}
+              {keywordMap?.distinctScopeBoundary && (
+                <div className="p-3.5 rounded-2xl bg-teal-50/60 dark:bg-slate-900/80 border border-teal-200/80 dark:border-slate-800 text-xs space-y-1">
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-teal-700 dark:text-teal-400 font-semibold">
+                    Dedicated Service Scope · {keywordMap.primaryKeyword}
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-300">
+                    {keywordMap.distinctScopeBoundary.thisPageCovers}
+                  </p>
+                  <a
+                    href={keywordMap.distinctScopeBoundary.relatedPagePath}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const targetServiceId = keywordMap.distinctScopeBoundary.relatedPagePath.replace('/services/', '');
+                      onSelectService(targetServiceId);
+                    }}
+                    className="inline-flex items-center gap-1 font-semibold text-teal-700 dark:text-teal-400 hover:underline pt-0.5"
+                  >
+                    <span>{keywordMap.distinctScopeBoundary.relatedPageLabel}</span>
+                  </a>
+                </div>
+              )}
 
               {/* Key Trust Guarantees */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
@@ -1016,22 +1059,86 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
         </section>
       )}
 
-      {/* 7. SERVICE-SPECIFIC FAQ ACCORDION */}
-      {deepDive?.faqs && deepDive.faqs.length > 0 && (
+      {/* 6.5 KENYAN MARKET ARCHITECTURE & REGIONAL LOCATIONS SERVED */}
+      {keywordMap && (
+        <section className="py-14 sm:py-16 bg-[#faf8f5] dark:bg-slate-950 border-b border-stone-200 dark:border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="text-xs font-mono text-teal-600 dark:text-teal-400 uppercase tracking-wider font-semibold">
+                  Regional Engineering &amp; Local Market Fit
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  How We Engineer {service.title} for Nairobi &amp; Kenyan Businesses
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {keywordMap.localMarketArchitecture}
+                </p>
+                <div className="pt-2">
+                  <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-2 font-semibold">
+                    Targeted Solutions &amp; Capabilities on This Page:
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-teal-600 text-white">
+                      {keywordMap.primaryKeyword}
+                    </span>
+                    {keywordMap.secondaryKeywords.map((kw) => (
+                      <span
+                        key={kw}
+                        className="px-2.5 py-1 rounded-lg text-xs font-mono bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-stone-200 dark:border-slate-800"
+                      >
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-2xl p-6 border border-stone-200 dark:border-slate-800 space-y-4">
+                <div className="flex items-center justify-between border-b border-stone-100 dark:border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      Locations Served Across Kenya
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+                    {keywordMap.searchIntent}
+                  </span>
+                </div>
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                  {keywordMap.targetLocations.map((loc) => (
+                    <li key={loc} className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400 shrink-0" />
+                      <span>{loc}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="pt-3 border-t border-stone-100 dark:border-slate-800 text-[11px] font-mono text-slate-500">
+                  HQ Studio: Delta Corner Tower, Westlands, Nairobi · Remote &amp; On-Site Sprints Nationwide
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 7. SERVICE-SPECIFIC FAQ & CUSTOMER QUESTIONS ACCORDION */}
+      {combinedFaqs.length > 0 && (
         <section className="py-16 sm:py-20 bg-white dark:bg-slate-900/60 border-b border-stone-200 dark:border-slate-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-xs font-mono text-teal-600 dark:text-teal-400 uppercase tracking-wider font-semibold">
-                Common Questions
+                Verified Buyer Questions &amp; Search Console Insights
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-1">
-                Frequently Asked About {service.title}
+                Customer Questions About {service.title} in Kenya
               </h2>
             </div>
 
             <div className="space-y-3">
-              {deepDive.faqs.map((faq, idx) => {
+              {combinedFaqs.map((faq, idx) => {
                 const isOpen = expandedFaqIndex === idx;
                 return (
                   <div
@@ -1044,8 +1151,15 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                       onClick={() => setExpandedFaqIndex(isOpen ? null : idx)}
                       className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 dark:text-white"
                     >
-                      <span>{faq.question}</span>
-                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180 text-teal-600' : ''}`} />
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2.5">
+                        <span>{faq.question}</span>
+                        {faq.source && (
+                          <span className="inline-block w-fit text-[10px] font-mono font-normal px-2 py-0.5 rounded bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20">
+                            {faq.source}
+                          </span>
+                        )}
+                      </div>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-teal-600' : ''}`} />
                     </button>
                     {isOpen && (
                       <div className="px-4 sm:px-5 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-stone-200 dark:border-slate-800/80 pt-3">

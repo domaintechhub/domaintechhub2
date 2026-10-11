@@ -2,9 +2,10 @@ import React, { useState, useEffect, useId } from 'react';
 import { 
   Globe, Layout, ShoppingCart, FileCode, Search, TrendingUp, Target, 
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
-  Smartphone, ArrowRight, Check, X, Clock, Layers
+  Smartphone, ArrowRight, Check, X, Clock, Layers, MapPin, HelpCircle
 } from 'lucide-react';
 import { SERVICES_LIST, CATEGORIES_CONFIG } from '../data/servicesData';
+import { SERVICE_KEYWORD_MAP, KEYWORD_MAP_LIST, KEYWORD_PILLAR_CLUSTERS } from '../data/keywordMapData';
 import { ServiceDetail, ServiceCategory } from '../types';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -27,6 +28,7 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('all');
   const [activeModalService, setActiveModalService] = useState<ServiceDetail | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPillar, setSelectedPillar] = useState<string>('All Pillars');
   const [isLoading, setIsLoading] = useState(initialLoading);
   const { formatPrice } = useCurrency();
   const { t } = useLanguage();
@@ -271,6 +273,146 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
             </button>
           </div>
         )}
+
+        {/* Service-to-Page Keyword & Location Intent Map Directory */}
+        <div className="mt-20 pt-16 border-t border-slate-800/90">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+            <div className="max-w-3xl space-y-2">
+              <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>1-to-1 Search Intent &amp; Location Architecture · Zero Keyword Cannibalization</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Nairobi &amp; Kenya Service Keyword Map Directory
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Every core service we sell is assigned a single authoritative canonical URL (<code className="text-cyan-300 font-mono">/services/&lt;slug&gt;</code>) with a distinct search intention, Kenyan regional architecture, and verified customer questions sourced from Google Search Console, Bing Webmaster Tools, and client discovery calls.
+              </p>
+            </div>
+
+            {/* Pillar Filter Tabs */}
+            <div className="flex flex-wrap gap-1.5">
+              {KEYWORD_PILLAR_CLUSTERS.map((pillar) => (
+                <button
+                  key={pillar}
+                  type="button"
+                  onClick={() => setSelectedPillar(pillar)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+                    selectedPillar === pillar
+                      ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm'
+                      : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
+                  }`}
+                >
+                  {pillar === 'All Pillars' ? `All 15 Services` : pillar.split(' (')[0]}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {KEYWORD_MAP_LIST.filter(
+              (entry) => selectedPillar === 'All Pillars' || entry.pillarCluster === selectedPillar
+            ).map((entry) => (
+              <div
+                key={entry.serviceId}
+                className="p-5 sm:p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between gap-4"
+              >
+                <div className="space-y-3">
+                  {/* Top Row: Pillar + Canonical URL + Demand Badge */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                    <span className="px-2.5 py-0.5 rounded-md bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 font-semibold">
+                      {entry.canonicalPath}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-400">{entry.demandMetric}</span>
+                      <span className="text-slate-600">·</span>
+                      <span className="text-slate-400">{entry.searchIntent}</span>
+                    </div>
+                  </div>
+
+                  {/* Service Title & Primary Keyword */}
+                  <div>
+                    <h4 className="text-lg font-bold text-white">
+                      <a
+                        href={entry.canonicalPath}
+                        onClick={(e) => {
+                          if (onOpenServicePage) {
+                            e.preventDefault();
+                            onOpenServicePage(entry.serviceId);
+                          }
+                        }}
+                        className="hover:text-cyan-400 transition-colors"
+                      >
+                        {entry.serviceName}
+                      </a>
+                    </h4>
+                    <div className="text-xs font-mono text-cyan-400 mt-0.5">
+                      Primary Target: &ldquo;{entry.primaryKeyword}&rdquo;
+                    </div>
+                  </div>
+
+                  {/* Distinct Scope & Local Engineering Fit */}
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {entry.localMarketArchitecture}
+                  </p>
+
+                  {/* Secondary Keywords */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {entry.secondaryKeywords.slice(0, 4).map((kw) => (
+                      <span
+                        key={kw}
+                        className="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800/80 text-[10px] font-mono"
+                      >
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Sample Customer Question from GSC / Bing */}
+                  {entry.customerQuestions[0] && (
+                    <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/90 text-xs space-y-1">
+                      <div className="flex items-center justify-between gap-2 text-[10px] font-mono text-amber-400">
+                        <span className="inline-flex items-center gap-1">
+                          <HelpCircle className="w-3 h-3" />
+                          Customer Query ({entry.customerQuestions[0].searchSource})
+                        </span>
+                      </div>
+                      <div className="font-semibold text-slate-200">
+                        {entry.customerQuestions[0].question}
+                      </div>
+                      <p className="text-slate-400 line-clamp-2">
+                        {entry.customerQuestions[0].answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer: Locations + Link to Distinct Page */}
+                <div className="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-cyan-400 shrink-0" />
+                    <span className="truncate max-w-[260px]">
+                      {entry.targetLocations.slice(0, 4).join(', ')}
+                    </span>
+                  </span>
+                  <a
+                    href={entry.canonicalPath}
+                    onClick={(e) => {
+                      if (onOpenServicePage) {
+                        e.preventDefault();
+                        onOpenServicePage(entry.serviceId);
+                      }
+                    }}
+                    className="inline-flex items-center gap-1 font-mono font-semibold text-cyan-400 hover:text-cyan-300"
+                  >
+                    <span>Open Dedicated Page</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
       </div>
 
