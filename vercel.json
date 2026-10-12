@@ -79,6 +79,36 @@
       "permanent": true
     },
     {
+      "source": "/services/sem-ppc",
+      "destination": "/services/ppc-management",
+      "permanent": true
+    },
+    {
+      "source": "/services/sem",
+      "destination": "/services/ppc-management",
+      "permanent": true
+    },
+    {
+      "source": "/services/ppc",
+      "destination": "/services/ppc-management",
+      "permanent": true
+    },
+    {
+      "source": "/services/web-hosting",
+      "destination": "/services/website-maintenance",
+      "permanent": true
+    },
+    {
+      "source": "/services/cloud-hosting",
+      "destination": "/services/website-maintenance",
+      "permanent": true
+    },
+    {
+      "source": "/services/hosting",
+      "destination": "/services/website-maintenance",
+      "permanent": true
+    },
+    {
       "source": "/blog/:slug",
       "destination": "/insights/:slug",
       "permanent": true

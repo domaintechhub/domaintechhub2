@@ -22,6 +22,7 @@ import { FAQ_ITEMS } from '../src/data/faqData';
 import { SERVICE_KEYWORD_MAP } from '../src/data/keywordMapData';
 import { PAGE_SEO_DATA } from '../src/utils/seo';
 import { injectSemanticKeywords } from '../src/utils/keywordInjection';
+import { normalizeServiceSlug } from '../src/utils/routing';
 import type { PageRoute } from '../src/App';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -105,7 +106,8 @@ function renderFooterLinksHtml(): string {
 function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
   // 1. Individual Service Detail Page
   if (route === 'services' && subTab) {
-    const service = SERVICES_LIST.find((s) => s.id === subTab);
+    const normalizedId = normalizeServiceSlug(subTab) || subTab;
+    const service = SERVICES_LIST.find((s) => s.id === normalizedId);
     if (service) {
       const keywordMap = SERVICE_KEYWORD_MAP[service.id];
       const otherServices = SERVICES_LIST.filter((s) => s.id !== service.id);
@@ -595,6 +597,21 @@ export function runPrerender() {
   // 2. All 16 Core Service Pages (/services/<id>)
   for (const service of SERVICES_LIST) {
     writeRouteHtml(templateHtml, `services/${service.id}/index.html`, 'services', service.id);
+    count++;
+  }
+
+  // 2b. High-demand service alias pages to guarantee HTTP 200 OK status on static web hosts
+  const serviceAliases = [
+    'sem-ppc',
+    'web-hosting',
+    'ecommerce-mpesa',
+    'seo-optimization',
+    'custom-software',
+    'branding-design',
+  ];
+
+  for (const alias of serviceAliases) {
+    writeRouteHtml(templateHtml, `services/${alias}/index.html`, 'services', alias);
     count++;
   }
 

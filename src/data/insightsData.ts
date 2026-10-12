@@ -825,7 +825,7 @@ export async function queueFieldOrder(order: FieldOrderPayload) {
     contentSections: [
       {
         heading: '1. The Fatal Flaw in Standard Kenyan Ad Campaigns',
-        body: 'Most digital marketers in Kenya set up a Google Ads campaign and fire a conversion pixel whenever someone taps the WhatsApp icon. Within two weeks, Google’s algorithm learns to target people who tap buttons impulsively but never buy.\n\nIn our [Search Engine Marketing & PPC](/services/sem-ppc) engineering, we connect your ad spend directly to verified M-Pesa and CRM revenue.'
+        body: 'Most digital marketers in Kenya set up a Google Ads campaign and fire a conversion pixel whenever someone taps the WhatsApp icon. Within two weeks, Google’s algorithm learns to target people who tap buttons impulsively but never buy.\n\nIn our [Search Engine Marketing & PPC](/services/ppc-management) engineering, we connect your ad spend directly to verified M-Pesa and CRM revenue.'
       },
       {
         heading: '2. Capturing GCLID Through the WhatsApp & Checkout Funnel',
@@ -910,7 +910,7 @@ export function encryptPII(plaintext: string, encKey: Buffer, hmacKey: Buffer) {
     contentSections: [
       {
         heading: '1. Why "Maintenance Windows" Cost Modern Businesses Money',
-        body: 'E-commerce stores and fintech portals operate 24/7. Taking your platform offline for two hours to deploy a new feature or database column frustrates customers and interrupts automated webhooks.\n\nIn our [Cloud Web Hosting & Infrastructure](/services/web-hosting) and [4 to 8 Week Agile Sprint Roadmap](/roadmap), every production release deploys with zero downtime.'
+        body: 'E-commerce stores and fintech portals operate 24/7. Taking your platform offline for two hours to deploy a new feature or database column frustrates customers and interrupts automated webhooks.\n\nIn our [Cloud Web Hosting & Infrastructure](/services/website-maintenance) and [4 to 8 Week Agile Sprint Roadmap](/roadmap), every production release deploys with zero downtime.'
       },
       {
         heading: '2. Safe Lock Timeouts & Concurrent Indexing in PostgreSQL',

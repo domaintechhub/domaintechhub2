@@ -24,6 +24,7 @@ function addBaseUrl(pathname: string): string {
 
 export function normalizeServiceSlug(slug?: string): string | undefined {
   if (!slug) return undefined;
+  const clean = slug.toLowerCase().trim();
   const aliases: Record<string, string> = {
     'ecommerce-mpesa': 'ecommerce-development',
     ecommerce: 'ecommerce-development',
@@ -33,8 +34,15 @@ export function normalizeServiceSlug(slug?: string): string | undefined {
     crm: 'custom-crm-development',
     'branding-design': 'graphic-design-branding',
     branding: 'graphic-design-branding',
+    'sem-ppc': 'ppc-management',
+    sem: 'ppc-management',
+    ppc: 'ppc-management',
+    'google-ads': 'ppc-management',
+    'web-hosting': 'website-maintenance',
+    'cloud-hosting': 'website-maintenance',
+    hosting: 'website-maintenance',
   };
-  return aliases[slug] || slug;
+  return aliases[clean] || clean;
 }
 
 export function normalizeArticleSlug(slug?: string): string | undefined {

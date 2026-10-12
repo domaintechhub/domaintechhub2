@@ -5,6 +5,7 @@ import { SERVICES_LIST } from '../data/servicesData';
 import { INSIGHT_ARTICLES } from '../data/insightsData';
 import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { HIGH_PERFORMING_KEYWORDS, generateArticleJsonLd } from './keywordInjection';
+import { normalizeServiceSlug } from './routing';
 
 export interface PageSeoConfig {
   title: string;
@@ -124,7 +125,8 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
 
   services: (serviceId?: string) => {
     if (serviceId && serviceId !== 'all') {
-      const matched = SERVICES_LIST.find(s => s.id === serviceId);
+      const normalizedId = normalizeServiceSlug(serviceId) || serviceId;
+      const matched = SERVICES_LIST.find(s => s.id === normalizedId);
       if (matched) {
         const keywordMap = SERVICE_KEYWORD_MAP[matched.id];
         const canonicalPath = `/services/${matched.id}`;

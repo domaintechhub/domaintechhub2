@@ -15,6 +15,12 @@ https://domaintechhubs.com/* https://www.domaintechhubs.com/:splat 301!
 /services/crm /services/custom-crm-development 301!
 /services/branding-design /services/graphic-design-branding 301!
 /services/branding /services/graphic-design-branding 301!
+/services/sem-ppc /services/ppc-management 301!
+/services/sem /services/ppc-management 301!
+/services/ppc /services/ppc-management 301!
+/services/web-hosting /services/website-maintenance 301!
+/services/cloud-hosting /services/website-maintenance 301!
+/services/hosting /services/website-maintenance 301!
 /blog/:slug /insights/:slug 301!
 /calculator /tools/calculator 301!
 /audit /tools/audit 301!
