@@ -21,11 +21,19 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [currency]);
 
   const formatPrice = (usd: number, kes?: number): string => {
-    const effectiveKES = kes ?? Math.round(usd * 130);
+    // Safeguard in case (kes, usd) is passed inverted (since KES is always much higher than USD)
+    let actualUsd = usd;
+    let actualKes = kes;
+    if (kes !== undefined && kes > 0 && usd > kes) {
+      actualUsd = kes;
+      actualKes = usd;
+    }
+
+    const effectiveKES = actualKes ?? Math.round(actualUsd * 130);
     if (currency === 'KES') {
       return `KSh ${effectiveKES.toLocaleString()}`;
     }
-    return `$${usd.toLocaleString()}`;
+    return `$${actualUsd.toLocaleString()}`;
   };
 
   return (

@@ -419,7 +419,7 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
                     Transparent Estimate
                   </div>
                   <div className="text-base sm:text-lg font-extrabold font-mono text-slate-900 dark:text-white">
-                    {formatPrice(item.priceKES, item.priceUSD)}
+                    {formatPrice(item.priceUSD, item.priceKES)}
                   </div>
                 </div>
 

@@ -112,9 +112,9 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
             </div>
             <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-mono tracking-tight mb-1 group-hover:text-blue-300 transition-colors">
               {currency === 'KES' ? (
-                <AnimatedCounter value="280M+" prefix="KSh " duration={2.2} />
+                <AnimatedCounter key="kes-counter" value="280M+" prefix="KSh " duration={1.6} />
               ) : (
-                <AnimatedCounter value="2.1M+" prefix="$" duration={2.2} />
+                <AnimatedCounter key="usd-counter" value="2.1M+" prefix="$" duration={1.6} />
               )}
             </div>
             <div className="text-xs sm:text-sm font-bold text-slate-200 mb-1">
