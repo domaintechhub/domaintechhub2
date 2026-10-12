@@ -365,10 +365,10 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 
                 {/* Meeting Type Selection */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
+                  <div className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
                     1. Meeting Format
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5" role="group" aria-label="1. Meeting Format">
                     {[
                       { id: 'google_meet', label: 'Google Meet', icon: Video, desc: 'Virtual Video Call' },
                       { id: 'phone', label: 'Phone Call', icon: Phone, desc: 'Direct Cellular Line' },
@@ -408,6 +408,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                       <input
                         id="booking-date"
                         type="date"
+                        aria-label="2. Select Preferred Date"
                         required
                         value={selectedDate}
                         min={getTodayDateInputValue()}
@@ -418,10 +419,10 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                    <div className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                       3. Select Time Slot (East Africa Time)
-                    </label>
-                    <div className="grid grid-cols-3 gap-1.5">
+                    </div>
+                    <div className="grid grid-cols-3 gap-1.5" role="group" aria-label="3. Select Time Slot (East Africa Time)">
                       {timeSlots.map(slot => (
                         <button
                           key={slot}
@@ -444,11 +445,13 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 <div className="space-y-4 pt-2 border-t border-slate-800">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label htmlFor="booking-full-name" className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Your Full Name
                       </label>
                       <input
+                        id="booking-full-name"
                         type="text"
+                        aria-label="Your Full Name"
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
@@ -458,11 +461,13 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label htmlFor="booking-email" className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Business Email
                       </label>
                       <input
+                        id="booking-email"
                         type="email"
+                        aria-label="Business Email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -474,11 +479,13 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label htmlFor="booking-phone" className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Phone / WhatsApp Number
                       </label>
                       <input
+                        id="booking-phone"
                         type="tel"
+                        aria-label="Phone / WhatsApp Number"
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
@@ -488,11 +495,13 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                      <label htmlFor="booking-service" className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                         Primary Service of Interest
                       </label>
                       <input
+                        id="booking-service"
                         type="text"
+                        aria-label="Primary Service of Interest"
                         value={service}
                         onChange={(e) => setService(e.target.value)}
                         placeholder="e.g. E-Commerce & SEO"
@@ -502,10 +511,12 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                    <label htmlFor="booking-notes" className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
                       Project Goals & Requirements
                     </label>
                     <textarea
+                      id="booking-notes"
+                      aria-label="Project Goals & Requirements"
                       rows={3}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}

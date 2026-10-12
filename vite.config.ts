@@ -4,17 +4,15 @@ import { fileURLToPath } from 'url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
-import { parseAppRoute } from './src/utils/routing';
-import { injectSeoIntoHtml } from './scripts/prerender-pages';
-import type { PageRoute } from './src/App';
+import { parseAppRoute } from './src/utils/routing.ts';
+import { injectSeoIntoHtml } from './scripts/prerender-pages.ts';
+import type { PageRoute } from './src/App.tsx';
+
+process.env.VITE_CONFIG_NATIVE_IGNORE_WARNING = 'true';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
-const defaultBase = process.env.GITHUB_ACTIONS && repositoryName && !repositoryName.endsWith('.github.io')
-  ? `/${repositoryName}/`
-  : '/';
-const base = process.env.VITE_BASE_PATH || defaultBase;
+const base = process.env.VITE_BASE_PATH || '/';
 
 // Non-blocking CSS plugin: converts blocking stylesheet link into preload + onload swap during build
 function nonBlockingCssPlugin(): Plugin {

@@ -294,6 +294,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
                 <a
                   key={kw.slug}
                   href={kw.targetUrl}
+                  aria-label={`${kw.keyword} - ${kw.targetServiceTitle}`}
                   onClick={(e) => {
                     e.preventDefault();
                     onNavigatePath(kw.targetUrl);

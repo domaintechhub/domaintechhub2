@@ -211,7 +211,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     }
 
     return {
-      title: 'Web Development, M-Pesa, CRM & SEO Services Kenya | Domain Tech Hub',
+      title: 'Web Dev, M-Pesa, CRM & SEO Services Kenya | Domain Tech Hub',
       description: 'Explore 15 distinct engineering services in Nairobi, Kenya: custom websites, Safaricom Daraja 3.0 M-Pesa e-commerce, KRA eTIMS POS systems, custom CRM/ERP software, and technical SEO.',
       canonicalPath: '/services',
       jsonLd: {

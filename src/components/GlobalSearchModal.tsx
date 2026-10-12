@@ -717,7 +717,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   return (
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center pt-12 sm:pt-20 px-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-150"
-      onClick={onClose}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
     >
       <div 
         ref={modalContentRef}
@@ -725,7 +729,6 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         aria-modal="true"
         aria-label="Global Search and Quick Navigation"
         className="w-full max-w-3xl bg-white dark:bg-slate-950 rounded-3xl shadow-2xl border border-stone-200/90 dark:border-slate-800 overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-150"
-        onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar with Inline Ghost Autocomplete */}
         <div className="relative p-4 sm:p-5 border-b border-stone-200 dark:border-slate-800 flex items-center gap-3">
@@ -745,6 +748,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
             <input
               ref={inputRef}
               type="text"
+              aria-label="Search services, articles, and tools"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);

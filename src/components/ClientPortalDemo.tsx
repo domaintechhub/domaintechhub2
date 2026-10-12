@@ -637,11 +637,13 @@ export const ClientPortalDemo: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label htmlFor="portal-ticket-subject" className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Subject
                       </label>
                       <input
+                        id="portal-ticket-subject"
                         type="text"
+                        aria-label="Subject"
                         required
                         value={ticketSubject}
                         onChange={(e) => setTicketSubject(e.target.value)}
@@ -651,10 +653,12 @@ export const ClientPortalDemo: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
+                      <label htmlFor="portal-ticket-description" className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
                         Description / Details
                       </label>
                       <textarea
+                        id="portal-ticket-description"
+                        aria-label="Description / Details"
                         required
                         rows={3}
                         value={ticketDescription}

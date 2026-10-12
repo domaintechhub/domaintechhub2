@@ -287,6 +287,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
             <input
               ref={searchInputRef}
               type="text"
+              aria-label="Search leads by name, email, or phone"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search leads by name, email, phone..."
