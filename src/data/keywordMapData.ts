@@ -38,7 +38,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Custom Website Development',
     pillarCluster: 'Website & Mobile Development (Nairobi / Kenya)',
     primaryKeyword: 'website development in Nairobi Kenya',
-    seoTitle: 'Website Development in Nairobi, Kenya | Custom Web Design | Domain Tech Hub',
+    seoTitle: 'Website Development in Nairobi, Kenya | Domain Tech Hub',
     seoDescription:
       'Custom website development in Nairobi, Kenya. We engineer sub-second React & Next.js corporate websites, client portals, and lead systems from KSh 85,000.',
     h1Subheadline:
@@ -98,7 +98,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'E-Commerce Store Development & M-Pesa Integration',
     pillarCluster: 'E-Commerce, M-Pesa & KRA eTIMS POS',
     primaryKeyword: 'e-commerce website development & M-Pesa integration Kenya',
-    seoTitle: 'E-Commerce Website Development & M-Pesa Integration Kenya | Domain Tech Hub',
+    seoTitle: 'E-Commerce & M-Pesa Integration in Kenya | Domain Tech Hub',
     seoDescription:
       'Build high-converting online stores in Kenya with automated Safaricom Daraja 3.0 M-Pesa STK Push, Paybill/Till C2B webhooks, Visa/Mastercard, and inventory sync.',
     h1Subheadline:
@@ -158,7 +158,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Custom CRM & Business Systems',
     pillarCluster: 'Custom CRM, ERP & AI Software',
     primaryKeyword: 'custom CRM & ERP software development Nairobi Kenya',
-    seoTitle: 'Custom CRM & ERP Software Development in Nairobi, Kenya | Domain Tech Hub',
+    seoTitle: 'Custom CRM & ERP Software Development Kenya | Domain Tech Hub',
     seoDescription:
       'Bespoke CRM, ERP, and internal workflow software development in Nairobi, Kenya. Automate sales pipelines, multi-branch inventory, invoicing, and RBAC security.',
     h1Subheadline:
@@ -218,7 +218,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Search Engine Optimization (SEO)',
     pillarCluster: 'Technical SEO, PPC & Growth Marketing',
     primaryKeyword: 'SEO services in Nairobi Kenya & technical SEO agency',
-    seoTitle: 'SEO Services in Nairobi, Kenya | Technical SEO & Google Ranking | Domain Tech Hub',
+    seoTitle: 'Technical SEO Services in Nairobi, Kenya | Domain Tech Hub',
     seoDescription:
       'Data-driven SEO services in Nairobi, Kenya. Rank #1 on Google.co.ke & Bing with technical SEO audits, Core Web Vitals optimization, Local 3-Pack Maps, and schema.',
     h1Subheadline:
@@ -278,7 +278,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Point of Sale (POS) Systems & Hardware',
     pillarCluster: 'E-Commerce, M-Pesa & KRA eTIMS POS',
     primaryKeyword: 'Point of Sale POS system prices & KRA eTIMS hardware Kenya',
-    seoTitle: 'Point of Sale (POS) Systems & Hardware Prices Kenya (KRA eTIMS) | Domain Tech Hub',
+    seoTitle: 'POS Systems & KRA eTIMS Hardware Prices Kenya | Domain Tech Hub',
     seoDescription:
       'POS system prices in Kenya from KSh 500/mo cloud software to KSh 37,000–105,000 touchscreen hardware bundles, thermal printers, barcode scanners & KRA eTIMS.',
     h1Subheadline:
@@ -338,7 +338,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Mobile App Development',
     pillarCluster: 'Website & Mobile Development (Nairobi / Kenya)',
     primaryKeyword: 'mobile app development company in Nairobi Kenya',
-    seoTitle: 'Mobile App Development in Nairobi, Kenya (iOS & Android) | Domain Tech Hub',
+    seoTitle: 'Mobile App Development in Nairobi, Kenya | Domain Tech Hub',
     seoDescription:
       'Custom Android and iOS mobile app development in Nairobi, Kenya. React Native & Flutter apps with offline sync, M-Pesa payments, GPS tracking & Play Store launch.',
     h1Subheadline:
@@ -384,7 +384,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Modern Front-End Development',
     pillarCluster: 'Website & Mobile Development (Nairobi / Kenya)',
     primaryKeyword: 'React & Next.js front-end development studio Nairobi Kenya',
-    seoTitle: 'React & Next.js Front-End Development in Nairobi, Kenya | Domain Tech Hub',
+    seoTitle: 'React & Next.js Front-End Engineering Kenya | Domain Tech Hub',
     seoDescription:
       'Pixel-perfect Figma-to-React and Next.js front-end engineering in Nairobi, Kenya. WCAG AA accessible UI component libraries, design systems, and 100 Lighthouse speed.',
     h1Subheadline:
@@ -423,7 +423,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'CMS & WordPress Development',
     pillarCluster: 'Website & Mobile Development (Nairobi / Kenya)',
     primaryKeyword: 'WordPress & Headless CMS development in Nairobi Kenya',
-    seoTitle: 'WordPress & Headless CMS Website Development in Kenya | Domain Tech Hub',
+    seoTitle: 'WordPress & Headless CMS Development Kenya | Domain Tech Hub',
     seoDescription:
       'Custom WordPress, Strapi, and Sanity Headless CMS development in Nairobi, Kenya. Fast, secure editorial websites for NGOs, media portals, and corporate teams.',
     h1Subheadline:
@@ -462,7 +462,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'WhatsApp Marketing & Automation',
     pillarCluster: 'Technical SEO, PPC & Growth Marketing',
     primaryKeyword: 'WhatsApp Business API & chatbot automation in Kenya',
-    seoTitle: 'WhatsApp Business API & Chatbot Automation in Kenya | Domain Tech Hub',
+    seoTitle: 'WhatsApp Business API & Chatbots in Kenya | Domain Tech Hub',
     seoDescription:
       'Official Meta WhatsApp Business Cloud API integration, 24/7 lead capture chatbots, multi-agent support inboxes, and automated order alerts in Nairobi, Kenya.',
     h1Subheadline:
@@ -501,7 +501,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'PPC Management (Google Ads)',
     pillarCluster: 'Technical SEO, PPC & Growth Marketing',
     primaryKeyword: 'Google Ads & PPC management agency in Nairobi Kenya',
-    seoTitle: 'Google Ads & PPC Management Agency in Nairobi, Kenya | Domain Tech Hub',
+    seoTitle: 'Google Ads & PPC Management Nairobi, Kenya | Domain Tech Hub',
     seoDescription:
       'High-ROI Google Search, Display, and Performance Max PPC management in Nairobi, Kenya. Capture ready-to-buy leads with conversion tracking and low CPA.',
     h1Subheadline:
@@ -540,7 +540,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Result-Driven Digital Marketing',
     pillarCluster: 'Technical SEO, PPC & Growth Marketing',
     primaryKeyword: 'digital marketing & lead generation agency in Nairobi Kenya',
-    seoTitle: 'Digital Marketing & Lead Generation Agency in Nairobi, Kenya | Domain Tech Hub',
+    seoTitle: 'Digital Marketing & Lead Gen Agency Nairobi | Domain Tech Hub',
     seoDescription:
       'Full-funnel digital marketing agency in Nairobi, Kenya. Multi-channel Meta, LinkedIn, and Google lead generation funnels, CRO landing pages, and CRM attribution.',
     h1Subheadline:
@@ -579,7 +579,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'AI-Powered Business Solutions',
     pillarCluster: 'Custom CRM, ERP & AI Software',
     primaryKeyword: 'AI software development & business automation in Nairobi Kenya',
-    seoTitle: 'AI Software Development & Business Automation in Nairobi, Kenya | Domain Tech Hub',
+    seoTitle: 'AI Software & Business Automation Nairobi | Domain Tech Hub',
     seoDescription:
       'Custom AI software development in Nairobi, Kenya. We build RAG company knowledge chatbots, automated invoice/PDF data extraction, and AI workflow automation.',
     h1Subheadline:
@@ -618,7 +618,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Website Maintenance & Security',
     pillarCluster: 'Website & Mobile Development (Nairobi / Kenya)',
     primaryKeyword: 'website maintenance & security support services Kenya',
-    seoTitle: 'Website Maintenance, Security & SLA Support in Kenya | Domain Tech Hub',
+    seoTitle: 'Website Maintenance & Security SLA Kenya | Domain Tech Hub',
     seoDescription:
       '24/7 website maintenance, security patching, daily cloud backups, SSL monitoring, and priority developer SLA retainers for businesses in Nairobi and Kenya.',
     h1Subheadline:
@@ -657,7 +657,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Web & Digital Consultancy',
     pillarCluster: 'Custom CRM, ERP & AI Software',
     primaryKeyword: 'software architecture & digital transformation consultancy Kenya',
-    seoTitle: 'Software Architecture & Digital Transformation Consultancy Kenya | Domain Tech Hub',
+    seoTitle: 'Software Architecture & IT Consultancy Kenya | Domain Tech Hub',
     seoDescription:
       'Senior software architecture audits, cloud cost optimization, vendor evaluation, and digital transformation roadmaps for organizations in Nairobi, Kenya.',
     h1Subheadline:
@@ -696,7 +696,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Graphic Design & Corporate Branding',
     pillarCluster: 'Website & Mobile Development (Nairobi / Kenya)',
     primaryKeyword: 'corporate branding & graphic design studio in Nairobi Kenya',
-    seoTitle: 'Corporate Branding, Logo & Company Profile Design in Nairobi | Domain Tech Hub',
+    seoTitle: 'Corporate Branding & Logo Design Nairobi | Domain Tech Hub',
     seoDescription:
       'Corporate branding and graphic design studio in Nairobi, Kenya. Vector logos, 20+ page brand guideline books, company profiles, pitch decks & stationery.',
     h1Subheadline:
@@ -735,7 +735,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     serviceName: 'Social Media Marketing & Management',
     pillarCluster: 'Technical SEO, PPC & Growth Marketing',
     primaryKeyword: 'social media management & content marketing agency Nairobi',
-    seoTitle: 'Social Media Marketing & Management Agency in Nairobi, Kenya | Domain Tech Hub',
+    seoTitle: 'Social Media Marketing Agency in Nairobi | Domain Tech Hub',
     seoDescription:
       'Strategic social media management in Nairobi, Kenya. Monthly content calendars, branded graphics, short-form reels, and community growth across Instagram, LinkedIn & TikTok.',
     h1Subheadline:

@@ -17,6 +17,39 @@ export interface PageSeoConfig {
   jsonLd: Record<string, any>;
 }
 
+const ARTICLE_SEO_TITLES: Record<string, string> = {
+  'how-to-generate-an-etims-invoice': 'How to Generate a KRA eTIMS Invoice in Kenya | Domain Tech Hub',
+  'zero-loss-mpesa-stk-push-architecture': 'Zero-Loss M-Pesa Daraja 3.0 STK Push Guide | Domain Tech Hub',
+  'headless-nextjs-vs-wordpress-kenya': 'Headless Next.js vs WordPress in Kenya | Domain Tech Hub',
+  'local-seo-core-web-vitals-nairobi-kenya': 'Local Technical SEO & Core Web Vitals Nairobi | Domain Tech Hub',
+  'whatsapp-cloud-api-sales-automation': 'WhatsApp Cloud API Sales Bots in Kenya | Domain Tech Hub',
+  'bespoke-crm-vs-spreadsheets-kenya': 'Custom Cloud CRM vs Excel for Kenyan SMEs | Domain Tech Hub',
+  'cybersecurity-ecommerce-kenya-fraud-prevention': 'E-Commerce Payment Fraud Prevention Kenya | Domain Tech Hub',
+  'website-design-in-kenya-business-guide-2026': 'Website Design in Kenya: 2026 Business Guide | Domain Tech Hub',
+  'pos-system-prices-kenya-kra-etims-guide': 'POS System Prices & KRA eTIMS Guide Kenya | Domain Tech Hub',
+  'automating-b2c-bulk-payouts-safaricom-daraja': 'Automating M-Pesa B2C Payouts on Daraja 3.0 | Domain Tech Hub',
+  'multi-currency-checkout-kes-usd-safari-export-kenya': 'Multi-Currency Checkouts (KES & USD) Kenya | Domain Tech Hub',
+  'private-ai-rag-agents-kenyan-enterprises': 'Private AI RAG Knowledge Agents in Kenya | Domain Tech Hub',
+  'automated-invoice-ocr-lpo-matching-erp-kenya': 'AI Invoice OCR & LPO Matching for Kenyan ERPs | Domain Tech Hub',
+  'offline-first-pwa-field-sales-agriculture-kenya': 'Offline-First PWAs for Field Sales in Kenya | Domain Tech Hub',
+  'modular-monoliths-vs-microservices-african-startups': 'Modular Monoliths vs Microservices in Africa | Domain Tech Hub',
+  'automated-property-management-tenant-billing-portals-kenya': 'Property Management & Billing Portals Nairobi | Domain Tech Hub',
+  'answer-engine-optimization-aeo-geo-kenya-guide': 'Answer Engine Optimization (AEO) Guide Kenya | Domain Tech Hub',
+  'server-side-google-ads-conversion-tracking-whatsapp-mpesa': 'Server-Side Google Ads Tracking for M-Pesa | Domain Tech Hub',
+  'odpc-kenya-data-protection-act-technical-compliance': 'Kenya Data Protection Act (ODPC) Compliance | Domain Tech Hub',
+  'zero-downtime-postgresql-migrations-disaster-recovery': 'Zero-Downtime PostgreSQL Migrations & DR | Domain Tech Hub',
+};
+
+function enforceMaxTitleLength(rawTitle: string, maxChars = 68): string {
+  if (rawTitle.length <= maxChars) return rawTitle;
+  const suffix = ' | Domain Tech Hub';
+  if (rawTitle.endsWith(suffix)) {
+    const baseMax = maxChars - suffix.length - 1;
+    return `${rawTitle.slice(0, baseMax).trim()}…${suffix}`;
+  }
+  return `${rawTitle.slice(0, maxChars - 1).trim()}…`;
+}
+
 export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> = {
   home: () => ({
     title: 'Domain Tech Hub – Nairobi Web Engineering & Digital Agency',
@@ -96,9 +129,11 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
         const keywordMap = SERVICE_KEYWORD_MAP[matched.id];
         const canonicalPath = `/services/${matched.id}`;
         const pageUrl = `${SITE_URL}${canonicalPath}`;
-        const title = keywordMap
-          ? keywordMap.seoTitle
-          : `${matched.title} in Nairobi, Kenya | Pricing & Deliverables | Domain Tech Hub`;
+        const title = enforceMaxTitleLength(
+          keywordMap
+            ? keywordMap.seoTitle
+            : `${matched.title} Kenya | Domain Tech Hub`
+        );
         const description = keywordMap ? keywordMap.seoDescription : matched.shortDesc;
 
         const areaServedEntities = [
@@ -176,7 +211,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     }
 
     return {
-      title: 'Web Development, M-Pesa E-Commerce, CRM & SEO Services in Nairobi, Kenya | Domain Tech Hub',
+      title: 'Web Development, M-Pesa, CRM & SEO Services Kenya | Domain Tech Hub',
       description: 'Explore 15 distinct engineering services in Nairobi, Kenya: custom websites, Safaricom Daraja 3.0 M-Pesa e-commerce, KRA eTIMS POS systems, custom CRM/ERP software, and technical SEO.',
       canonicalPath: '/services',
       jsonLd: {
@@ -314,10 +349,14 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
         const fullImage = matchedArticle.coverImage.startsWith('http')
           ? matchedArticle.coverImage
           : `${SITE_URL}${matchedArticle.coverImage}`;
+        const seoTitle = enforceMaxTitleLength(
+          ARTICLE_SEO_TITLES[matchedArticle.slug] ||
+            `${matchedArticle.title} | Domain Tech Hub`
+        );
         return {
-          title: `${matchedArticle.title} | Domain Tech Hub`,
+          title: seoTitle,
           description: matchedArticle.excerpt,
-          ogTitle: matchedArticle.title,
+          ogTitle: seoTitle,
           ogDescription: matchedArticle.excerpt,
           ogImage: fullImage,
           ogType: 'article',
@@ -328,7 +367,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     }
 
     return {
-      title: 'Website Development & Technical SEO Insights Kenya | Domain Tech Hub',
+      title: 'Web Development & Technical SEO Insights Kenya | Domain Tech Hub',
       description: 'Deep-dive architectural guides on website development in Kenya, Safaricom Daraja M-Pesa checkouts, and professional website engineering for growing brands.',
       canonicalPath: '/insights',
       jsonLd: {
@@ -361,7 +400,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   }),
 
   roadmap: () => ({
-    title: '4 to 8 Week Agile Sprint Roadmap & Delivery Timeline | Domain Tech Hub',
+    title: '4–8 Week Agile Sprint Roadmap & Delivery | Domain Tech Hub',
     description: 'Explore our predictable 5-stage sprint engineering methodology: Discovery, UI/UX Design Tokens, Fullstack Development, UAT, and Cloud Production Launch.',
     canonicalPath: '/roadmap',
     jsonLd: {
@@ -413,7 +452,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
 
   more: (subTab?: string) => ({
     title: subTab === 'team'
-      ? 'Senior Engineering Team & Technical Leadership | Domain Tech Hub'
+      ? 'Senior Engineering Team & Architects | Domain Tech Hub'
       : subTab === 'tech-stack'
       ? 'Modern Tech Stack & Architecture | Domain Tech Hub'
       : subTab === 'blog'

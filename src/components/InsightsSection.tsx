@@ -16,6 +16,7 @@ import {
   injectSemanticKeywords, 
   generateArticleJsonLd 
 } from '../utils/keywordInjection';
+import { PAGE_SEO_DATA } from '../utils/seo';
 
 interface InsightsSectionProps {
   onScheduleConsultation?: (topic: string) => void;
@@ -251,7 +252,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
       const originalTitle = document.title;
       const mappedKws = getKeywordsForArticle(selectedArticle.id).map(k => k.keyword).join(', ');
-      document.title = `${selectedArticle.title} | Domain Tech Hub Insights`;
+      document.title = PAGE_SEO_DATA.insights(selectedArticle.slug).title;
 
       let metaKeywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement | null;
       if (!metaKeywords) {
