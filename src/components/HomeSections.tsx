@@ -1,10 +1,12 @@
 import React from 'react';
+import { WhatWeBuildSection } from './WhatWeBuildSection';
 import { StatsSection } from './StatsSection';
 import { CostCalculator } from './CostCalculator';
 import { Testimonials } from './Testimonials';
 import { InsightsSection } from './InsightsSection';
 import { FaqSection } from './FaqSection';
 import { BookingSection } from './BookingSection';
+import { BuildLayerKey } from './Hero';
 
 interface HomeSectionsProps {
   calculatorServiceId: string;
@@ -20,6 +22,8 @@ interface HomeSectionsProps {
   onBookSimilarProject: (projectTitle: string) => void;
   onScheduleConsultation: (topic: string) => void;
   onNavigatePath: (url: string) => void;
+  activeBuildLayer?: BuildLayerKey;
+  onSelectBuildLayer?: (layer: BuildLayerKey) => void;
 }
 
 export const HomeSections: React.FC<HomeSectionsProps> = ({
@@ -27,11 +31,21 @@ export const HomeSections: React.FC<HomeSectionsProps> = ({
   prefilledService,
   prefilledNotes,
   onNavigate,
+  onSelectForQuote,
   onProceedToBooking,
   onScheduleConsultation,
   onNavigatePath,
+  activeBuildLayer = 'build',
+  onSelectBuildLayer,
 }) => (
   <>
+    {/* Block 2: WHAT WE BUILD - Pinned Layers (01 Build, 02 Sell, 03 Grow, 04 Run) */}
+    <WhatWeBuildSection
+      activeLayer={activeBuildLayer}
+      onSelectLayer={onSelectBuildLayer}
+      onNavigate={onNavigate}
+      onSelectForQuote={onSelectForQuote}
+    />
     <StatsSection
       onNavigateToCaseStudies={() => onNavigate('portfolio')}
       onNavigateToBooking={() => onNavigate('contact')}

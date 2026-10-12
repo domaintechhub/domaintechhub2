@@ -9,7 +9,7 @@ import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { PageHeader } from './components/PageHeader';
-import { Hero } from './components/Hero';
+import { Hero, BuildLayerKey } from './components/Hero';
 import type { SprintTimeline } from './components/ProjectRoadmap';
 import type { MoreTab } from './components/MorePage';
 import type { ToolTab } from './components/ToolsPage';
@@ -56,6 +56,7 @@ export default function App() {
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
+  const [activeBuildLayer, setActiveBuildLayer] = useState<BuildLayerKey>('build');
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
 
   useEffect(() => {
@@ -318,12 +319,15 @@ export default function App() {
                 <Hero 
                   onNavigate={navigateTo} 
                   onSelectCalculatorService={setCalculatorServiceId}
+                  onSelectBuildLayer={setActiveBuildLayer}
                 />
                 <Suspense fallback={null}>
                   <HomeSections
                     calculatorServiceId={calculatorServiceId}
                     prefilledService={prefilledService}
                     prefilledNotes={prefilledNotes}
+                    activeBuildLayer={activeBuildLayer}
+                    onSelectBuildLayer={setActiveBuildLayer}
                     onNavigate={navigateTo}
                     onSelectForQuote={handleSelectForQuote}
                     onBookService={handleBookService}
