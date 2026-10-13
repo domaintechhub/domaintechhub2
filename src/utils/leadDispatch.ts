@@ -3,7 +3,7 @@ import { AGENCY_INFO } from '../data/portfolioData';
 
 export interface LeadRecord {
   id: string;
-  source: 'booking' | 'calculator' | 'audit' | 'domain' | 'ticket' | 'quick_contact';
+  source: 'booking' | 'calculator' | 'audit' | 'domain' | 'ticket' | 'quick_contact' | 'first_visit_offer';
   sourceTitle: string;
   fullName: string;
   email: string;

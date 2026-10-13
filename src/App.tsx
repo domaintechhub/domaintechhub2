@@ -42,6 +42,7 @@ const FaqSection = lazy(() => import('./components/FaqSection').then(({ FaqSecti
 const BookingSection = lazy(() => import('./components/BookingSection').then(({ BookingSection }) => ({ default: BookingSection })));
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
+const FirstVisitModal = lazy(() => import('./components/FirstVisitModal').then(({ FirstVisitModal }) => ({ default: FirstVisitModal })));
 
 export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about' | 'not-found';
 
@@ -58,9 +59,37 @@ export default function App() {
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
   const [activeBuildLayer, setActiveBuildLayer] = useState<BuildLayerKey>('build');
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
+  const [isFirstVisitModalOpen, setIsFirstVisitModalOpen] = useState(false);
 
   useEffect(() => {
     discardPersistedLeadData();
+  }, []);
+
+  // First-time visitor trigger: hit by the structured offer popup immediately after first scroll
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Check if user has already seen or dismissed the first-scroll welcome popup in this session/browser
+    const hasSeenModal = sessionStorage.getItem('dth_has_seen_first_scroll_modal') === 'true' ||
+                          localStorage.getItem('dth_first_visit_popup_dismissed') === 'true';
+    if (hasSeenModal) return;
+
+    let triggered = false;
+    const handleFirstScroll = () => {
+      if (triggered) return;
+      // Triggers just after the visitor's first scroll gesture (> 30px)
+      if (window.scrollY > 30) {
+        triggered = true;
+        setIsFirstVisitModalOpen(true);
+        sessionStorage.setItem('dth_has_seen_first_scroll_modal', 'true');
+        window.removeEventListener('scroll', handleFirstScroll);
+      }
+    };
+
+    window.addEventListener('scroll', handleFirstScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleFirstScroll);
+    };
   }, []);
 
   // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
@@ -695,6 +724,29 @@ export default function App() {
               <LeadInboxModal
                 isOpen
                 onClose={() => setIsLeadInboxOpen(false)}
+              />
+            </Suspense>
+          )}
+
+          {/* First-Visit First-Scroll Welcome Offer Modal */}
+          {isFirstVisitModalOpen && (
+            <Suspense fallback={null}>
+              <FirstVisitModal
+                isOpen={isFirstVisitModalOpen}
+                onClose={() => {
+                  setIsFirstVisitModalOpen(false);
+                  try {
+                    localStorage.setItem('dth_first_visit_popup_dismissed', 'true');
+                  } catch {}
+                }}
+                onNavigateToQuote={() => {
+                  setIsFirstVisitModalOpen(false);
+                  navigateTo('calculator');
+                }}
+                onNavigateToBooking={() => {
+                  setIsFirstVisitModalOpen(false);
+                  navigateTo('contact');
+                }}
               />
             </Suspense>
           )}
