@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth light" data-theme="light">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LQZR6RG0NQ"></script>
@@ -50,8 +50,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Domain Tech Hub" />
     <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#0d9488" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf8f5" />
 
     <!-- Icons & Favicons -->
     <link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
@@ -361,8 +360,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: #020617;
-        color: #f8fafc;
+        background-color: #faf8f5;
+        color: #0f172a;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         z-index: 999999;
         text-align: center;
@@ -384,7 +383,7 @@
         position: absolute;
         width: 260px;
         height: 260px;
-        background: radial-gradient(circle, rgba(166, 238, 53, 0.24) 0%, rgba(13, 148, 136, 0.14) 45%, transparent 70%);
+        background: radial-gradient(circle, rgba(166, 238, 53, 0.16) 0%, rgba(13, 148, 136, 0.10) 45%, transparent 70%);
         border-radius: 50%;
         filter: blur(36px);
         animation: dth-pulse-glow 2.4s ease-in-out infinite alternate;
@@ -394,21 +393,21 @@
         position: relative;
         width: 96px;
         height: 96px;
-        background: rgba(15, 23, 42, 0.94);
-        border: 1px solid rgba(51, 65, 85, 0.7);
+        background: #ffffff;
+        border: 1px solid rgba(226, 232, 240, 0.9);
         border-radius: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 12px;
-        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.75), 0 0 28px -4px rgba(166, 238, 53, 0.28);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 0 20px -4px rgba(13, 148, 136, 0.15);
         margin-bottom: 20px;
       }
       .dth-preloader-emblem-ring {
         position: absolute;
         inset: -3px;
         border-radius: 27px;
-        background: linear-gradient(135deg, rgba(166, 238, 53, 0.45), rgba(45, 212, 191, 0.25), rgba(56, 189, 248, 0.3));
+        background: linear-gradient(135deg, rgba(166, 238, 53, 0.35), rgba(45, 212, 191, 0.20), rgba(56, 189, 248, 0.25));
         opacity: 0.6;
         filter: blur(6px);
         animation: dth-ring-pulse 2.2s ease-in-out infinite alternate;
@@ -451,30 +450,30 @@
         font-weight: 800;
         letter-spacing: 0.06em;
         margin-bottom: 6px;
-        color: #ffffff;
+        color: #0f172a;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 6px;
       }
-      .dth-preloader-title span.teal { color: #2dd4bf; }
-      .dth-preloader-title span.lime { color: #a3e635; }
+      .dth-preloader-title span.teal { color: #0d9488; }
+      .dth-preloader-title span.lime { color: #84cc16; }
       .dth-preloader-sub {
         font-size: 11px;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: #94a3b8;
+        color: #64748b;
         margin-bottom: 20px;
       }
       .dth-preloader-track {
         width: 210px;
         height: 3px;
-        background: rgba(30, 41, 59, 0.9);
+        background: rgba(226, 232, 240, 0.9);
         border-radius: 9999px;
         overflow: hidden;
         position: relative;
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
       }
       .dth-preloader-bar {
         position: absolute;
@@ -491,7 +490,7 @@
       }
     </style>
   </head>
-  <body class="bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-teal-500/20 selection:text-teal-800 min-h-screen">
+  <body class="bg-[#faf8f5] text-slate-900 font-sans antialiased selection:bg-teal-500/20 selection:text-teal-800 min-h-screen">
     <!-- Instant Zero-Delay Preloader (Renders immediately before JS bundle loads) -->
     <div id="dth-preloader" aria-live="polite" aria-label="Loading Domain Tech Hub website">
       <div class="dth-preloader-glow"></div>

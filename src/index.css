@@ -29,10 +29,6 @@ main > .animate-in > section:not(#hero) {
     color-scheme: light;
   }
 
-  html.dark {
-    color-scheme: dark;
-  }
-  
   code, pre, .font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
   }
@@ -40,11 +36,6 @@ main > .animate-in > section:not(#hero) {
   body {
     background-color: #faf8f5;
     color: #0f172a;
-  }
-
-  html.dark body {
-    background-color: #020617;
-    color: #f8fafc;
   }
 }
 
@@ -73,16 +64,6 @@ main > .animate-in > section:not(#hero) {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
-}
-
-html.dark ::-webkit-scrollbar-track {
-  background: #090d16;
-}
-html.dark ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-}
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
 }
 
 /* ==========================================================================

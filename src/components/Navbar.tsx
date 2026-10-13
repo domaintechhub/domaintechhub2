@@ -3,12 +3,11 @@ import {
   ChevronDown, Globe, Layout, ShoppingCart, Search, Database, 
   Cpu, MessageSquare, Calculator, Gauge, Server, FolderGit2, 
   HelpCircle, ArrowRight, ArrowUpRight, Menu, X, BookOpen,
-  PhoneCall, ShieldCheck, Languages, Sun, Moon, SlidersHorizontal,
+  PhoneCall, ShieldCheck, Languages, SlidersHorizontal,
   Check, Layers, Award, Users, Rocket
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage, Language } from '../context/LanguageContext';
-import { useTheme } from '../context/ThemeContext';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { Logo } from './Logo';
 
@@ -31,7 +30,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
 
   const { currency, setCurrency } = useCurrency();
   const { language, setLanguage, t, languageOptions } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
 
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const toolsDropdownRef = useRef<HTMLDivElement>(null);
@@ -804,7 +802,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                   {t('menu.preferences')}
                 </div>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {/* Language */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
@@ -864,42 +862,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                           {curr}
                         </button>
                       ))}
-                    </div>
-                  </div>
-
-                  {/* Theme */}
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-mono text-slate-500 flex items-center gap-1">
-                      <Sun className="w-3 h-3 text-amber-500" aria-hidden="true" />
-                      <span>{t('menu.theme')}</span>
-                    </span>
-                    <div className="grid grid-cols-2 gap-1 font-mono text-xs">
-                      <button
-                        type="button"
-                        aria-pressed={theme === 'light'}
-                        onClick={() => theme !== 'light' && toggleTheme()}
-                        className={`py-1.5 rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer ${
-                          theme === 'light' 
-                            ? 'bg-teal-50 text-teal-700 font-bold border border-teal-200' 
-                            : 'text-slate-600 bg-white dark:bg-slate-950 border border-stone-200 dark:border-slate-800'
-                        }`}
-                      >
-                        <Sun className="w-3 h-3 text-amber-500" aria-hidden="true" />
-                        <span>Light</span>
-                      </button>
-                      <button
-                        type="button"
-                        aria-pressed={theme === 'dark'}
-                        onClick={() => theme !== 'dark' && toggleTheme()}
-                        className={`py-1.5 rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer ${
-                          theme === 'dark' 
-                            ? 'bg-teal-950 text-teal-300 font-bold border border-teal-800' 
-                            : 'text-slate-600 bg-white dark:bg-slate-950 border border-stone-200 dark:border-slate-800'
-                        }`}
-                      >
-                        <Moon className="w-3 h-3 text-slate-400" aria-hidden="true" />
-                        <span>Dark</span>
-                      </button>
                     </div>
                   </div>
                 </div>
