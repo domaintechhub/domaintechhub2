@@ -220,7 +220,7 @@ export const ClientPortalDemo: React.FC = () => {
                 Sprint Velocity: <strong className="text-cyan-400 font-semibold">Stage 3 of 5 (85%)</strong>
               </span>
               <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
                 SLA: ACTIVE (24/7 SQUAD)
               </span>
             </div>
@@ -314,8 +314,8 @@ export const ClientPortalDemo: React.FC = () => {
                             <Check className="w-5 h-5 stroke-[2.5]" />
                           ) : isInProgress ? (
                             <div className="relative flex items-center justify-center">
-                              {getStageIcon(stage.id, 'w-5 h-5 text-cyan-400 animate-pulse')}
-                              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                              {getStageIcon(stage.id, 'w-5 h-5 text-cyan-400')}
+                              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyan-400" />
                             </div>
                           ) : (
                             <span className="font-mono text-xs font-bold">{`0${stage.stepNumber}`}</span>

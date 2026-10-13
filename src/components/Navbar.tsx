@@ -935,7 +935,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
       {langToast && (
         <div className="fixed top-20 right-4 sm:right-8 z-[70] animate-in fade-in slide-in-from-top-3 duration-200 pointer-events-none">
           <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-900/95 text-white border border-teal-500/50 shadow-2xl backdrop-blur-xl text-xs font-mono">
-            <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-ping" />
+            <div className="w-2.5 h-2.5 rounded-full bg-teal-400" />
             <span className="font-semibold text-teal-300">{langToast}</span>
           </div>
         </div>

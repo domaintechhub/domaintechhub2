@@ -325,7 +325,7 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
               >
                 {/* Active Indicator Pin */}
                 {isActive && (
-                  <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-400 animate-pulse" />
+                  <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-400" />
                 )}
 
                 <div className="font-mono text-xs font-bold text-teal-700 dark:text-teal-400 mb-1">

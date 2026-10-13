@@ -223,10 +223,8 @@ export const Hero: React.FC<HeroProps> = ({
               transition={{ type: 'spring', stiffness: 260, damping: 20, delay: welcomeSkipped ? 0 : 0.6 }}
               className="inline-flex items-center gap-2.5 px-3 py-1.5 mb-5 rounded-md bg-stone-200/60 dark:bg-slate-900/80 border border-stone-300/80 dark:border-slate-800 text-xs sm:text-sm font-mono lowercase tracking-wide text-slate-800 dark:text-slate-300"
             >
-              {/* Pulsing live dot (spring loop) */}
-              <motion.span 
-                animate={isReducedMotion ? {} : { scale: [1, 1.45, 1], opacity: [0.8, 1, 0.8] }}
-                transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+              {/* Clean static live dot */}
+              <span 
                 className="w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-400 shrink-0"
                 aria-hidden="true"
               />
@@ -399,7 +397,7 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="flex items-center justify-between border-b border-stone-200 dark:border-slate-800 pb-2 mb-2 text-xs text-slate-500 dark:text-slate-400">
                 <span className="font-bold text-teal-600 dark:text-teal-400">[ 01 / DARAJA 3.0 ]</span>
                 <span className="inline-flex items-center gap-1.5 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   STK ENGINE LIVE
                 </span>
               </div>

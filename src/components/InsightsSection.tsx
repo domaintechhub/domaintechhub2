@@ -528,7 +528,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
         <div className="mb-8 p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border border-slate-800/80">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-teal-400" />
               <span className="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
                 Google Indexing Clusters · High-Intent Search Entities
               </span>

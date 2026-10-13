@@ -247,7 +247,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
           {isAnalyzing && (
             <div className="mt-8 pt-6 border-t border-slate-800">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+                <div className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
                 <span className="text-xs font-mono text-cyan-300">
                   {analysisStep}
                 </span>

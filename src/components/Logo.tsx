@@ -356,12 +356,6 @@ export const Logo: React.FC<LogoProps> = ({
               }`}>
                 DOMAINTECHHUB
               </span>
-
-              {/* Online indicator ping */}
-              <span className="relative flex h-2 w-2 shrink-0" title="Engineers Available Online">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500" />
-              </span>
             </div>
             
             {showTagline && (

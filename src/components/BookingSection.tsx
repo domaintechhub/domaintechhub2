@@ -255,13 +255,8 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
                 >
                   {/* Subtle Checkmark Overlay Animation */}
                   <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-                    {/* Pulsing ambient glow rings */}
-                    <motion.div
-                      initial={{ scale: 0.8, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.45, 1], opacity: [0.6, 0, 0.6] }}
-                      transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
-                      className="absolute inset-0 rounded-full bg-emerald-500/25 blur-md pointer-events-none"
-                    />
+                    {/* Clean decorative ring */}
+                    <div className="absolute inset-0 rounded-full border border-emerald-500/30 pointer-events-none" />
                     
                     {/* Secondary decorative ring */}
                     <motion.div
@@ -585,7 +580,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
             <div className="flex-1 pr-1">
               <div className="flex items-center gap-1.5">
                 <span className="text-xs font-bold text-white">Request draft prepared</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               </div>
               <p className="text-[11px] text-slate-300 leading-tight mt-0.5">
                 Send the message in your email or WhatsApp app; the appointment is not booked until confirmed by our team.
