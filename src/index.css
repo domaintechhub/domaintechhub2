@@ -50,6 +50,14 @@ main > .animate-in > section:not(#hero) {
   clip-path: polygon(14px 0%, calc(100% - 14px) 0%, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0% calc(100% - 14px), 0% 14px);
 }
 
+/* Modal & Dialog Backdrop Scrims - Preserves semi-transparent dark tint and soft blur so the underlying homepage is fully visible */
+html:not(.dark) .modal-backdrop-scrim,
+.modal-backdrop-scrim {
+  background-color: rgba(15, 23, 42, 0.55) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

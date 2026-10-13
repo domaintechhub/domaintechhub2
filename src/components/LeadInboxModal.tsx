@@ -141,7 +141,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
   // Contact options only; this static demo has no authenticated lead inbox.
   if (!isUnlocked) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop-scrim animate-in fade-in duration-200">
         <div 
           ref={dialogRef}
           className="w-full max-w-md bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 sm:p-8 text-slate-900 dark:text-slate-100 relative"
@@ -201,7 +201,7 @@ export const LeadInboxModal: React.FC<LeadInboxModalProps> = ({ isOpen, onClose 
 
   // Contact options only; this static demo has no authenticated lead inbox.
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop-scrim animate-in fade-in duration-200">
       <div 
         ref={dialogRef}
         className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-100"

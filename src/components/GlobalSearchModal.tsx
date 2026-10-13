@@ -716,7 +716,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-12 sm:pt-20 px-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-150"
+      className="fixed inset-0 z-[100] flex items-start justify-center pt-12 sm:pt-20 px-4 modal-backdrop-scrim animate-in fade-in duration-150"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
