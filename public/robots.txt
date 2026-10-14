@@ -10,3 +10,4 @@ Disallow: /admin/
 Disallow: /private/
 
 Sitemap: https://www.domaintechhubs.com/sitemap.xml
+Sitemap: https://www.domaintechhubs.com/sitemap_index.xml

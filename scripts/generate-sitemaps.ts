@@ -85,7 +85,25 @@ ${articleUrls}
 `;
 }
 
+export function generateSitemapIndexXml(): string {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${BASE_URL}/sitemap.xml</loc>
+    <lastmod>${CURRENT_DATE}</lastmod>
+  </sitemap>
+</sitemapindex>
+`;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateMasterSitemapXml(), 'utf-8');
-  console.log('Successfully generated sitemap.xml with real HTML pages.');
+  fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), generateSitemapIndexXml(), 'utf-8');
+  const allUrls = [
+    ...CORE_PAGES.map(p => p.path ? `${BASE_URL}/${p.path}` : `${BASE_URL}/`),
+    ...SERVICES.map(s => `${BASE_URL}/${s.path}`),
+    ...ARTICLES.map(a => `${BASE_URL}/${a.path}`)
+  ].join('\n');
+  fs.writeFileSync(path.join(publicDir, 'sitemap.txt'), allUrls, 'utf-8');
+  console.log('Successfully generated sitemap.xml, sitemap_index.xml, and sitemap.txt with real HTML pages.');
 }

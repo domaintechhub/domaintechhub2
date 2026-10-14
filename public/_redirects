@@ -25,3 +25,8 @@ https://domaintechhubs.com/* https://www.domaintechhubs.com/:splat 301!
 /calculator /tools/calculator 301!
 /audit /tools/audit 301!
 /domains /tools/domains 301!
+
+# Sitemap aliases
+/sitemap /sitemap.xml 200
+/sitemaps.xml /sitemap.xml 200
+/sitemap-index.xml /sitemap_index.xml 200

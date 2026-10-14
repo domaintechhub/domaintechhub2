@@ -356,6 +356,7 @@ export function runCrawler() {
   const sitemapNames = [];
   if (uniqueEntries.length <= 500) {
     fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateMasterSitemap(pages, services, articles), 'utf-8');
+    fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), generateSitemapIndex(['sitemap.xml']), 'utf-8');
   } else {
     const chunkSize = 500;
     for (let offset = 0; offset < uniqueEntries.length; offset += chunkSize) {
@@ -368,16 +369,22 @@ export function runCrawler() {
       );
     }
     fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateSitemapIndex(sitemapNames), 'utf-8');
+    fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), generateSitemapIndex(sitemapNames), 'utf-8');
   }
 
-  const legacySitemapPattern = /^sitemap-(?:pages|services|articles|portfolio|tools|\d+)\.xml$|^sitemap_index\.xml$/;
+  // Generate plain-text URL list sitemap (Google Search Console natively supports .txt sitemaps)
+  const plainTextUrls = uniqueEntries.map(e => `${BASE_URL}/${e.path}`).join('\n');
+  fs.writeFileSync(path.join(publicDir, 'sitemap.txt'), plainTextUrls, 'utf-8');
+
+  // Clean up legacy split fragments but ALWAYS preserve sitemap.xml, sitemap_index.xml, and sitemap.txt
+  const legacySitemapPattern = /^sitemap-(?:pages|services|articles|portfolio|tools|\d+)\.xml$/;
   for (const fileName of fs.readdirSync(publicDir)) {
     if (legacySitemapPattern.test(fileName) && !sitemapNames.includes(fileName)) {
       fs.rmSync(path.join(publicDir, fileName), { force: true });
     }
   }
 
-  console.log(`[sitemap-crawler] Wrote sitemap.xml${sitemapNames.length ? ` with ${sitemapNames.length} child sitemaps (>500 URLs)` : ' as a flat sitemap'}.`);
+  console.log(`[sitemap-crawler] Wrote sitemap.xml, sitemap_index.xml, and sitemap.txt successfully.`);
 }
 
 // Execute when invoked directly
