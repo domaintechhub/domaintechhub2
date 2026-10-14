@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import {
   BookOpen, Clock, Calendar, ArrowLeft, ArrowRight,
   ArrowUpRight, Check, Share2, Terminal, MessageSquare,
@@ -95,6 +95,14 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
 }) => {
   const [copiedLink, setCopiedLink] = useState(false);
   const stats = calculateReadStats(article);
+
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    if (typeof document !== 'undefined') {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [article.id, article.slug]);
 
   const currentIdx = INSIGHT_ARTICLES.findIndex(a => a.id === article.id || a.slug === article.slug);
   const prevArticle = currentIdx > 0 ? INSIGHT_ARTICLES[currentIdx - 1] : null;

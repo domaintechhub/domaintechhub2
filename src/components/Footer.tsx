@@ -14,6 +14,18 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'sla' | null>(null);
+
+  const handleFooterNavigate = (e: React.MouseEvent, sectionId: string, subParam?: string) => {
+    e.preventDefault();
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.blur();
+    }
+    if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    onNavigate(sectionId, subParam);
+  };
+
   return (
     <footer className="bg-slate-950 border-t border-slate-800/90 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
@@ -22,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Brand info (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <button 
-              onClick={() => onNavigate('home')} 
+              onClick={(e) => handleFooterNavigate(e, 'home')} 
               className="text-left cursor-pointer p-0 focus:outline-none"
               aria-label="Domain Tech Hub - Return to Home"
               title="Domain Tech Hub - Return to Home"
@@ -153,37 +165,37 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="/services/web-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'web-development'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/web-development" onClick={(e) => handleFooterNavigate(e, 'services', 'web-development')} className="hover:text-cyan-300 text-left transition-colors">
                   Custom Website Development
                 </a>
               </li>
               <li>
-                <a href="/services/front-end-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'front-end-development'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/front-end-development" onClick={(e) => handleFooterNavigate(e, 'services', 'front-end-development')} className="hover:text-cyan-300 text-left transition-colors">
                   Front-End Engineering
                 </a>
               </li>
               <li>
-                <a href="/services/ecommerce-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'ecommerce-development'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/ecommerce-development" onClick={(e) => handleFooterNavigate(e, 'services', 'ecommerce-development')} className="hover:text-cyan-300 text-left transition-colors">
                   E-Commerce & M-Pesa Stores
                 </a>
               </li>
               <li>
-                <a href="/services/cms-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'cms-development'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/cms-development" onClick={(e) => handleFooterNavigate(e, 'services', 'cms-development')} className="hover:text-cyan-300 text-left transition-colors">
                   CMS & WordPress Builds
                 </a>
               </li>
               <li>
-                <a href="/services/mobile-app-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'mobile-app-development'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/mobile-app-development" onClick={(e) => handleFooterNavigate(e, 'services', 'mobile-app-development')} className="hover:text-cyan-300 text-left transition-colors">
                   Mobile App Development
                 </a>
               </li>
               <li>
-                <a href="/services/website-maintenance" onClick={(e) => { e.preventDefault(); onNavigate('services', 'website-maintenance'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/website-maintenance" onClick={(e) => handleFooterNavigate(e, 'services', 'website-maintenance')} className="hover:text-cyan-300 text-left transition-colors">
                   Website Maintenance SLA
                 </a>
               </li>
               <li>
-                <a href="/services/pos-systems" onClick={(e) => { e.preventDefault(); onNavigate('services', 'pos-systems'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/pos-systems" onClick={(e) => handleFooterNavigate(e, 'services', 'pos-systems')} className="hover:text-cyan-300 text-left transition-colors">
                   POS Systems & KRA eTIMS
                 </a>
               </li>
@@ -197,37 +209,37 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="/services/seo-services" onClick={(e) => { e.preventDefault(); onNavigate('services', 'seo-services'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/seo-services" onClick={(e) => handleFooterNavigate(e, 'services', 'seo-services')} className="hover:text-cyan-300 text-left transition-colors">
                   Search Engine Optimization (SEO)
                 </a>
               </li>
               <li>
-                <a href="/services/ppc-management" onClick={(e) => { e.preventDefault(); onNavigate('services', 'ppc-management'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/ppc-management" onClick={(e) => handleFooterNavigate(e, 'services', 'ppc-management')} className="hover:text-cyan-300 text-left transition-colors">
                   Google Ads PPC Management
                 </a>
               </li>
               <li>
-                <a href="/services/whatsapp-marketing" onClick={(e) => { e.preventDefault(); onNavigate('services', 'whatsapp-marketing'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/whatsapp-marketing" onClick={(e) => handleFooterNavigate(e, 'services', 'whatsapp-marketing')} className="hover:text-cyan-300 text-left transition-colors">
                   WhatsApp Business API Bots
                 </a>
               </li>
               <li>
-                <a href="/services/custom-crm-development" onClick={(e) => { e.preventDefault(); onNavigate('services', 'custom-crm-development'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/custom-crm-development" onClick={(e) => handleFooterNavigate(e, 'services', 'custom-crm-development')} className="hover:text-cyan-300 text-left transition-colors">
                   Custom CRM Development
                 </a>
               </li>
               <li>
-                <a href="/services/ai-powered-solutions" onClick={(e) => { e.preventDefault(); onNavigate('services', 'ai-powered-solutions'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/ai-powered-solutions" onClick={(e) => handleFooterNavigate(e, 'services', 'ai-powered-solutions')} className="hover:text-cyan-300 text-left transition-colors">
                   AI-Powered Solutions
                 </a>
               </li>
               <li>
-                <a href="/services/graphic-design-branding" onClick={(e) => { e.preventDefault(); onNavigate('services', 'graphic-design-branding'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/graphic-design-branding" onClick={(e) => handleFooterNavigate(e, 'services', 'graphic-design-branding')} className="hover:text-cyan-300 text-left transition-colors">
                   Brand Identity & Graphics
                 </a>
               </li>
               <li>
-                <a href="/services/digital-marketing" onClick={(e) => { e.preventDefault(); onNavigate('services', 'digital-marketing'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/services/digital-marketing" onClick={(e) => handleFooterNavigate(e, 'services', 'digital-marketing')} className="hover:text-cyan-300 text-left transition-colors">
                   Digital Marketing Campaigns
                 </a>
               </li>
@@ -241,59 +253,59 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="/roadmap" onClick={(e) => { e.preventDefault(); onNavigate('roadmap'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-medium text-white">
+                <a href="/roadmap" onClick={(e) => handleFooterNavigate(e, 'roadmap')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-medium text-white">
                   <span>4–8 Week Sprint Roadmap</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/team" onClick={(e) => { e.preventDefault(); onNavigate('team'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/team" onClick={(e) => handleFooterNavigate(e, 'team')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Our Engineering Team</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/tech-stack" onClick={(e) => { e.preventDefault(); onNavigate('tech-stack'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tech-stack" onClick={(e) => handleFooterNavigate(e, 'tech-stack')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Our Tech Stack</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/tools/calculator" onClick={(e) => { e.preventDefault(); onNavigate('calculator'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tools/calculator" onClick={(e) => handleFooterNavigate(e, 'calculator')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Project Cost Calculator</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/tools/audit" onClick={(e) => { e.preventDefault(); onNavigate('audit'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tools/audit" onClick={(e) => handleFooterNavigate(e, 'audit')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Free Live SEO Audit Tool</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/tools/domains" onClick={(e) => { e.preventDefault(); onNavigate('domains'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/tools/domains" onClick={(e) => handleFooterNavigate(e, 'domains')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Domain & Hosting Checker</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/portal" onClick={(e) => { e.preventDefault(); onNavigate('client-portal'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/portal" onClick={(e) => handleFooterNavigate(e, 'client-portal')} className="hover:text-cyan-300 text-left transition-colors">
                   Client Project Portal (Demo)
                 </a>
               </li>
               <li>
-                <a href="/portfolio" onClick={(e) => { e.preventDefault(); onNavigate('portfolio'); }} className="hover:text-cyan-300 text-left transition-colors">
+                <a href="/portfolio" onClick={(e) => handleFooterNavigate(e, 'portfolio')} className="hover:text-cyan-300 text-left transition-colors">
                   Case Studies & Metrics
                 </a>
               </li>
               <li>
-                <a href="/insights" onClick={(e) => { e.preventDefault(); onNavigate('insights'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/insights" onClick={(e) => handleFooterNavigate(e, 'insights')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Insights & Tech Trends</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>
               </li>
               <li>
-                <a href="/faq" onClick={(e) => { e.preventDefault(); onNavigate('faq'); }} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
+                <a href="/faq" onClick={(e) => handleFooterNavigate(e, 'faq')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Frequently Asked Questions</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />
                 </a>

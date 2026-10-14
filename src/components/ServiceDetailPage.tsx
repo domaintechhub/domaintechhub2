@@ -1,4 +1,4 @@
-import React, { useState, useId } from 'react';
+import React, { useState, useId, useEffect, useLayoutEffect } from 'react';
 import { 
   Globe, Layout, ShoppingCart, FileCode, Search, TrendingUp, Target, 
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
@@ -54,6 +54,34 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   const [selectedTierId, setSelectedTierId] = useState<'starter' | 'pro' | 'enterprise'>('pro');
   const [selectedAddonIds, setSelectedAddonIds] = useState<string[]>([]);
   const [expandedFaqIndex, setExpandedFaqIndex] = useState<number | null>(0);
+
+  // Guarantee service page always loads from the top header and h1, never from the footer
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+    if (typeof document !== 'undefined') {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [service.id]);
+
+  useEffect(() => {
+    const resetScroll = () => {
+      if (typeof window !== 'undefined') window.scrollTo(0, 0);
+      if (typeof document !== 'undefined') {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }
+    };
+    resetScroll();
+    const raf = requestAnimationFrame(resetScroll);
+    const timer = setTimeout(resetScroll, 50);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timer);
+    };
+  }, [service.id]);
 
   // Fallback packages if not in deepDive
   const packages: ServicePackageTier[] = deepDive?.packages || [
@@ -157,7 +185,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     .filter((s): s is ServiceDetail => Boolean(s));
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-16 sm:pt-20">
       {/* 1. TOP SERVICE SWITCHER & BREADCRUMB BAR */}
       <section className="bg-stone-100/80 dark:bg-slate-900/60 border-b border-stone-200 dark:border-slate-800 py-3.5 sticky top-[57px] z-30 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

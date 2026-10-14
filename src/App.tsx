@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { lazy, Suspense, useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect, useLayoutEffect } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -26,23 +26,29 @@ import { AGENCY_INFO } from './data/portfolioData';
 import { discardPersistedLeadData } from './utils/leadDispatch';
 import { getCanonicalLocation, getCurrentAppRoute, getPathForRoute, parseAppRoute } from './utils/routing';
 
-const MorePage = lazy(() => import('./components/MorePage').then(({ MorePage }) => ({ default: MorePage })));
-const AboutPage = lazy(() => import('./components/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })));
-const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
-const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })));
-const ArticleDetailPage = lazy(() => import('./components/ArticleDetailPage').then(({ ArticleDetailPage }) => ({ default: ArticleDetailPage })));
-const HomeSections = lazy(() => import('./components/HomeSections').then(({ HomeSections }) => ({ default: HomeSections })));
-const ServicesExplorer = lazy(() => import('./components/ServicesExplorer').then(({ ServicesExplorer }) => ({ default: ServicesExplorer })));
-const TechStackSection = lazy(() => import('./components/TechStackSection').then(({ TechStackSection }) => ({ default: TechStackSection })));
-const Portfolio = lazy(() => import('./components/Portfolio').then(({ Portfolio }) => ({ default: Portfolio })));
-const Testimonials = lazy(() => import('./components/Testimonials').then(({ Testimonials }) => ({ default: Testimonials })));
-const InsightsSection = lazy(() => import('./components/InsightsSection').then(({ InsightsSection }) => ({ default: InsightsSection })));
-const ClientPortalDemo = lazy(() => import('./components/ClientPortalDemo').then(({ ClientPortalDemo }) => ({ default: ClientPortalDemo })));
-const FaqSection = lazy(() => import('./components/FaqSection').then(({ FaqSection }) => ({ default: FaqSection })));
-const BookingSection = lazy(() => import('./components/BookingSection').then(({ BookingSection }) => ({ default: BookingSection })));
+import { MorePage } from './components/MorePage';
+import { AboutPage } from './components/AboutPage';
+import { ToolsPage } from './components/ToolsPage';
+import { ServiceDetailPage } from './components/ServiceDetailPage';
+import { ArticleDetailPage } from './components/ArticleDetailPage';
+import { HomeSections } from './components/HomeSections';
+import { ServicesExplorer } from './components/ServicesExplorer';
+import { TechStackSection } from './components/TechStackSection';
+import { Portfolio } from './components/Portfolio';
+import { Testimonials } from './components/Testimonials';
+import { InsightsSection } from './components/InsightsSection';
+import { ClientPortalDemo } from './components/ClientPortalDemo';
+import { FaqSection } from './components/FaqSection';
+import { BookingSection } from './components/BookingSection';
+
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
 const FirstVisitModal = lazy(() => import('./components/FirstVisitModal').then(({ FirstVisitModal }) => ({ default: FirstVisitModal })));
+
+// Force browser to disable automatic scroll restoration immediately at load time
+if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
 
 export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about' | 'not-found';
 
@@ -92,6 +98,55 @@ export default function App() {
     };
   }, []);
 
+  // Ensure browser never restores old scroll offset from the bottom of previous pages
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  const scrollToTopHeader = () => {
+    // 1. Unfocus clicked element (e.g. from footer link) so browser doesn't scroll to keep it in view
+    if (typeof document !== 'undefined') {
+      if (document.activeElement instanceof HTMLElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+
+    // 2. Instant scroll window and document roots to top 0
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  };
+
+  // Guarantee that every page navigation loads from the h1 header at the top before paint
+  useLayoutEffect(() => {
+    scrollToTopHeader();
+  }, [currentPage, activeServiceId, activeArticleSlug, activeToolTab, activeMoreTab]);
+
+  useEffect(() => {
+    scrollToTopHeader();
+
+    const raf1 = requestAnimationFrame(scrollToTopHeader);
+    const raf2 = requestAnimationFrame(() => requestAnimationFrame(scrollToTopHeader));
+
+    const t1 = setTimeout(scrollToTopHeader, 30);
+    const t2 = setTimeout(scrollToTopHeader, 80);
+    const t3 = setTimeout(scrollToTopHeader, 180);
+    const t4 = setTimeout(scrollToTopHeader, 350);
+
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
+  }, [currentPage, activeServiceId, activeArticleSlug, activeToolTab, activeMoreTab]);
+
   // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
   useEffect(() => {
     const syncRoute = () => {
@@ -123,7 +178,7 @@ export default function App() {
       if (rawHash === 'dth-owner-vault' || rawHash === 'owner-portal') {
         setIsLeadInboxOpen(true);
       } else {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        scrollToTopHeader();
       }
 
       const canonicalLocation = getCanonicalLocation();
@@ -242,7 +297,7 @@ export default function App() {
       window.history.pushState(null, '', newPath);
     }
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTopHeader();
 
     setTimeout(() => {
       setIsPageTransitioning(false);
@@ -339,8 +394,7 @@ export default function App() {
           />
 
           {/* Main Content Page Container */}
-          <Suspense fallback={null}>
-          <main className="flex-1">
+          <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
 
             {/* 1. DEDICATED PAGE: HOME / LANDING OVERVIEW */}
             {currentPage === 'home' && (
@@ -350,25 +404,23 @@ export default function App() {
                   onSelectCalculatorService={setCalculatorServiceId}
                   onSelectBuildLayer={setActiveBuildLayer}
                 />
-                <Suspense fallback={null}>
-                  <HomeSections
-                    calculatorServiceId={calculatorServiceId}
-                    prefilledService={prefilledService}
-                    prefilledNotes={prefilledNotes}
-                    activeBuildLayer={activeBuildLayer}
-                    onSelectBuildLayer={setActiveBuildLayer}
-                    onNavigate={navigateTo}
-                    onSelectForQuote={handleSelectForQuote}
-                    onBookService={handleBookService}
-                    onSelectTechForProject={handleSelectTechForProject}
-                    onProceedToBooking={handleProceedToBooking}
-                    onFixAuditWithAgency={handleFixAuditWithAgency}
-                    onSelectDomainForSetup={handleSelectDomainForSetup}
-                    onBookSimilarProject={handleBookSimilarProject}
-                    onScheduleConsultation={handleScheduleFromInsight}
-                    onNavigatePath={navigateToInternalPath}
-                  />
-                </Suspense>
+                <HomeSections
+                  calculatorServiceId={calculatorServiceId}
+                  prefilledService={prefilledService}
+                  prefilledNotes={prefilledNotes}
+                  activeBuildLayer={activeBuildLayer}
+                  onSelectBuildLayer={setActiveBuildLayer}
+                  onNavigate={navigateTo}
+                  onSelectForQuote={handleSelectForQuote}
+                  onBookService={handleBookService}
+                  onSelectTechForProject={handleSelectTechForProject}
+                  onProceedToBooking={handleProceedToBooking}
+                  onFixAuditWithAgency={handleFixAuditWithAgency}
+                  onSelectDomainForSetup={handleSelectDomainForSetup}
+                  onBookSimilarProject={handleBookSimilarProject}
+                  onScheduleConsultation={handleScheduleFromInsight}
+                  onNavigatePath={navigateToInternalPath}
+                />
               </div>
             )}
 
@@ -695,7 +747,6 @@ export default function App() {
             )}
 
           </main>
-          </Suspense>
 
           {/* Footer */}
           <Footer 

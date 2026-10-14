@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { ChevronRight, ArrowLeft, Home } from 'lucide-react';
 
 interface PageHeaderProps {
@@ -23,6 +23,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   onNavigateHome,
   actionButton,
 }) => {
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+    if (typeof document !== 'undefined') {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, []);
   return (
     <div className="pt-28 pb-12 sm:pt-32 sm:pb-16 bg-gradient-to-b from-stone-100/90 via-stone-50/60 to-transparent dark:from-slate-900/90 dark:via-slate-950 dark:to-slate-950 border-b border-stone-200/90 dark:border-slate-800/80 relative overflow-hidden">
       {/* Background ambient accents */}

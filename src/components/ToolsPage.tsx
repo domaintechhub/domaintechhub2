@@ -28,12 +28,21 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<ToolTab>(initialTab);
 
+  React.useLayoutEffect(() => {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    if (typeof document !== 'undefined') {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [initialTab]);
+
   React.useEffect(() => {
     setActiveTab(initialTab);
   }, [initialTab]);
 
   const handleTabClick = (tab: ToolTab) => {
     setActiveTab(tab);
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
     onTabChange?.(tab);
   };
 

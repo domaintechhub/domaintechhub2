@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { 
   Rocket, Users, Cpu, Layers, CheckCircle2, 
   ArrowRight, MessageSquare, Clock, ShieldCheck, FileCode2,
@@ -36,6 +36,14 @@ export const MorePage: React.FC<MorePageProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<MoreTab>(initialTab);
 
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    if (typeof document !== 'undefined') {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [initialTab]);
+
   useEffect(() => {
     if (initialTab) {
       setActiveTab(initialTab);
@@ -44,6 +52,7 @@ export const MorePage: React.FC<MorePageProps> = ({
 
   const handleTabClick = (tab: MoreTab) => {
     setActiveTab(tab);
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
     onTabChange?.(tab);
   };
 
