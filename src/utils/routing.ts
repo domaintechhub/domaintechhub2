@@ -6,7 +6,7 @@ export interface AppRoute {
   subTab?: string;
 }
 
-const TOOL_TABS = ['calculator', 'audit', 'domains'];
+const TOOL_TABS = ['calculator', 'audit', 'domains', 'backlinks'];
 const MORE_TABS = ['roadmap', 'team', 'tech-stack', 'blog'];
 const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
 
@@ -90,8 +90,12 @@ export function parseAppRoute(path: string): AppRoute {
     return { page: 'not-found' };
   }
 
-  if ((first === 'calculator' || first === 'audit' || first === 'domains') && !second) {
-    return { page: 'tools', subTab: first };
+  if ((first === 'calculator' || first === 'audit' || first === 'domains' || first === 'backlinks' || first === 'partner-kit') && !second) {
+    return { page: 'tools', subTab: first === 'partner-kit' ? 'backlinks' : first };
+  }
+
+  if ((first === 'partners' || first === 'backlinks' || first === 'citations') && !second) {
+    return { page: 'tools', subTab: 'backlinks' };
   }
 
   if (first === 'more') {

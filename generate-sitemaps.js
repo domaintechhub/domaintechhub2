@@ -85,6 +85,7 @@ export function crawlAppRoutes() {
     { path: 'tools/calculator', priority: '0.90', changefreq: 'weekly', title: 'Project Cost & Scope Calculator' },
     { path: 'tools/audit', priority: '0.90', changefreq: 'weekly', title: 'Core Web Vitals & SEO Speed Audit' },
     { path: 'tools/domains', priority: '0.85', changefreq: 'monthly', title: '.co.ke Domain Registration & Hosting' },
+    { path: 'tools/backlinks', priority: '0.90', changefreq: 'weekly', title: 'Agency Backlink & Citation Hub' },
   ];
 
   for (const add of additionalTargets) {

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Calculator, Gauge, Server, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Calculator, Gauge, Server, CheckCircle2, ArrowRight, Link2 } from 'lucide-react';
 import { PageHeader } from './PageHeader';
 import { CostCalculator } from './CostCalculator';
 import { SeoAuditTool } from './SeoAuditTool';
 import { DomainChecker } from './DomainChecker';
+import { BacklinksHub } from './BacklinksHub';
 
-export type ToolTab = 'calculator' | 'audit' | 'domains';
+export type ToolTab = 'calculator' | 'audit' | 'domains' | 'backlinks';
 
 interface ToolsPageProps {
   initialTab?: ToolTab;
@@ -67,6 +68,13 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       shortLabel: 'Domain Lookup',
       icon: Server,
       description: 'Explore domain options and ask the team to check availability; no live registry lookup is connected.'
+    },
+    {
+      id: 'backlinks' as ToolTab,
+      label: 'Backlink & Citation Hub',
+      shortLabel: 'Backlinks & Badges',
+      icon: Link2,
+      description: 'Client footer attribution badges, high-DA Kenyan directory dossiers, and embeddable link magnets.'
     }
   ];
 
@@ -75,7 +83,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       <PageHeader
         badge="Developer & Client Tools"
         title="Interactive Engineering Tools & Estimators"
-        description="Planning calculators and demo utilities. Live registry lookups and website scans are not connected."
+        description="Planning calculators, backlink engines, and demo utilities."
         currentBreadcrumb="Developer & Client Tools"
         onNavigateHome={onNavigateHome}
       />
@@ -131,6 +139,12 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
         {activeTab === 'domains' && (
           <DomainChecker
             onSelectDomainForSetup={onSelectDomainForSetup}
+          />
+        )}
+
+        {activeTab === 'backlinks' && (
+          <BacklinksHub
+            onNavigateHome={onNavigateHome}
           />
         )}
       </div>

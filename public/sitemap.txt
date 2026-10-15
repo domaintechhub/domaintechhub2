@@ -12,6 +12,7 @@ https://www.domaintechhubs.com/tech-stack
 https://www.domaintechhubs.com/tools/calculator
 https://www.domaintechhubs.com/tools/audit
 https://www.domaintechhubs.com/tools/domains
+https://www.domaintechhubs.com/tools/backlinks
 https://www.domaintechhubs.com/services/web-development
 https://www.domaintechhubs.com/services/front-end-development
 https://www.domaintechhubs.com/services/ecommerce-development

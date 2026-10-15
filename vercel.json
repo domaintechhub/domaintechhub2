@@ -138,6 +138,21 @@
       "source": "/domains",
       "destination": "/tools/domains",
       "permanent": true
+    },
+    {
+      "source": "/backlinks",
+      "destination": "/tools/backlinks",
+      "permanent": true
+    },
+    {
+      "source": "/partners",
+      "destination": "/tools/backlinks",
+      "permanent": true
+    },
+    {
+      "source": "/badges",
+      "destination": "/tools/backlinks",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -160,7 +175,7 @@
   ],
   "headers": [
     {
-      "source": "/(sitemap.*\\.xml|sitemap_index\\.xml)",
+      "source": "/(sitemap.*\\.xml|sitemap_index\\.xml|rss\\.xml|feed\\.xml)",
       "headers": [
         {
           "key": "Content-Type",

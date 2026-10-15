@@ -253,6 +253,9 @@ export default function App() {
     } else if (target === 'domains') {
       targetPage = 'tools';
       targetSub = 'domains';
+    } else if (target === 'backlinks' || target === 'partners' || target === 'partner-kit') {
+      targetPage = 'tools';
+      targetSub = 'backlinks';
     } else if (target === 'blog' || target === 'articles') {
       targetPage = 'more';
       targetSub = 'blog';

@@ -323,6 +323,21 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       };
     }
 
+    if (subTab === 'backlinks') {
+      return {
+        title: 'Backlink & Citation Hub: Client Attribution Badges | Domain Tech Hub',
+        description: 'Agency backlink acquisition engine, client footer attribution badges, Kenyan directory citation dossiers, and embeddable link magnets to drive organic authority.',
+        canonicalPath: '/tools/backlinks',
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          name: 'Domain Tech Hub Backlink & Citation Hub',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'All',
+        },
+      };
+    }
+
     return {
       title: 'Project Cost & Scope Estimator (USD & KES) | Domain Tech Hub',
       description: 'Transparent scope planning: select custom features, cloud architecture, and get real-time price and timeline estimates in USD and KES.',

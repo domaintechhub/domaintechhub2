@@ -88,6 +88,9 @@ function renderFooterLinksHtml(): string {
         <h2 class="text-white font-bold mb-3">Domain Tech Hub Nairobi</h2>
         <p>Nairobi's premier software engineering agency. Custom web applications, Safaricom Daraja 3.0 M-Pesa e-commerce, KRA eTIMS POS systems, and technical SEO.</p>
         <p class="mt-2">Delta Corner Tower, Westlands, Nairobi, Kenya · +254 118 746 676</p>
+        <div class="mt-4">
+          <div google-add-preferred-source-btn data-theme="light" data-lang="en"></div>
+        </div>
       </div>
       <div>
         <h2 class="text-white font-bold mb-3">Core Engineering Services</h2>
@@ -589,6 +592,9 @@ export function runPrerender() {
     { relPath: 'tools/calculator/index.html', route: 'tools', subTab: 'calculator' },
     { relPath: 'tools/audit/index.html', route: 'tools', subTab: 'audit' },
     { relPath: 'tools/domains/index.html', route: 'tools', subTab: 'domains' },
+    { relPath: 'tools/backlinks/index.html', route: 'tools', subTab: 'backlinks' },
+    { relPath: 'backlinks/index.html', route: 'tools', subTab: 'backlinks' },
+    { relPath: 'partners/index.html', route: 'tools', subTab: 'backlinks' },
   ];
 
   for (const item of coreRoutes) {
@@ -627,7 +633,18 @@ export function runPrerender() {
   writeRouteHtml(templateHtml, '404.html', 'not-found');
   count++;
 
-  console.log(`✅ Pre-rendered ${count} independent static HTML pages in dist/`);
+  // 5. Ensure sitemap and robots.txt exist directly in dist/
+  const staticSitemapFiles = ['sitemap.xml', 'sitemap_index.xml', 'sitemap.txt', 'robots.txt'];
+  const publicDir = path.resolve(__dirname, '../public');
+  for (const file of staticSitemapFiles) {
+    const src = path.join(publicDir, file);
+    const dest = path.join(DIST_DIR, file);
+    if (fs.existsSync(src)) {
+      fs.copyFileSync(src, dest);
+    }
+  }
+
+  console.log(`✅ Pre-rendered ${count} independent static HTML pages in dist/ and verified sitemaps in dist/`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
