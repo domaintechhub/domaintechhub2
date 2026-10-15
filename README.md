@@ -127,8 +127,8 @@ The included `vercel.json` and `public/_redirects` provide hosting rewrites and 
 ### Deploy to any static web host
 The production build is static and does not require a Node server at runtime. Run `npm ci --legacy-peer-deps && npm run build`, then upload the **contents** of `dist/` to the host's public web root (often named `public_html`, `www`, or `htdocs`). The app uses clean pathname URLs, so configure the host to serve `index.html` for application routes on direct visits and refreshes. The included Vercel, Netlify/Cloudflare, Apache, and GitHub Pages fallback configurations provide this behavior. For hosting under a subdirectory, set `VITE_BASE_PATH` to that path, including leading and trailing slashes (for example, `/my-site/`); the default `/` is for hosting at the domain root.
 
-### Deploy to GitHub Pages
-In the repository's **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. The deployment workflow builds `dist/` and publishes that artifact; the branch-based Pages source serves the unbuilt Vite `index.html` and results in a blank page. After changing the source, pushes to `main` deploy automatically. Vite reads the repository name from `GITHUB_REPOSITORY` and builds asset URLs with the GitHub Pages project path; local builds without that variable use the site root.
+### GitHub Pages (disabled)
+GitHub Pages publishing is intentionally disabled and its workflow removed, because a second live copy of the site on `github.io` duplicates the canonical `https://www.domaintechhubs.com`. Production is deployed by Vercel on every push to `main`. To host on GitHub Pages again, add a workflow that builds with `VITE_BASE_PATH=/<repo-name>/` and publishes `dist/`.
 
 ### Deploy to cPanel / Traditional Web Hosting (.co.ke)
 1. Run `npm run build`.
