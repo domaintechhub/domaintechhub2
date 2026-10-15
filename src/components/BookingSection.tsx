@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { trackEvent } from '../utils/analytics';
 import { 
   Calendar, Clock, Video, Phone, MapPin, CheckCircle2, 
   Send, MessageSquare, Download, Check, Mail, User, ShieldCheck, X, ArrowRight
@@ -68,6 +69,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       sendToWhatsApp(leadData);
     }
 
+    trackEvent('generate_lead', { method: 'booking_form', page_path: window.location.pathname });
     setIsSubmitted(true);
     setShowToast(true);
     setTimeout(() => {

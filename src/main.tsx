@@ -5,6 +5,9 @@ import '@fontsource-variable/jetbrains-mono';
 import App from './App.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import './index.css';
+import { initContactTracking } from './utils/analytics.ts';
+
+initContactTracking();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
