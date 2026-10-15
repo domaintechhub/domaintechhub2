@@ -64,7 +64,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       description: 'Nairobi digital technology agency specializing in modern web applications, e-commerce, Safaricom Daraja M-Pesa integration, and SEO.',
       url: SITE_URL,
       logo: `${SITE_URL}/logo-icon.svg`,
-      image: `${SITE_URL}/og-image.svg`,
+      image: `${SITE_URL}/og-image.png`,
       telephone: '+254118746676',
       email: 'info@domaintechhubs.com',
       address: {
@@ -577,7 +577,7 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
 
   // 4. Update OpenGraph Tags
   const fullUrl = `${SITE_URL}${config.canonicalPath}`;
-  const ogImageUrl = config.ogImage || `${SITE_URL}/og-image.svg`;
+  const ogImageUrl = config.ogImage || `${SITE_URL}/og-image.png`;
 
   setMeta('og:title', config.ogTitle || config.title, true);
   setMeta('og:description', config.ogDescription || config.description, true);

@@ -392,7 +392,7 @@ export function injectSeoIntoHtml(
   const config = configGetter(subTab);
 
   const fullUrl = `${SITE_URL}${config.canonicalPath}`;
-  const ogImageUrl = config.ogImage || `${SITE_URL}/og-image.svg`;
+  const ogImageUrl = config.ogImage || `${SITE_URL}/og-image.png`;
   const ogType = config.ogType || 'website';
   const robotsContent =
     route === 'portal' || route === 'not-found'
