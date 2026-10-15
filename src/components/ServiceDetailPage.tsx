@@ -4,13 +4,15 @@ import {
   MessageSquare, Share2, Database, Cpu, Compass, ShieldCheck, Palette, 
   Smartphone, ArrowRight, ArrowLeft, Check, Clock, 
   CheckCircle2, Plus, HelpCircle, ChevronDown, ChevronRight,
-  ExternalLink, Layers, Printer, Scan, Monitor, Receipt, MapPin
+  ExternalLink, Layers, Printer, Scan, Monitor, Receipt, MapPin,
+  Calculator, BookOpen, ArrowUpRight
 } from 'lucide-react';
 import { ServiceDetail, ServiceCategory } from '../types';
 import { SERVICES_LIST } from '../data/servicesData';
 import { SERVICE_DEEP_DIVES, ServicePackageTier, ServiceAddon } from '../data/serviceDetailsData';
 import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { CASE_STUDIES, AGENCY_INFO } from '../data/portfolioData';
+import { INSIGHT_ARTICLES } from '../data/insightsData';
 import { useCurrency } from '../context/CurrencyContext';
 
 interface ServiceDetailPageProps {
@@ -152,6 +154,24 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     const summary = `${service.title} (${activePackage.name})` + (addonNames ? ` + Add-ons: [${addonNames}]` : '') + ` — Estimated: ${formatPrice(calculatedUSD, calculatedKES)}`;
     onBookService(service.title, summary);
   };
+
+  // Curate relevant technical articles for internal cross-linking
+  const relevantArticles = INSIGHT_ARTICLES.filter(a => {
+    const sId = service.id.toLowerCase();
+    const title = a.title.toLowerCase();
+    return (
+      (sId.includes('web') && (title.includes('web') || title.includes('next.js'))) ||
+      (sId.includes('ecommerce') && (title.includes('mpesa') || title.includes('daraja') || title.includes('commerce') || title.includes('currency'))) ||
+      (sId.includes('pos') && (title.includes('pos') || title.includes('etims'))) ||
+      (sId.includes('seo') && (title.includes('seo') || title.includes('aeo') || title.includes('google'))) ||
+      (sId.includes('crm') && (title.includes('crm') || title.includes('enterprise') || title.includes('lpo'))) ||
+      (sId.includes('api') && (title.includes('daraja') || title.includes('whatsapp') || title.includes('payout'))) ||
+      (sId.includes('mobile') && (title.includes('pwa') || title.includes('offline'))) ||
+      (sId.includes('maintenance') && (title.includes('postgresql') || title.includes('data protection') || title.includes('cloud')))
+    );
+  }).slice(0, 3);
+
+  const displayArticles = relevantArticles.length > 0 ? relevantArticles : INSIGHT_ARTICLES.slice(0, 3);
 
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
@@ -1271,6 +1291,136 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           </div>
         </section>
       )}
+
+      {/* 8B. RELATED ARCHITECTURAL GUIDES & INTERACTIVE TOOLS */}
+      <section className="py-16 bg-stone-50 dark:bg-slate-900/60 border-b border-stone-200 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="text-xs font-mono text-teal-600 dark:text-cyan-400 uppercase tracking-wider font-semibold">
+                Authority Knowledge Base
+              </span>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mt-1">
+                Technical Guides, Architecture & Free Estimators
+              </h2>
+            </div>
+            <a
+              href="/insights"
+              className="text-xs font-mono text-teal-600 dark:text-cyan-400 hover:underline flex items-center gap-1 font-semibold"
+            >
+              <span>Explore All Engineering Insights</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Related Articles */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {displayArticles.map((art) => (
+              <a
+                key={art.id}
+                href={`/insights/${art.slug}`}
+                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 hover:border-teal-500/50 hover:shadow-lg transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="text-[10px] font-mono text-teal-600 dark:text-cyan-400 uppercase font-semibold">
+                    {art.category}
+                  </span>
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-cyan-400 transition-colors mt-2 mb-2 line-clamp-2">
+                    {art.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                    {art.excerpt}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
+                  <span>{art.readTime}</span>
+                  <span className="text-teal-600 dark:text-cyan-400 flex items-center gap-1 font-semibold">
+                    Read Deep Dive <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Free Interactive Estimator & SEO Tools Backlinks */}
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">
+                <Calculator className="w-4 h-4 text-teal-600 dark:text-cyan-400" />
+                <span>Client Planning Calculators & Performance Checkers</span>
+              </div>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Free & Instant</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <a
+                href="/tools/calculator"
+                className="p-4 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 hover:border-teal-500/50 transition-all group"
+              >
+                <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-cyan-400 mb-1">
+                  Kenya Website Cost Calculator
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Calculate budget and timelines in KES & USD for {service.title}.
+                </div>
+              </a>
+
+              <a
+                href="/tools/audit"
+                className="p-4 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 hover:border-teal-500/50 transition-all group"
+              >
+                <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-cyan-400 mb-1">
+                  Live SEO & Speed Scanner
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Scan any Kenyan domain for Core Web Vitals and search rankings.
+                </div>
+              </a>
+
+              <a
+                href="/tools/domains"
+                className="p-4 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 hover:border-teal-500/50 transition-all group"
+              >
+                <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-cyan-400 mb-1">
+                  .co.ke Domain & NVMe Cloud
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Check national domain availability and ultra-fast Kenyan cloud servers.
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* Authoritative Citations & National Standards */}
+          <div className="pt-4 border-t border-stone-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span className="font-mono text-slate-500 dark:text-slate-400 text-[11px]">
+              Verified against national & global standards:
+            </span>
+            <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] text-slate-600 dark:text-slate-400">
+              <a href="https://developers.google.com/search/docs" target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 dark:hover:text-cyan-400 inline-flex items-center gap-0.5">
+                <span>Google Search Central</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <span>·</span>
+              <a href="https://developer.safaricom.co.ke" target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 dark:hover:text-cyan-400 inline-flex items-center gap-0.5">
+                <span>Safaricom Daraja 3.0</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <span>·</span>
+              <a href="https://etims.kra.go.ke" target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 dark:hover:text-cyan-400 inline-flex items-center gap-0.5">
+                <span>KRA eTIMS Standard</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <span>·</span>
+              <a href="https://www.w3.org" target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 dark:hover:text-cyan-400 inline-flex items-center gap-0.5">
+                <span>W3C Web Standards</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 9. BOTTOM ACTION BANNER */}
       <section className="py-16 bg-white dark:bg-slate-900">

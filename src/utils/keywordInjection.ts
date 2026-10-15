@@ -246,6 +246,109 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
       'software engineering company nairobi'
     ],
     searchSnippetsDescription: 'Top-ranked software engineering studio in Nairobi delivering sub-second Core Web Vitals, 100% source code ownership, and 4.6x average ROI.'
+  },
+  {
+    keyword: 'KRA eTIMS invoice system integration',
+    slug: 'kra-etims-invoice-integration',
+    intent: 'transactional',
+    intentLabel: 'Tax Compliance',
+    relevanceScore: 99,
+    targetArticleId: 'how-to-generate-an-etims-invoice',
+    targetUrl: '/services/pos-systems',
+    targetServiceTitle: 'KRA eTIMS & POS Integration',
+    entityCategory: 'TaxTechnology',
+    synonyms: [
+      'etims invoice kenya',
+      'kra etims integration',
+      'etims pos system',
+      'automated etims invoicing'
+    ],
+    searchSnippetsDescription: 'Direct KRA eTIMS API integrations for ERP, e-commerce, and point of sale systems with automated QR code generation.'
+  },
+  {
+    keyword: 'Safaricom Daraja 3.0 M-Pesa STK Push',
+    slug: 'safaricom-daraja-stk-push',
+    intent: 'transactional',
+    intentLabel: 'Payment Gateway',
+    relevanceScore: 99,
+    targetArticleId: 'zero-loss-mpesa-stk-push-architecture',
+    targetUrl: '/services/ecommerce-development',
+    targetServiceTitle: 'E-Commerce M-Pesa Checkout',
+    entityCategory: 'FintechAPI',
+    synonyms: [
+      'mpesa stk push kenya',
+      'daraja 3.0 integration',
+      'zero loss mpesa webhooks'
+    ],
+    searchSnippetsDescription: 'Production-tested Safaricom Daraja 3.0 STK Push integration with Redis queuing and zero lost payment callbacks.'
+  },
+  {
+    keyword: 'Technical SEO & Core Web Vitals Nairobi',
+    slug: 'technical-seo-core-web-vitals',
+    intent: 'commercial',
+    intentLabel: 'Google Ranking',
+    relevanceScore: 98,
+    targetArticleId: 'local-seo-core-web-vitals-nairobi-kenya',
+    targetUrl: '/services/seo-services',
+    targetServiceTitle: 'Technical SEO & Search Optimization',
+    entityCategory: 'SEOOptimization',
+    synonyms: [
+      'technical seo nairobi',
+      'google #1 ranking kenya',
+      'local seo nairobi'
+    ],
+    searchSnippetsDescription: 'Rank #1 on Google in Nairobi with sub-second page loads, structured JSON-LD schema, and local citation dominance.'
+  },
+  {
+    keyword: 'Kenya Website Cost & Scope Estimator',
+    slug: 'kenya-website-cost-calculator',
+    intent: 'transactional',
+    intentLabel: 'Interactive Tool',
+    relevanceScore: 97,
+    targetArticleId: 'website-design-in-kenya-business-guide-2026',
+    targetUrl: '/tools/calculator',
+    targetServiceTitle: 'Instant Project Cost Estimator',
+    entityCategory: 'PricingTool',
+    synonyms: [
+      'website design cost kenya',
+      'web design prices nairobi',
+      'software development quote kenya'
+    ],
+    searchSnippetsDescription: 'Interactive online scope estimator for web design, e-commerce, and mobile applications with instant KES and USD pricing.'
+  },
+  {
+    keyword: 'Free Core Web Vitals & SEO Scanner',
+    slug: 'free-seo-speed-audit-scanner',
+    intent: 'commercial',
+    intentLabel: 'Free Audit Tool',
+    relevanceScore: 96,
+    targetArticleId: 'answer-engine-optimization-aeo-geo-kenya-guide',
+    targetUrl: '/tools/audit',
+    targetServiceTitle: 'Free Live SEO & Speed Audit',
+    entityCategory: 'AuditTool',
+    synonyms: [
+      'free website audit kenya',
+      'seo score check kenya',
+      'page speed test nairobi'
+    ],
+    searchSnippetsDescription: 'Scan any Kenyan website for performance bottlenecks, mobile usability issues, and missing Schema markup in seconds.'
+  },
+  {
+    keyword: '.co.ke Domain Registration & Fast NVMe Hosting',
+    slug: 'coke-domain-nvme-hosting-kenya',
+    intent: 'transactional',
+    intentLabel: 'Cloud Infrastructure',
+    relevanceScore: 95,
+    targetArticleId: 'zero-downtime-postgresql-migrations-disaster-recovery',
+    targetUrl: '/tools/domains',
+    targetServiceTitle: 'Domain & Hosting Lookup',
+    entityCategory: 'WebHosting',
+    synonyms: [
+      'co.ke domain registration kenya',
+      'nvme cloud hosting nairobi',
+      'fast web hosting kenya'
+    ],
+    searchSnippetsDescription: 'Blazing-fast local NVMe cloud hosting with 99.99% uptime SLA, automated SSL, and official .co.ke domain provisioning.'
   }
 ];
 
@@ -253,7 +356,38 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
  * Returns all secondary keywords associated with a specific article.
  */
 export function getKeywordsForArticle(articleId: string): SecondaryKeywordMapping[] {
-  return HIGH_PERFORMING_KEYWORDS.filter(k => k.targetArticleId === articleId);
+  const normalizedId = articleId.toLowerCase().trim();
+  
+  const directMatches = HIGH_PERFORMING_KEYWORDS.filter(k => {
+    const target = k.targetArticleId.toLowerCase();
+    return target === normalizedId || 
+           normalizedId.includes(target) || 
+           target.includes(normalizedId) ||
+           normalizedId.replace('-business-guide-2026', '-2026') === target;
+  });
+
+  if (directMatches.length > 0) return directMatches;
+
+  // Curate contextual high-impact internal backlinks based on category or content themes
+  if (normalizedId.includes('etims') || normalizedId.includes('pos')) {
+    return HIGH_PERFORMING_KEYWORDS.filter(k => k.slug.includes('etims') || k.slug.includes('pos') || k.targetUrl.includes('pos') || k.targetUrl.includes('calculator'));
+  }
+
+  if (normalizedId.includes('mpesa') || normalizedId.includes('daraja') || normalizedId.includes('payout')) {
+    return HIGH_PERFORMING_KEYWORDS.filter(k => k.slug.includes('daraja') || k.slug.includes('mpesa') || k.targetUrl.includes('ecommerce') || k.targetUrl.includes('calculator'));
+  }
+
+  if (normalizedId.includes('seo') || normalizedId.includes('aeo') || normalizedId.includes('vitals') || normalizedId.includes('ads')) {
+    return HIGH_PERFORMING_KEYWORDS.filter(k => k.slug.includes('seo') || k.slug.includes('audit') || k.targetUrl.includes('seo') || k.targetUrl.includes('audit'));
+  }
+
+  // Fallback to foundational commercial links so EVERY article passes PageRank
+  return [
+    HIGH_PERFORMING_KEYWORDS[0], // website development in Kenya
+    HIGH_PERFORMING_KEYWORDS[4], // ecommerce website development Kenya
+    HIGH_PERFORMING_KEYWORDS[7], // technical SEO audit Nairobi
+    HIGH_PERFORMING_KEYWORDS[11] // Kenya Website Cost & Scope Estimator
+  ].filter(Boolean);
 }
 
 /**

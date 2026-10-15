@@ -87,7 +87,7 @@ export const INSIGHT_ARTICLES: InsightArticle[] = [
       },
       {
         heading: 'Final Word',
-        body: 'eTIMS invoicing is more than a legal requirement. It is part of building a modern, tech-ready business in Kenya. With the right setup, it runs quietly in the background while you focus on growth.'
+        body: 'eTIMS invoicing is more than a legal requirement. It is part of building a modern, tech-ready business in Kenya. For official portal login and regulations, access the [Kenya Revenue Authority eTIMS Portal](https://etims.kra.go.ke/). To plan and price an integrated eTIMS checkout or ERP solution, try our [Kenya Website & System Cost Calculator](/tools/calculator) or explore our completed projects in our [Client Case Studies](/portfolio).'
       }
     ]
   },
@@ -458,7 +458,7 @@ export const revalidate = 60;`
       },
       {
         heading: '2. Real-Time KRA eTIMS Fiscalization (OSCU & VSCU)',
-        body: 'Under Kenya Revenue Authority mandates, every commercial tax invoice must be validated through the electronic Tax Invoice Management System (eTIMS). Our POS engineering integrates directly with the KRA Online Sales Control Unit (OSCU) so every cashier sale automatically receives a cryptographic receipt signature and QR verification code.',
+        body: 'Under Kenya Revenue Authority mandates, every commercial tax invoice must be validated through the electronic Tax Invoice Management System (eTIMS). In accordance with the official [Kenya Revenue Authority eTIMS Guidelines](https://etims.kra.go.ke/), our POS engineering integrates directly with the KRA Online Sales Control Unit (OSCU) so every cashier sale automatically receives a cryptographic receipt signature and QR verification code. For multi-branch retail, our [Custom Enterprise Software & CRM](/services/custom-crm-development) synchronizes stock, branch pricing, and automated VAT ledgers in real time.',
         codeSnippet: `// Automated KRA eTIMS OSCU Invoice Signing Hook
 async function signFiscalReceipt(sale: RetailSalePayload) {
   const response = await fetch(process.env.KRA_OSCU_ENDPOINT + '/trnsSales/saveSales', {
@@ -478,7 +478,7 @@ async function signFiscalReceipt(sale: RetailSalePayload) {
       },
       {
         heading: '3. Eliminating Cashier M-Pesa Fraud with C2B Till Webhooks',
-        body: 'Manual M-Pesa verification—where a cashier visually inspects a customer’s phone screen—exposes high-volume retailers to SMS spoofing apps. By linking your Safaricom Till or Paybill directly to our [POS Systems & Hardware](/services/pos-systems) stack, the thermal printer only releases a receipt once Safaricom Daraja confirms the exact shilling amount in your ledger.'
+        body: 'Manual M-Pesa verification—where a cashier visually inspects a customer’s phone screen—exposes high-volume retailers to SMS spoofing apps. By linking your Safaricom Till or Paybill directly to our [POS Systems & Hardware](/services/pos-systems) stack, the thermal printer only releases a receipt once Safaricom Daraja confirms the exact shilling amount in your ledger.\n\nYou can estimate your complete store rollout hardware and software budget using our [Free Website & POS Budget Calculator](/tools/calculator) or review real-world client implementations in our [Portfolio Case Studies](/portfolio).'
       }
     ]
   },
@@ -507,7 +507,7 @@ async function signFiscalReceipt(sale: RetailSalePayload) {
     contentSections: [
       {
         heading: '1. Moving Beyond Manual M-Pesa Portal CSV Uploads',
-        body: 'Many Kenyan logistics companies, SACCOs, and agricultural buyers still pay hundreds of field agents by exporting Excel sheets and manually uploading them into the Safaricom portal. A single shifted column or duplicate phone number can send hundreds of thousands of shillings to the wrong recipient.\n\nOur [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) engineering replaces manual CSV uploads with programmatic B2C and B2B API pipelines.'
+        body: 'Many Kenyan logistics companies, SACCOs, and agricultural buyers still pay hundreds of field agents by exporting Excel sheets and manually uploading them into the Safaricom portal. A single shifted column or duplicate phone number can send hundreds of thousands of shillings to the wrong recipient.\n\nOur [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) and [Custom API Integrations](/services/api-integrations) replace manual CSV uploads with programmatic B2C and B2B API pipelines strictly following the official [Safaricom Daraja B2C Documentation](https://developer.safaricom.co.ke/docs).'
       },
       {
         heading: '2. Double-Entry Ledger Locks & Maker-Checker Governance',
@@ -528,7 +528,7 @@ export function generateSecurityCredential(initiatorPassword: string): string {
       },
       {
         heading: '3. Real-Time Float Monitoring & Automated Reconciliation',
-        body: 'When Safaricom returns the asynchronous `ResultURL` webhook, our system matches the `ConversationID`, records the exact M-Pesa transaction receipt code, and updates your accounting dashboard in real time. Explore our [Portfolio Case Studies](/portfolio) to see how we scaled regional payouts to over $2.4M.'
+        body: 'When Safaricom returns the asynchronous `ResultURL` webhook, our system matches the `ConversationID`, records the exact M-Pesa transaction receipt code, and updates your accounting dashboard in real time. Explore our [Portfolio Case Studies](/portfolio) to see how we scaled regional payouts to over $2.4M, review our [Agile Sprint Roadmap](/roadmap), or calculate your custom fintech platform cost using our [Instant Scope Calculator](/tools/calculator).'
       }
     ]
   },
@@ -557,11 +557,11 @@ export function generateSecurityCredential(initiatorPassword: string): string {
     contentSections: [
       {
         heading: '1. Solving the Double FX Conversion Penalty',
-        body: 'When a luxury lodge in Maasai Mara or Diani charges an American guest in Kenyan Shillings on a foreign Visa card, the guest’s bank charges a foreign currency fee, and the local gateway converts USD to KES at an unfavorable spread—even though the lodge pays its aviation and conservation partners in USD.\n\nThrough our [Custom Website Development](/services/web-development), we build smart multi-currency payment routers that settle USD transactions directly into your Kenyan USD bank account and KES transactions via M-Pesa.'
+        body: 'When a luxury lodge in Maasai Mara or Diani charges an American guest in Kenyan Shillings on a foreign Visa card, the guest’s bank charges a foreign currency fee, and the local gateway converts USD to KES at an unfavorable spread—even though the lodge pays its aviation and conservation partners in USD. In adherence with [Central Bank of Kenya FX Guidelines](https://www.centralbank.go.ke/), domestic accounts can receive direct foreign currency deposits without forced conversion.\n\nThrough our [Custom Website Development](/services/web-development) and [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) services, we build smart multi-currency payment routers that settle USD transactions directly into your Kenyan USD bank account and KES transactions via M-Pesa.'
       },
       {
         heading: '2. Edge Geolocation & Frictionless Payment Routing',
-        body: 'Using Cloudflare Edge headers (`cf-ipcountry`), our checkout UI automatically detects whether a visitor is browsing from Nairobi, London, or New York, presenting native M-Pesa STK Push to East African residents and Apple Pay / 3DS2 Visa checkout to international travelers.\n\nEstimate your hospitality or export platform build using our [Instant Cost Calculator](/tools/calculator).'
+        body: 'Using Cloudflare Edge headers (`cf-ipcountry`), our [Front-End Engineering](/services/front-end-development) automatically detects whether a visitor is browsing from Nairobi, London, or New York, presenting native M-Pesa STK Push to East African residents and Apple Pay / 3DS2 Visa checkout to international travelers.\n\nSee how this architecture was deployed in our [Client Case Studies](/portfolio), or estimate your hospitality or export platform build using our [Instant Cost Calculator](/tools/calculator).'
       }
     ]
   },
@@ -637,11 +637,11 @@ const { rows: matchedChunks } = await db.query(\`
     contentSections: [
       {
         heading: '1. The Bottleneck in East African Accounts Payable',
-        body: 'In wholesale distribution, construction, and hospitality across Kenya, suppliers deliver goods accompanied by stamped paper delivery notes and varied PDF invoices. Manually keying thousands of SKUs into an ERP leads to delayed supplier payments and costly data entry errors.\n\nOur [Custom Enterprise Software & CRM](/services/custom-crm-development) automates document ingestion directly from email attachments and WhatsApp photo uploads.'
+        body: 'In wholesale distribution, construction, and hospitality across Kenya, suppliers deliver goods accompanied by stamped paper delivery notes and varied PDF invoices. Manually keying thousands of SKUs into an ERP leads to delayed supplier payments and costly data entry errors.\n\nOur [Custom Enterprise Software & CRM](/services/custom-crm-development) and [Point of Sale (POS) & eTIMS Systems](/services/pos-systems) automate document ingestion directly from email attachments, supplier portals, and WhatsApp photo uploads.'
       },
       {
         heading: '2. Automated 3-Way Matching (LPO + GRN + eTIMS Invoice)',
-        body: 'When a supplier invoice arrives, our pipeline extracts the line-item table, validates the KRA eTIMS invoice number, and cross-checks quantities against the warehouse Goods Received Note (GRN). If all tolerances match within 0.5%, the invoice is queued for CFO payment approval automatically.'
+        body: 'When a supplier invoice arrives, our pipeline extracts the line-item table, validates the KRA eTIMS invoice number, and cross-checks quantities against the warehouse Goods Received Note (GRN). If all tolerances match within 0.5%, the invoice is queued for CFO payment approval automatically. Discover how this eliminated invoice reconciliation bottlenecks in our [SafariLogistics ERP Case Study](/portfolio), or simulate custom workflow engineering costs on our [Instant Cost Calculator](/tools/calculator).'
       }
     ]
   },
@@ -686,7 +686,7 @@ export async function queueFieldOrder(order: FieldOrderPayload) {
       },
       {
         heading: '3. Zero App Store Friction & Instant Over-the-Air Updates',
-        body: 'Unlike bulky 80MB native apps that field agents resist downloading on prepaid data bundles, our PWAs weigh under 600KB and update instantaneously across your entire workforce.'
+        body: 'Unlike bulky 80MB native apps that field agents resist downloading on prepaid data bundles, our [Front-End Engineering](/services/front-end-development) builds PWAs that weigh under 600KB following the [W3C Web App Manifest Standard](https://www.w3.org/TR/appmanifest/). They update instantaneously across your entire workforce, pipe orders into our [Custom Enterprise Software & CRM](/services/custom-crm-development), and link back to live stock balances. Audit your current mobile readiness with our [Live Core Web Vitals Scanner](/tools/audit).'
       }
     ]
   },
@@ -719,7 +719,7 @@ export async function queueFieldOrder(order: FieldOrderPayload) {
       },
       {
         heading: '2. Enforcing Strict Domain Boundaries Inside a Modular Monolith',
-        body: 'A Modular Monolith is not a "spaghetti monolith." Each business domain—`billing`, `inventory`, `identity`, `notifications`—lives in an isolated module with a public interface and isolated database schema tables, allowing seamless future extraction if required.'
+        body: 'A Modular Monolith is not a "spaghetti monolith." Each business domain—`billing`, `inventory`, `identity`, `notifications`—lives in an isolated module with a public interface and isolated database schema tables, allowing seamless future extraction if required.\n\nIn our [Custom Website Development](/services/web-development) and [Cloud Web Hosting & Infrastructure](/services/website-maintenance), we pair modular monoliths with automated CI/CD pipelines deployed across our [4 to 8 Week Agile Sprint Roadmap](/roadmap). Estimate your architecture transformation costs on our [Instant Scope Calculator](/tools/calculator).'
       }
     ]
   },
@@ -752,7 +752,7 @@ export async function queueFieldOrder(order: FieldOrderPayload) {
       },
       {
         heading: '2. Deterministic Unit Account Mapping & WhatsApp Receipts',
-        body: 'When a tenant pays via M-Pesa Paybill using their house number or clicks the STK Push link in their WhatsApp rent reminder, our system credits their unit ledger, clears utility arrears first, generates a stamped PDF receipt, and updates the landlord’s net payout statement immediately.'
+        body: 'When a tenant pays via M-Pesa Paybill using their house number or clicks the STK Push link in their WhatsApp rent reminder, our [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) payment engine credits their unit ledger, clears utility arrears first, generates a stamped PDF receipt, and updates the landlord’s net payout statement immediately.\n\nEvery portal is hosted on high-performance local cloud servers with dedicated [.co.ke Domain & NVMe Hosting](/tools/domains). Plan your real estate portal scope and get instant pricing via our [Kenya Website & System Cost Calculator](/tools/calculator).'
       }
     ]
   },
@@ -829,7 +829,7 @@ export async function queueFieldOrder(order: FieldOrderPayload) {
       },
       {
         heading: '2. Capturing GCLID Through the WhatsApp & Checkout Funnel',
-        body: 'When a prospect lands on your site from a Google Search ad, our script captures the `gclid` parameter, stores it in a first-party session record, and attaches a reference token to the WhatsApp inquiry or M-Pesa STK Push checkout. When the payment clears, our server pings the Google Ads Offline Conversion API with the exact KES transaction value.'
+        body: 'When a prospect lands on your site from a Google Search ad, our script captures the `gclid` parameter, stores it in a first-party session record, and attaches a reference token to the WhatsApp inquiry or M-Pesa STK Push checkout. When the payment clears, our server pings the [Google Ads Offline Conversion API](https://developers.google.com/google-ads/api/docs/conversions/overview) with the exact KES transaction value.\n\nPaired with our [Technical SEO Services Nairobi](/services/seo-services) and conversion rate optimization, this creates a data-backed attribution engine. Test your page speed and tracking tags with our [Free Core Web Vitals & SEO Scanner](/tools/audit), or see performance metrics in our [Portfolio Case Studies](/portfolio).'
       }
     ]
   },
@@ -881,7 +881,7 @@ export function encryptPII(plaintext: string, encKey: Buffer, hmacKey: Buffer) {
       },
       {
         heading: '3. Automated Consent Ledgers & Right-to-Erasure Workflows',
-        body: 'Every opt-in checkbox on our client forms records a timestamped consent version hash, and our admin portals include one-click PII anonymization routines that preserve financial ledger integrity while satisfying customer deletion requests.'
+        body: 'Every opt-in checkbox on our client forms records a timestamped consent version hash, and our admin portals include one-click PII anonymization routines that preserve financial ledger integrity while satisfying customer deletion requests. Deploy compliant systems with our [Custom Enterprise Software & CRM](/services/custom-crm-development) and [4 to 8 Week Agile Sprint Roadmap](/roadmap), or consult our compliance engineers directly on our [Contact Page](/contact).'
       }
     ]
   },
@@ -914,7 +914,7 @@ export function encryptPII(plaintext: string, encKey: Buffer, hmacKey: Buffer) {
       },
       {
         heading: '2. Safe Lock Timeouts & Concurrent Indexing in PostgreSQL',
-        body: 'We enforce strict `lock_timeout = 2000ms` guardrails on every migration script. If a migration cannot acquire a lock within 2 seconds, it aborts safely rather than queuing incoming customer transactions behind a blocked table.',
+        body: 'We enforce strict `lock_timeout = 2000ms` guardrails on every migration script. If a migration cannot acquire a lock within 2 seconds, it aborts safely rather than queuing incoming customer transactions behind a blocked table. Learn more in the [Official PostgreSQL Documentation](https://www.postgresql.org/docs/).',
         codeSnippet: `-- Safe Zero-DowntimePostgreSQL Migration Pattern
 SET lock_timeout = '2s';
 SET statement_timeout = '10s';
@@ -928,7 +928,7 @@ ON orders (kra_etims_signature) WHERE kra_etims_signature IS NOT NULL;`
       },
       {
         heading: '3. Verifiable Backups & 15-Minute Recovery Time Objective (RTO)',
-        body: 'An untested backup is not a backup. Our automated infrastructure streams encrypted Write-Ahead Logs (WAL) to off-site Cloudflare R2 storage and runs weekly automated restoration drills to verify data integrity.'
+        body: 'An untested backup is not a backup. Our automated infrastructure streams encrypted Write-Ahead Logs (WAL) to off-site Cloudflare R2 storage and runs weekly automated restoration drills to verify data integrity. Deploy high-availability infrastructure with our [.co.ke Domain & NVMe Hosting](/tools/domains), or test your website speed and reliability today using our [Instant SEO & Performance Audit Tool](/tools/audit).'
       }
     ]
   }

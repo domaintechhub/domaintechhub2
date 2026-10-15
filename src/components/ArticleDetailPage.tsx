@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import {
   BookOpen, Clock, Calendar, ArrowLeft, ArrowRight,
   ArrowUpRight, Check, Share2, Terminal, MessageSquare,
-  FileText, Layers, ChevronRight
+  FileText, Layers, ChevronRight, Calculator, ShieldCheck
 } from 'lucide-react';
 import { INSIGHT_ARTICLES, InsightArticle } from '../data/insightsData';
 import { SERVICES_LIST } from '../data/servicesData';
@@ -412,6 +412,142 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
             </div>
           </section>
         )}
+
+        {/* Interactive Estimators & Free Tools Internal Backlinks */}
+        <section className="mb-12 pt-8 border-t border-slate-800/80">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+              <Calculator className="w-4 h-4 text-cyan-400" />
+              <span>Interactive Estimators & Performance Scanners</span>
+            </h2>
+            <span className="text-xs font-mono text-cyan-400">100% Free Client Tools</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <a
+              href="/tools/calculator"
+              onClick={(e) => { e.preventDefault(); onNavigatePath('/tools/calculator'); }}
+              className="p-4 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-cyan-400 uppercase font-semibold">Scope Estimator</span>
+                <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors mt-1 mb-1">
+                  Kenya Website Cost Calculator
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Real-time scope and pricing calculator in KES & USD with instant PDF breakdown.
+                </p>
+              </div>
+              <span className="text-xs font-mono text-cyan-400 flex items-center gap-1 mt-3">
+                <span>Launch Calculator</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </span>
+            </a>
+
+            <a
+              href="/tools/audit"
+              onClick={(e) => { e.preventDefault(); onNavigatePath('/tools/audit'); }}
+              className="p-4 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-cyan-400 uppercase font-semibold">Live Performance</span>
+                <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors mt-1 mb-1">
+                  Core Web Vitals & SEO Scanner
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Diagnose LCP speed, mobile usability, and Google ranking bottlenecks instantly.
+                </p>
+              </div>
+              <span className="text-xs font-mono text-cyan-400 flex items-center gap-1 mt-3">
+                <span>Run Free Audit</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </span>
+            </a>
+
+            <a
+              href="/tools/domains"
+              onClick={(e) => { e.preventDefault(); onNavigatePath('/tools/domains'); }}
+              className="p-4 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-cyan-400 uppercase font-semibold">Cloud Infrastructure</span>
+                <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors mt-1 mb-1">
+                  .co.ke Domain & NVMe Hosting
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Check national domain options paired with ultra-low-latency Kenyan NVMe cloud servers.
+                </p>
+              </div>
+              <span className="text-xs font-mono text-cyan-400 flex items-center gap-1 mt-3">
+                <span>Check Domain</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </span>
+            </a>
+          </div>
+        </section>
+
+        {/* Authoritative National & Industry Citations */}
+        <section className="mb-12 pt-8 border-t border-slate-800/80">
+          <h2 className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3 font-semibold flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-teal-400" />
+            <span>Authoritative Technical Sources & Regulatory Citations</span>
+          </h2>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <a 
+              href="https://developers.google.com/search/docs" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <span>Google Search Central Documentation</span>
+              <ArrowUpRight className="w-3 h-3 text-teal-400" />
+            </a>
+            <a 
+              href="https://developer.safaricom.co.ke" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <span>Safaricom Daraja Developer Platform</span>
+              <ArrowUpRight className="w-3 h-3 text-teal-400" />
+            </a>
+            <a 
+              href="https://etims.kra.go.ke" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <span>Kenya Revenue Authority (eTIMS)</span>
+              <ArrowUpRight className="w-3 h-3 text-teal-400" />
+            </a>
+            <a 
+              href="https://www.ca.go.ke" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <span>Communications Authority of Kenya (CAK)</span>
+              <ArrowUpRight className="w-3 h-3 text-teal-400" />
+            </a>
+            <a 
+              href="https://kenic.or.ke" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <span>KeNIC Kenya Network Information Centre</span>
+              <ArrowUpRight className="w-3 h-3 text-teal-400" />
+            </a>
+            <a 
+              href="https://www.w3.org" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            >
+              <span>World Wide Web Consortium (W3C)</span>
+              <ArrowUpRight className="w-3 h-3 text-teal-400" />
+            </a>
+          </div>
+        </section>
 
         {/* Internal Links to Core Services */}
         <section className="mb-12 pt-8 border-t border-slate-800/80">

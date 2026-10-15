@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Globe, Mail, Phone, MapPin, Clock, MessageSquare, 
-  ArrowUpRight, Heart, Shield, Code, X, ShieldCheck, FileText, CheckCircle2,
-  Award, Link2
+  ArrowUpRight, Heart, Shield, Code, X, ShieldCheck, FileText, CheckCircle2
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { Logo } from './Logo';
 import { useLanguage } from '../context/LanguageContext';
-import { BacklinkPartnerKitModal } from './BacklinkPartnerKitModal';
 
 interface FooterProps {
   onNavigate: (sectionId: string, subParam?: string) => void;
@@ -16,7 +14,6 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'sla' | null>(null);
-  const [isBacklinkKitOpen, setIsBacklinkKitOpen] = useState(false);
 
   useEffect(() => {
     // Ensure Google's official Preferred Sources button publisher script is loaded
@@ -198,36 +195,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
 
             {/* Google's official "Add to Preferred Sources" button */}
-            <div className="pt-4 space-y-3">
-              <div>
-                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-semibold">
-                  <span>Google News Source</span>
-                </div>
-                <div className="min-h-[38px] flex items-center">
-                  <div 
-                    {...{ 'google-add-preferred-source-btn': '' }} 
-                    data-theme="light" 
-                    data-lang="en" 
-                  />
-                </div>
+            <div className="pt-4">
+              <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-semibold">
+                <span>Google News Source</span>
               </div>
-
-              {/* Backlink & Partner Citation Engine CTA */}
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsBacklinkKitOpen(true)}
-                  className="w-full inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-teal-950/60 hover:bg-teal-900/80 border border-teal-500/30 hover:border-teal-400/50 text-teal-300 text-xs font-medium transition-all group cursor-pointer shadow-xs text-left"
-                >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <Award className="w-4 h-4 text-teal-400 shrink-0 group-hover:scale-110 transition-transform" />
-                    <div className="min-w-0">
-                      <div className="text-[11px] font-bold text-white leading-tight truncate">Partner &amp; Backlink Kit</div>
-                      <div className="text-[10px] text-teal-300/80 truncate">Client Footer Badges &amp; Citations</div>
-                    </div>
-                  </div>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-teal-400 shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </button>
+              <div className="min-h-[38px] flex items-center">
+                <div 
+                  {...{ 'google-add-preferred-source-btn': '' }} 
+                  data-theme="light" 
+                  data-lang="en" 
+                />
               </div>
             </div>
           </div>
@@ -363,23 +340,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </a>
               </li>
               <li>
-                <a href="/tools/backlinks" onClick={(e) => handleFooterNavigate(e, 'tools', 'backlinks')} className="hover:text-teal-300 text-left transition-colors flex items-center gap-1 text-teal-400 font-semibold">
-                  <Link2 className="w-3 h-3 text-teal-400" />
-                  <span>Backlink &amp; Citation Hub</span>
-                  <ArrowUpRight className="w-3 h-3 text-teal-400" />
-                </a>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => setIsBacklinkKitOpen(true)}
-                  className="hover:text-teal-300 text-left transition-colors flex items-center gap-1.5 text-teal-400/90 font-medium cursor-pointer"
-                >
-                  <Award className="w-3 h-3 text-teal-400" />
-                  <span>Client Attribution Badges</span>
-                </button>
-              </li>
-              <li>
                 <a href="/portal" onClick={(e) => handleFooterNavigate(e, 'client-portal')} className="hover:text-cyan-300 text-left transition-colors">
                   Client Project Portal (Demo)
                 </a>
@@ -491,15 +451,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button 
-              type="button"
-              onClick={() => setIsBacklinkKitOpen(true)} 
-              className="hover:text-teal-300 cursor-pointer text-teal-400 font-semibold transition-colors focus:outline-none flex items-center gap-1.5"
-            >
-              <Link2 className="w-3.5 h-3.5" />
-              <span>Backlink Partner Kit</span>
-            </button>
-            <span aria-hidden="true">·</span>
             <button 
               type="button"
               onClick={() => setLegalModal('privacy')} 
@@ -692,11 +643,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
         </div>
       )}
-      {/* Backlink Partner Kit Modal */}
-      <BacklinkPartnerKitModal
-        isOpen={isBacklinkKitOpen}
-        onClose={() => setIsBacklinkKitOpen(false)}
-      />
     </footer>
   );
 };

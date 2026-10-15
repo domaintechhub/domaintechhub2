@@ -592,9 +592,6 @@ export function runPrerender() {
     { relPath: 'tools/calculator/index.html', route: 'tools', subTab: 'calculator' },
     { relPath: 'tools/audit/index.html', route: 'tools', subTab: 'audit' },
     { relPath: 'tools/domains/index.html', route: 'tools', subTab: 'domains' },
-    { relPath: 'tools/backlinks/index.html', route: 'tools', subTab: 'backlinks' },
-    { relPath: 'backlinks/index.html', route: 'tools', subTab: 'backlinks' },
-    { relPath: 'partners/index.html', route: 'tools', subTab: 'backlinks' },
   ];
 
   for (const item of coreRoutes) {

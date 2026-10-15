@@ -114,14 +114,6 @@
     <priority>0.85</priority>
   </url>
 
-  <!-- Agency Backlink &amp; Citation Hub -->
-  <url>
-    <loc>https://www.domaintechhubs.com/tools/backlinks</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
   <!-- ==================== INDEXABLE CORE SERVICES ==================== -->
   <!-- Custom Website Development -->
   <url>
