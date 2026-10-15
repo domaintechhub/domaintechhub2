@@ -507,7 +507,7 @@ async function signFiscalReceipt(sale: RetailSalePayload) {
     contentSections: [
       {
         heading: '1. Moving Beyond Manual M-Pesa Portal CSV Uploads',
-        body: 'Many Kenyan logistics companies, SACCOs, and agricultural buyers still pay hundreds of field agents by exporting Excel sheets and manually uploading them into the Safaricom portal. A single shifted column or duplicate phone number can send hundreds of thousands of shillings to the wrong recipient.\n\nOur [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) and [Custom API Integrations](/services/api-integrations) replace manual CSV uploads with programmatic B2C and B2B API pipelines strictly following the official [Safaricom Daraja B2C Documentation](https://developer.safaricom.co.ke/docs).'
+        body: 'Many Kenyan logistics companies, SACCOs, and agricultural buyers still pay hundreds of field agents by exporting Excel sheets and manually uploading them into the Safaricom portal. A single shifted column or duplicate phone number can send hundreds of thousands of shillings to the wrong recipient.\n\nOur [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) and [Custom CRM & Systems Integration](/services/custom-crm-development) replace manual CSV uploads with programmatic B2C and B2B API pipelines strictly following the official [Safaricom Daraja B2C Documentation](https://developer.safaricom.co.ke/).'
       },
       {
         heading: '2. Double-Entry Ledger Locks & Maker-Checker Governance',
