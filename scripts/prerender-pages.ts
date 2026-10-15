@@ -58,11 +58,13 @@ function renderNavHeaderHtml(): string {
         <a href="/services">Services</a>
         <a href="/portfolio">Case Studies</a>
         <a href="/insights">Engineering Insights</a>
+        <a href="/blog">Blog</a>
         <a href="/roadmap">Sprint Roadmap</a>
         <a href="/team">Team</a>
         <a href="/tech-stack">Tech Stack</a>
         <a href="/tools/calculator">Cost Calculator</a>
         <a href="/tools/audit">SEO Audit Tool</a>
+        <a href="/tools/domains">Domain Checker</a>
         <a href="/faq">FAQ</a>
         <a href="/contact">Contact</a>
       </nav>
@@ -75,7 +77,7 @@ function renderFooterLinksHtml(): string {
     (s) => `<li><a href="/services/${s.id}">${escapeHtml(s.title)}</a></li>`
   ).join('\n          ');
 
-  const articleLinks = INSIGHT_ARTICLES.slice(0, 10).map(
+  const articleLinks = INSIGHT_ARTICLES.map(
     (a) => `<li><a href="/insights/${a.slug}">${escapeHtml(a.title)}</a></li>`
   ).join('\n          ');
 
