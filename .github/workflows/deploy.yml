@@ -39,6 +39,7 @@ jobs:
       - name: Build and verify production bundle
         env:
           VITE_CONFIG_NATIVE_IGNORE_WARNING: "true"
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run build
 
       - name: Setup Pages
