@@ -39,6 +39,17 @@
       "permanent": true
     },
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "domaintechhub2.vercel.app"
+        }
+      ],
+      "destination": "https://www.domaintechhubs.com/$1",
+      "permanent": true
+    },
+    {
       "source": "/services/ecommerce-mpesa",
       "destination": "/services/ecommerce-development",
       "permanent": true
