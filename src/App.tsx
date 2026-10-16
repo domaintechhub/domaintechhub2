@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { lazy, Suspense, useState, useEffect, useLayoutEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -126,12 +126,16 @@ export default function App() {
   };
 
   // Guarantee that every page navigation loads from the h1 header at the top before paint
+  // The first render already starts at the top, so skip the synchronous scroll then to avoid a forced reflow.
+  const isInitialRender = useRef(true);
   useLayoutEffect(() => {
+    if (isInitialRender.current) return;
     scrollToTopHeader();
   }, [currentPage, activeServiceId, activeArticleSlug, activeToolTab, activeMoreTab]);
 
   useEffect(() => {
-    scrollToTopHeader();
+    if (!isInitialRender.current) scrollToTopHeader();
+    isInitialRender.current = false;
 
     const raf1 = requestAnimationFrame(scrollToTopHeader);
     const raf2 = requestAnimationFrame(() => requestAnimationFrame(scrollToTopHeader));
