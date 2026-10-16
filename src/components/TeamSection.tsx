@@ -180,7 +180,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onScheduleWithMember }
                   <div className="relative aspect-square overflow-hidden bg-stone-100 dark:bg-slate-800">
                     <img 
                       src={member.image} 
-                      alt={`${member.name} - ${member.role} at Domain Tech Hub`}
+                      alt={`${member.name}, ${member.role} offering ${member.department} services (${member.specializations.slice(0, 3).join(', ')}) at Domain Tech Hub`}
                       width={600}
                       height={600}
                       loading="lazy"
@@ -263,7 +263,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onScheduleWithMember }
               <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-teal-500/50 shadow-lg">
                 <img 
                   src={selectedMember.image} 
-                  alt={selectedMember.name} 
+                  alt={`${selectedMember.name} – ${selectedMember.role} leading ${selectedMember.department} development and client implementation services (${selectedMember.specializations.slice(0, 3).join(', ')})`}
                   width={300}
                   height={300}
                   loading="lazy"

@@ -596,7 +596,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                 <div className="lg:col-span-6 relative h-64 sm:h-80 lg:h-auto min-h-[300px] overflow-hidden bg-slate-950">
                   <img
                     src={featuredArticle.coverImage}
-                    alt={featuredArticle.title}
+                    alt={`${featuredArticle.category} service architecture guide: ${featuredArticle.title} – engineering solutions and technical consulting`}
                     width={800}
                     height={450}
                     loading="lazy"
@@ -678,7 +678,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     <div className="flex items-center gap-3">
                       <img
                         src={featuredArticle.author.avatar}
-                        alt={featuredArticle.author.name}
+                        alt={`${featuredArticle.author.name}, ${featuredArticle.author.role} providing ${featuredArticle.category} engineering services at Domain Tech Hub`}
                         width={40}
                         height={40}
                         loading="lazy"
@@ -786,7 +786,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   <div className="relative h-48 w-full overflow-hidden bg-slate-950">
                     <img
                       src={article.coverImage}
-                      alt={article.title}
+                      alt={`${article.category} service guide: ${article.title} – Domain Tech Hub development and technical advisory`}
                       width={640}
                       height={360}
                       loading="lazy"
@@ -849,7 +849,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     <div className="flex items-center gap-2.5">
                       <img
                         src={article.author.avatar}
-                        alt={article.author.name}
+                        alt={`${article.author.name}, ${article.author.role} delivering ${article.category} engineering services`}
                         width={28}
                         height={28}
                         loading="lazy"
@@ -1045,7 +1045,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                 <div className="flex items-center gap-3">
                   <img
                     src={selectedArticle.author.avatar}
-                    alt={selectedArticle.author.name}
+                    alt={`${selectedArticle.author.name}, ${selectedArticle.author.role} providing ${selectedArticle.category} engineering and consulting services`}
                     width={40}
                     height={40}
                     loading="lazy"

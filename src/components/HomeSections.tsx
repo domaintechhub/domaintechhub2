@@ -1,7 +1,6 @@
 import React from 'react';
 import { WhatWeBuildSection } from './WhatWeBuildSection';
 import { Testimonials } from './Testimonials';
-import { InsightsSection } from './InsightsSection';
 import { BookingSection } from './BookingSection';
 import { BuildLayerKey } from './Hero';
 
@@ -17,8 +16,8 @@ interface HomeSectionsProps {
   onFixAuditWithAgency?: (domain: string, issueCount: number) => void;
   onSelectDomainForSetup?: (domainName: string, extension: string) => void;
   onBookSimilarProject?: (projectTitle: string) => void;
-  onScheduleConsultation: (topic: string) => void;
-  onNavigatePath: (url: string) => void;
+  onScheduleConsultation?: (topic: string) => void;
+  onNavigatePath?: (url: string) => void;
   activeBuildLayer?: BuildLayerKey;
   onSelectBuildLayer?: (layer: BuildLayerKey) => void;
 }
@@ -28,8 +27,6 @@ export const HomeSections: React.FC<HomeSectionsProps> = ({
   prefilledNotes,
   onNavigate,
   onSelectForQuote,
-  onScheduleConsultation,
-  onNavigatePath,
   activeBuildLayer = 'build',
   onSelectBuildLayer,
 }) => (
@@ -42,12 +39,6 @@ export const HomeSections: React.FC<HomeSectionsProps> = ({
       onSelectForQuote={onSelectForQuote}
     />
     <Testimonials />
-    <InsightsSection
-      previewMode={true}
-      onScheduleConsultation={onScheduleConsultation}
-      onNavigatePath={onNavigatePath}
-      onViewAllArticles={() => onNavigate('insights')}
-    />
     <BookingSection
       prefilledService={prefilledService}
       prefilledNotes={prefilledNotes}

@@ -1091,7 +1091,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                 <div className="rounded-2xl overflow-hidden border border-stone-200 dark:border-slate-800 shadow-md">
                   <img
                     src={matchedCaseStudy.image}
-                    alt={matchedCaseStudy.title}
+                    alt={`${service.title} (${service.category} Service) delivery showcase: ${matchedCaseStudy.title} for ${matchedCaseStudy.client}`}
                     width={640}
                     height={360}
                     loading="lazy"

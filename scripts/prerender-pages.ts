@@ -20,7 +20,7 @@ import { INSIGHT_ARTICLES } from '../src/data/insightsData';
 import { CASE_STUDIES } from '../src/data/portfolioData';
 import { FAQ_ITEMS } from '../src/data/faqData';
 import { SERVICE_KEYWORD_MAP } from '../src/data/keywordMapData';
-import { PAGE_SEO_DATA } from '../src/utils/seo';
+import { PAGE_SEO_DATA, MASTER_TARGET_KEYWORDS } from '../src/utils/seo';
 import { injectSemanticKeywords } from '../src/utils/keywordInjection';
 import { normalizeServiceSlug } from '../src/utils/routing';
 import type { PageRoute } from '../src/App';
@@ -473,6 +473,12 @@ export function injectSeoIntoHtml(
   html = html.replace(
     /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
     `<meta name="description" content="${escapeHtml(config.description)}" />`
+  );
+
+  // Replace meta name="keywords"
+  html = html.replace(
+    /<meta\s+name="keywords"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="keywords" content="${escapeHtml(config.keywords || MASTER_TARGET_KEYWORDS)}" />`
   );
 
   // Replace meta name="robots"

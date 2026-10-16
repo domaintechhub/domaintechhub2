@@ -210,7 +210,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
             <div className="flex items-center gap-3">
               <img
                 src={article.author.avatar}
-                alt={article.author.name}
+                alt={`${article.author.name}, ${article.author.role} providing ${article.category} engineering solutions at Domain Tech Hub`}
                 width={44}
                 height={44}
                 loading="eager"
@@ -238,7 +238,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         <div className="mb-10 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 aspect-video max-h-[420px] w-full">
           <img
             src={article.coverImage}
-            alt={article.title}
+            alt={`${article.category} service architecture blueprint: ${article.title} – Domain Tech Hub technical implementation and engineering services`}
             width={960}
             height={540}
             loading="eager"

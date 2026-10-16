@@ -94,7 +94,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({
                 <div className="relative h-48 w-full overflow-hidden bg-slate-950">
                   <img
                     src={item.image}
-                    alt={item.title}
+                    alt={`${item.category} service portfolio: ${item.title} developed for ${item.client} – ${item.summary}`}
                     width={640}
                     height={360}
                     loading="lazy"
