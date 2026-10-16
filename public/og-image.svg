@@ -76,7 +76,7 @@
 
     <!-- Badge 3 -->
     <rect x="390" y="0" width="180" height="34" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
-    <text x="480" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="600" fill="#fbbf24" text-anchor="middle">GOOGLE SEO #1</text>
+    <text x="480" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="600" fill="#fbbf24" text-anchor="middle">SEO &amp; GROWTH</text>
 
     <!-- Badge 4 -->
     <rect x="585" y="0" width="220" height="34" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
