@@ -553,7 +553,7 @@ export function injectSeoIntoHtml(
 
   // Inject visible semantic HTML into <div id="root"></div>
   const bodyContent = buildBodyHtmlForRoute(route, subTab);
-  html = html.replace(/<div id="root"><\/div>/i, `<div id="root">${bodyContent}</div>`);
+  html = html.replace(/<div id="root"><\/div>/i, `<div id="root" data-prerendered>${bodyContent}</div>`);
 
   return html;
 }
