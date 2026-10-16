@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Mail, Phone, MapPin, Clock, MessageSquare, 
   ArrowUpRight, Heart, Shield, Code, X, ShieldCheck, FileText, CheckCircle2
@@ -13,43 +13,34 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
+  const footerRef = useRef<HTMLElement>(null);
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'sla' | null>(null);
 
   useEffect(() => {
-    // Ensure Google's official Preferred Sources button publisher script is loaded
     const scriptSrc = 'https://news.google.com/swg/js/v1/publisher.js';
-    if (!document.querySelector(`script[src="${scriptSrc}"]`)) {
+    const loadPublisherScript = () => {
+      if (document.querySelector(`script[src="${scriptSrc}"]`)) return;
       const script = document.createElement('script');
       script.async = true;
       script.src = scriptSrc;
       document.body.appendChild(script);
-    }
-
-    // Trigger Google's Preferred Source button initialization if already loaded
-    const triggerGoogleButton = () => {
-      const win = window as unknown as {
-        PREFERRED_SOURCE?: {
-          init?: () => void;
-          api?: { init?: () => void };
-          push?: (fn: (api: unknown) => void) => void;
-        } | Array<(api: unknown) => void>;
-      };
-      if (win.PREFERRED_SOURCE && typeof (win.PREFERRED_SOURCE as { init?: () => void }).init === 'function') {
-        (win.PREFERRED_SOURCE as { init: () => void }).init();
-      } else if (win.PREFERRED_SOURCE && (win.PREFERRED_SOURCE as { api?: { init?: () => void } }).api?.init) {
-        (win.PREFERRED_SOURCE as { api: { init: () => void } }).api.init();
-      } else if (Array.isArray(win.PREFERRED_SOURCE)) {
-        win.PREFERRED_SOURCE.push((api: unknown) => {
-          if (api && typeof (api as { init?: () => void }).init === 'function') {
-            (api as { init: () => void }).init();
-          }
-        });
-      }
     };
 
-    triggerGoogleButton();
-    const timer = setTimeout(triggerGoogleButton, 800);
-    return () => clearTimeout(timer);
+    // Load Google's Preferred Sources script only once the footer is near the viewport,
+    // which avoids a third-party cookie and iframe on initial page load.
+    const footerEl = footerRef.current;
+    if (!footerEl || typeof IntersectionObserver === 'undefined') {
+      loadPublisherScript();
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        loadPublisherScript();
+        observer.disconnect();
+      }
+    }, { rootMargin: '300px' });
+    observer.observe(footerEl);
+    return () => observer.disconnect();
   }, []);
 
   const handleFooterNavigate = (e: React.MouseEvent, sectionId: string, subParam?: string) => {
@@ -64,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-800/90 text-slate-400 text-xs">
+    <footer ref={footerRef} className="bg-slate-950 border-t border-slate-800/90 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           
