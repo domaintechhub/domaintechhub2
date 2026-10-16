@@ -218,7 +218,7 @@ export const Hero: React.FC<HeroProps> = ({
             
             {/* Eyebrow: `karibu · welcome to domain tech hub` with live dot that pulses */}
             <motion.div
-              initial={isReducedMotion ? {} : { opacity: 0, y: 15 }}
+              initial={isReducedMotion ? {} : { y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20, delay: welcomeSkipped ? 0 : 0.6 }}
               className="inline-flex items-center gap-2.5 px-3 py-1.5 mb-5 rounded-md bg-stone-200/60 dark:bg-slate-900/80 border border-stone-300/80 dark:border-slate-800 text-xs sm:text-sm font-mono lowercase tracking-wide text-slate-800 dark:text-slate-300"
@@ -241,7 +241,7 @@ export const Hero: React.FC<HeroProps> = ({
                 return (
                   <motion.span
                     key={`${word}-${idx}`}
-                    initial={isReducedMotion ? {} : { opacity: 0, y: 28 }}
+                    initial={isReducedMotion ? {} : { y: 28 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', stiffness: 280, damping: 22, delay: wordDelay }}
                     className="inline-block mr-[0.26em]"
@@ -261,7 +261,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* Subline: Uppercase, 1.1 leading, one sentence (fades up at +400ms) */}
             <motion.p
-              initial={isReducedMotion ? {} : { opacity: 0, y: 18 }}
+              initial={isReducedMotion ? {} : { y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 22, delay: baseDelay + 0.4 }}
               className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 leading-[1.1] max-w-2xl mb-4"
@@ -271,7 +271,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* "What we do" line with rotating spring word (at +700ms) */}
             <motion.div
-              initial={isReducedMotion ? {} : { opacity: 0, y: 15 }}
+              initial={isReducedMotion ? {} : { y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 22, delay: baseDelay + 0.7 }}
               onMouseEnter={() => setIsRotatingPaused(true)}
@@ -306,14 +306,14 @@ export const Hero: React.FC<HeroProps> = ({
                 return (
                   <motion.div
                     key={chip.id}
-                    initial={isReducedMotion ? {} : { opacity: 0, y: 20 }}
+                    initial={isReducedMotion ? {} : { y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', stiffness: 280, damping: 22, delay: chipDelay }}
                     className="flex flex-col"
                   >
                     <button
                       onClick={() => handleScrollToBlock2(chip.id)}
-                      className="chamfer-chip relative px-3 py-2.5 bg-stone-100 dark:bg-slate-900 border border-stone-300 dark:border-slate-800 text-slate-900 dark:text-white font-mono text-xs sm:text-sm font-bold tracking-tight text-left transition-all duration-200 hover:bg-teal-600 hover:text-white hover:border-teal-600 dark:hover:bg-teal-600 dark:hover:text-white group active:scale-[0.98]"
+                      className="chamfer-chip relative px-3 py-2.5 bg-stone-100 dark:bg-slate-900 border border-stone-300 dark:border-slate-800 text-slate-900 dark:text-white font-mono text-xs sm:text-sm font-bold tracking-tight text-left transition-all duration-200 hover:bg-[#0d9488] hover:text-white hover:border-[#0d9488] dark:hover:bg-[#0d9488] dark:hover:text-white group active:scale-[0.98]"
                       title={`Jump to ${chip.name} in Block 2`}
                     >
                       {/* Bracket corners aesthetic */}
@@ -332,7 +332,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* Primary actions (one row, chamfered buttons, at +1300ms) */}
             <motion.div
-              initial={isReducedMotion ? {} : { opacity: 0, y: 20 }}
+              initial={isReducedMotion ? {} : { y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 280, damping: 22, delay: baseDelay + 1.3 }}
               className="flex items-center flex-wrap gap-4 mb-6"
@@ -364,7 +364,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* Trust line: small, under actions, three items with icons (at +1500ms) */}
             <motion.div
-              initial={isReducedMotion ? {} : { opacity: 0, y: 15 }}
+              initial={isReducedMotion ? {} : { y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 22, delay: baseDelay + 1.5 }}
               className="flex items-center flex-wrap gap-3 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -478,7 +478,7 @@ export const Hero: React.FC<HeroProps> = ({
           
           {/* Left: `01 / 16 services` */}
           <div className="flex items-center gap-2 font-bold tracking-tight text-slate-900 dark:text-white shrink-0">
-            <span className="px-2 py-0.5 rounded bg-stone-200/80 dark:bg-slate-800 text-teal-700 dark:text-teal-300 font-mono text-[11px]">
+            <span className="px-2 py-0.5 rounded bg-stone-200/80 dark:bg-slate-800 text-teal-800 dark:text-teal-300 font-mono text-[11px]">
               01 / 16 services
             </span>
             <span className="hidden sm:inline text-slate-500 dark:text-slate-400 font-normal">
