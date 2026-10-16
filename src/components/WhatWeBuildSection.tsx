@@ -353,7 +353,7 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
                 <span className="font-bold text-slate-900 dark:text-white text-base">
                   Layer {layerData.num}: {layerData.title}
                 </span>
-                <span className="text-xs sm:text-sm font-mono text-teal-700 dark:text-teal-300 font-semibold bg-stone-200/70 dark:bg-slate-800 px-2 py-0.5 rounded">
+                <span className="text-xs sm:text-sm font-mono text-teal-800 dark:text-teal-300 font-semibold bg-stone-200/70 dark:bg-slate-800 px-2 py-0.5 rounded">
                   {layerData.subtitle}
                 </span>
               </div>
