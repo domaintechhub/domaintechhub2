@@ -26,20 +26,21 @@ import { AGENCY_INFO } from './data/portfolioData';
 import { discardPersistedLeadData } from './utils/leadDispatch';
 import { getCanonicalLocation, getCurrentAppRoute, getPathForRoute, parseAppRoute } from './utils/routing';
 
-import { MorePage } from './components/MorePage';
-import { AboutPage } from './components/AboutPage';
-import { ToolsPage } from './components/ToolsPage';
-import { ServiceDetailPage } from './components/ServiceDetailPage';
-import { ArticleDetailPage } from './components/ArticleDetailPage';
-import { HomeSections } from './components/HomeSections';
-import { ServicesExplorer } from './components/ServicesExplorer';
-import { TechStackSection } from './components/TechStackSection';
-import { Portfolio } from './components/Portfolio';
-import { Testimonials } from './components/Testimonials';
-import { InsightsSection } from './components/InsightsSection';
-import { ClientPortalDemo } from './components/ClientPortalDemo';
-import { FaqSection } from './components/FaqSection';
-import { BookingSection } from './components/BookingSection';
+
+const MorePage = lazy(() => import('./components/MorePage').then(({ MorePage }) => ({ default: MorePage })));
+const AboutPage = lazy(() => import('./components/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })));
+const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
+const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })));
+const ArticleDetailPage = lazy(() => import('./components/ArticleDetailPage').then(({ ArticleDetailPage }) => ({ default: ArticleDetailPage })));
+const HomeSections = lazy(() => import('./components/HomeSections').then(({ HomeSections }) => ({ default: HomeSections })));
+const ServicesExplorer = lazy(() => import('./components/ServicesExplorer').then(({ ServicesExplorer }) => ({ default: ServicesExplorer })));
+const TechStackSection = lazy(() => import('./components/TechStackSection').then(({ TechStackSection }) => ({ default: TechStackSection })));
+const Portfolio = lazy(() => import('./components/Portfolio').then(({ Portfolio }) => ({ default: Portfolio })));
+const Testimonials = lazy(() => import('./components/Testimonials').then(({ Testimonials }) => ({ default: Testimonials })));
+const InsightsSection = lazy(() => import('./components/InsightsSection').then(({ InsightsSection }) => ({ default: InsightsSection })));
+const ClientPortalDemo = lazy(() => import('./components/ClientPortalDemo').then(({ ClientPortalDemo }) => ({ default: ClientPortalDemo })));
+const FaqSection = lazy(() => import('./components/FaqSection').then(({ FaqSection }) => ({ default: FaqSection })));
+const BookingSection = lazy(() => import('./components/BookingSection').then(({ BookingSection }) => ({ default: BookingSection })));
 
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
@@ -406,6 +407,7 @@ export default function App() {
 
           {/* Main Content Page Container */}
           <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
+<Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
 
             {/* 1. DEDICATED PAGE: HOME / LANDING OVERVIEW */}
             {currentPage === 'home' && (
@@ -415,6 +417,7 @@ export default function App() {
                   onSelectCalculatorService={setCalculatorServiceId}
                   onSelectBuildLayer={setActiveBuildLayer}
                 />
+                <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
                 <HomeSections
                   calculatorServiceId={calculatorServiceId}
                   prefilledService={prefilledService}
@@ -432,6 +435,7 @@ export default function App() {
                   onScheduleConsultation={handleScheduleFromInsight}
                   onNavigatePath={navigateToInternalPath}
                 />
+                </Suspense>
               </div>
             )}
 
@@ -757,6 +761,7 @@ export default function App() {
               </div>
             )}
 
+          </Suspense>
           </main>
 
           {/* Footer */}
