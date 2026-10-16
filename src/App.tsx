@@ -53,6 +53,10 @@ if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
 export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about' | 'not-found';
 
 export default function App() {
+  useLayoutEffect(() => {
+    document.getElementById('root')?.removeAttribute('data-prerendered');
+  }, []);
+
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
   const [activeToolTab, setActiveToolTab] = useState<ToolTab>('calculator');
   const [activeMoreTab, setActiveMoreTab] = useState<MoreTab>('roadmap');
