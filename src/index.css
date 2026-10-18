@@ -409,6 +409,24 @@ html:not(.dark) [class*="bg-[#25D366]"] * {
   color: #ffffff !important;
 }
 
+/* White cards (e.g. the home quote form) sit inside green gradient sections whose
+   rule above forces white text; restore dark text inside the card. */
+html:not(.dark) [class*="from-[#00c853]"] .bg-white,
+html:not(.dark) [class*="from-[#00c853]"] .bg-white * {
+  color: #0f172a !important;
+}
+
+html:not(.dark) [class*="from-[#00c853]"] .bg-white [class*="bg-[#00c853]"],
+html:not(.dark) [class*="from-[#00c853]"] .bg-white [class*="bg-[#00c853]"] *,
+html:not(.dark) [class*="from-[#00c853]"] .bg-white .\!text-white {
+  color: #ffffff !important;
+}
+
+html:not(.dark) [class*="from-[#00c853]"] .bg-white input::placeholder,
+html:not(.dark) [class*="from-[#00c853]"] .bg-white textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
 html:not(.dark) .\!text-slate-200,
 html:not(.dark) .\!text-slate-200 * {
   color: #e2e8f0 !important;
