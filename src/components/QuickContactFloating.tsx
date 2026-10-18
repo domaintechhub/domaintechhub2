@@ -22,7 +22,7 @@ export const QuickContactFloating: React.FC<QuickContactFloatingProps> = ({ onOp
   };
 
   return (
-    <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2 pointer-events-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2 pointer-events-none">
       {/* Scroll to Top */}
       {showScrollTop && (
         <button
