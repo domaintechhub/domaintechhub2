@@ -1,6 +1,7 @@
 import React from 'react';
 import { MessageSquare, ArrowRight, ShieldCheck, Zap, Receipt, Smartphone } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
+import { HOME_H1 } from '../utils/seo';
 
 export type BuildLayerKey = 'build' | 'sell' | 'grow' | 'run';
 
@@ -43,9 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase leading-[1.05] mb-5">
-              GET CUSTOMERS<br />
-              ONLINE. GET PAID<br />
-              BY M-PESA..
+              {HOME_H1}
             </h1>
 
             {/* Subtitle */}

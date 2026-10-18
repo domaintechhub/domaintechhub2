@@ -243,10 +243,12 @@ function enforceMaxTitleLength(rawTitle: string, maxChars = 68): string {
   return `${rawTitle.slice(0, maxChars - 1).trim()}…`;
 }
 
+export const HOME_H1 = 'Web Development & M-Pesa Integration in Nairobi, Kenya';
+
 export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> = {
   home: () => ({
-    title: 'Domain Tech Hub – Nairobi Web Engineering & Digital Agency',
-    description: "Nairobi's premier engineering agency. We architect custom web apps, M-Pesa Daraja 3.0 e-commerce, technical SEO, and automated CRM business systems.",
+    title: 'Web Development Company in Nairobi, Kenya | M-Pesa Integration | Domain Tech Hub',
+    description: 'Domain Tech Hub builds fast websites, M-Pesa payment integration, e-commerce and KRA-ready business systems for Kenyan companies. Free quote within 24 hours.',
     keywords: MASTER_TARGET_KEYWORDS,
     canonicalPath: '/',
     jsonLd: {
