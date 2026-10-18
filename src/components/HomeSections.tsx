@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Check, ArrowRight, Star, MessageSquare, Phone, 
+  Check, ArrowRight, Star, MessageSquare, 
   HelpCircle, ChevronDown, ChevronUp, ShieldCheck, 
   Clock, Sparkles, Send, CheckCircle2, ExternalLink
 } from 'lucide-react';
@@ -1107,39 +1107,6 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
         </div>
       </section>
-
-      {/* ========================================================================= */}
-      {/* MOBILE STICKY FLOATING ACTION BAR (Page 4 bottom) */}
-      {/* ========================================================================= */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-stone-200 dark:border-slate-800 p-2.5 sm:hidden shadow-2xl">
-        <div className="grid grid-cols-3 gap-2">
-          <a
-            href="tel:+254118746676"
-            className="py-2.5 px-2 rounded-lg bg-stone-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-xs font-bold text-center border border-stone-300 dark:border-slate-800 flex items-center justify-center gap-1"
-          >
-            <Phone className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
-            <span>Call</span>
-          </a>
-
-          <a
-            href="https://wa.me/254118746676?text=Hi%20Domain%20Tech%20Hub,%20I%20would%20like%20to%20get%20a%20free%20quote"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="py-2.5 px-2 rounded-lg bg-[#25D366] !text-white text-xs font-bold text-center flex items-center justify-center gap-1 shadow-xs"
-          >
-            <MessageSquare className="w-3.5 h-3.5 !text-white" />
-            <span className="!text-white">WhatsApp</span>
-          </a>
-
-          <a
-            href="#quote-section"
-            onClick={handleScrollToQuote}
-            className="py-2.5 px-2 rounded-lg bg-[#00c853] !text-white text-xs font-bold text-center flex items-center justify-center gap-1 shadow-xs"
-          >
-            <span className="!text-white">Free quote</span>
-          </a>
-        </div>
-      </div>
 
     </div>
   );
