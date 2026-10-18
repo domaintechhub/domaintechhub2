@@ -21,7 +21,7 @@ import { CASE_STUDIES } from '../src/data/portfolioData';
 import { FAQ_ITEMS } from '../src/data/faqData';
 import { SERVICE_GUIDES } from '../src/data/serviceGuides';
 import { SERVICE_KEYWORD_MAP } from '../src/data/keywordMapData';
-import { PAGE_SEO_DATA, MASTER_TARGET_KEYWORDS } from '../src/utils/seo';
+import { PAGE_SEO_DATA, MASTER_TARGET_KEYWORDS, HOME_H1 } from '../src/utils/seo';
 import { injectSemanticKeywords } from '../src/utils/keywordInjection';
 import { normalizeServiceSlug } from '../src/utils/routing';
 import type { PageRoute } from '../src/App';
@@ -376,7 +376,7 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
   return `
   ${renderNavHeaderHtml()}
   <main class="max-w-7xl mx-auto px-4 py-12 text-slate-100">
-    <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">${escapeHtml(config.title.split('|')[0].trim())}</h1>
+    <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">${escapeHtml(route === 'home' ? HOME_H1 : config.title.split('|')[0].trim())}</h1>
     <p class="text-lg text-slate-300 mb-8">${escapeHtml(config.description)}</p>
     <section class="mb-10">
       <h2 class="text-2xl font-bold text-white mb-4">Featured Engineering Insight</h2>
