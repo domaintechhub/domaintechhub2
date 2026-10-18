@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { ServiceDetail, ServiceCategory } from '../types';
 import { SERVICES_LIST } from '../data/servicesData';
+import { SERVICE_GUIDES } from '../data/serviceGuides';
 import { SERVICE_DEEP_DIVES, ServicePackageTier, ServiceAddon } from '../data/serviceDetailsData';
 import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { CASE_STUDIES, AGENCY_INFO } from '../data/portfolioData';
@@ -485,6 +486,24 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {SERVICE_GUIDES[service.id] && (
+        <section className="py-14 sm:py-18 bg-[#faf8f5] dark:bg-slate-950 border-b border-stone-200 dark:border-slate-800">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              {service.title}: the complete guide
+            </h2>
+            {SERVICE_GUIDES[service.id].map((g) => (
+              <div key={g.heading}>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3">{g.heading}</h3>
+                <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                  {g.body}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
       )}
