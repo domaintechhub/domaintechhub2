@@ -172,16 +172,16 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <div className="pt-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <span className="!text-slate-300 uppercase tracking-wider text-[11px] font-bold">Trusted by:</span>
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-4">
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
+              <span className="px-3.5 py-1.5 rounded-lg bg-[#0f172a] border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
                 Rift Valley Organics
               </span>
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
+              <span className="px-3.5 py-1.5 rounded-lg bg-[#0f172a] border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
                 Nyambura &amp; Associates
               </span>
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
+              <span className="px-3.5 py-1.5 rounded-lg bg-[#0f172a] border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
                 FinPulse East Africa
               </span>
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
+              <span className="px-3.5 py-1.5 rounded-lg bg-[#0f172a] border border-slate-700/80 !text-white font-bold tracking-wide shadow-xs">
                 Savannah Artisans
               </span>
             </div>
