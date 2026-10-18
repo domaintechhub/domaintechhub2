@@ -1,3 +1,6 @@
+import { PAYMENTS_EXPANSIONS } from './articleExpansionsPayments';
+import { WEB_EXPANSIONS } from './articleExpansionsWeb';
+
 export interface ArticleAuthor {
   name: string;
   role: string;
@@ -33,7 +36,7 @@ export const INSIGHT_CATEGORIES = [
   'Cloud & Security'
 ] as const;
 
-export const INSIGHT_ARTICLES: InsightArticle[] = [
+const BASE_ARTICLES: InsightArticle[] = [
   {
     id: 'how-to-generate-an-etims-invoice',
     title: 'How to Generate an eTIMS Invoice',
@@ -937,4 +940,11 @@ ON orders (kra_etims_signature) WHERE kra_etims_signature IS NOT NULL;`
     ]
   }
 ];
+
+const EXPANSIONS = { ...PAYMENTS_EXPANSIONS, ...WEB_EXPANSIONS };
+
+export const INSIGHT_ARTICLES: InsightArticle[] = BASE_ARTICLES.map((article) => {
+  const extra = EXPANSIONS[article.slug];
+  return extra ? { ...article, contentSections: [...article.contentSections, ...extra] } : article;
+});
 

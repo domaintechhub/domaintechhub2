@@ -19,6 +19,7 @@ import { SERVICES_LIST } from '../src/data/servicesData';
 import { INSIGHT_ARTICLES } from '../src/data/insightsData';
 import { CASE_STUDIES } from '../src/data/portfolioData';
 import { FAQ_ITEMS } from '../src/data/faqData';
+import { SERVICE_GUIDES } from '../src/data/serviceGuides';
 import { SERVICE_KEYWORD_MAP } from '../src/data/keywordMapData';
 import { PAGE_SEO_DATA, MASTER_TARGET_KEYWORDS } from '../src/utils/seo';
 import { injectSemanticKeywords } from '../src/utils/keywordInjection';
@@ -117,7 +118,19 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
       const keywordMap = SERVICE_KEYWORD_MAP[service.id];
       const otherServices = SERVICES_LIST.filter((s) => s.id !== service.id);
       const relatedArticles = INSIGHT_ARTICLES.slice(0, 6);
-      const customerFaqHtml = keywordMap
+      const guideHtml = (SERVICE_GUIDES[service.id] || [])
+        .map(
+          (g) => `
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-3">${escapeHtml(g.heading)}</h2>
+            ${g.body
+              .split('\n\n')
+              .map((para) => `<p class="text-slate-300 mb-3">${escapeHtml(para).replace(/\n/g, '<br />')}</p>`)
+              .join('\n            ')}
+          </section>`
+        )
+        .join('');
+      const customerFaqHtml = guideHtml + (keywordMap
         ? `
           <section class="mb-8">
             <h2 class="text-2xl font-bold text-white mb-3">Kenyan Market Architecture &amp; Locations Served</h2>
@@ -139,7 +152,7 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
                 .join('\n              ')}
             </div>
           </section>`
-        : '';
+        : '');
 
       return `
       ${renderNavHeaderHtml()}
