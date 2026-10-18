@@ -22,7 +22,7 @@ export const QuickContactFloating: React.FC<QuickContactFloatingProps> = ({ onOp
   };
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2 pointer-events-none">
+    <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2 pointer-events-none">
       {/* Scroll to Top */}
       {showScrollTop && (
         <button
@@ -48,7 +48,7 @@ export const QuickContactFloating: React.FC<QuickContactFloatingProps> = ({ onOp
         href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=Hello%20Domain%20Tech%20Hub,%20I'm%20inquiring%20about%20your%20services.`}
         target="_blank"
         rel="noopener noreferrer"
-        className="pointer-events-auto flex items-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-950/60 font-medium text-xs sm:text-sm transition-all hover:scale-105"
+        className="pointer-events-auto hidden sm:flex items-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-950/60 font-medium text-xs sm:text-sm transition-all hover:scale-105"
         title="Chat on WhatsApp (+254 118746676)"
       >
         <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
