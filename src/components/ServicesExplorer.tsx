@@ -356,9 +356,9 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
                     {entry.localMarketArchitecture}
                   </p>
 
-                  {/* Secondary Keywords */}
+                  {/* Secondary Keywords: only 2 visible alongside primary (3 total visible); rest non-visible but searchable */}
                   <div className="flex flex-wrap gap-1.5 pt-1">
-                    {entry.secondaryKeywords.slice(0, 4).map((kw) => (
+                    {entry.secondaryKeywords.slice(0, 2).map((kw) => (
                       <span
                         key={kw}
                         className="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800/80 text-[10px] font-mono"
@@ -366,6 +366,9 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
                         {kw}
                       </span>
                     ))}
+                    <span className="sr-only">
+                      {entry.secondaryKeywords.slice(2).join(', ')}
+                    </span>
                   </div>
 
                   {/* Sample Customer Question from GSC / Bing */}

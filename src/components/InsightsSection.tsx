@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useId } from 'react';
+import React, { useState, useRef, useEffect, useId, useMemo } from 'react';
 import { 
   BookOpen, Clock, Calendar, Search, ArrowRight, ArrowLeft,
   ArrowUpRight, X, Check, Share2, Tag, Terminal,
@@ -375,6 +375,24 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   const startIndex = (safeCurrentPage - 1) * ARTICLES_PER_PAGE;
   const paginatedGridArticles = gridArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
 
+  // Strictly show only 3 keywords visually; the rest are non-visible in the DOM for search/indexing
+  const visibleKeywords = useMemo(() => {
+    if (!selectedKeywordSlug) {
+      return HIGH_PERFORMING_KEYWORDS.slice(0, 3);
+    }
+    const selected = HIGH_PERFORMING_KEYWORDS.find(k => k.slug === selectedKeywordSlug);
+    if (!selected) {
+      return HIGH_PERFORMING_KEYWORDS.slice(0, 3);
+    }
+    const others = HIGH_PERFORMING_KEYWORDS.filter(k => k.slug !== selectedKeywordSlug);
+    return [selected, ...others.slice(0, 2)];
+  }, [selectedKeywordSlug]);
+
+  const hiddenKeywords = useMemo(() => {
+    const visibleSlugs = new Set(visibleKeywords.map(k => k.slug));
+    return HIGH_PERFORMING_KEYWORDS.filter(k => !visibleSlugs.has(k.slug));
+  }, [visibleKeywords]);
+
   const handleShare = (article: InsightArticle) => {
     try {
       if (navigator?.clipboard?.writeText) {
@@ -545,7 +563,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {HIGH_PERFORMING_KEYWORDS.map((kw) => {
+            {visibleKeywords.map((kw) => {
               const isActive = selectedKeywordSlug === kw.slug;
               return (
                 <button
@@ -572,6 +590,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                 </button>
               );
             })}
+          </div>
+
+          {/* Remaining high-intent keywords are non-visible visually, but present in DOM for search engines and internal search discovery */}
+          <div className="sr-only" aria-hidden="false">
+            {hiddenKeywords.map((kw) => (
+              <span key={kw.slug}>{kw.keyword} ({kw.intent}) - {kw.targetServiceTitle}; </span>
+            ))}
           </div>
         </div>
         </>
@@ -1124,8 +1149,8 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                   <p className="text-xs text-slate-400 mb-3.5 leading-relaxed">
                     This publication is semantically mapped to the following high-performing secondary search terms and live engineering deliverables:
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {getKeywordsForArticle(selectedArticle.id).map((kw) => (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    {getKeywordsForArticle(selectedArticle.id).slice(0, 3).map((kw) => (
                       <a
                         key={kw.slug}
                         href={kw.targetUrl}
@@ -1155,16 +1180,27 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       </a>
                     ))}
                   </div>
+                  {/* The rest remain non-visible visually, but can be found when searched */}
+                  <div className="sr-only">
+                    {getKeywordsForArticle(selectedArticle.id).slice(3).map((kw) => (
+                      <span key={kw.slug}>{kw.keyword} - {kw.targetServiceTitle}; </span>
+                    ))}
+                  </div>
                 </div>
               )}
 
-              {/* Tags */}
+              {/* Tags: only 3 visible, rest non-visible but searchable */}
               <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-slate-800">
-                {selectedArticle.tags.map((tag) => (
+                {selectedArticle.tags.slice(0, 3).map((tag) => (
                   <span key={tag} className="px-2.5 py-1 rounded bg-slate-800 text-slate-400 text-xs font-mono">
                     #{tag}
                   </span>
                 ))}
+                <div className="sr-only">
+                  {selectedArticle.tags.slice(3).map((tag) => (
+                    <span key={tag}>#{tag} </span>
+                  ))}
+                </div>
               </div>
 
               {/* Previous / Next Article Reader Navigation */}

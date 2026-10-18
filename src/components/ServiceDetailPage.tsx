@@ -1126,11 +1126,12 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                   <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-2 font-semibold">
                     Targeted Solutions &amp; Capabilities on This Page:
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {/* Only show 3 keywords visually: Primary + 2 Secondary */}
                     <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-teal-600 text-white">
                       {keywordMap.primaryKeyword}
                     </span>
-                    {keywordMap.secondaryKeywords.map((kw) => (
+                    {keywordMap.secondaryKeywords.slice(0, 2).map((kw) => (
                       <span
                         key={kw}
                         className="px-2.5 py-1 rounded-lg text-xs font-mono bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-stone-200 dark:border-slate-800"
@@ -1138,6 +1139,10 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                         {kw}
                       </span>
                     ))}
+                    {/* The rest remain non-visible on the page layout, but 100% crawlable, indexable, and searchable */}
+                    <span className="sr-only" aria-hidden="false">
+                      {keywordMap.secondaryKeywords.slice(2).join(', ')}
+                    </span>
                   </div>
                 </div>
               </div>

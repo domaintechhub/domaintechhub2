@@ -172,7 +172,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
           metaBadge: `From KSh ${s.basePriceKES.toLocaleString()}`,
           secondaryMeta: s.duration,
           tags: [
-            ...(kwMap ? [kwMap.primaryKeyword] : []),
+            ...(kwMap ? [kwMap.primaryKeyword, ...kwMap.secondaryKeywords] : []),
             ...s.technologies,
             s.category,
             s.badge,
@@ -322,7 +322,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       const kwMap = SERVICE_KEYWORD_MAP[s.id];
       if (kwMap) {
         phrases.add(kwMap.primaryKeyword);
-        kwMap.secondaryKeywords.slice(0, 3).forEach((kw) => phrases.add(kw));
+        kwMap.secondaryKeywords.forEach((kw) => phrases.add(kw));
       }
     });
     INSIGHT_ARTICLES.forEach((a) => {

@@ -297,8 +297,8 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
                 <span>Related Engineering Deliverables & Solutions</span>
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {getKeywordsForArticle(article.id).map((kw) => (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {getKeywordsForArticle(article.id).slice(0, 3).map((kw) => (
                 <a
                   key={kw.slug}
                   href={kw.targetUrl}
@@ -324,16 +324,27 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
                 </a>
               ))}
             </div>
+            {/* The rest remain non-visible visually, but can be found when searched */}
+            <div className="sr-only">
+              {getKeywordsForArticle(article.id).slice(3).map((kw) => (
+                <span key={kw.slug}>{kw.keyword} - {kw.targetServiceTitle}; </span>
+              ))}
+            </div>
           </section>
         )}
 
-        {/* Tags */}
+        {/* Tags: only 3 visible, rest non-visible but searchable */}
         <div className="flex flex-wrap gap-2 mb-10 pt-6 border-t border-slate-800">
-          {article.tags.map((tag) => (
+          {article.tags.slice(0, 3).map((tag) => (
             <span key={tag} className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono">
               #{tag}
             </span>
           ))}
+          <div className="sr-only">
+            {article.tags.slice(3).map((tag) => (
+              <span key={tag}>#{tag} </span>
+            ))}
+          </div>
         </div>
 
         {/* Previous / Next Article Links */}
