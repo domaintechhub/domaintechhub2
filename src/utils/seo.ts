@@ -812,7 +812,7 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
     canonical.setAttribute('href', fullUrl);
 
     // hreflang links
-    ['en', 'sw', 'fr', 'x-default'].forEach((lang) => {
+    ['en', 'x-default'].forEach((lang) => {
       let hreflangLink = document.querySelector(`link[rel="alternate"][hreflang="${lang}"]`) as HTMLLinkElement | null;
       if (!hreflangLink) {
         hreflangLink = document.createElement('link');

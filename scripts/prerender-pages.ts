@@ -497,14 +497,6 @@ export function injectSeoIntoHtml(
     `<link rel="alternate" hreflang="en" href="${fullUrl}" />`
   );
   html = html.replace(
-    /<link\s+rel="alternate"\s+hreflang="sw"\s+href="[^"]*"\s*\/?>/i,
-    `<link rel="alternate" hreflang="sw" href="${fullUrl}" />`
-  );
-  html = html.replace(
-    /<link\s+rel="alternate"\s+hreflang="fr"\s+href="[^"]*"\s*\/?>/i,
-    `<link rel="alternate" hreflang="fr" href="${fullUrl}" />`
-  );
-  html = html.replace(
     /<link\s+rel="alternate"\s+hreflang="x-default"\s+href="[^"]*"\s*\/?>/i,
     `<link rel="alternate" hreflang="x-default" href="${fullUrl}" />`
   );
