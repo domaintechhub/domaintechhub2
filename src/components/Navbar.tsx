@@ -178,8 +178,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/90 dark:bg-slate-950/85 backdrop-blur-xl border-b border-stone-200/90 dark:border-slate-800/80 shadow-md shadow-stone-200/20 dark:shadow-black/40 py-2' 
-            : 'bg-transparent py-2.5 sm:py-3.5'
+            ? 'bg-white/95 dark:bg-slate-950/90 backdrop-blur-xl border-b border-stone-200/90 dark:border-slate-800/80 shadow-sm py-2 sm:py-2.5' 
+            : 'bg-white/95 sm:bg-transparent dark:bg-slate-950/90 sm:dark:bg-transparent backdrop-blur-md sm:backdrop-blur-none border-b border-stone-200/70 sm:border-transparent dark:border-slate-800/70 sm:dark:border-transparent py-2.5 sm:py-3.5'
         }`}
       >
         <div className="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-7">

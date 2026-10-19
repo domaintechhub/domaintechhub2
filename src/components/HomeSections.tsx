@@ -4,12 +4,9 @@ import {
   HelpCircle, ChevronDown, ChevronUp, ShieldCheck, 
   Clock, Sparkles, Send, CheckCircle2, ExternalLink
 } from 'lucide-react';
-import teamArchitectImg from '../assets/images/team_solutions_architect_1790853423651.webp';
-import teamDesignerImg from '../assets/images/team_product_designer_1790853436226.webp';
-import teamFintechImg from '../assets/images/team_fintech_lead_1790853447967.webp';
-import teamGrowthImg from '../assets/images/team_growth_lead_1790853459528.webp';
 import { saveLead } from '../utils/leadDispatch';
 import { BuildLayerKey } from './Hero';
+import { ClientProjectsSlider } from './ClientProjectsSlider';
 
 interface HomeSectionsProps {
   calculatorServiceId?: string;
@@ -115,7 +112,7 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2">
               [ 02 / WHAT WE BUILD ]
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
               PICK WHAT YOUR BUSINESS NEEDS
             </h2>
           </div>
@@ -256,45 +253,45 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       <section className="py-16 sm:py-20 border-b border-stone-200 dark:border-slate-800 bg-stone-100/60 dark:bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-xs">
-            <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-3">
+          <div className="p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-xs">
+            <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2 sm:mb-3">
               [ CASE STUDY · E-COMMERCE + M-PESA ]
             </div>
             
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-8">
+            <h2 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6 sm:mb-8">
               Checkout drop-off down 64% in 6 weeks
             </h2>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
               
               {/* Left Column: Clean Interactive Mockup Window */}
-              <div className="lg:col-span-6 bg-stone-100 dark:bg-slate-950 rounded-2xl p-5 border border-stone-200 dark:border-slate-800">
+              <div className="lg:col-span-6 bg-stone-100 dark:bg-slate-950 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
                 <div className="flex items-center gap-2 mb-4 pb-3 border-b border-stone-200 dark:border-slate-800">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-[#00c853]" />
-                  <span className="text-[11px] font-mono text-slate-400 ml-2">riftvalleyorganics.co.ke/checkout</span>
+                  <span className="text-[11px] font-mono text-slate-400 ml-2 truncate">riftvalleyorganics.co.ke/checkout</span>
                 </div>
 
                 <div className="space-y-3 font-mono text-xs">
-                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex items-center justify-between">
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex items-center justify-between gap-2">
                     <div>
                       <div className="text-slate-500 text-[10px]">PAYMENT METHOD</div>
-                      <div className="font-bold text-slate-900 dark:text-white">Safaricom Daraja 3.0 M-Pesa STK</div>
+                      <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Safaricom Daraja 3.0 M-Pesa STK</div>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-[#00c853] dark:text-[#00e676] text-[10px] font-bold">
+                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-[#00c853] dark:text-[#00e676] text-[10px] font-bold shrink-0">
                       ACTIVE
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[#00c853]/10 border border-[#00c853]/30 flex items-center justify-between text-slate-800 dark:text-slate-200">
-                    <span>Prompt dispatched to +254 712 *** 890</span>
-                    <span className="text-[#00c853] dark:text-[#00e676] font-bold">280ms</span>
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-[#00c853]/10 border border-[#00c853]/30 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 text-slate-800 dark:text-slate-200">
+                    <span className="truncate">Prompt dispatched to +254 712 *** 890</span>
+                    <span className="text-[#00c853] dark:text-[#00e676] font-bold shrink-0">280ms</span>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex items-center justify-between">
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex items-center justify-between gap-2">
                     <span className="text-slate-500">KRA eTIMS Fiscal QR Status</span>
-                    <span className="text-[#00c853] dark:text-[#00e676] font-bold">Generated &amp; Stored</span>
+                    <span className="text-[#00c853] dark:text-[#00e676] font-bold shrink-0">Generated &amp; Stored</span>
                   </div>
                 </div>
               </div>
@@ -349,23 +346,23 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       <section className="py-16 sm:py-24 border-b border-stone-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
             <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2">
               [ 03 / HOW IT WORKS ]
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
               FROM FIRST CALL TO LIVE IN WEEKS
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             
             {/* Step 01 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-3">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
+              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-2 sm:mb-3">
                 01
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">
                 Free strategy call
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -374,11 +371,11 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             </div>
 
             {/* Step 02 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-3">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
+              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-2 sm:mb-3">
                 02
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">
                 Proposal in 48 hours
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -387,11 +384,11 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             </div>
 
             {/* Step 03 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-3">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
+              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-2 sm:mb-3">
                 03
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">
                 Build with weekly updates
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -400,11 +397,11 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             </div>
 
             {/* Step 04 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-3">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border-t-4 border-t-[#00c853] border border-stone-200 dark:border-slate-800 shadow-xs">
+              <div className="text-2xl font-black font-mono text-[#00c853] dark:text-[#00e676] mb-2 sm:mb-3">
                 04
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">
                 Launch + 30 days support
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -421,14 +418,14 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       {/* ========================================================================= */}
       {/* 04 / PACKAGES - CLEAR PRICES, NO SURPRISES */}
       {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 border-b border-stone-200 dark:border-slate-800">
+      <section className="py-12 sm:py-20 lg:py-24 border-b border-stone-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
             <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2">
               [ 04 / PACKAGES ]
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
               CLEAR PRICES, NO SURPRISES
             </h2>
           </div>
@@ -436,7 +433,7 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             
             {/* Starter Package */}
-            <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex flex-col justify-between shadow-xs">
+            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex flex-col justify-between shadow-xs">
               <div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                   Starter
@@ -471,8 +468,8 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             </div>
 
             {/* Business Package (Highlighted Recommended & Most Popular Card) */}
-            <div className="p-8 rounded-3xl bg-gradient-to-b from-emerald-50/70 via-white to-white dark:from-slate-900 dark:to-slate-900 border-2 border-[#00c853] relative flex flex-col justify-between shadow-xl shadow-emerald-500/15 ring-1 ring-[#00c853]/30">
-              <div className="absolute -top-3.5 right-6 px-3.5 py-1 rounded-full bg-[#00c853] !text-white text-[10px] font-mono font-black uppercase tracking-wider shadow-md shadow-[#00c853]/40">
+            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-emerald-50/70 via-white to-white dark:from-slate-900 dark:to-slate-900 border-2 border-[#00c853] relative flex flex-col justify-between shadow-xl shadow-emerald-500/15 ring-1 ring-[#00c853]/30">
+              <div className="absolute -top-3.5 right-4 sm:right-6 px-3.5 py-1 rounded-full bg-[#00c853] !text-white text-[10px] font-mono font-black uppercase tracking-wider shadow-md shadow-[#00c853]/40">
                 RECOMMENDED
               </div>
 
@@ -559,18 +556,24 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       <section className="py-16 sm:py-24 border-b border-stone-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
             <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2">
               [ 05 / WHY US ]
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
               WHY KENYAN BUSINESSES CHOOSE US
             </h2>
           </div>
 
+          {/* Mobile swipe helper */}
+          <div className="sm:hidden flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2.5">
+            <ArrowRight className="w-3 h-3 text-[#00c853]" />
+            <span>Swipe table horizontally to compare features</span>
+          </div>
+
           {/* Comparison Table */}
           <div className="overflow-x-auto rounded-2xl border border-stone-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs mb-8">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <table className="w-full min-w-[500px] text-left border-collapse text-xs sm:text-sm">
               <thead>
                 <tr className="border-b border-stone-200 dark:border-slate-800 bg-stone-50 dark:bg-slate-950/60">
                   <th className="py-4 px-5 font-bold text-slate-700 dark:text-slate-300">Criteria</th>
@@ -627,99 +630,249 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
 
       {/* ========================================================================= */}
-      {/* 06 / CLIENT RESULTS - TRUSTED BY EAST AFRICA'S LEADING ENTERPRISES */}
+      {/* 06 / CLIENT RESULTS - TRUSTED BY REAL CLIENTS ACROSS AFRICA & GLOBALLY */}
       {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 border-b border-stone-200 dark:border-slate-800">
+      <section className="py-12 sm:py-20 lg:py-24 border-b border-stone-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
             <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2">
               [ 06 / CLIENT RESULTS · 98% RETENTION ]
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
-              TRUSTED BY EAST AFRICA'S LEADING ENTERPRISES
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+              TRUSTED BY REAL CLIENTS ACROSS AFRICA &amp; GLOBALLY
             </h2>
+            <p className="mt-2 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl font-medium">
+              Verified outcomes, sub-second performance, and production feedback from companies and enterprises built by Domain Tech Hub.
+            </p>
           </div>
 
-          {/* 3 Testimonials */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* 6 Real Client Reviews Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-8">
             
-            {/* Review 1 */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+            {/* Review 1: Arena Properties */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
-                <div className="flex items-center gap-1 text-amber-400 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://www.arenaproperties.ae/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
+                  >
+                    <span>arenaproperties.ae</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "Our checkout drop-off reduced by 64% in the first two weeks after the automated M-Pesa STK push went live."
+                  "Our luxury off-plan inquiries and overseas buyer conversions surged after the portal launched with multi-currency search and fast MLS sync."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs">
-                  WO
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
+                  AP
                 </div>
-                <div>
-                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                    Wycliffe Ochieng
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                    Arena Properties
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono">
-                    Head of Digital, Rift Valley Organics
+                  <div className="text-[11px] text-slate-500 font-mono truncate">
+                    Dubai, UAE · Luxury Brokerage
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 2 */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+            {/* Review 2: GRE Africa Group */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
-                <div className="flex items-center gap-1 text-amber-400 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://greafrica.group/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
+                  >
+                    <span>greafrica.group</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "We were invisible on Google. After the 90-day SEO overhaul, we are now #1 for corporate litigation keywords in Nairobi."
+                  "The corporate investor portal cleanly showcases our African real estate developments and ESG disclosures to institutional stakeholders worldwide."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs">
-                  FN
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
+                  GA
                 </div>
-                <div>
-                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                    Faith Nyambura
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                    GRE Africa Group
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono">
-                    Managing Partner, Nyambura &amp; Associates
+                  <div className="text-[11px] text-slate-500 font-mono truncate">
+                    Pan-Africa · Gateway Real Estate
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 3 */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+            {/* Review 3: Just Property */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
-                <div className="flex items-center gap-1 text-amber-400 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://www.just.property/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
+                  >
+                    <span>just.property</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "Their custom CRM replaced 12 Excel spreadsheets. We now process 1,800 monthly micro-loans with zero data errors."
+                  "Sub-second geolocation search and automated WhatsApp lead routing transformed our agent response time across South Africa."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs">
-                  KM
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
+                  JP
                 </div>
-                <div>
-                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                    Kennedy Mutua
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                    Just Property
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono">
-                    CTO, FinPulse East Africa
+                  <div className="text-[11px] text-slate-500 font-mono truncate">
+                    Southern Africa · Property Marketplace
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 4: Tessa's Bakery */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://tessasbakery.co.za/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
+                  >
+                    <span>tessasbakery.co.za</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                  "The bespoke celebration cake customizer and automated dispatch delivery slots increased our online checkout completion to 99.4%."
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
+                  TB
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                    Tessa's Bakery
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-mono truncate">
+                    Cape Town · Artisan Bakery
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 5: Classic Bakery */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://www.classicbakery.co.za/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
+                  >
+                    <span>classicbakery.co.za</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                  "Wholesale digital ordering and branch locator features automated our retail delivery cycles with instant B2B quotation workflows."
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
+                  CB
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                    Classic Bakery
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-mono truncate">
+                    South Africa · Commercial Bakery
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 6: ZoomInfo */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://www.zoominfo.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
+                  >
+                    <span>zoominfo.com</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                  "Exceptional engineering speed, high conversion interactivity, and modular design systems configured for rapid global user discovery."
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
+                  ZI
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                    ZoomInfo
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-mono truncate">
+                    Global · Enterprise GTM SaaS
                   </div>
                 </div>
               </div>
@@ -745,98 +898,9 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
 
       {/* ========================================================================= */}
-      {/* 07 / THE TEAM - THE PEOPLE BUILDING YOUR PROJECT */}
+      {/* 07 / REAL CLIENT WEBSITES - SLIDING BOXES SHOWCASE */}
       {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 border-b border-stone-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="mb-12">
-            <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-2">
-              [ 07 / THE TEAM ]
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
-              THE PEOPLE BUILDING YOUR PROJECT
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Team Member 1 */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="w-full aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-slate-800 mb-4 border border-stone-200 dark:border-slate-700">
-                <img 
-                  src={teamArchitectImg} 
-                  alt="Brian Kiprop - Founder and Lead Engineering Solutions Architect"
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Brian Kiprop
-              </h3>
-              <p className="text-xs text-[#00c853] dark:text-[#00e676] font-mono mt-0.5 font-semibold">
-                Founder &amp; lead engineer
-              </p>
-            </div>
-
-            {/* Team Member 2 */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="w-full aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-slate-800 mb-4 border border-stone-200 dark:border-slate-700">
-                <img 
-                  src={teamFintechImg} 
-                  alt="Dennis Mutua - Senior Fintech and Safaricom Daraja M-Pesa STK Push Integration Engineer"
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Dennis Mutua
-              </h3>
-              <p className="text-xs text-[#00c853] dark:text-[#00e676] font-mono mt-0.5 font-semibold">
-                Payments &amp; integrations
-              </p>
-            </div>
-
-            {/* Team Member 3 */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="w-full aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-slate-800 mb-4 border border-stone-200 dark:border-slate-700">
-                <img 
-                  src={teamDesignerImg} 
-                  alt="Zawadi Mwende - Lead Product Designer and Mobile-First UI/UX Specialist"
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Zawadi Mwende
-              </h3>
-              <p className="text-xs text-[#00c853] dark:text-[#00e676] font-mono mt-0.5 font-semibold">
-                Design &amp; front-end
-              </p>
-            </div>
-
-            {/* Team Member 4 */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
-              <div className="w-full aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-slate-800 mb-4 border border-stone-200 dark:border-slate-700">
-                <img 
-                  src={teamGrowthImg} 
-                  alt="Brenda Achieng - Lead Technical SEO and Local Google Ranking Strategist"
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Brenda Achieng
-              </h3>
-              <p className="text-xs text-[#00c853] dark:text-[#00e676] font-mono mt-0.5 font-semibold">
-                SEO &amp; growth
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
+      <ClientProjectsSlider onSelectForQuote={onSelectForQuote} />
 
 
       {/* ========================================================================= */}
@@ -988,21 +1052,21 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       {/* ========================================================================= */}
       {/* LEAD FORM CONTAINER: TELL US WHAT YOU NEED. GET A QUOTE IN 24 HOURS */}
       {/* ========================================================================= */}
-      <section id="quote-section" className="py-16 sm:py-24">
+      <section id="quote-section" className="py-12 sm:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-gradient-to-br from-[#00c853] via-[#00a846] to-[#008f3d] !text-white shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="p-5 sm:p-10 lg:p-16 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#00c853] via-[#00a846] to-[#008f3d] !text-white shadow-2xl">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
               
               {/* Left Column: Heading & Value Prop */}
               <div className="lg:col-span-6 space-y-4">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight leading-tight !text-white">
+                <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight leading-tight !text-white">
                   Tell us what you need. Get a quote in 24 hours.
                 </h2>
                 <p className="text-sm sm:text-base !text-white/95 max-w-md leading-relaxed font-medium">
                   Three fields, no commitment. We reply on WhatsApp or email within 2 hours during business hours.
                 </p>
-                <div className="pt-4 flex items-center gap-3 text-xs !text-white/90 font-mono">
+                <div className="pt-2 sm:pt-4 flex items-center gap-3 text-xs !text-white/90 font-mono">
                   <ShieldCheck className="w-4 h-4 text-emerald-200" />
                   <span className="!text-white/90">100% confidential · No spam guaranteed</span>
                 </div>
@@ -1010,7 +1074,7 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
               {/* Right Column: Floating White Form Card */}
               <div className="lg:col-span-6">
-                <div className="p-6 sm:p-8 rounded-2xl bg-white text-slate-900 shadow-2xl">
+                <div className="p-5 sm:p-8 rounded-2xl bg-white text-slate-900 shadow-2xl">
                   {isSubmitted ? (
                     <div className="py-8 text-center space-y-4">
                       <div className="w-14 h-14 rounded-full bg-emerald-100 text-[#00c853] mx-auto flex items-center justify-center">
@@ -1033,7 +1097,10 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                   ) : (
                     <form onSubmit={handleQuoteSubmit} className="space-y-4">
                       <div>
-                        <label className="block text-xs font-mono font-bold text-slate-700 uppercase mb-1">
+                        <label 
+                          style={{ color: '#1e293b' }}
+                          className="block text-xs font-mono font-bold !text-slate-800 uppercase mb-1.5"
+                        >
                           Your name
                         </label>
                         <input
@@ -1042,12 +1109,16 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                           value={quoteName}
                           onChange={(e) => setQuoteName(e.target.value)}
                           placeholder="e.g. Grace Wanjiru"
-                          className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#00c853] focus:ring-2 focus:ring-[#00c853]/20"
+                          style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
+                          className="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm !text-slate-900 !bg-white placeholder:!text-slate-400 focus:outline-none focus:border-[#00c853] focus:ring-2 focus:ring-[#00c853]/25 shadow-xs"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-mono font-bold text-slate-700 uppercase mb-1">
+                        <label 
+                          style={{ color: '#1e293b' }}
+                          className="block text-xs font-mono font-bold !text-slate-800 uppercase mb-1.5"
+                        >
                           Phone / WhatsApp
                         </label>
                         <input
@@ -1056,12 +1127,16 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                           value={quotePhone}
                           onChange={(e) => setQuotePhone(e.target.value)}
                           placeholder="+254 7XX XXX XXX"
-                          className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#00c853] focus:ring-2 focus:ring-[#00c853]/20"
+                          style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
+                          className="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm !text-slate-900 !bg-white placeholder:!text-slate-400 focus:outline-none focus:border-[#00c853] focus:ring-2 focus:ring-[#00c853]/25 shadow-xs"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-mono font-bold text-slate-700 uppercase mb-1">
+                        <label 
+                          style={{ color: '#1e293b' }}
+                          className="block text-xs font-mono font-bold !text-slate-800 uppercase mb-1.5"
+                        >
                           What do you need?
                         </label>
                         <textarea
@@ -1069,7 +1144,8 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                           value={quoteNeeds}
                           onChange={(e) => setQuoteNeeds(e.target.value)}
                           placeholder="e.g. online shop with M-Pesa"
-                          className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#00c853] focus:ring-2 focus:ring-[#00c853]/20 resize-none"
+                          style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
+                          className="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm !text-slate-900 !bg-white placeholder:!text-slate-400 focus:outline-none focus:border-[#00c853] focus:ring-2 focus:ring-[#00c853]/25 resize-none shadow-xs"
                         />
                       </div>
 
