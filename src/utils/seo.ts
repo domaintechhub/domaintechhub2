@@ -6,6 +6,7 @@ import { INSIGHT_ARTICLES } from '../data/insightsData';
 import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { HIGH_PERFORMING_KEYWORDS, generateArticleJsonLd } from './keywordInjection';
 import { normalizeServiceSlug } from './routing';
+export { generateBlogSchema, formatPublishedDateIso, formatReadingTimeIso, calculateArticleWordCount } from './blogSchema';
 
 export interface PageSeoConfig {
   title: string;
@@ -860,32 +861,34 @@ export function applyPageSeo(route: PageRoute, subTab?: string) {
     scriptTag.type = 'application/ld+json';
     document.head.appendChild(scriptTag);
   }
-  const enrichedJsonLd = {
-    ...config.jsonLd,
-    '@id': config.jsonLd['@id'] || `${fullUrl}#webpage`,
-    url: config.jsonLd.url || fullUrl,
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      '@id': `${fullUrl}#breadcrumbs`,
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: `${SITE_URL}/`,
+  const enrichedJsonLd = config.jsonLd['@graph']
+    ? config.jsonLd
+    : {
+        ...config.jsonLd,
+        '@id': config.jsonLd['@id'] || `${fullUrl}#webpage`,
+        url: config.jsonLd.url || fullUrl,
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          '@id': `${fullUrl}#breadcrumbs`,
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${SITE_URL}/`,
+            },
+            ...(config.canonicalPath !== '/'
+              ? [
+                  {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: config.title.split('|')[0].trim(),
+                    item: fullUrl,
+                  },
+                ]
+              : []),
+          ],
         },
-        ...(config.canonicalPath !== '/'
-          ? [
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: config.title.split('|')[0].trim(),
-                item: fullUrl,
-              },
-            ]
-          : []),
-      ],
-    },
-  };
+      };
   scriptTag.textContent = JSON.stringify(enrichedJsonLd, null, 2);
 }

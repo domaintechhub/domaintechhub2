@@ -5,7 +5,7 @@
   <!-- Home - Domain Tech Hub -->
   <url>
     <loc>https://www.domaintechhubs.com/</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,7 +13,7 @@
   <!-- Engineering Services -->
   <url>
     <loc>https://www.domaintechhubs.com/services</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -21,7 +21,7 @@
   <!-- Case Studies &amp; Portfolio -->
   <url>
     <loc>https://www.domaintechhubs.com/portfolio</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -29,7 +29,7 @@
   <!-- Engineering Insights &amp; Knowledge Base -->
   <url>
     <loc>https://www.domaintechhubs.com/insights</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
@@ -37,7 +37,7 @@
   <!-- Frequently Asked Questions -->
   <url>
     <loc>https://www.domaintechhubs.com/faq</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -45,7 +45,7 @@
   <!-- Contact &amp; Discovery Session -->
   <url>
     <loc>https://www.domaintechhubs.com/contact</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -53,7 +53,7 @@
   <!-- Sprint Roadmap &amp; Delivery Methodology -->
   <url>
     <loc>https://www.domaintechhubs.com/roadmap</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -61,7 +61,7 @@
   <!-- Engineering Team &amp; Leadership -->
   <url>
     <loc>https://www.domaintechhubs.com/team</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -69,7 +69,7 @@
   <!-- About Us -->
   <url>
     <loc>https://www.domaintechhubs.com/about</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -77,7 +77,7 @@
   <!-- Engineering Blog -->
   <url>
     <loc>https://www.domaintechhubs.com/blog</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
@@ -85,7 +85,7 @@
   <!-- Tech Stack &amp; Infrastructure -->
   <url>
     <loc>https://www.domaintechhubs.com/tech-stack</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -93,7 +93,15 @@
   <!-- Project Cost &amp; Scope Calculator -->
   <url>
     <loc>https://www.domaintechhubs.com/tools/calculator</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- DesignMeter UI/UX Audit &amp; Prioritized Fix List -->
+  <url>
+    <loc>https://www.domaintechhubs.com/tools/design-audit</loc>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -101,7 +109,7 @@
   <!-- Core Web Vitals &amp; SEO Speed Audit -->
   <url>
     <loc>https://www.domaintechhubs.com/tools/audit</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -109,7 +117,7 @@
   <!-- .co.ke Domain Registration &amp; Hosting -->
   <url>
     <loc>https://www.domaintechhubs.com/tools/domains</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -118,7 +126,7 @@
   <!-- Custom Website Development -->
   <url>
     <loc>https://www.domaintechhubs.com/services/web-development</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -126,7 +134,7 @@
   <!-- Modern Front-End Development -->
   <url>
     <loc>https://www.domaintechhubs.com/services/front-end-development</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -134,7 +142,7 @@
   <!-- E-Commerce Store Development -->
   <url>
     <loc>https://www.domaintechhubs.com/services/ecommerce-development</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -142,7 +150,7 @@
   <!-- CMS &amp; WordPress Development -->
   <url>
     <loc>https://www.domaintechhubs.com/services/cms-development</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -150,7 +158,7 @@
   <!-- Search Engine Optimization (SEO) -->
   <url>
     <loc>https://www.domaintechhubs.com/services/seo-services</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -158,7 +166,7 @@
   <!-- Result-Driven Digital Marketing -->
   <url>
     <loc>https://www.domaintechhubs.com/services/digital-marketing</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -166,7 +174,7 @@
   <!-- PPC Management (Google Ads) -->
   <url>
     <loc>https://www.domaintechhubs.com/services/ppc-management</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -174,7 +182,7 @@
   <!-- WhatsApp Marketing &amp; Automation -->
   <url>
     <loc>https://www.domaintechhubs.com/services/whatsapp-marketing</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -182,7 +190,7 @@
   <!-- Social Media Marketing &amp; Management -->
   <url>
     <loc>https://www.domaintechhubs.com/services/social-media-marketing</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -190,7 +198,7 @@
   <!-- Custom CRM &amp; Business Systems -->
   <url>
     <loc>https://www.domaintechhubs.com/services/custom-crm-development</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -198,7 +206,7 @@
   <!-- AI-Powered Business Solutions -->
   <url>
     <loc>https://www.domaintechhubs.com/services/ai-powered-solutions</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -206,7 +214,7 @@
   <!-- Web &amp; Digital Consultancy -->
   <url>
     <loc>https://www.domaintechhubs.com/services/web-consultancy</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -214,7 +222,7 @@
   <!-- Website Maintenance &amp; Security -->
   <url>
     <loc>https://www.domaintechhubs.com/services/website-maintenance</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -222,7 +230,7 @@
   <!-- Graphic Design &amp; Corporate Branding -->
   <url>
     <loc>https://www.domaintechhubs.com/services/graphic-design-branding</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -230,7 +238,7 @@
   <!-- Mobile App Development -->
   <url>
     <loc>https://www.domaintechhubs.com/services/mobile-app-development</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -238,7 +246,7 @@
   <!-- Point of Sale (POS) Systems &amp; Hardware -->
   <url>
     <loc>https://www.domaintechhubs.com/services/pos-systems</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -247,7 +255,7 @@
   <!-- How to Generate an eTIMS Invoice -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/how-to-generate-an-etims-invoice</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -255,7 +263,7 @@
   <!-- Zero-Loss M-Pesa STK Push: Architecting Resilient Webhooks on Safaricom Daraja API -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/zero-loss-mpesa-stk-push-architecture</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -263,7 +271,7 @@
   <!-- Why Top Kenyan Brands are Migrating from Monolithic WordPress to Headless Next.js -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/headless-nextjs-vs-wordpress-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -271,7 +279,7 @@
   <!-- Mastering Local Technical SEO in East Africa: How to Rank #1 on Google in Nairobi -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/local-seo-core-web-vitals-nairobi-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -279,7 +287,7 @@
   <!-- Transforming Inbound Leads: Architecting Meta WhatsApp Cloud API Sales Bots -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/whatsapp-cloud-api-sales-automation</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -287,7 +295,7 @@
   <!-- Outgrowing Excel: Why Kenyan Mid-Market Enterprises are Building Custom Cloud CRMs -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/bespoke-crm-vs-spreadsheets-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -295,7 +303,7 @@
   <!-- Fortifying African E-Commerce: Protecting Cross-Border Payments Against Fraud &amp; Chargebacks -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/cybersecurity-ecommerce-kenya-fraud-prevention</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -303,7 +311,7 @@
   <!-- Website Design in Kenya: Why Every Business Needs a Professional Website in 2026 -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/website-design-in-kenya-business-guide-2026</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -311,7 +319,7 @@
   <!-- Point of Sale (POS) System Prices in Kenya &amp; KRA eTIMS Integration Guide (2026) -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/pos-system-prices-kenya-kra-etims-guide</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -319,7 +327,7 @@
   <!-- Automating B2C Bulk Payouts &amp; Supplier Settlements with Safaricom Daraja 3.0 -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/automating-b2c-bulk-payouts-safaricom-daraja</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -327,7 +335,7 @@
   <!-- Architecting Multi-Currency Checkouts (KES, USD, EUR) for East African Safari &amp; Export Brands -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/multi-currency-checkout-kes-usd-safari-export-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -335,7 +343,7 @@
   <!-- Deploying Private AI Knowledge Agents (RAG) on Internal Company Documents &amp; Policies -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/private-ai-rag-agents-kenyan-enterprises</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -343,7 +351,7 @@
   <!-- Eliminating Manual Data Entry: AI Document Extraction &amp; Automated LPO-to-Invoice Matching -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/automated-invoice-ocr-lpo-matching-erp-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -351,7 +359,7 @@
   <!-- Offline-First Progressive Web Apps (PWAs) for Field Sales &amp; Agricultural Supply Chains in Kenya -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/offline-first-pwa-field-sales-agriculture-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -359,7 +367,7 @@
   <!-- Modular Monoliths vs. Microservices: Right-Sizing Cloud Architecture for Growing African Startups -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/modular-monoliths-vs-microservices-african-startups</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -367,7 +375,7 @@
   <!-- Engineering Automated Property Management &amp; Tenant Billing Portals in Nairobi -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/automated-property-management-tenant-billing-portals-kenya</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -375,7 +383,7 @@
   <!-- Answer Engine Optimization (AEO): Getting Kenyan Brands Cited in ChatGPT, Perplexity &amp; Google AI Overviews -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/answer-engine-optimization-aeo-geo-kenya-guide</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -383,7 +391,7 @@
   <!-- Fixing Broken Attribution: Server-Side Google Ads Conversion Tracking for WhatsApp &amp; M-Pesa Sales -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/server-side-google-ads-conversion-tracking-whatsapp-mpesa</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -391,7 +399,7 @@
   <!-- Technical Compliance with the Kenya Data Protection Act (ODPC): Encryption, Consent &amp; Audit Logs -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/odpc-kenya-data-protection-act-technical-compliance</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -399,7 +407,351 @@
   <!-- Zero-Downtime PostgreSQL Migrations &amp; Automated Disaster Recovery for High-Volume Web Apps -->
   <url>
     <loc>https://www.domaintechhubs.com/insights/zero-downtime-postgresql-migrations-disaster-recovery</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Why Is My Website Not Showing on Google? 9 Reasons and Fixes for Kenyan Businesses -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/why-is-my-website-not-showing-on-google-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- discovered-currently-not-indexed-search-console-fix -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/discovered-currently-not-indexed-search-console-fix</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Why Does My Business Name Appear in a Competitor\ -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/why-business-name-appears-in-competitor-google-results</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- How Much Does a Website Cost in Kenya? 2026 Pricing Guide -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/how-much-does-a-website-cost-in-kenya-pricing-guide</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Web Developer Rates in Kenya: What Should You Pay? (Hourly, Project &amp; Retainer Rates) -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/web-developer-rates-in-kenya-what-should-you-pay</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Can I Build a Website for Under 50,000 Shillings? Realistic Options for Kenyan SMEs -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/can-i-build-a-website-for-under-50000-shillings-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Development Costs for Small Businesses in Kenya: Budget Planning for Startups -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-development-costs-for-small-businesses-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- How to Hire a Web Developer in Nairobi: 10 Vetting Steps to Avoid Getting Burned -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/how-to-hire-a-web-developer-in-nairobi</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- What Questions Should I Ask a Web Developer? 12 Crucial Consultation Questions -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/what-questions-should-i-ask-a-web-developer</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Full-Stack Developer vs Specialist: Which Do I Need for My Kenyan Business? -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/full-stack-developer-vs-specialist-which-do-i-need</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- How Long Does It Take to Build a Website? Realistic Project Timelines in Kenya -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/how-long-does-it-take-to-build-a-website-in-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Remote Web Developers in Kenya: How to Find, Screen, and Manage Local Talent -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/remote-web-developers-in-kenya-how-to-find-them</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Design Packages in Kenya: What’s Included and What Costs Extra? -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-design-packages-in-kenya-whats-included</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Do I Need a Website for My Business in Kenya in 2026? (Social Media vs Owning a Website) -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/do-i-need-a-website-for-my-business-in-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 5-Page Website Cost in Kenya: Complete SME Pricing &amp; Feature Breakdown -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/5-page-website-cost-in-kenya-sme-pricing</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Why Is My Website Quote So Expensive? Understanding What Drives Development Costs -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/why-is-my-website-quote-so-expensive-pricing-breakdown</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Budget-Friendly Web Development Options in Kenya: Smart Cost Reduction Strategies -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/budget-friendly-web-development-options-in-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Payment Plans for Website Development in Kenya: Flexible Payment Options for SMEs -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/payment-plans-for-website-development-in-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Healthcare Website Development in Kenya: Features, Patient Booking &amp; Costs -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/healthcare-website-development-kenya-cost-guide</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Skincare Business Website Cost in Kenya: E-Commerce &amp; M-Pesa Checkout Guide -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/skincare-business-website-cost-in-kenya-ecommerce</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Tour Company Website Development in Kenya: Safari Itinerary Builders &amp; Multi-Currency Booking -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/tour-company-website-development-kenya-safari-cost</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- E-commerce Website Cost in Kenya: WooCommerce vs Shopify vs Custom Next.js with M-Pesa -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/e-commerce-website-cost-in-kenya-woocommerce-vs-shopify-custom</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Maintenance Costs After Development in Kenya: What to Budget Annually -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-maintenance-costs-after-development-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Can a Website Help My Business Make More Money? Real ROI Calculations for Kenyan SMEs -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/can-a-website-help-my-business-make-more-money-roi</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Should I Pay for SEO Services in Kenya? Real Costs, Timelines, and ROI Analysis -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/should-i-pay-for-seo-services-in-kenya-cost-roi</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- What Makes a Good Website? 7 Essential Elements Every Kenyan Business Site Must Have -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/what-makes-a-good-website-essential-elements-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Mobile-Friendly Websites in Kenya: Why 85%+ of Traffic Demands Mobile-First Design -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/mobile-friendly-website-why-it-matters-in-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Speed: How Milliseconds Affect Revenue &amp; Google Rankings for Kenyan Businesses -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-speed-how-does-it-affect-my-business-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- What’s the Difference Between a Website and a Web App? A Kenyan Business Decision Guide -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/difference-between-a-website-and-a-web-app-guide</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Getting Your Business Online in Kenya: The Complete Step-by-Step Guide for 2026 -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/getting-your-business-online-in-kenya-complete-guide</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Security in Kenya: SSL Certificates, ODPC Compliance &amp; Hacker Protection -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-security-what-you-need-to-know-odpc-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- How to Choose Between WordPress and Custom Website Development: The 2026 Decision Matrix -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/how-to-choose-between-wordpress-and-custom-development</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Hosting Cost in Kenya: What to Expect Across Shared, VPS &amp; Cloud NVMe -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-hosting-cost-in-kenya-what-to-expect</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Do I Need an SSL Certificate? A Kenyan Business Guide to HTTPS, Trust &amp; SEO -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/do-i-need-ssl-certificate-kenyan-business-guide</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Comparing Web Developers: How to Evaluate Quotes and Get Maximum Value in Kenya -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/comparing-web-developers-in-kenya-how-to-get-best-value</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Redesign: When and Why Your Kenyan Business Needs an Upgrade -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-redesign-when-and-why-you-need-it-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- How to Brief a Web Developer: The Complete Template and Guide for Kenyan Clients -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/how-to-brief-a-web-developer-effectively-template</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Red Flags When Hiring a Web Developer in Kenya: 8 Costly Mistakes to Avoid -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/red-flags-when-hiring-a-web-developer-in-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Portfolio: What Kenyan Web Developers Should Show You Before You Hire -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-portfolio-what-developers-should-show-you</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Is Freelance or Agency Better for Web Development in Kenya? A Realistic Comparison -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/freelance-or-agency-better-for-web-development-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Content: Who Writes It and How Much Does It Cost in Kenya? -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-content-who-writes-it-and-how-much-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Making Money from Your Website: 6 Proven Monetization Strategies in East Africa -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/making-money-from-your-website-monetization-strategies-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Website Analytics in Kenya: How to Track Traffic, Leads &amp; Real Business Growth -->
+  <url>
+    <loc>https://www.domaintechhubs.com/insights/website-analytics-understanding-your-sites-performance-kenya</loc>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>

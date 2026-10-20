@@ -1,6 +1,8 @@
 import { PAYMENTS_EXPANSIONS } from './articleExpansionsPayments';
 import { SEO_EXPLAINER_ARTICLES } from './seoExplainerArticles';
 import { WEB_EXPANSIONS } from './articleExpansionsWeb';
+import { PRICING_HIRING_GUIDES } from './pricingHiringGuides';
+import { INDUSTRY_AND_TECHNICAL_GUIDES } from './industryAndTechnicalGuides';
 
 export interface ArticleAuthor {
   name: string;
@@ -944,7 +946,12 @@ ON orders (kra_etims_signature) WHERE kra_etims_signature IS NOT NULL;`
 
 const EXPANSIONS = { ...PAYMENTS_EXPANSIONS, ...WEB_EXPANSIONS };
 
-export const INSIGHT_ARTICLES: InsightArticle[] = [...SEO_EXPLAINER_ARTICLES, ...BASE_ARTICLES].map((article) => {
+export const INSIGHT_ARTICLES: InsightArticle[] = [
+  ...PRICING_HIRING_GUIDES,
+  ...INDUSTRY_AND_TECHNICAL_GUIDES,
+  ...SEO_EXPLAINER_ARTICLES,
+  ...BASE_ARTICLES,
+].map((article) => {
   const extra = EXPANSIONS[article.slug];
   return extra ? { ...article, contentSections: [...article.contentSections, ...extra] } : article;
 });
