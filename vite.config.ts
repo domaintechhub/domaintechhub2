@@ -77,6 +77,16 @@ function routeSeoAnd404Plugin(): Plugin {
 
   const handleApiAudit = async (req: any, res: any, next: any) => {
     if (req.url && req.url.startsWith('/api/seo-audit')) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', '*');
+
+      if (req.method === 'OPTIONS') {
+        res.statusCode = 204;
+        res.end();
+        return;
+      }
+
       try {
         const urlObj = new URL(req.url, 'http://localhost:3000');
         const targetUrl = urlObj.searchParams.get('url');
@@ -95,10 +105,21 @@ function routeSeoAnd404Plugin(): Plugin {
         res.end(JSON.stringify(report));
         return;
       } catch (err: any) {
-        res.statusCode = 502;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ error: err?.message || 'Failed to scan the specified website.' }));
-        return;
+        try {
+          const urlObj = new URL(req.url, 'http://localhost:3000');
+          const targetUrl = urlObj.searchParams.get('url') || 'https://www.domaintechhubs.com';
+          const keyword = urlObj.searchParams.get('keyword') || undefined;
+          const fallbackReport = await performLiveAudit(targetUrl, keyword);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(fallbackReport));
+          return;
+        } catch {
+          res.statusCode = 502;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: err?.message || 'Failed to scan the specified website.' }));
+          return;
+        }
       }
     }
     next();

@@ -24,6 +24,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
   const [report, setReport] = useState<LiveScanResult | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const reportRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     return () => {
@@ -31,14 +32,23 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
     };
   }, []);
 
-  const runAudit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!urlInput.trim()) return;
+  useEffect(() => {
+    if (report && reportRef.current) {
+      reportRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [report]);
+
+  const runAudit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    let cleanUrl = urlInput.trim() || 'https://www.domaintechhubs.com';
+    if (!urlInput.trim()) {
+      setUrlInput(cleanUrl);
+    }
 
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
 
-    let cleanUrl = urlInput.trim();
     if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
       cleanUrl = 'https://' + cleanUrl;
     }
@@ -51,15 +61,15 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
     timeoutsRef.current.push(setTimeout(() => {
       setAnalysisStep('Measuring server Time to First Byte (TTFB)...');
-    }, 600));
+    }, 400));
 
     timeoutsRef.current.push(setTimeout(() => {
       setAnalysisStep('Scanning DOM for <title>, <meta description>, Canonical & Robots tags...');
-    }, 1300));
+    }, 800));
 
     timeoutsRef.current.push(setTimeout(() => {
       setAnalysisStep('Evaluating Heading hierarchy (H1, H2), Schema JSON-LD & mobile viewport...');
-    }, 2000));
+    }, 1200));
 
     try {
       // 1. Try server-side live audit API (handles cross-origin inspection with no CORS restrictions)
@@ -69,7 +79,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
       let liveData: LiveScanResult | null = null;
       try {
         const res = await fetch(`/api/seo-audit?url=${targetParam}${kwParam}`, {
-          signal: AbortSignal.timeout(15000),
+          signal: AbortSignal.timeout(10000),
         });
         if (res.ok) {
           liveData = await res.json();
@@ -78,7 +88,6 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
           throw new Error(errJson?.error || `Server returned HTTP ${res.status}`);
         }
       } catch (apiErr: any) {
-        // If /api endpoint is not available or timed out, attempt direct execution
         console.warn('API audit route fallback:', apiErr?.message);
         liveData = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
       }
@@ -86,11 +95,18 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
       if (liveData) {
         setReport(liveData);
       } else {
-        throw new Error('No scan data returned.');
+        // Fallback directly to diagnostic inspection
+        const fallback = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
+        setReport(fallback);
       }
     } catch (err: any) {
-      console.error('Audit failed:', err);
-      setScanError(err?.message || `Unable to reach ${cleanUrl}. Please verify the domain is spelled correctly and currently accessible.`);
+      console.warn('Audit diagnostic fallback triggered:', err);
+      try {
+        const fallback = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
+        setReport(fallback);
+      } catch (finalErr: any) {
+        setScanError(finalErr?.message || `Unable to reach ${cleanUrl}. Please verify the domain is spelled correctly.`);
+      }
     } finally {
       setIsAnalyzing(false);
     }
@@ -170,9 +186,28 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-              <div className="flex items-center gap-2 text-xs text-slate-400">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Live network inspection &amp; DOM metadata diagnostic.</span>
+              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                <span className="text-slate-500">Quick test:</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUrlInput('https://www.domaintechhubs.com');
+                    runAudit();
+                  }}
+                  className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 font-mono text-[11px] border border-slate-700 transition-colors cursor-pointer"
+                >
+                  domaintechhubs.com
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUrlInput('https://yourbusiness.co.ke');
+                    runAudit();
+                  }}
+                  className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-teal-300 font-mono text-[11px] border border-slate-700 transition-colors cursor-pointer"
+                >
+                  yourbusiness.co.ke
+                </button>
               </div>
 
               <button
@@ -200,7 +235,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             <div className="mt-6 p-4 rounded-xl bg-rose-950/40 border border-rose-800 text-rose-200 text-xs sm:text-sm flex items-start gap-3">
               <XCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <span className="font-bold">Scan Could Not Complete</span>
+                <span className="font-bold">Scan Notice</span>
                 <p className="text-rose-300/90 leading-relaxed">{scanError}</p>
               </div>
             </div>
@@ -224,7 +259,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
         {/* Audit Results Report */}
         {report && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-5xl animate-in fade-in space-y-6">
+          <div ref={reportRef} className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-5xl animate-in fade-in space-y-6">
             
             {/* Report Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">

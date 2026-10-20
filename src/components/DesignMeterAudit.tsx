@@ -54,7 +54,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 }) => {
   const urlInputId = useId();
 
-  const [urlInput, setUrlInput] = useState('');
+  const [urlInput, setUrlInput] = useState('https://www.domaintechhubs.com');
   const [isScanning, setIsScanning] = useState(false);
   const [activeStage, setActiveStage] = useState<number>(0); // 1, 2, 3, 4
   const [stageProgress, setStageProgress] = useState<number[]>([0, 0, 0, 0]);
@@ -80,6 +80,8 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 
   const scanIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const scanningRef = useRef<HTMLDivElement | null>(null);
+  const resultsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     return () => {
@@ -127,7 +129,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
     }
   ];
 
-  const generateReport = (targetUrl: string, userEmail: string): AuditResultData => {
+  const generateReport = (targetUrl: string, userEmail?: string): AuditResultData => {
     // Deterministic results derived from URL characters to provide realistic consistency
     const hash = targetUrl.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const isDomainTechHub = targetUrl.toLowerCase().includes('domaintechhub');
@@ -259,9 +261,12 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 
   const startScan = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!urlInput.trim()) return;
 
-    let cleanUrl = urlInput.trim();
+    let cleanUrl = urlInput.trim() || 'https://www.domaintechhubs.com';
+    if (!urlInput.trim()) {
+      setUrlInput(cleanUrl);
+    }
+
     if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
       cleanUrl = 'https://' + cleanUrl;
     }
@@ -296,20 +301,24 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
     setActiveSubCheck(0);
     setSecondsElapsed(0);
 
+    setTimeout(() => {
+      scanningRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 50);
+
     // Elapsed timer
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
     timerIntervalRef.current = setInterval(() => {
       setSecondsElapsed((prev) => prev + 1);
     }, 1000);
 
-    // Realistic multi-stage animation sequence
+    // Responsive multi-stage animation sequence (clean ~1.3s total duration)
     let currentStage = 1;
     let currentProgress = 0;
     let subCheckIndex = 0;
 
     if (scanIntervalRef.current) clearInterval(scanIntervalRef.current);
     scanIntervalRef.current = setInterval(() => {
-      currentProgress += 7;
+      currentProgress += 20;
 
       if (currentProgress >= 100) {
         currentProgress = 100;
@@ -336,8 +345,11 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
           if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
           setTimeout(() => {
             setIsScanning(false);
-            setScanResult(generateReport(cleanUrl, cleanEmail));
-          }, 600);
+            setScanResult(generateReport(cleanUrl));
+            setTimeout(() => {
+              resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 60);
+          }, 200);
         }
       } else {
         setStageProgress((prev) => {
@@ -354,7 +366,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
         }
         setActiveSubCheck(subCheckIndex);
       }
-    }, 120);
+    }, 65);
   };
 
   const fastForwardToResults = () => {
@@ -364,12 +376,18 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
     if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) cleanUrl = 'https://' + cleanUrl;
     setIsScanning(false);
     setScanResult(generateReport(cleanUrl));
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
   };
 
   const loadSampleAudit = () => {
     setUrlInput('https://www.domaintechhubs.com');
     setIsScanning(false);
     setScanResult(generateReport('https://www.domaintechhubs.com'));
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
   };
 
   const filteredFixes = scanResult?.fixes.filter((item) => {
@@ -423,28 +441,50 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                   onChange={(e) => setUrlInput(e.target.value)}
                   placeholder="https://www.domaintechhubs.com"
                   disabled={isScanning}
-                  required
                   className="w-full pl-10 pr-4 py-3.5 text-sm rounded-2xl bg-stone-50 dark:bg-slate-950/80 border border-stone-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all shadow-inner"
                 />
               </div>
 
-              {/* Free scan note */}
-              <div className="py-1 text-center">
-                <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  Instant Scan · No sign up or email required · 100% Free
-                </p>
+              {/* Quick test buttons & free scan note */}
+              <div className="flex flex-wrap items-center justify-between gap-2 py-1 text-xs">
+                <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                  <span>Quick test:</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUrlInput('https://www.domaintechhubs.com');
+                      startScan();
+                    }}
+                    className="px-2.5 py-0.5 rounded-lg bg-teal-50 dark:bg-cyan-950/60 border border-teal-200 dark:border-cyan-800 text-teal-800 dark:text-cyan-300 font-mono text-[11px] hover:bg-teal-100 cursor-pointer transition-colors"
+                  >
+                    domaintechhubs.com
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUrlInput('https://yourbusiness.co.ke');
+                      startScan();
+                    }}
+                    className="px-2.5 py-0.5 rounded-lg bg-stone-100 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono text-[11px] hover:bg-stone-200 cursor-pointer transition-colors"
+                  >
+                    yourbusiness.co.ke
+                  </button>
+                </div>
+                <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                  Instant · Free
+                </span>
               </div>
 
               {/* Scan CTA Button */}
               <button
                 type="submit"
-                disabled={isScanning || !urlInput.trim()}
+                disabled={isScanning}
                 className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isScanning ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>Analyzing...</span>
+                    <span>Analyzing UI, UX &amp; User Journey...</span>
                   </>
                 ) : (
                   <>
@@ -491,7 +531,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 
       {/* 2. LIVE SCANNING MODAL / CONTAINER (Shown during active analysis) */}
       {isScanning && (
-        <div className="rounded-3xl bg-white dark:bg-slate-900 border border-teal-500/40 dark:border-teal-500/30 p-6 sm:p-10 shadow-2xl relative overflow-hidden animate-in fade-in duration-300">
+        <div ref={scanningRef} className="rounded-3xl bg-white dark:bg-slate-900 border border-teal-500/40 dark:border-teal-500/30 p-6 sm:p-10 shadow-2xl relative overflow-hidden animate-in fade-in duration-300">
           <div className="max-w-2xl mx-auto space-y-6">
             {/* Header badges */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-stone-200 dark:border-slate-800">
@@ -613,7 +653,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 
       {/* 3. COMPLETED AUDIT REPORT & PRIORITIZED FIX LIST */}
       {scanResult && !isScanning && (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div ref={resultsRef} className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
           {/* Result Header & Score Card */}
           <div className="rounded-3xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 p-6 sm:p-8 lg:p-10 shadow-xl space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-slate-800">
