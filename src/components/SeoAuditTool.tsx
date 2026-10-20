@@ -44,8 +44,11 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
       overrideUrl = undefined;
     }
 
-    const rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
-    if (!rawInput) return; // Do nothing if empty
+    let rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
+    if (!rawInput) {
+      rawInput = 'https://www.domaintechhubs.com';
+      setUrlInput(rawInput);
+    }
 
     // Check if it's a real link or just words posted: if not a real link, do nothing!
     if (!isValidWebUrl(rawInput)) {
@@ -68,15 +71,15 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
     timeoutsRef.current.push(setTimeout(() => {
       setAnalysisStep('Measuring server Time to First Byte (TTFB)...');
-    }, 400));
+    }, 350));
 
     timeoutsRef.current.push(setTimeout(() => {
       setAnalysisStep('Scanning DOM for <title>, <meta description>, Canonical & Robots tags...');
-    }, 800));
+    }, 700));
 
     timeoutsRef.current.push(setTimeout(() => {
       setAnalysisStep('Evaluating Heading hierarchy (H1, H2), Schema JSON-LD & mobile viewport...');
-    }, 1200));
+    }, 1050));
 
     try {
       // 1. Try server-side live audit API (handles cross-origin inspection with no CORS restrictions)
@@ -85,9 +88,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
       
       let liveData: LiveScanResult | null = null;
       try {
-        const res = await fetch(`/api/seo-audit?url=${targetParam}${kwParam}`, {
-          signal: AbortSignal.timeout(10000),
-        });
+        const res = await fetch(`/api/seo-audit?url=${targetParam}${kwParam}`);
         if (res.ok) {
           liveData = await res.json();
         } else {
@@ -101,15 +102,28 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
       if (liveData) {
         setReport(liveData);
+        setTimeout(() => {
+          reportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
       } else {
         const fallback = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
-        setReport(fallback);
+        if (fallback) {
+          setReport(fallback);
+          setTimeout(() => {
+            reportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+        }
       }
     } catch (err: any) {
       console.warn('Audit diagnostic fallback triggered:', err);
       try {
         const fallback = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
-        setReport(fallback);
+        if (fallback) {
+          setReport(fallback);
+          setTimeout(() => {
+            reportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+        }
       } catch (finalErr: any) {
         setScanError(finalErr?.message || `Unable to reach ${cleanUrl}. Please verify the domain is spelled correctly.`);
       }

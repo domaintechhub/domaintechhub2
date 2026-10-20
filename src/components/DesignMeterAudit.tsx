@@ -266,8 +266,11 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
       overrideUrl = undefined;
     }
 
-    const rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
-    if (!rawInput) return; // Do nothing if empty
+    let rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
+    if (!rawInput) {
+      rawInput = 'https://www.domaintechhubs.com';
+      setUrlInput(rawInput);
+    }
 
     // Check if it's a real link or just words posted: if not a real link, do nothing!
     if (!isValidWebUrl(rawInput)) {

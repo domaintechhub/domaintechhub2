@@ -100,6 +100,12 @@ function routeSeoAnd404Plugin(): Plugin {
         }
 
         const report = await performLiveAudit(targetUrl, keyword);
+        if (!report) {
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Please enter a valid website link or domain name.' }));
+          return;
+        }
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(report));

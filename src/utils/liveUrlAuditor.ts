@@ -73,28 +73,111 @@ export function isValidWebUrl(rawInput?: string | null): boolean {
 }
 
 /**
- * Creates an AbortSignal with timeout support across both modern and legacy runtimes.
+ * Custom error class identifying when an HTTP request exceeded its timeout limit.
  */
-function createTimeoutSignal(ms: number): AbortSignal {
-  if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
-    return AbortSignal.timeout(ms);
+export class RequestTimeoutError extends Error {
+  constructor(message: string = 'Request timed out') {
+    super(message);
+    this.name = 'RequestTimeoutError';
   }
+}
+
+/**
+ * Promise-based fetch execution engine backed by AbortController.
+ * Ensures the network request is forcefully terminated via controller.abort()
+ * when the timeout threshold is breached, and always cleans up its timers in a finally block.
+ */
+export async function fetchWithAbortTimeout(
+  url: string,
+  options: RequestInit = {},
+  timeoutMs: number = 8000
+): Promise<Response> {
   const controller = new AbortController();
-  setTimeout(() => controller.abort(), ms);
-  return controller.signal;
+  const { signal: externalSignal, ...fetchOptions } = options;
+
+  let timerId: ReturnType<typeof setTimeout> | undefined;
+
+  // Dedicated timeout Promise that triggers controller.abort()
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timerId = setTimeout(() => {
+      try {
+        controller.abort();
+      } catch {
+        // ignore
+      }
+      reject(new RequestTimeoutError(`Request to ${url} timed out after ${timeoutMs}ms`));
+    }, timeoutMs);
+  });
+
+  // Forward external abort signals if provided
+  if (externalSignal) {
+    if (externalSignal.aborted) {
+      if (timerId !== undefined) clearTimeout(timerId);
+      controller.abort();
+      throw new Error('Operation was already aborted');
+    }
+    externalSignal.addEventListener('abort', () => {
+      if (timerId !== undefined) clearTimeout(timerId);
+      controller.abort();
+    }, { once: true });
+  }
+
+  try {
+    const response = await Promise.race([
+      fetch(url, {
+        ...fetchOptions,
+        signal: controller.signal,
+      }),
+      timeoutPromise,
+    ]);
+
+    return response;
+  } finally {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+  }
+}
+
+/**
+ * Safely reads response text with a Promise-based timeout race to prevent hanging
+ * on unresponsive streaming chunk transfers.
+ */
+export async function readResponseTextWithTimeout(
+  response: Response,
+  timeoutMs: number = 4000
+): Promise<string> {
+  let timerId: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const textPromise = response.text();
+    const timeoutPromise = new Promise<string>((_, reject) => {
+      timerId = setTimeout(() => {
+        reject(new RequestTimeoutError(`Body download timed out after ${timeoutMs}ms`));
+      }, timeoutMs);
+    });
+
+    return await Promise.race([textPromise, timeoutPromise]);
+  } catch {
+    return '';
+  } finally {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+  }
 }
 
 /**
  * Performs a live scan and technical analysis of a public website URL.
  * Handles timeouts, CORS restrictions, and network errors for different website domains.
- * If the input is not a real link, it throws an INVALID_URL error so callers can safely do nothing.
+ * If the input is not a real link (e.g. just words posted), it returns null so callers can safely do nothing.
  */
-export async function performLiveAudit(rawUrl: string, keyword?: string): Promise<LiveScanResult> {
+export async function performLiveAudit(rawUrl: string, keyword?: string): Promise<LiveScanResult | null> {
   const trimmed = (rawUrl || '').trim();
 
-  // Validate that the input is a genuine link/domain, not just words posted
+  // Validate that the input is a genuine link/domain, not just words posted.
+  // If it's not a real link, don't do anything (return null).
   if (!isValidWebUrl(trimmed)) {
-    throw new Error('INVALID_URL: The provided input is not a valid website URL or domain name.');
+    return null;
   }
 
   let cleanUrl = trimmed;
@@ -112,42 +195,52 @@ export async function performLiveAudit(rawUrl: string, keyword?: string): Promis
   let statusText = 'OK';
   let html = '';
 
-  const standardHeaders = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 DomainTechHub-AuditScanner/2.0',
+  const isBrowser = typeof window !== 'undefined';
+  const standardHeaders: Record<string, string> = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.9',
   };
+  if (!isBrowser) {
+    standardHeaders['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 DomainTechHub-AuditScanner/2.0';
+  }
 
   try {
-    response = await fetch(cleanUrl, {
-      method: 'GET',
-      headers: standardHeaders,
-      redirect: 'follow',
-      signal: createTimeoutSignal(8000), // 8-second network timeout
-    });
+    response = await fetchWithAbortTimeout(
+      cleanUrl,
+      {
+        method: 'GET',
+        headers: standardHeaders,
+        redirect: 'follow',
+      },
+      8000 // 8-second Promise-based AbortController timeout
+    );
     ttfbMs = Date.now() - startTime;
     statusCode = response.status;
     statusText = response.statusText || (statusCode === 200 ? 'OK' : `HTTP ${statusCode}`);
     isHttps = cleanUrl.startsWith('https://');
     hstsEnabled = response.headers.has('strict-transport-security');
     serverHeader = response.headers.get('server') || undefined;
-    try {
-      html = await response.text();
-    } catch {
-      html = '';
+    html = await readResponseTextWithTimeout(response, 4000);
+  } catch (err: any) {
+    const isTimeout = err instanceof RequestTimeoutError || err?.name === 'TimeoutError' || err?.name === 'AbortError';
+    if (isTimeout) {
+      console.warn(`[Audit Scanner] Target ${cleanUrl} timed out. Aborted connection gracefully.`);
     }
-  } catch (_err: any) {
+
     // If https failed (e.g. self-signed cert, port 443 closed, or network timeout), attempt http fallback
     let succeeded = false;
     if (cleanUrl.startsWith('https://') && !trimmed.startsWith('https://')) {
       const fallbackUrl = cleanUrl.replace('https://', 'http://');
       try {
-        response = await fetch(fallbackUrl, {
-          method: 'GET',
-          headers: standardHeaders,
-          redirect: 'follow',
-          signal: createTimeoutSignal(5000), // 5-second fallback timeout
-        });
+        response = await fetchWithAbortTimeout(
+          fallbackUrl,
+          {
+            method: 'GET',
+            headers: standardHeaders,
+            redirect: 'follow',
+          },
+          5000 // 5-second fallback timeout
+        );
         cleanUrl = fallbackUrl;
         ttfbMs = Date.now() - startTime;
         statusCode = response.status;
@@ -155,11 +248,7 @@ export async function performLiveAudit(rawUrl: string, keyword?: string): Promis
         isHttps = false;
         hstsEnabled = false;
         serverHeader = response.headers.get('server') || undefined;
-        try {
-          html = await response.text();
-        } catch {
-          html = '';
-        }
+        html = await readResponseTextWithTimeout(response, 3000);
         succeeded = true;
       } catch {
         succeeded = false;
