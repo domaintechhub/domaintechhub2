@@ -83,6 +83,7 @@ export function crawlAppRoutes() {
     { path: 'blog', priority: '0.90', changefreq: 'daily', title: 'Engineering Blog' },
     { path: 'tech-stack', priority: '0.85', changefreq: 'monthly', title: 'Tech Stack & Infrastructure' },
     { path: 'tools/calculator', priority: '0.90', changefreq: 'weekly', title: 'Project Cost & Scope Calculator' },
+    { path: 'tools/design-audit', priority: '0.90', changefreq: 'weekly', title: 'DesignMeter UI/UX Audit & Prioritized Fix List' },
     { path: 'tools/audit', priority: '0.90', changefreq: 'weekly', title: 'Core Web Vitals & SEO Speed Audit' },
     { path: 'tools/domains', priority: '0.85', changefreq: 'monthly', title: '.co.ke Domain Registration & Hosting' },
   ];
@@ -161,6 +162,7 @@ export function crawlArticles() {
 export function crawlTools() {
   return [
     { path: 'tools/calculator', title: 'Project Cost & Scope Calculator', priority: '0.90', changefreq: 'weekly' },
+    { path: 'tools/design-audit', title: 'DesignMeter UI/UX Audit & Prioritized Fix List', priority: '0.90', changefreq: 'weekly' },
     { path: 'tools/audit', title: 'Core Web Vitals & SEO Speed Audit Scanner', priority: '0.90', changefreq: 'weekly' },
     { path: 'tools/domains', title: '.co.ke Domain Registration & NVMe Hosting Portal', priority: '0.85', changefreq: 'monthly' },
   ];

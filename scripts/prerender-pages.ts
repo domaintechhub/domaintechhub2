@@ -64,6 +64,7 @@ function renderNavHeaderHtml(): string {
         <a href="/team">Team</a>
         <a href="/tech-stack">Tech Stack</a>
         <a href="/tools/calculator">Cost Calculator</a>
+        <a href="/tools/design-audit">DesignMeter UI/UX Audit</a>
         <a href="/tools/audit">SEO Audit Tool</a>
         <a href="/tools/domains">Domain Checker</a>
         <a href="/faq">FAQ</a>
@@ -601,6 +602,7 @@ export function runPrerender() {
     { relPath: 'blog/index.html', route: 'more', subTab: 'blog' },
     { relPath: 'tools/index.html', route: 'tools', subTab: 'calculator' },
     { relPath: 'tools/calculator/index.html', route: 'tools', subTab: 'calculator' },
+    { relPath: 'tools/design-audit/index.html', route: 'tools', subTab: 'design-audit' },
     { relPath: 'tools/audit/index.html', route: 'tools', subTab: 'audit' },
     { relPath: 'tools/domains/index.html', route: 'tools', subTab: 'domains' },
   ];

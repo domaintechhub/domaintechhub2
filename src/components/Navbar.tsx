@@ -4,7 +4,7 @@ import {
   Cpu, MessageSquare, Calculator, Gauge, Server, FolderGit2, 
   HelpCircle, ArrowRight, ArrowUpRight, Menu, X, BookOpen,
   PhoneCall, ShieldCheck, Languages, SlidersHorizontal,
-  Check, Layers, Award, Users, Rocket
+  Check, Layers, Award, Users, Rocket, Sparkles
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage, Language } from '../context/LanguageContext';
@@ -162,7 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
   const isAboutActive = activeSection === 'about';
   const isServicesActive = activeSection === 'services';
   const isPortfolioActive = activeSection === 'portfolio';
-  const isToolsActive = activeSection === 'tools' || activeSection === 'calculator' || activeSection === 'audit' || activeSection === 'domains';
+  const isToolsActive = activeSection === 'tools' || activeSection === 'calculator' || activeSection === 'audit' || activeSection === 'domains' || activeSection === 'design-audit';
   const isTechStackActive = activeSection === 'tech-stack' || (activeSection === 'more' && currentPath.includes('tech-stack'));
   const isInsightsActive = activeSection === 'insights';
   const isPortalActive = activeSection === 'portal' || activeSection === 'client-portal';
@@ -406,6 +406,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                           </div>
                           <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
                             Instant scope configuration & quotation
+                          </div>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('tools', 'design-audit')}
+                        className="w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer"
+                      >
+                        <div className="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/60 border border-orange-200 dark:border-orange-800 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                          <Sparkles className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-300 transition-colors flex items-center gap-1.5">
+                            <span>DesignMeter UI/UX Audit</span>
+                            <span className="text-[9px] font-mono text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/80 px-1 py-0.2 rounded border border-orange-200">AI SCAN</span>
+                          </div>
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
+                            UI, journey & prioritized fix list
                           </div>
                         </div>
                       </button>
@@ -723,7 +741,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                   {[
                     { id: 'services', label: t('nav.services'), subtitle: 'Web Development, E-Commerce, SEO & Apps', icon: Globe, active: isServicesActive },
                     { id: 'about', label: t('nav.about'), subtitle: 'Nairobi Office, Mission & Track Record', icon: Award, active: isAboutActive },
-                    { id: 'tools', label: t('nav.tools'), subtitle: 'Cost Calculator, SEO Audit & Domain Lookup', icon: Calculator, active: isToolsActive },
+                    { id: 'tools', label: t('nav.tools'), subtitle: 'Cost Estimator, DesignMeter UI/UX & SEO Audit', icon: Calculator, active: isToolsActive },
                     { id: 'portfolio', label: t('nav.projects'), subtitle: 'Client Case Studies & Verified Results', icon: FolderGit2, active: isPortfolioActive },
                     { id: 'contact', label: t('nav.contact'), subtitle: 'Direct Phone, Email & Nairobi Office', icon: PhoneCall, active: isContactActive }
                   ].map((item) => {

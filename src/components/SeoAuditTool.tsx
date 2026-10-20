@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef, useId } from 'react';
 import { 
   Search, ShieldAlert, CheckCircle2, AlertTriangle, XCircle, 
   Gauge, ArrowRight, Printer, RefreshCw, Globe, Smartphone, Lock,
-  MessageSquare, Mail
+  MessageSquare, Mail, Zap, Server, Code, FileText, Check
 } from 'lucide-react';
-import { AuditReport } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
+import { LiveScanResult, performLiveAudit } from '../utils/liveUrlAuditor';
 
 interface SeoAuditToolProps {
   onFixWithAgency: (domain: string, auditIssuesCount: number) => void;
@@ -21,7 +21,8 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
   const [keywordInput, setKeywordInput] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisStep, setAnalysisStep] = useState('');
-  const [report, setReport] = useState<AuditReport | null>(null);
+  const [report, setReport] = useState<LiveScanResult | null>(null);
+  const [scanError, setScanError] = useState<string | null>(null);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
 
   useEffect(() => {
@@ -30,119 +31,69 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
     };
   }, []);
 
-  const runAudit = (e: React.FormEvent) => {
+  const runAudit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!urlInput.trim()) return;
 
-    // Clear previous timeouts
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
 
-    // Normalize URL
     let cleanUrl = urlInput.trim();
     if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
       cleanUrl = 'https://' + cleanUrl;
     }
 
     setIsAnalyzing(true);
+    setScanError(null);
     setReport(null);
 
-    // Multi-stage audit simulation
-    setAnalysisStep('Initiating TLS/SSL handshake & DNS resolution...');
-    
-    timeoutsRef.current.push(setTimeout(() => {
-      setAnalysisStep('Profiling Core Web Vitals (LCP, CLS, TTFB)...');
-    }, 700));
+    setAnalysisStep('Initiating HTTP/TLS handshake and DNS resolution...');
 
     timeoutsRef.current.push(setTimeout(() => {
-      setAnalysisStep('Scanning DOM for Schema JSON-LD, H1-H6 tags & metadata...');
-    }, 1400));
+      setAnalysisStep('Measuring server Time to First Byte (TTFB)...');
+    }, 600));
 
     timeoutsRef.current.push(setTimeout(() => {
-      setAnalysisStep('Evaluating mobile viewport fluidity & touch targets...');
-    }, 2100));
+      setAnalysisStep('Scanning DOM for <title>, <meta description>, Canonical & Robots tags...');
+    }, 1300));
 
     timeoutsRef.current.push(setTimeout(() => {
-      // Deterministic but realistic variance based on URL string hash
-      const hash = cleanUrl.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-      const isKnownFast = cleanUrl.includes('google') || cleanUrl.includes('apple') || cleanUrl.includes('domaintechhub');
+      setAnalysisStep('Evaluating Heading hierarchy (H1, H2), Schema JSON-LD & mobile viewport...');
+    }, 2000));
+
+    try {
+      // 1. Try server-side live audit API (handles cross-origin inspection with no CORS restrictions)
+      const targetParam = encodeURIComponent(cleanUrl);
+      const kwParam = keywordInput.trim() ? `&keyword=${encodeURIComponent(keywordInput.trim())}` : '';
       
-      const overallScore = isKnownFast ? 94 : Math.max(52, 60 + (hash % 32));
-      const seoScore = isKnownFast ? 96 : Math.max(55, 62 + ((hash * 3) % 30));
-      const performanceScore = isKnownFast ? 92 : Math.max(48, 58 + ((hash * 7) % 36));
-      const mobileScore = isKnownFast ? 98 : Math.max(65, 75 + ((hash * 5) % 22));
-      const securityScore = cleanUrl.startsWith('https://') ? 95 : 40;
-      const loadingTimeMs = isKnownFast ? 850 : 1400 + (hash % 2200);
-
-      const generatedIssues: AuditReport['issues'] = [
-        {
-          category: 'SEO',
-          severity: seoScore > 85 ? 'good' : 'critical',
-          title: seoScore > 85 ? 'Optimized Meta Title & Description' : 'Missing or Truncated Meta Description',
-          description: seoScore > 85 
-            ? 'Title tags and descriptions are within optimal pixel lengths.' 
-            : 'Your meta description is either missing or exceeds 160 characters, hurting click-through rate on Google.',
-          recommendation: 'Craft compelling 155-character meta descriptions with primary commercial keywords.'
-        },
-        {
-          category: 'SEO',
-          severity: 'warning',
-          title: 'Structured Data Schema (JSON-LD) Incomplete',
-          description: 'No Organization, LocalBusiness, or Service schema markup was found in the head tag.',
-          recommendation: 'Implement Schema.org JSON-LD to unlock rich snippets and star ratings on Google Search.'
-        },
-        {
-          category: 'Performance',
-          severity: performanceScore > 80 ? 'good' : 'critical',
-          title: performanceScore > 80 ? 'Fast Largest Contentful Paint (LCP)' : 'High Largest Contentful Paint (LCP > 2.5s)',
-          description: `Main banner took ${(loadingTimeMs / 1000).toFixed(1)}s to render, failing Google Core Web Vitals benchmark.`,
-          recommendation: 'Convert hero images to WebP/AVIF and configure edge caching on a CDN like Cloudflare.'
-        },
-        {
-          category: 'Performance',
-          severity: 'warning',
-          title: 'Unused JavaScript & CSS Render Blocking',
-          description: 'Third-party tracking scripts and bulky CSS frameworks delay first render by ~620ms.',
-          recommendation: 'Defer non-essential scripts and tree-shake unused Tailwind or framework dependencies.'
-        },
-        {
-          category: 'Mobile',
-          severity: 'good',
-          title: 'Responsive Viewport Tag Active',
-          description: 'Viewport tag with width=device-width correctly declared for mobile smartphones.',
-          recommendation: 'Maintain touch target sizes at minimum 44px for navigation buttons.'
-        },
-        {
-          category: 'Security',
-          severity: cleanUrl.startsWith('https://') ? 'good' : 'critical',
-          title: cleanUrl.startsWith('https://') ? 'Valid HTTPS / SSL Certificate' : 'Missing SSL Certificate (Insecure HTTP)',
-          description: cleanUrl.startsWith('https://') 
-            ? 'Traffic is encrypted with an active modern TLS 1.3 certificate.' 
-            : 'Browsers warn users "Not Secure", which causes an immediate 80%+ bounce rate.',
-          recommendation: 'Deploy Let\'s Encrypt or Cloudflare automated SSL with strict HSTS headers.'
+      let liveData: LiveScanResult | null = null;
+      try {
+        const res = await fetch(`/api/seo-audit?url=${targetParam}${kwParam}`, {
+          signal: AbortSignal.timeout(15000),
+        });
+        if (res.ok) {
+          liveData = await res.json();
+        } else {
+          const errJson = await res.json().catch(() => null);
+          throw new Error(errJson?.error || `Server returned HTTP ${res.status}`);
         }
-      ];
+      } catch (apiErr: any) {
+        // If /api endpoint is not available or timed out, attempt direct execution
+        console.warn('API audit route fallback:', apiErr?.message);
+        liveData = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
+      }
 
-      setReport({
-        id: `audit-${Date.now()}`,
-        url: cleanUrl,
-        keyword: keywordInput.trim() || undefined,
-        analyzedAt: new Date().toLocaleDateString('en-KE', { 
-          month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' 
-        }),
-        overallScore,
-        seoScore,
-        performanceScore,
-        mobileScore,
-        securityScore,
-        loadingTimeMs,
-        sslValid: cleanUrl.startsWith('https://'),
-        mobileFriendly: mobileScore >= 70,
-        issues: generatedIssues
-      });
-
+      if (liveData) {
+        setReport(liveData);
+      } else {
+        throw new Error('No scan data returned.');
+      }
+    } catch (err: any) {
+      console.error('Audit failed:', err);
+      setScanError(err?.message || `Unable to reach ${cleanUrl}. Please verify the domain is spelled correctly and currently accessible.`);
+    } finally {
       setIsAnalyzing(false);
-    }, 2800));
+    }
   };
 
   const getScoreColor = (score: number) => {
@@ -166,9 +117,10 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
           <p className="text-base sm:text-lg text-slate-300">
             {t('audit.subtitle')}
           </p>
-          <p role="note" className="mt-3 rounded-xl border border-amber-700/50 bg-amber-950/30 p-3 text-sm text-amber-900 dark:text-amber-200">
-            Demo preview only: this static page does not fetch or scan the URL. Scores and recommendations are illustrative, not measured results.
-          </p>
+          <div className="mt-3 inline-flex items-center gap-2 rounded-xl border border-teal-500/30 bg-teal-950/20 px-3.5 py-2 text-xs font-medium text-teal-800 dark:text-teal-300">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>Live URL Inspection: real-time HTTP handshake, server response time (TTFB), DOM metadata, and SSL security analysis.</span>
+          </div>
         </div>
 
         {/* Input Form Card */}
@@ -190,7 +142,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                     autoComplete="url"
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
-                    placeholder="e.g. yourbusiness.co.ke or company.com"
+                    placeholder="e.g. https://yourbusiness.co.ke or company.com"
                     className="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
                   />
                 </div>
@@ -220,7 +172,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
               <div className="flex items-center gap-2 text-xs text-slate-400">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>No external website checks are performed; this creates a sample report only.</span>
+                <span>Live network inspection &amp; DOM metadata diagnostic.</span>
               </div>
 
               <button
@@ -243,17 +195,28 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             </div>
           </form>
 
+          {/* Error Message */}
+          {scanError && (
+            <div className="mt-6 p-4 rounded-xl bg-rose-950/40 border border-rose-800 text-rose-200 text-xs sm:text-sm flex items-start gap-3">
+              <XCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <span className="font-bold">Scan Could Not Complete</span>
+                <p className="text-rose-300/90 leading-relaxed">{scanError}</p>
+              </div>
+            </div>
+          )}
+
           {/* Analysis in Progress Indicator */}
           {isAnalyzing && (
             <div className="mt-8 pt-6 border-t border-slate-800">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
                 <span className="text-xs font-mono text-cyan-300">
                   {analysisStep}
                 </span>
               </div>
               <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
-                <div className="bg-gradient-to-r from-cyan-500 to-blue-600 h-full w-3/4 animate-pulse rounded-full" />
+                <div className="bg-gradient-to-r from-cyan-500 via-teal-400 to-blue-600 h-full w-3/4 animate-pulse rounded-full" />
               </div>
             </div>
           )}
@@ -261,13 +224,14 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
         {/* Audit Results Report */}
         {report && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-5xl animate-in fade-in">
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-5xl animate-in fade-in space-y-6">
             
             {/* Report Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
               <div>
-                <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">
-                  ILLUSTRATIVE AUDIT PREVIEW · {report.analyzedAt}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-800 text-[10px] font-mono text-emerald-300 uppercase tracking-wider mb-2">
+                  <Check className="w-3 h-3 text-emerald-400" />
+                  <span>LIVE INSPECTION COMPLETE · {report.analyzedAt}</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white flex items-center gap-2">
                   <span>{report.url}</span>
@@ -281,15 +245,17 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
               <div className="flex items-center gap-3">
                 <button
+                  type="button"
                   onClick={() => window.print()}
-                  className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print Report</span>
                 </button>
                 <button
+                  type="button"
                   onClick={() => onFixWithAgency(report.url, report.issues.filter(i => i.severity !== 'good').length)}
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold shadow-md transition-all flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Fix With Domain Tech Hub</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -298,7 +264,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             </div>
 
             {/* Score Cards Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-slate-800">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-2 border-b border-slate-800">
               <div className={`p-4 rounded-xl border ${getScoreColor(report.overallScore)}`}>
                 <span className="text-[11px] font-mono uppercase block">Overall Health</span>
                 <span className="text-3xl font-extrabold font-mono mt-1 block">
@@ -322,13 +288,13 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
               <div className="p-4 rounded-xl border border-slate-800 bg-slate-950/60">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-slate-400 uppercase">Load Speed</span>
+                  <span className="text-[11px] font-mono text-slate-400 uppercase">Response (TTFB)</span>
                   <Gauge className="w-4 h-4 text-teal-400" />
                 </div>
                 <span className="text-2xl font-bold font-mono text-white mt-1 block">
-                  {(report.loadingTimeMs / 1000).toFixed(1)}s
+                  {report.liveMetrics?.ttfbMs ? `${report.liveMetrics.ttfbMs}ms` : `${(report.loadingTimeMs / 1000).toFixed(1)}s`}
                 </span>
-                <span className="text-[11px] text-slate-400 mt-0.5 block">Core Web Vitals LCP</span>
+                <span className="text-[11px] text-slate-400 mt-0.5 block">Server Latency</span>
               </div>
 
               <div className="p-4 rounded-xl border border-slate-800 bg-slate-950/60">
@@ -337,14 +303,52 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                   <Lock className="w-4 h-4 text-emerald-400" />
                 </div>
                 <span className="text-2xl font-bold font-mono text-emerald-400 mt-1 block">
-                  {report.sslValid ? 'Encrypted' : 'Insecure'}
+                  {report.sslValid ? 'HTTPS Active' : 'Insecure HTTP'}
                 </span>
-                <span className="text-[11px] text-slate-400 mt-0.5 block">TLS 1.3 Status</span>
+                <span className="text-[11px] text-slate-400 mt-0.5 block">
+                  {report.liveMetrics?.hstsEnabled ? 'HSTS Enabled' : 'TLS Encrypted'}
+                </span>
               </div>
             </div>
 
+            {/* Live Inspected DOM Metrics Strip */}
+            {report.liveMetrics && (
+              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-2">
+                <div className="flex items-center gap-2 font-mono uppercase text-[11px] text-cyan-400 font-bold">
+                  <Server className="w-3.5 h-3.5" />
+                  <span>Live Server &amp; DOM Metrics Detected</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-300">
+                  <div>
+                    <span className="text-slate-500 block text-[10px]">HTTP Response:</span>
+                    <span className="font-mono font-semibold text-white">{report.liveMetrics.statusCode} {report.liveMetrics.statusText || 'OK'}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block text-[10px]">HTML Payload Size:</span>
+                    <span className="font-mono font-semibold text-white">{report.liveMetrics.pageSizeKb} KB</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block text-[10px]">Headings Detected:</span>
+                    <span className="font-mono font-semibold text-white">{report.liveMetrics.h1Count} H1 / {report.liveMetrics.h2Count} H2</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block text-[10px]">Image Alt Compliance:</span>
+                    <span className="font-mono font-semibold text-white">
+                      {report.liveMetrics.imagesTotal - report.liveMetrics.imagesMissingAlt} / {report.liveMetrics.imagesTotal} valid
+                    </span>
+                  </div>
+                </div>
+                {report.liveMetrics.title && (
+                  <div className="pt-2 border-t border-slate-800/80 text-[11px]">
+                    <span className="text-slate-500">Live Title: </span>
+                    <span className="text-cyan-200 font-mono">"{report.liveMetrics.title}"</span>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Diagnostic Issues List */}
-            <div className="py-6">
+            <div className="py-2">
               <h4 className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4">
                 Detailed Diagnostic Findings ({report.issues.length} Evaluated Checkpoints)
               </h4>
@@ -415,12 +419,12 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                       email: '',
                       phone: '',
                       serviceOrItem: `SEO & Speed Fix for ${report.url}`,
-                      notes: `Audit for ${report.url}: Score ${report.overallScore}/100. Critical issues: ${criticalCount}. Recommendations: LCP speed, Schema JSON-LD, SSL.`
+                      notes: `Live Audit for ${report.url}: Score ${report.overallScore}/100. Issues: ${criticalCount}. Response: ${report.liveMetrics?.ttfbMs || report.loadingTimeMs}ms.`
                     };
                     saveLead(leadData);
                     sendToWhatsApp(leadData);
                   }}
-                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>WhatsApp Report</span>
@@ -437,20 +441,21 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                       email: '',
                       phone: '',
                       serviceOrItem: `SEO & Speed Fix for ${report.url}`,
-                      notes: `Audit for ${report.url}: Score ${report.overallScore}/100. Critical issues: ${criticalCount}. Recommendations: LCP speed, Schema JSON-LD, SSL.`
+                      notes: `Live Audit for ${report.url}: Score ${report.overallScore}/100. Issues: ${criticalCount}. Response: ${report.liveMetrics?.ttfbMs || report.loadingTimeMs}ms.`
                     };
                     saveLead(leadData);
                     sendToEmail(leadData);
                   }}
-                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer"
                 >
                   <Mail className="w-3.5 h-3.5" />
                   <span>Email Report</span>
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => onFixWithAgency(report.url, report.issues.filter(i => i.severity !== 'good').length)}
-                  className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs whitespace-nowrap shadow-md transition-all"
+                  className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs whitespace-nowrap shadow-md transition-all cursor-pointer"
                 >
                   Schedule Fix Call
                 </button>

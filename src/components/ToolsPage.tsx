@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Calculator, Gauge, Server, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Calculator, Gauge, Server, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import { PageHeader } from './PageHeader';
 import { CostCalculator } from './CostCalculator';
 import { SeoAuditTool } from './SeoAuditTool';
 import { DomainChecker } from './DomainChecker';
+import { DesignMeterAudit } from './DesignMeterAudit';
 
-export type ToolTab = 'calculator' | 'audit' | 'domains';
+export type ToolTab = 'calculator' | 'design-audit' | 'audit' | 'domains';
 
 interface ToolsPageProps {
   initialTab?: ToolTab;
   onNavigateHome: () => void;
   onProceedToBooking: (quoteSummary: string, estimatedTotal: string) => void;
   onFixAuditWithAgency: (domain: string, issueCount: number) => void;
+  onFixDesignAuditWithAgency?: (domain: string, fixCount: number, topRisk?: string) => void;
   onSelectDomainForSetup: (domainName: string, ext: string) => void;
   calculatorServiceId: string;
   onTabChange?: (tab: ToolTab) => void;
@@ -22,6 +24,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
   onNavigateHome,
   onProceedToBooking,
   onFixAuditWithAgency,
+  onFixDesignAuditWithAgency,
   onSelectDomainForSetup,
   calculatorServiceId,
   onTabChange,
@@ -55,11 +58,18 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       description: 'Configure custom modules, tech stack, and generate real-time budgets in USD & KES.'
     },
     {
+      id: 'design-audit' as ToolTab,
+      label: 'DesignMeter UI/UX & Fix List Scanner',
+      shortLabel: 'UI/UX Fix Scanner',
+      icon: Sparkles,
+      description: 'Review UI, UX, user journey, and gamification with an AI-powered prioritized fix list.'
+    },
+    {
       id: 'audit' as ToolTab,
       label: 'Core Web Vitals & SEO Scanner',
       shortLabel: 'Performance Scanner',
       icon: Gauge,
-      description: 'Preview an illustrative report; this static demo does not scan a live website.'
+      description: 'Run live technical SEO, server response time (TTFB), and SSL security inspection for any website.'
     },
     {
       id: 'domains' as ToolTab,
@@ -75,7 +85,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       <PageHeader
         badge="Developer & Client Tools"
         title="Interactive Engineering Tools & Estimators"
-        description="Planning calculators and demo utilities."
+        description="Planning calculators, UI/UX diagnostics, and demo utilities."
         currentBreadcrumb="Developer & Client Tools"
         onNavigateHome={onNavigateHome}
       />
@@ -107,7 +117,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
 
             <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden md:flex items-center gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Real-Time Free Calculations</span>
+              <span>Real-Time Free Calculations & Scans</span>
             </div>
           </div>
         </div>
@@ -118,6 +128,13 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
         {activeTab === 'calculator' && (
           <CostCalculator
             initialServiceId={calculatorServiceId}
+            onProceedToBooking={onProceedToBooking}
+          />
+        )}
+
+        {activeTab === 'design-audit' && (
+          <DesignMeterAudit
+            onFixWithAgency={onFixDesignAuditWithAgency || ((d, c, r) => onFixAuditWithAgency(d, c))}
             onProceedToBooking={onProceedToBooking}
           />
         )}

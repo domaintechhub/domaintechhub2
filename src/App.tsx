@@ -256,6 +256,9 @@ export default function App() {
     } else if (target === 'calculator') {
       targetPage = 'tools';
       targetSub = 'calculator';
+    } else if (target === 'design-audit' || target === 'designmeter' || target === 'ux-audit') {
+      targetPage = 'tools';
+      targetSub = 'design-audit';
     } else if (target === 'audit') {
       targetPage = 'tools';
       targetSub = 'audit';
@@ -340,6 +343,12 @@ export default function App() {
   const handleFixAuditWithAgency = (domain: string, issueCount: number) => {
     setPrefilledService('Technical SEO & Website Optimization');
     setPrefilledNotes(`I ran an audit for ${domain} on your scanner and found ${issueCount} issues. I'd like Domain Tech Hub to optimize our site speed, Core Web Vitals, and SEO.`);
+    navigateTo('contact');
+  };
+
+  const handleFixDesignAuditWithAgency = (domain: string, fixCount: number, topRisk?: string) => {
+    setPrefilledService('UI/UX Product Redesign & Conversion Optimization');
+    setPrefilledNotes(`I ran a DesignMeter UI/UX audit for ${domain} and found ${fixCount} prioritized fixes (Top Risk: ${topRisk || 'User journey & conversion drop-off'}). I would like Domain Tech Hub to implement these fixes.`);
     navigateTo('contact');
   };
 
@@ -567,6 +576,7 @@ export default function App() {
                   onNavigateHome={() => navigateTo('home')}
                   onProceedToBooking={handleProceedToBooking}
                   onFixAuditWithAgency={handleFixAuditWithAgency}
+                  onFixDesignAuditWithAgency={handleFixDesignAuditWithAgency}
                   onSelectDomainForSetup={handleSelectDomainForSetup}
                   calculatorServiceId={calculatorServiceId}
                   onTabChange={(tab) => {

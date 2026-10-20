@@ -100,6 +100,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'nav.subheading': 'Nairobi · Digital Engineering',
     'nav.techStack': 'Our Specialized Tech Stack',
     'nav.calculator': 'Project Cost Calculator',
+    'nav.designMeter': 'DesignMeter UI/UX Audit',
     'nav.audit': 'Live SEO & Speed Audit',
     'nav.domains': 'Domains & Cloud Hosting',
     'nav.exploreAll': 'Explore Full Catalog',
@@ -163,12 +164,12 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Audit
     'audit.kicker': 'DIAGNOSTIC UTILITY · 100% FREE',
-    'audit.title': 'Illustrative Website & SEO Audit Preview',
-    'audit.subtitle': 'Explore a sample report. This demo does not scan your website or measure Core Web Vitals, SEO, mobile support, or security.',
+    'audit.title': 'Live Website SEO & Core Web Vitals Scanner',
+    'audit.subtitle': 'Inspect your website in real time: measures server response time (TTFB), on-page meta tags, mobile readiness, and security headers.',
     'audit.urlLabel': 'Website URL / Domain Name',
     'audit.keywordLabel': 'Target Search Keyword (Optional)',
-    'audit.btnRun': 'Generate Demo Preview',
-    'audit.analyzing': 'Preparing demo preview...',
+    'audit.btnRun': 'Run Live Website Audit',
+    'audit.analyzing': 'Scanning live website...',
 
     // Domains
     'domain.kicker': 'INFRASTRUCTURE · DOMAINS & CLOUD HOSTING',
@@ -241,6 +242,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'nav.subheading': 'Nairobi · Ingénierie Numérique',
     'nav.techStack': 'Notre Stack Technique',
     'nav.calculator': 'Calculateur de Coûts',
+    'nav.designMeter': 'Audit UI/UX DesignMeter',
     'nav.audit': 'Audit SEO & Vitesse Gratuit',
     'nav.domains': 'Domaines & Hébergement Cloud',
     'nav.exploreAll': 'Voir le Catalogue Complet',
@@ -304,12 +306,12 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Audit
     'audit.kicker': 'OUTIL DE DIAGNOSTIC · 100% GRATUIT',
-    'audit.title': 'Aperçu illustratif d’audit de site et SEO',
-    'audit.subtitle': 'Découvrez un exemple de rapport. Cette démo n’analyse pas votre site et ne mesure pas ses performances.',
+    'audit.title': 'Scanner SEO & Core Web Vitals en Direct',
+    'audit.subtitle': 'Analysez votre site web en direct: mesure le temps de réponse (TTFB), les balises méta, la compatibilité mobile et la sécurité SSL.',
     'audit.urlLabel': 'URL du Site Web / Nom de Domaine',
     'audit.keywordLabel': 'Mot-Clé de Recherche Cible (Optionnel)',
-    'audit.btnRun': 'Générer un aperçu de démo',
-    'audit.analyzing': 'Préparation de l’aperçu de démo...',
+    'audit.btnRun': 'Lancer l’Audit en Direct',
+    'audit.analyzing': 'Analyse du site en cours...',
 
     // Domains
     'domain.kicker': 'INFRASTRUCTURE · DOMAINES & HÉBERGEMENT CLOUD',
@@ -382,6 +384,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'nav.subheading': 'Nairobi · Uhandisi wa Kidijitali',
     'nav.techStack': 'Mifumo ya Teknolojia',
     'nav.calculator': 'Kikokotoo cha Bei',
+    'nav.designMeter': 'Kaguzi ya UI/UX DesignMeter',
     'nav.audit': 'Kaguzi ya Bure ya SEO',
     'nav.domains': 'Majina ya Tovuti & Hosting',
     'nav.exploreAll': 'Tazama Orodha Kamili',
@@ -445,12 +448,12 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Audit
     'audit.kicker': 'ZANA YA UCHUNGUZI · BURE 100%',
-    'audit.title': 'Mfano wa ripoti ya ukaguzi wa tovuti na SEO',
-    'audit.subtitle': 'Tazama mfano wa ripoti. Onyesho hili halichunguzi tovuti yako wala kupima kasi, SEO, simu au usalama.',
+    'audit.title': 'Kaguzi ya Moja kwa Moja ya Tovuti na SEO',
+    'audit.subtitle': 'Chunguza tovuti yako moja kwa moja: inapima kasi ya majibu (TTFB), lebo za meta, utayari wa simu na usalama wa SSL.',
     'audit.urlLabel': 'Anwani ya Tovuti / Jina la Domain',
     'audit.keywordLabel': 'Neno Kuu Unalolenga (Hiari)',
-    'audit.btnRun': 'Tengeneza mfano wa ripoti',
-    'audit.analyzing': 'Mfano wa ripoti unatayarishwa...',
+    'audit.btnRun': 'Anzisha Ukaguzi wa Tovuti',
+    'audit.analyzing': 'Tovuti inachunguzwa moja kwa moja...',
 
     // Domains
     'domain.kicker': 'MIUNDOMBINU · MAJINA YA TOVUTI NA HOSTING',

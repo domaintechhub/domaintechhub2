@@ -7,6 +7,7 @@ import { defineConfig, type Plugin } from 'vite';
 import { parseAppRoute } from './src/utils/routing.ts';
 import { injectSeoIntoHtml } from './scripts/prerender-pages.ts';
 import type { PageRoute } from './src/App.tsx';
+import { performLiveAudit } from './src/utils/liveUrlAuditor.ts';
 
 process.env.VITE_CONFIG_NATIVE_IGNORE_WARNING = 'true';
 
@@ -59,7 +60,8 @@ function routeSeoAnd404Plugin(): Plugin {
       pathname.startsWith('/images/') ||
       pathname.startsWith('/fonts/') ||
       pathname.startsWith('/markdown/') ||
-      pathname.startsWith('/.well-known/')
+      pathname.startsWith('/.well-known/') ||
+      pathname.startsWith('/api/')
     ) {
       return true;
     }
@@ -73,9 +75,39 @@ function routeSeoAnd404Plugin(): Plugin {
     return false;
   };
 
+  const handleApiAudit = async (req: any, res: any, next: any) => {
+    if (req.url && req.url.startsWith('/api/seo-audit')) {
+      try {
+        const urlObj = new URL(req.url, 'http://localhost:3000');
+        const targetUrl = urlObj.searchParams.get('url');
+        const keyword = urlObj.searchParams.get('keyword') || undefined;
+
+        if (!targetUrl) {
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Missing target URL parameter.' }));
+          return;
+        }
+
+        const report = await performLiveAudit(targetUrl, keyword);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(report));
+        return;
+      } catch (err: any) {
+        res.statusCode = 502;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ error: err?.message || 'Failed to scan the specified website.' }));
+        return;
+      }
+    }
+    next();
+  };
+
   return {
     name: 'vite-plugin-route-seo-and-404',
     configureServer(server) {
+      server.middlewares.use(handleApiAudit);
       server.middlewares.use((req, res, next) => {
         if (!req.url || (req.method !== 'GET' && req.method !== 'HEAD')) {
           return next();
@@ -97,6 +129,7 @@ function routeSeoAnd404Plugin(): Plugin {
       });
     },
     configurePreviewServer(server) {
+      server.middlewares.use(handleApiAudit);
       server.middlewares.use((req, res, next) => {
         if (!req.url || (req.method !== 'GET' && req.method !== 'HEAD')) {
           return next();

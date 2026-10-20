@@ -6,7 +6,7 @@ export interface AppRoute {
   subTab?: string;
 }
 
-const TOOL_TABS = ['calculator', 'audit', 'domains'];
+const TOOL_TABS = ['calculator', 'design-audit', 'audit', 'domains'];
 const MORE_TABS = ['roadmap', 'team', 'tech-stack', 'blog'];
 const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
 
@@ -86,8 +86,15 @@ export function parseAppRoute(path: string): AppRoute {
 
   if (first === 'tools') {
     if (!second) return { page: 'tools', subTab: 'calculator' };
+    if (second === 'designmeter' || second === 'ux-audit' || second === 'design-audit') {
+      return { page: 'tools', subTab: 'design-audit' };
+    }
     if (TOOL_TABS.includes(second)) return { page: 'tools', subTab: second };
     return { page: 'not-found' };
+  }
+
+  if (first === 'design-audit' || first === 'designmeter' || first === 'ux-audit') {
+    return { page: 'tools', subTab: 'design-audit' };
   }
 
   if ((first === 'calculator' || first === 'audit' || first === 'domains') && !second) {
