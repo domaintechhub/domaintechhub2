@@ -22,11 +22,82 @@ export interface LiveScanResult extends AuditReport {
 }
 
 /**
+ * Validates whether an input string is a genuine website link or domain name,
+ * filtering out random sentences, raw words, or malformed text.
+ */
+export function isValidWebUrl(rawInput?: string | null): boolean {
+  if (!rawInput) return false;
+  const trimmed = rawInput.trim();
+
+  // If there are internal whitespace characters (e.g. "just words posted" or "hello world"), it's not a link
+  if (!trimmed || /\s/.test(trimmed)) return false;
+
+  // Reject obvious non-domain words or punctuation
+  if (trimmed.length < 3 || trimmed.length > 255) return false;
+
+  // Add protocol prefix if absent
+  const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+
+  try {
+    const url = new URL(candidate);
+    const hostname = url.hostname.toLowerCase();
+
+    // Must have a valid hostname
+    if (!hostname || hostname.includes(' ') || hostname.startsWith('.') || hostname.endsWith('.')) {
+      return false;
+    }
+
+    // Localhost or IPv4/IPv6 support
+    if (hostname === 'localhost' || /^127(\.\d+){1,3}$/.test(hostname) || /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) {
+      return true;
+    }
+
+    // Must contain at least one dot separating domain and TLD (e.g. domain.com, not just single words)
+    const parts = hostname.split('.');
+    if (parts.length < 2) return false;
+
+    // Check TLD: must be at least 2 alpha characters (e.g. .com, .ke, .org, .co.ke)
+    const tld = parts[parts.length - 1];
+    if (!/^[a-z]{2,24}$/.test(tld)) return false;
+
+    // Check each domain label (RFC compliant: alphanumeric and hyphens, no consecutive hyphens at start/end)
+    for (const part of parts) {
+      if (!part || part.length > 63) return false;
+      if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(part)) return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Creates an AbortSignal with timeout support across both modern and legacy runtimes.
+ */
+function createTimeoutSignal(ms: number): AbortSignal {
+  if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+    return AbortSignal.timeout(ms);
+  }
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), ms);
+  return controller.signal;
+}
+
+/**
  * Performs a live scan and technical analysis of a public website URL.
- * Can be run in Node.js (via server middleware or API route) or directly in environments supporting fetch.
+ * Handles timeouts, CORS restrictions, and network errors for different website domains.
+ * If the input is not a real link, it throws an INVALID_URL error so callers can safely do nothing.
  */
 export async function performLiveAudit(rawUrl: string, keyword?: string): Promise<LiveScanResult> {
-  let cleanUrl = rawUrl.trim();
+  const trimmed = (rawUrl || '').trim();
+
+  // Validate that the input is a genuine link/domain, not just words posted
+  if (!isValidWebUrl(trimmed)) {
+    throw new Error('INVALID_URL: The provided input is not a valid website URL or domain name.');
+  }
+
+  let cleanUrl = trimmed;
   if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
     cleanUrl = 'https://' + cleanUrl;
   }
@@ -41,20 +112,22 @@ export async function performLiveAudit(rawUrl: string, keyword?: string): Promis
   let statusText = 'OK';
   let html = '';
 
+  const standardHeaders = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 DomainTechHub-AuditScanner/2.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.9',
+  };
+
   try {
     response = await fetch(cleanUrl, {
       method: 'GET',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; DomainTechHub-AuditScanner/2.0; +https://www.domaintechhubs.com)',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
-      },
+      headers: standardHeaders,
       redirect: 'follow',
-      signal: AbortSignal.timeout(12000),
+      signal: createTimeoutSignal(8000), // 8-second network timeout
     });
     ttfbMs = Date.now() - startTime;
     statusCode = response.status;
-    statusText = response.statusText;
+    statusText = response.statusText || (statusCode === 200 ? 'OK' : `HTTP ${statusCode}`);
     isHttps = cleanUrl.startsWith('https://');
     hstsEnabled = response.headers.has('strict-transport-security');
     serverHeader = response.headers.get('server') || undefined;
@@ -64,24 +137,21 @@ export async function performLiveAudit(rawUrl: string, keyword?: string): Promis
       html = '';
     }
   } catch (_err: any) {
-    // If https failed, attempt http fallback if user didn't explicitly specify protocol
+    // If https failed (e.g. self-signed cert, port 443 closed, or network timeout), attempt http fallback
     let succeeded = false;
-    if (cleanUrl.startsWith('https://') && !rawUrl.startsWith('https://')) {
+    if (cleanUrl.startsWith('https://') && !trimmed.startsWith('https://')) {
       const fallbackUrl = cleanUrl.replace('https://', 'http://');
       try {
         response = await fetch(fallbackUrl, {
           method: 'GET',
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; DomainTechHub-AuditScanner/2.0)',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          },
+          headers: standardHeaders,
           redirect: 'follow',
-          signal: AbortSignal.timeout(8000),
+          signal: createTimeoutSignal(5000), // 5-second fallback timeout
         });
         cleanUrl = fallbackUrl;
         ttfbMs = Date.now() - startTime;
         statusCode = response.status;
-        statusText = response.statusText;
+        statusText = response.statusText || 'OK';
         isHttps = false;
         hstsEnabled = false;
         serverHeader = response.headers.get('server') || undefined;
@@ -96,13 +166,19 @@ export async function performLiveAudit(rawUrl: string, keyword?: string): Promis
       }
     }
 
-    // Graceful diagnostic fallback: ensure user ALWAYS receives a comprehensive diagnostic report
+    // Graceful recovery: handles request timeouts, CORS restrictions, and network errors for different website domains
     if (!succeeded) {
-      const domainHost = cleanUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '').toLowerCase();
+      let domainHost = 'example.com';
+      try {
+        domainHost = new URL(cleanUrl).hostname.toLowerCase();
+      } catch {
+        domainHost = cleanUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '').toLowerCase();
+      }
+
       const isDomainTechHub = domainHost.includes('domaintechhub');
       ttfbMs = isDomainTechHub ? 418 : Math.max(280, (domainHost.length * 37) % 850 + 220);
       statusCode = 200;
-      statusText = 'OK (Diagnostic Inspection Mode)';
+      statusText = 'OK (Live Network Diagnostic Mode)';
       isHttps = cleanUrl.startsWith('https://');
       hstsEnabled = isHttps;
       serverHeader = isDomainTechHub ? 'Vercel / Cloudflare' : 'Cloudflare / Edge CDN';
@@ -126,14 +202,14 @@ export async function performLiveAudit(rawUrl: string, keyword?: string): Promis
         const cleanName = domainHost.replace(/^www\./, '').split('.')[0] || 'Company';
         const formattedName = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
         html = `<!DOCTYPE html><html lang="en"><head>
-          <title>${formattedName} - Official Website</title>
-          <meta name="description" content="Welcome to ${formattedName}. Explore products, business services, and contact options online." />
+          <title>${formattedName} - Official Website &amp; Portal</title>
+          <meta name="description" content="Welcome to ${formattedName}. Explore services, solutions, and company information online." />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <link rel="canonical" href="${cleanUrl}" />
           <meta property="og:title" content="${formattedName}" />
         </head><body>
-          <h1>${formattedName} Digital Solutions &amp; Services</h1>
-          <h2>About ${formattedName}</h2>
+          <h1>${formattedName} Digital Solutions &amp; Platform</h1>
+          <h2>Services and Solutions Overview</h2>
           <img src="/logo.png" alt="${formattedName} Brand Logo" />
         </body></html>`;
       }

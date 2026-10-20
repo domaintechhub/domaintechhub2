@@ -7,7 +7,7 @@ import {
 import { useLanguage } from '../context/LanguageContext';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToWhatsApp, sendToEmail } from '../utils/leadDispatch';
-import { LiveScanResult, performLiveAudit } from '../utils/liveUrlAuditor';
+import { LiveScanResult, performLiveAudit, isValidWebUrl } from '../utils/liveUrlAuditor';
 
 interface SeoAuditToolProps {
   onFixWithAgency: (domain: string, auditIssuesCount: number) => void;
@@ -38,20 +38,27 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
     }
   }, [report]);
 
-  const runAudit = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
+  const runAudit = async (overrideUrl?: string | React.FormEvent) => {
+    if (typeof overrideUrl === 'object' && overrideUrl !== null && 'preventDefault' in overrideUrl) {
+      overrideUrl.preventDefault();
+      overrideUrl = undefined;
+    }
 
-    let cleanUrl = urlInput.trim() || 'https://www.domaintechhubs.com';
-    if (!urlInput.trim()) {
-      setUrlInput(cleanUrl);
+    const rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
+    if (!rawInput) return; // Do nothing if empty
+
+    // Check if it's a real link or just words posted: if not a real link, do nothing!
+    if (!isValidWebUrl(rawInput)) {
+      return;
+    }
+
+    let cleanUrl = rawInput;
+    if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+      cleanUrl = 'https://' + cleanUrl;
     }
 
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
-
-    if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
-      cleanUrl = 'https://' + cleanUrl;
-    }
 
     setIsAnalyzing(true);
     setScanError(null);
@@ -95,7 +102,6 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
       if (liveData) {
         setReport(liveData);
       } else {
-        // Fallback directly to diagnostic inspection
         const fallback = await performLiveAudit(cleanUrl, keywordInput.trim() || undefined);
         setReport(fallback);
       }
@@ -145,9 +151,16 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
               
               <div className="md:col-span-7">
-                <label id={`${urlInputId}-label`} htmlFor={urlInputId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
-                  {t('audit.urlLabel')}
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <label id={`${urlInputId}-label`} htmlFor={urlInputId} className="block text-xs font-mono text-slate-400 uppercase tracking-wider">
+                    {t('audit.urlLabel')}
+                  </label>
+                  {urlInput.trim() && !isValidWebUrl(urlInput.trim()) && (
+                    <span className="text-rose-400 text-[11px] font-mono">
+                      Not a valid website link (just words)
+                    </span>
+                  )}
+                </div>
                 <div className="relative">
                   <Globe className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                   <input
@@ -159,7 +172,11 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
                     placeholder="e.g. https://yourbusiness.co.ke or company.com"
-                    className="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                    className={`w-full pl-10 pr-4 py-3 bg-slate-950 border rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none transition-colors ${
+                      urlInput.trim() && !isValidWebUrl(urlInput.trim())
+                        ? 'border-rose-500/80 focus:border-rose-500'
+                        : 'border-slate-800 focus:border-cyan-500'
+                    }`}
                   />
                 </div>
               </div>
@@ -192,7 +209,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                   type="button"
                   onClick={() => {
                     setUrlInput('https://www.domaintechhubs.com');
-                    runAudit();
+                    runAudit('https://www.domaintechhubs.com');
                   }}
                   className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 font-mono text-[11px] border border-slate-700 transition-colors cursor-pointer"
                 >
@@ -202,7 +219,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
                   type="button"
                   onClick={() => {
                     setUrlInput('https://yourbusiness.co.ke');
-                    runAudit();
+                    runAudit('https://yourbusiness.co.ke');
                   }}
                   className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-teal-300 font-mono text-[11px] border border-slate-700 transition-colors cursor-pointer"
                 >
@@ -212,7 +229,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
               <button
                 type="submit"
-                disabled={isAnalyzing}
+                disabled={isAnalyzing || (Boolean(urlInput.trim()) && !isValidWebUrl(urlInput.trim()))}
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all disabled:opacity-50 cursor-pointer"
               >
                 {isAnalyzing ? (

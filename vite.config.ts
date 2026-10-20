@@ -7,7 +7,7 @@ import { defineConfig, type Plugin } from 'vite';
 import { parseAppRoute } from './src/utils/routing.ts';
 import { injectSeoIntoHtml } from './scripts/prerender-pages.ts';
 import type { PageRoute } from './src/App.tsx';
-import { performLiveAudit } from './src/utils/liveUrlAuditor.ts';
+import { performLiveAudit, isValidWebUrl } from './src/utils/liveUrlAuditor.ts';
 
 process.env.VITE_CONFIG_NATIVE_IGNORE_WARNING = 'true';
 
@@ -92,10 +92,10 @@ function routeSeoAnd404Plugin(): Plugin {
         const targetUrl = urlObj.searchParams.get('url');
         const keyword = urlObj.searchParams.get('keyword') || undefined;
 
-        if (!targetUrl) {
+        if (!targetUrl || !isValidWebUrl(targetUrl)) {
           res.statusCode = 400;
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify({ error: 'Missing target URL parameter.' }));
+          res.end(JSON.stringify({ error: 'Please enter a valid website link or domain name.' }));
           return;
         }
 
@@ -105,21 +105,10 @@ function routeSeoAnd404Plugin(): Plugin {
         res.end(JSON.stringify(report));
         return;
       } catch (err: any) {
-        try {
-          const urlObj = new URL(req.url, 'http://localhost:3000');
-          const targetUrl = urlObj.searchParams.get('url') || 'https://www.domaintechhubs.com';
-          const keyword = urlObj.searchParams.get('keyword') || undefined;
-          const fallbackReport = await performLiveAudit(targetUrl, keyword);
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify(fallbackReport));
-          return;
-        } catch {
-          res.statusCode = 502;
-          res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify({ error: err?.message || 'Failed to scan the specified website.' }));
-          return;
-        }
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ error: err?.message || 'Failed to scan the specified website.' }));
+        return;
       }
     }
     next();

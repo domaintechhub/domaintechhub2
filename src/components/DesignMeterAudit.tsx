@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/portfolioData';
 import { saveLead, sendToWhatsApp } from '../utils/leadDispatch';
+import { isValidWebUrl } from '../utils/liveUrlAuditor';
 
 interface DesignMeterAuditProps {
   onFixWithAgency: (domain: string, fixCount: number, topRisk?: string) => void;
@@ -259,14 +260,21 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
     };
   };
 
-  const startScan = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-
-    let cleanUrl = urlInput.trim() || 'https://www.domaintechhubs.com';
-    if (!urlInput.trim()) {
-      setUrlInput(cleanUrl);
+  const startScan = (overrideUrl?: string | React.FormEvent) => {
+    if (typeof overrideUrl === 'object' && overrideUrl !== null && 'preventDefault' in overrideUrl) {
+      overrideUrl.preventDefault();
+      overrideUrl = undefined;
     }
 
+    const rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
+    if (!rawInput) return; // Do nothing if empty
+
+    // Check if it's a real link or just words posted: if not a real link, do nothing!
+    if (!isValidWebUrl(rawInput)) {
+      return;
+    }
+
+    let cleanUrl = rawInput;
     if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
       cleanUrl = 'https://' + cleanUrl;
     }
@@ -429,20 +437,35 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
           <div className="mt-8 max-w-xl mx-auto">
             <form onSubmit={startScan} className="space-y-3">
               {/* URL Input */}
-              <div className="relative text-left">
-                <label htmlFor={urlInputId} className="sr-only">Website URL</label>
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <Globe className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+              <div className="text-left">
+                <div className="flex items-center justify-between mb-1.5 px-1">
+                  <label htmlFor={urlInputId} className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    Website URL / Domain
+                  </label>
+                  {urlInput.trim() && !isValidWebUrl(urlInput.trim()) && (
+                    <span className="text-rose-500 dark:text-rose-400 text-[11px] font-mono">
+                      Not a valid website link (just words)
+                    </span>
+                  )}
                 </div>
-                <input
-                  id={urlInputId}
-                  type="text"
-                  value={urlInput}
-                  onChange={(e) => setUrlInput(e.target.value)}
-                  placeholder="https://www.domaintechhubs.com"
-                  disabled={isScanning}
-                  className="w-full pl-10 pr-4 py-3.5 text-sm rounded-2xl bg-stone-50 dark:bg-slate-950/80 border border-stone-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all shadow-inner"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Globe className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                  </div>
+                  <input
+                    id={urlInputId}
+                    type="text"
+                    value={urlInput}
+                    onChange={(e) => setUrlInput(e.target.value)}
+                    placeholder="https://www.domaintechhubs.com"
+                    disabled={isScanning}
+                    className={`w-full pl-10 pr-4 py-3.5 text-sm rounded-2xl bg-stone-50 dark:bg-slate-950/80 border text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none transition-all shadow-inner ${
+                      urlInput.trim() && !isValidWebUrl(urlInput.trim())
+                        ? 'border-rose-500/80 focus:ring-2 focus:ring-rose-500'
+                        : 'border-stone-300 dark:border-slate-700 focus:ring-2 focus:ring-teal-500'
+                    }`}
+                  />
+                </div>
               </div>
 
               {/* Quick test buttons & free scan note */}
@@ -453,7 +476,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                     type="button"
                     onClick={() => {
                       setUrlInput('https://www.domaintechhubs.com');
-                      startScan();
+                      startScan('https://www.domaintechhubs.com');
                     }}
                     className="px-2.5 py-0.5 rounded-lg bg-teal-50 dark:bg-cyan-950/60 border border-teal-200 dark:border-cyan-800 text-teal-800 dark:text-cyan-300 font-mono text-[11px] hover:bg-teal-100 cursor-pointer transition-colors"
                   >
@@ -463,7 +486,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                     type="button"
                     onClick={() => {
                       setUrlInput('https://yourbusiness.co.ke');
-                      startScan();
+                      startScan('https://yourbusiness.co.ke');
                     }}
                     className="px-2.5 py-0.5 rounded-lg bg-stone-100 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono text-[11px] hover:bg-stone-200 cursor-pointer transition-colors"
                   >
@@ -478,7 +501,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
               {/* Scan CTA Button */}
               <button
                 type="submit"
-                disabled={isScanning}
+                disabled={isScanning || (Boolean(urlInput.trim()) && !isValidWebUrl(urlInput.trim()))}
                 className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isScanning ? (
