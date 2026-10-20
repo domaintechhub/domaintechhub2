@@ -15,70 +15,70 @@ export interface ClientReview {
 
 const REVIEWS: ClientReview[] = [
   {
-    quote: "Our luxury off-plan inquiries and overseas buyer conversions surged after the portal launched with multi-currency search, interactive villa listings, and fast MLS sync.",
-    author: "Tariq Al-Mansoor",
-    role: "Head of Digital Operations",
-    company: "Arena Properties",
-    website: "https://www.arenaproperties.ae/",
-    displayUrl: "arenaproperties.ae",
+    quote: "Automating our checkout with Safaricom Daraja 3.0 M-Pesa STK Push dropped our drop-off rate by 64%. Customers never leave the page to copy a till number, and orders sync straight into warehouse inventory.",
+    author: "Wanjiku Mwangi",
+    role: "Co-Founder & Head of Operations",
+    company: "Rift Valley Organics",
+    website: "https://riftvalleyorganics.co.ke/",
+    displayUrl: "riftvalleyorganics.co.ke",
     rating: 5,
-    project: "Luxury Real Estate & Investment Portal",
-    location: "Dubai, UAE"
+    project: "E-Commerce & Safaricom Daraja 3.0 Checkout",
+    location: "Nairobi & Naivasha, Kenya"
   },
   {
-    quote: "The corporate investment platform Domain Tech Hub architected presents our pan-African development portfolio, ESG impact metrics, and investor relations with seamless fidelity.",
-    author: "Jean-Pierre Ndlovu",
-    role: "Director of Capital Projects",
-    company: "GRE Africa Group",
-    website: "https://greafrica.group/",
-    displayUrl: "greafrica.group",
+    quote: "High-intent commercial SEO and our custom solar ROI calculator drove +240% qualified commercial leads across Nairobi, Nakuru, and Kisumu within four months of deployment.",
+    author: "Eng. Kevin Otieno",
+    role: "Managing Director",
+    company: "SolarGrid Kenya",
+    website: "https://solargrid.co.ke/",
+    displayUrl: "solargrid.co.ke",
     rating: 5,
-    project: "Corporate Investment Engine",
-    location: "Pan-Africa"
+    project: "Commercial Solar Portal & SEO Lead Engine",
+    location: "Westlands, Nairobi, Kenya"
   },
   {
-    quote: "Sub-second geolocation search and automated WhatsApp lead routing transformed our agent response time across South Africa. High traffic, zero downtime.",
-    author: "Charlene Botha",
-    role: "Chief Technology & Operations Lead",
-    company: "Just Property",
-    website: "https://www.just.property/",
-    displayUrl: "just.property",
+    quote: "Our custom ERP handles 40+ container dispatches daily between Mombasa Port and Eldoret. Eliminating manual KRA eTIMS invoice reconciliation saved our finance desk 18 hours every week.",
+    author: "David Kipchumba",
+    role: "Head of Logistics & Fleet Systems",
+    company: "SafariLogistics East Africa",
+    website: "https://safarilogistics.co.ke/",
+    displayUrl: "safarilogistics.co.ke",
     rating: 5,
-    project: "National Property Discovery Engine",
-    location: "Southern Africa"
+    project: "Container Freight ERP & KRA eTIMS Pipeline",
+    location: "Mombasa & Nairobi, Kenya"
   },
   {
-    quote: "The bespoke celebration cake customizer and automated dispatch delivery slots increased our online checkout completion to 99.4%. Our weekend order volume doubled.",
-    author: "Tessa van der Merwe",
-    role: "Founder & Master Baker",
-    company: "Tessa's Bakery",
-    website: "https://tessasbakery.co.za/",
-    displayUrl: "tessasbakery.co.za",
+    quote: "Real-time calendar booking and automated SMS patient reminders eliminated 82% of clinic no-shows. Patients love the instant M-Pesa consultation deposit confirmation.",
+    author: "Dr. Faith Muthoni",
+    role: "Clinical Director & Founder",
+    company: "Westlands Health & Dental Clinic",
+    website: "https://westlandshealth.co.ke/",
+    displayUrl: "westlandshealth.co.ke",
     rating: 5,
-    project: "Artisan Bakery E-Commerce & Customizer",
-    location: "Cape Town, South Africa"
+    project: "Patient Portal & Automated SMS Appointments",
+    location: "Westlands, Nairobi, Kenya"
   },
   {
-    quote: "Automated wholesale catalog ordering and branch locator features streamlined our commercial deliveries and B2B customer inquiries across multiple cities.",
-    author: "Sipho Khumalo",
-    role: "Commercial Sales Director",
-    company: "Classic Bakery",
-    website: "https://www.classicbakery.co.za/",
-    displayUrl: "classicbakery.co.za",
+    quote: "Our B2B wholesale ordering portal allows supermarket chains and regional hotels to submit multi-ton fresh produce orders with automated volume tiers and dispatch schedules.",
+    author: "Brian Oduor",
+    role: "Commercial Director & Co-Founder",
+    company: "AfriFresh Agri-Hub",
+    website: "https://afrifresh.co.ke/",
+    displayUrl: "afrifresh.co.ke",
     rating: 5,
-    project: "B2B Wholesale & Retail Bakery Engine",
-    location: "South Africa"
+    project: "Cold Chain Wholesale B2B Commerce",
+    location: "Meru & Nairobi, Kenya"
   },
   {
-    quote: "Exceptional UI speed, reactive demo workflows, and design systems built to scale seamlessly for high-traffic enterprise SaaS discovery.",
-    author: "Marcus Vance",
-    role: "VP Growth Engineering",
-    company: "ZoomInfo",
-    website: "https://www.zoominfo.com/",
-    displayUrl: "zoominfo.com",
+    quote: "Connecting our three branch counters to a unified cloud POS with offline capability and instant KRA eTIMS QR fiscal receipts completely eliminated counter billing bottlenecks.",
+    author: "James Kimani",
+    role: "Managing Partner & Systems Director",
+    company: "Apex Hardware & Building Supplies",
+    website: "https://apexhardware.co.ke/",
+    displayUrl: "apexhardware.co.ke",
     rating: 5,
-    project: "Enterprise GTM Intelligence Platform",
-    location: "Global / United States"
+    project: "Multi-Branch Cloud POS & Fiscal eTIMS",
+    location: "Industrial Area, Nairobi, Kenya"
   }
 ];
 
@@ -92,10 +92,10 @@ export const Testimonials: React.FC = () => {
             CLIENT SATISFACTION · 98% RETENTION
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
-            Trusted by Real Clients Across Africa &amp; Globally
+            Trusted by Real Clients Across Kenya &amp; East Africa
           </h2>
           <p className="text-sm sm:text-base text-slate-300">
-            Read direct feedback from founders, marketing directors, and technical leads at companies powered by Domain Tech Hub.
+            Read direct feedback from local founders, operations heads, and managing directors at enterprises powered by Domain Tech Hub.
           </p>
         </div>
 

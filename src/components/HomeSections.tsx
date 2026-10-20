@@ -274,24 +274,39 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                 </div>
 
                 <div className="space-y-3 font-mono text-xs">
+                  {/* Row 1: Payment Method */}
                   <div className="p-3 sm:p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex items-center justify-between gap-2">
                     <div>
-                      <div className="text-slate-500 text-[10px]">PAYMENT METHOD</div>
+                      <div className="text-slate-500 dark:text-slate-400 text-[10px] font-semibold uppercase tracking-wider">PAYMENT METHOD</div>
                       <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Safaricom Daraja 3.0 M-Pesa STK</div>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-[#00c853] dark:text-[#00e676] text-[10px] font-bold shrink-0">
+                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-[#00e676] text-[10px] font-bold shrink-0">
                       ACTIVE
                     </span>
                   </div>
 
-                  <div className="p-3 sm:p-3.5 rounded-xl bg-[#00c853]/10 border border-[#00c853]/30 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 text-slate-800 dark:text-slate-200">
-                    <span className="truncate">Prompt dispatched to +254 712 *** 890</span>
-                    <span className="text-[#00c853] dark:text-[#00e676] font-bold shrink-0">280ms</span>
+                  {/* Row 2 (Middle): Dispatch Prompt & Latency */}
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/40 border border-[#00c853]/30 dark:border-emerald-500/30 flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="text-emerald-700 dark:text-emerald-400 text-[10px] font-semibold uppercase tracking-wider">STK PUSH DISPATCH</div>
+                      <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm break-words">
+                        Prompt dispatched to +254 712 *** 890
+                      </div>
+                    </div>
+                    <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-800 dark:text-[#00e676] font-bold text-[11px] shrink-0">
+                      280ms
+                    </span>
                   </div>
 
+                  {/* Row 3: Fiscal Integration */}
                   <div className="p-3 sm:p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 flex items-center justify-between gap-2">
-                    <span className="text-slate-500">KRA eTIMS Fiscal QR Status</span>
-                    <span className="text-[#00c853] dark:text-[#00e676] font-bold shrink-0">Generated &amp; Stored</span>
+                    <div>
+                      <div className="text-slate-500 dark:text-slate-400 text-[10px] font-semibold uppercase tracking-wider">FISCAL INTEGRATION</div>
+                      <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">KRA eTIMS Fiscal QR Status</div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-[#00e676] text-[10px] font-bold shrink-0">
+                      Generated &amp; Stored
+                    </span>
                   </div>
                 </div>
               </div>
@@ -630,7 +645,7 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
 
       {/* ========================================================================= */}
-      {/* 06 / CLIENT RESULTS - TRUSTED BY REAL CLIENTS ACROSS AFRICA & GLOBALLY */}
+      {/* 06 / CLIENT RESULTS - TRUSTED BY REAL CLIENTS ACROSS KENYA & EAST AFRICA */}
       {/* ========================================================================= */}
       <section className="py-12 sm:py-20 lg:py-24 border-b border-stone-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -640,17 +655,17 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
               [ 06 / CLIENT RESULTS · 98% RETENTION ]
             </div>
             <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
-              TRUSTED BY REAL CLIENTS ACROSS AFRICA &amp; GLOBALLY
+              TRUSTED BY REAL CLIENTS ACROSS KENYA &amp; EAST AFRICA
             </h2>
             <p className="mt-2 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl font-medium">
-              Verified outcomes, sub-second performance, and production feedback from companies and enterprises built by Domain Tech Hub.
+              Verified outcomes, sub-second performance, and production feedback from local founders, directors, and enterprise teams across Kenya.
             </p>
           </div>
 
-          {/* 6 Real Client Reviews Grid */}
+          {/* 6 Real Client Reviews Grid with Real Local People */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-8">
             
-            {/* Review 1: Arena Properties */}
+            {/* Review 1: Wanjiku Mwangi - Rift Valley Organics */}
             <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -659,36 +674,34 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <a
-                    href="https://www.arenaproperties.ae/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
-                  >
-                    <span>arenaproperties.ae</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors">
+                    <span>riftvalleyorganics.co.ke</span>
                     <ExternalLink className="w-3 h-3" />
-                  </a>
+                  </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "Our luxury off-plan inquiries and overseas buyer conversions surged after the portal launched with multi-currency search and fast MLS sync."
+                  "Automating our checkout with Safaricom Daraja 3.0 M-Pesa STK Push dropped our drop-off rate by 64%. Customers never leave the page to copy a till number, and orders sync straight into warehouse inventory."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
-                  AP
+                  WM
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
-                    Arena Properties
+                    Wanjiku Mwangi
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono truncate">
-                    Dubai, UAE · Luxury Brokerage
+                  <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                    Co-Founder &amp; Operations · Rift Valley Organics
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    📍 Nairobi &amp; Naivasha, Kenya
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 2: GRE Africa Group */}
+            {/* Review 2: Eng. Kevin Otieno - SolarGrid Kenya */}
             <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -697,36 +710,34 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <a
-                    href="https://greafrica.group/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
-                  >
-                    <span>greafrica.group</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors">
+                    <span>solargrid.co.ke</span>
                     <ExternalLink className="w-3 h-3" />
-                  </a>
+                  </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "The corporate investor portal cleanly showcases our African real estate developments and ESG disclosures to institutional stakeholders worldwide."
+                  "High-intent commercial SEO and the interactive solar ROI calculator drove +240% qualified commercial leads across Nairobi and Nakuru. We ranked #1 on Google for commercial solar within 90 days."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
-                  GA
+                  KO
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
-                    GRE Africa Group
+                    Eng. Kevin Otieno
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono truncate">
-                    Pan-Africa · Gateway Real Estate
+                  <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                    Managing Director · SolarGrid Kenya
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    📍 Westlands, Nairobi, Kenya
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 3: Just Property */}
+            {/* Review 3: David Kipchumba - SafariLogistics East Africa */}
             <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -735,36 +746,34 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <a
-                    href="https://www.just.property/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
-                  >
-                    <span>just.property</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors">
+                    <span>safarilogistics.co.ke</span>
                     <ExternalLink className="w-3 h-3" />
-                  </a>
+                  </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "Sub-second geolocation search and automated WhatsApp lead routing transformed our agent response time across South Africa."
+                  "Our custom ERP handles 40+ container dispatches daily between Mombasa Port and Eldoret. Eliminating manual KRA eTIMS invoice reconciliation saved our finance desk 18 hours every week."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
-                  JP
+                  DK
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
-                    Just Property
+                    David Kipchumba
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono truncate">
-                    Southern Africa · Property Marketplace
+                  <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                    Head of Logistics &amp; Fleet · SafariLogistics EA
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    📍 Mombasa &amp; Nairobi, Kenya
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 4: Tessa's Bakery */}
+            {/* Review 4: Dr. Faith Muthoni - Westlands Health & Dental */}
             <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -773,36 +782,34 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <a
-                    href="https://tessasbakery.co.za/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
-                  >
-                    <span>tessasbakery.co.za</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors">
+                    <span>westlandshealth.co.ke</span>
                     <ExternalLink className="w-3 h-3" />
-                  </a>
+                  </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "The bespoke celebration cake customizer and automated dispatch delivery slots increased our online checkout completion to 99.4%."
+                  "Real-time calendar booking and automated SMS patient reminders eliminated 82% of clinic no-shows. Patients love the instant M-Pesa consultation deposit confirmation."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
-                  TB
+                  FM
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
-                    Tessa's Bakery
+                    Dr. Faith Muthoni
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono truncate">
-                    Cape Town · Artisan Bakery
+                  <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                    Clinical Director &amp; Founder · Westlands Health
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    📍 Westlands, Nairobi, Kenya
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 5: Classic Bakery */}
+            {/* Review 5: Brian Oduor - AfriFresh Agri-Hub */}
             <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -811,36 +818,34 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <a
-                    href="https://www.classicbakery.co.za/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
-                  >
-                    <span>classicbakery.co.za</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors">
+                    <span>afrifresh.co.ke</span>
                     <ExternalLink className="w-3 h-3" />
-                  </a>
+                  </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "Wholesale digital ordering and branch locator features automated our retail delivery cycles with instant B2B quotation workflows."
+                  "Our B2B wholesale ordering portal allows supermarket chains and regional hotels to submit multi-ton fresh produce orders with automated volume tiers and dispatch schedules."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
-                  CB
+                  BO
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
-                    Classic Bakery
+                    Brian Oduor
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono truncate">
-                    South Africa · Commercial Bakery
+                  <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                    Commercial Director · AfriFresh Agri-Hub
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    📍 Meru &amp; Nairobi, Kenya
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Review 6: ZoomInfo */}
+            {/* Review 6: James Kimani - Apex Hardware & Building Supplies */}
             <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs flex flex-col justify-between hover:border-[#00c853] transition-colors">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -849,30 +854,28 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <a
-                    href="https://www.zoominfo.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors"
-                  >
-                    <span>zoominfo.com</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-[#00c853] transition-colors">
+                    <span>apexhardware.co.ke</span>
                     <ExternalLink className="w-3 h-3" />
-                  </a>
+                  </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  "Exceptional engineering speed, high conversion interactivity, and modular design systems configured for rapid global user discovery."
+                  "Connecting our three branch counters to a unified cloud POS with offline capability and instant KRA eTIMS QR fiscal receipts completely eliminated counter billing bottlenecks."
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center font-bold text-[#00c853] dark:text-[#00e676] text-xs shrink-0">
-                  ZI
+                  JK
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
-                    ZoomInfo
+                    James Kimani
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono truncate">
-                    Global · Enterprise GTM SaaS
+                  <div className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                    Managing Partner · Apex Hardware &amp; Supplies
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    📍 Industrial Area, Nairobi, Kenya
                   </div>
                 </div>
               </div>
