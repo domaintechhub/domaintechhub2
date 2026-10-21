@@ -1166,16 +1166,6 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                           </>
                         )}
                       </button>
-
-                      <div className="text-center pt-1">
-                        <button
-                          type="button"
-                          onClick={handleOpenWhatsAppFromForm}
-                          className="text-xs font-medium text-slate-600 hover:text-[#00c853] hover:underline cursor-pointer"
-                        >
-                          Or chat on WhatsApp instead
-                        </button>
-                      </div>
                     </form>
                   )}
                 </div>

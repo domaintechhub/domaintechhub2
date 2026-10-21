@@ -18,11 +18,7 @@ import { QuickContactFloating } from './components/QuickContactFloating';
 import { applyPageSeo } from './utils/seo';
 import { SERVICES_LIST } from './data/servicesData';
 import { INSIGHT_ARTICLES } from './data/insightsData';
-import { 
-  ArrowRight, ShieldCheck, 
-  CheckCircle, MessageSquare, PhoneCall, Code, Layers 
-} from 'lucide-react';
-import { AGENCY_INFO } from './data/portfolioData';
+import { ShieldCheck, CheckCircle, PhoneCall, Layers } from 'lucide-react';
 import { discardPersistedLeadData } from './utils/leadDispatch';
 import { getCanonicalLocation, getCurrentAppRoute, getPathForRoute, parseAppRoute } from './utils/routing';
 
@@ -398,7 +394,7 @@ export default function App() {
 
           {/* Main Content Page Container */}
           <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-<Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
+            <Suspense fallback={null}>
 
             {/* 1. DEDICATED PAGE: HOME / LANDING OVERVIEW */}
             {currentPage === 'home' && (
@@ -408,7 +404,6 @@ export default function App() {
                   onSelectCalculatorService={setCalculatorServiceId}
                   onSelectBuildLayer={setActiveBuildLayer}
                 />
-                <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
                 <HomeSections
                   calculatorServiceId={calculatorServiceId}
                   prefilledService={prefilledService}
@@ -426,7 +421,6 @@ export default function App() {
                   onScheduleConsultation={handleScheduleFromInsight}
                   onNavigatePath={navigateToInternalPath}
                 />
-                </Suspense>
               </div>
             )}
 

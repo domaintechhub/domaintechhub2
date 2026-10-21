@@ -869,16 +869,6 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
-            <a
-              href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=${encodeURIComponent(`Hello Domain Tech Hub, I read your article "${article.title}" and would like to discuss our project.`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800 text-emerald-300 text-xs font-semibold flex items-center justify-center gap-2 transition-colors whitespace-nowrap"
-            >
-              <MessageSquare className="w-4 h-4 text-emerald-400" />
-              <span>Chat on WhatsApp</span>
-            </a>
-
             {onScheduleConsultation && (
               <button
                 type="button"
