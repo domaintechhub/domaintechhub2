@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Calculator, ArrowUp } from 'lucide-react';
-import { AGENCY_INFO } from '../data/portfolioData';
+import { Calculator, ArrowUp } from 'lucide-react';
 
 interface QuickContactFloatingProps {
   onOpenCalculator: () => void;
@@ -42,18 +41,6 @@ export const QuickContactFloating: React.FC<QuickContactFloatingProps> = ({ onOp
         <Calculator className="w-4 h-4 text-teal-600 dark:text-cyan-400" />
         <span>Instant Quote</span>
       </button>
-
-      {/* WhatsApp Official Floating Button */}
-      <a
-        href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=Hello%20Domain%20Tech%20Hub,%20I'm%20inquiring%20about%20your%20services.`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="pointer-events-auto hidden sm:flex items-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-950/60 font-medium text-xs sm:text-sm transition-all hover:scale-105"
-        title="Chat on WhatsApp (+254 118746676)"
-      >
-        <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
-        <span className="font-semibold tracking-wide">WhatsApp</span>
-      </a>
     </div>
   );
 };
