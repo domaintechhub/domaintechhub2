@@ -40,7 +40,6 @@ const BookingSection = lazy(() => import('./components/BookingSection').then(({ 
 
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
-const FirstVisitModal = lazy(() => import('./components/FirstVisitModal').then(({ FirstVisitModal }) => ({ default: FirstVisitModal })));
 
 // Force browser to disable automatic scroll restoration immediately at load time
 if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
@@ -64,40 +63,10 @@ export default function App() {
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
-  const [isFirstVisitModalOpen, setIsFirstVisitModalOpen] = useState(false);
 
   useEffect(() => {
     discardPersistedLeadData();
   }, []);
-
-  // First-time visitor trigger: hit by the structured offer popup immediately after first scroll
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Check if user has already seen or dismissed the first-scroll welcome popup in this session/browser
-    const hasSeenModal = sessionStorage.getItem('dth_has_seen_first_scroll_modal') === 'true' ||
-                          localStorage.getItem('dth_first_visit_popup_dismissed') === 'true';
-    if (hasSeenModal) return;
-
-    let triggered = false;
-    const handleFirstScroll = () => {
-      if (triggered) return;
-      // Triggers just after the visitor's first scroll gesture (> 30px)
-      if (window.scrollY > 30) {
-        triggered = true;
-        setIsFirstVisitModalOpen(true);
-        sessionStorage.setItem('dth_has_seen_first_scroll_modal', 'true');
-        window.removeEventListener('scroll', handleFirstScroll);
-      }
-    };
-
-    window.addEventListener('scroll', handleFirstScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleFirstScroll);
-    };
-  }, []);
-
-
 
   const scrollToTopHeader = () => {
     // 1. Unfocus clicked element (e.g. from footer link) so browser doesn't scroll to keep it in view
@@ -767,29 +736,6 @@ export default function App() {
               <LeadInboxModal
                 isOpen
                 onClose={() => setIsLeadInboxOpen(false)}
-              />
-            </Suspense>
-          )}
-
-          {/* First-Visit First-Scroll Welcome Offer Modal */}
-          {isFirstVisitModalOpen && (
-            <Suspense fallback={null}>
-              <FirstVisitModal
-                isOpen={isFirstVisitModalOpen}
-                onClose={() => {
-                  setIsFirstVisitModalOpen(false);
-                  try {
-                    localStorage.setItem('dth_first_visit_popup_dismissed', 'true');
-                  } catch {}
-                }}
-                onNavigateToQuote={() => {
-                  setIsFirstVisitModalOpen(false);
-                  navigateTo('calculator');
-                }}
-                onNavigateToBooking={() => {
-                  setIsFirstVisitModalOpen(false);
-                  navigateTo('contact');
-                }}
               />
             </Suspense>
           )}
