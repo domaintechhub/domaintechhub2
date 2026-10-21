@@ -248,7 +248,7 @@ export const HOME_H1 = 'Web Development & M-Pesa Integration in Nairobi, Kenya';
 
 export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> = {
   home: () => ({
-    title: 'Web Development Company in Nairobi, Kenya | M-Pesa Integration | Domain Tech Hub',
+    title: 'Web Development Company Nairobi, Kenya | M-Pesa | Domain Tech Hub',
     description: 'Domain Tech Hub builds fast websites, M-Pesa payment integration, e-commerce and KRA-ready business systems for Kenyan companies. Free quote within 24 hours.',
     keywords: MASTER_TARGET_KEYWORDS,
     canonicalPath: '/',
