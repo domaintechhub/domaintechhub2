@@ -69,7 +69,6 @@ export default function App() {
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
   const [activeBuildLayer, setActiveBuildLayer] = useState<BuildLayerKey>('build');
-  const [isPageTransitioning, setIsPageTransitioning] = useState(false);
   const [isFirstVisitModalOpen, setIsFirstVisitModalOpen] = useState(false);
 
   useEffect(() => {
@@ -159,7 +158,6 @@ export default function App() {
   // Sync clean pathname routes, while canonicalizing links shared using the legacy hash URLs.
   useEffect(() => {
     const syncRoute = () => {
-      setIsPageTransitioning(true);
       const route = getCurrentAppRoute();
       const page = route.page as PageRoute;
       const subTab = route.subTab;
@@ -194,10 +192,6 @@ export default function App() {
       if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== canonicalLocation) {
         window.history.replaceState(null, '', canonicalLocation);
       }
-
-      setTimeout(() => {
-        setIsPageTransitioning(false);
-      }, 200);
     };
 
     syncRoute();
@@ -220,7 +214,6 @@ export default function App() {
   }, [currentPage, activeToolTab, activeMoreTab, activeServiceId, activeArticleSlug]);
 
   const navigateTo = (target: string, subParam?: string) => {
-    setIsPageTransitioning(true);
     let targetPage: PageRoute = 'home';
     let targetSub: string | undefined = subParam;
 
@@ -313,10 +306,6 @@ export default function App() {
     }
 
     scrollToTopHeader();
-
-    setTimeout(() => {
-      setIsPageTransitioning(false);
-    }, 200);
   };
 
   const navigateToInternalPath = (url: string) => {
@@ -400,13 +389,6 @@ export default function App() {
         <LanguageProvider>
           <div className="min-h-screen bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-teal-500/20 selection:text-teal-800">
 
-          {/* Top Route Transition Progress Bar */}
-          {isPageTransitioning && (
-            <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-stone-200/50 dark:bg-slate-800/50 overflow-hidden pointer-events-none">
-              <div className="h-full bg-gradient-to-r from-lime-400 via-teal-400 to-cyan-400 animate-dth-progress" />
-            </div>
-          )}
-          
           {/* Navigation Bar with Search Trigger */}
           <Navbar 
             onNavigate={navigateTo} 

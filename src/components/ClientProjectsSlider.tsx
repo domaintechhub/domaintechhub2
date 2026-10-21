@@ -238,6 +238,36 @@ export const ClientProjectsSlider: React.FC<ClientProjectsSliderProps> = ({ onSe
           </div>
         </div>
 
+        {/* Quick Industry Filter & Category Badges */}
+        <div className="flex flex-wrap items-center gap-2 mb-6 p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-stone-200 dark:border-slate-800 shadow-xs">
+          <span className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider shrink-0 mr-1">
+            Industries We Serve:
+          </span>
+          {CLIENT_PROJECTS.map((proj, idx) => {
+            const isSelected = viewMode === 'slider' && currentIndex === idx;
+            return (
+              <button
+                key={proj.id}
+                onClick={() => {
+                  setCurrentIndex(idx);
+                  setViewMode('slider');
+                }}
+                className={`px-3 py-1 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-[#00c853] !text-white shadow-xs font-bold'
+                    : 'bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-[#00c853] dark:hover:text-[#00e676] hover:bg-stone-200 dark:hover:bg-slate-700'
+                }`}
+                title={`View ${proj.name} – ${proj.category}`}
+              >
+                <span>{proj.category}</span>
+                <span className={`text-[10px] ${isSelected ? '!text-emerald-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                  ({proj.name})
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* ========================================================================= */}
         {/* SLIDER VIEW MODE (SLIDING BOXES WITH BROWSER MOCKUP) */}
         {/* ========================================================================= */}

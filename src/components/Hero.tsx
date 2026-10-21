@@ -1,232 +1,632 @@
-import React from 'react';
-import { MessageSquare, ArrowRight, ShieldCheck, Zap, Receipt, Smartphone } from 'lucide-react';
-import { useCurrency } from '../context/CurrencyContext';
-import { HOME_H1 } from '../utils/seo';
+import React, { useState, useEffect, useRef } from 'react';
+import { AGENCY_INFO } from '../data/portfolioData';
+import { saveLead } from '../utils/leadDispatch';
+import { trackEvent } from '../utils/analytics';
 
 export type BuildLayerKey = 'build' | 'sell' | 'grow' | 'run';
 
-interface HeroProps {
-  onNavigate: (sectionId: string, subTab?: string) => void;
+export interface HeroProps {
+  onNavigate?: (sectionId: string, subTab?: string) => void;
   onSelectCalculatorService?: (serviceId: string) => void;
   onSelectBuildLayer?: (layer: BuildLayerKey) => void;
 }
 
+const TOAST_MESSAGES = [
+  'KSh 4,500 received for order #1043',
+  'eTIMS invoice sent for order #1043',
+  'KSh 1,200 received for order #1044',
+  'KSh 9,800 received for order #1045',
+];
+
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
-  const handleScrollToQuote = (e: React.MouseEvent) => {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [stageY, setStageY] = useState(0);
+  const [toastIndex, setToastIndex] = useState(0);
+  const [toastVisible, setToastVisible] = useState(true);
+  const [showWhatsAppTip, setShowWhatsAppTip] = useState(false);
+
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+
+  const agencyPhone = AGENCY_INFO.whatsapp || '254118746676';
+
+  // Scroll listener for desktop stage parallax
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sy = window.scrollY;
+
+          if (window.innerWidth >= 900) {
+            const clamped = Math.min(sy, 900);
+            setStageY(-clamped * 0.07);
+          } else {
+            setStageY(0);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Toast cycling: every 4 seconds show one toast for 2.8s
+  useEffect(() => {
+    const cycleInterval = setInterval(() => {
+      setToastVisible(false);
+      setTimeout(() => {
+        setToastIndex((prev) => (prev + 1) % TOAST_MESSAGES.length);
+        setToastVisible(true);
+      }, 450);
+    }, 4000);
+
+    return () => clearInterval(cycleInterval);
+  }, []);
+
+  // Floating WhatsApp tip: after 9s show for 6s
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setShowWhatsAppTip(true);
+      const hideTimer = setTimeout(() => {
+        setShowWhatsAppTip(false);
+      }, 6000);
+      return () => clearTimeout(hideTimer);
+    }, 9000);
+
+    return () => clearTimeout(showTimer);
+  }, []);
+
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const quoteEl = document.getElementById('quote-section');
-    if (quoteEl) {
-      quoteEl.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      onNavigate('contact');
+
+    if (!name.trim()) {
+      nameInputRef.current?.focus();
+      return;
     }
+    if (!phone.trim()) {
+      phoneInputRef.current?.focus();
+      return;
+    }
+
+    try {
+      saveLead({
+        source: 'quick_contact',
+        sourceTitle: 'Hero Inline Quote Form',
+        fullName: name.trim(),
+        email: '',
+        phone: phone.trim(),
+        serviceOrItem: 'Web Development & M-Pesa Integration (Free Quote)',
+        notes: 'Submitted via Hero inline form on domaintechhubs.com',
+      });
+    } catch (err) {
+      console.warn('Error saving lead locally:', err);
+    }
+
+    trackEvent('generate_lead', {
+      method: 'hero_form',
+      page_path: window.location.pathname,
+    });
+
+    const prefilledText = `*New quote request*\nName: ${name.trim()}\nWhatsApp: ${phone.trim()}`;
+    const whatsappUrl = `https://wa.me/${agencyPhone}?text=${encodeURIComponent(prefilledText)}`;
+    window.open(whatsappUrl, '_blank', 'noopener');
   };
 
-  const handleWhatsApp = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const text = encodeURIComponent('Hi Domain Tech Hub, I saw your website and would like to get a quote for a new project.');
-    window.open(`https://wa.me/254118746676?text=${text}`, '_blank', 'noopener,noreferrer');
-  };
 
   return (
-    <section className="relative bg-[#f8f7f4] dark:bg-slate-950 text-slate-900 dark:text-slate-100 pt-20 sm:pt-28 lg:pt-32 pb-0 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main 2-Column Hero Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pb-10 sm:pb-16">
-          
-          {/* Left Column: Headlines & CTAs */}
-          <div className="lg:col-span-7">
-            {/* Eyebrow badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 sm:mb-5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-xs font-mono text-emerald-900 dark:text-emerald-300 font-semibold max-w-full">
-              <span className="w-2 h-2 rounded-full bg-[#00c853] animate-pulse shrink-0" />
-              <span className="truncate">karibu · Nairobi web &amp; payments studio</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase leading-[1.12] sm:leading-[1.08] mb-4 sm:mb-5 break-words">
-              {HOME_H1}
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl mb-6 sm:mb-8 font-medium">
-              We build fast websites, M-Pesa checkout and KRA-ready business systems for Kenyan companies. Free quote within 24 hours.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5 mb-5">
-              <a
-                href="#quote-section"
-                onClick={handleScrollToQuote}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#00c853] hover:bg-[#00b34a] !text-white text-sm font-bold tracking-wide transition-all shadow-lg shadow-[#00c853]/25 active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+    <>
+      {/* Hero Section Container */}
+      <section
+        className="relative w-full bg-[#FFFFFF] text-[#0F2A20] selection:bg-[#E6F4EC] selection:text-[#0F2A20] pt-8 sm:pt-14 pb-16 sm:pb-24 border-b border-[#D7E3DB]"
+        style={{
+          paddingLeft: 'clamp(20px, 5.5vw, 80px)',
+          paddingRight: 'clamp(20px, 5.5vw, 80px)',
+        }}
+      >
+        <div className="max-w-[1280px] mx-auto">
+          {/* Main 2-Column Hero Grid (1.15fr / 0.85fr on desktop, single column below 900px) */}
+          <div className="grid grid-cols-1 min-[900px]:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-14 items-center">
+            
+            {/* LEFT COLUMN */}
+            <div className="flex flex-col items-start max-w-xl min-[900px]:max-w-none">
+              
+              {/* 1. H1, three lines, 800 weight, tight letter spacing, size clamp(34px, 4.6vw, 60px) */}
+              <h1
+                className="font-extrabold text-[#0F2A20] tracking-tight leading-[1.08] mb-5"
+                style={{ fontSize: 'clamp(34px, 4.6vw, 60px)' }}
               >
-                <span className="!text-white">Get a free quote</span>
-                <ArrowRight className="w-4 h-4 !text-white" />
-              </a>
+                <span className="block hero-h1-line-1">
+                  Web Development &amp;
+                </span>
+                <span className="block hero-h1-line-2 text-[#12A150]">
+                  M-Pesa Integration
+                </span>
+                <span className="block hero-h1-line-3">
+                  in Nairobi, Kenya
+                </span>
+              </h1>
 
-              <a
-                href="https://wa.me/254118746676"
-                onClick={handleWhatsApp}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-stone-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-stone-300 dark:border-slate-700 text-sm font-semibold tracking-wide transition-all shadow-xs active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+              {/* 2. Subtitle (muted, ~20px) */}
+              <p className="hero-subtitle text-[#506259] text-base sm:text-lg lg:text-[20px] leading-relaxed mb-8 max-w-lg">
+                We build fast websites, M-Pesa checkout and KRA-ready business systems for Kenyan companies. Free quote within 24 hours.
+              </p>
+
+              {/* 3. Inline quote form */}
+              <form
+                onSubmit={handleFormSubmit}
+                className="hero-form w-full mb-4"
+                noValidate
               >
-                <MessageSquare className="w-4 h-4 text-[#00c853]" />
-                <span>Chat on WhatsApp</span>
-              </a>
+                <div className="flex flex-col sm:flex-row items-stretch gap-2.5 p-2 rounded-2xl bg-white border border-[#D7E3DB] shadow-sm">
+                  <input
+                    ref={nameInputRef}
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    aria-label="Your name"
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl bg-[#FFFFFF] text-[#0F2A20] placeholder-[#7B8B82] text-sm font-medium border border-transparent focus:border-[#12A150] focus:outline-none focus:ring-3 focus:ring-[#F5B335] transition-all"
+                  />
+                  <input
+                    ref={phoneInputRef}
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="WhatsApp number"
+                    aria-label="WhatsApp number"
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl bg-[#FFFFFF] text-[#0F2A20] placeholder-[#7B8B82] text-sm font-medium border border-transparent focus:border-[#12A150] focus:outline-none focus:ring-3 focus:ring-[#F5B335] transition-all"
+                  />
+                  <button
+                    type="submit"
+                    className="px-6 py-3.5 rounded-xl bg-[#12A150] text-white text-sm font-bold whitespace-nowrap hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#12A150]/25 active:translate-y-0 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-3 focus:ring-[#F5B335]"
+                  >
+                    Get my free quote
+                  </button>
+                </div>
+              </form>
+
+              {/* Small faint line */}
+              <p className="text-xs text-[#7B8B82]">
+                Reply within 2 hours, Mon–Fri 8am–5pm EAT. Westlands, Nairobi.
+              </p>
+
             </div>
 
-            {/* Microcopy trust indicator */}
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1.5 flex-wrap">
-              <span>Reply within 2 hours · Mon–Fri 8am–5pm EAT · Westlands, Nairobi</span>
+            {/* RIGHT COLUMN (THE "STAGE") */}
+            <div
+              className="relative flex items-center justify-center min-h-[580px] sm:min-h-[640px] pt-4 min-[900px]:pt-0"
+              style={{
+                transform: `translateY(${stageY}px)`,
+                transition: 'transform 0.08s ease-out',
+              }}
+              aria-hidden="true"
+            >
+              {/* Thin 1.5px circular outline ring behind phone mockup */}
+              <div className="absolute w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] rounded-full border-[1.5px] border-[#D7E3DB] pointer-events-none -z-0" />
+
+              {/* Phone Mockup (290x590, dark ink frame, 44px radius, soft shadow) */}
+              <div className="hero-phone relative w-[290px] h-[590px] rounded-[44px] bg-[#0F2A20] p-3 shadow-2xl shadow-[#0F2A20]/20 z-10 flex flex-col justify-between overflow-hidden border-[3px] border-[#0F2A20]">
+                
+                {/* Phone Top Notch / Speaker pill */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-[#0F2A20] rounded-full z-40 flex items-center justify-center">
+                  <div className="w-10 h-1 bg-white/20 rounded-full" />
+                </div>
+
+                {/* Phone Inner Screen */}
+                <div className="relative w-full h-full bg-[#FFFFFF] rounded-[36px] overflow-hidden flex flex-col justify-between text-[#0F2A20]">
+                  
+                  {/* Shop Checkout Header */}
+                  <div className="pt-7 px-5 pb-3 border-b border-[#D7E3DB]">
+                    <div className="text-[11px] font-bold tracking-wider text-[#7B8B82] uppercase mb-0.5">
+                      Checkout
+                    </div>
+                    <div className="text-base font-bold text-[#0F2A20]">
+                      Mama Njeri Fabrics
+                    </div>
+                  </div>
+
+                  {/* Order Line Items */}
+                  <div className="px-5 py-4 space-y-3.5 flex-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[#506259] font-medium">Kitenge dress ×1</span>
+                      <span className="text-[#0F2A20] font-bold">KSh 3,800</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[#506259] font-medium">Delivery, Nairobi</span>
+                      <span className="text-[#0F2A20] font-bold">KSh 700</span>
+                    </div>
+
+                    <div className="pt-3 border-t border-[#D7E3DB] flex items-center justify-between">
+                      <span className="text-sm font-bold text-[#0F2A20]">Total</span>
+                      <span className="text-base font-extrabold text-[#0F2A20]">KSh 4,500</span>
+                    </div>
+
+                    {/* Order summary info badge */}
+                    <div className="mt-4 p-3 rounded-xl bg-[#E6F4EC] border border-[#12A150]/20 text-[11px] text-[#0F2A20] space-y-1">
+                      <div className="font-semibold text-[#12A150]">Instant mobile checkout</div>
+                      <div className="text-[#506259]">Safaricom M-Pesa Daraja STK Push prompt will appear on your phone.</div>
+                    </div>
+                  </div>
+
+                  {/* Pay with M-Pesa Button */}
+                  <div className="p-4 bg-white border-t border-[#D7E3DB] relative z-20">
+                    <div className="hero-mpesa-btn w-full py-3.5 rounded-2xl bg-[#12A150] text-white text-sm font-bold flex items-center justify-center gap-2 shadow-sm">
+                      <span>Pay with M-Pesa</span>
+                    </div>
+                  </div>
+
+                  {/* M-Pesa Request Bottom Sheet (slides up 12-18%, stays to 64-69%) */}
+                  <div className="hero-mpesa-sheet absolute inset-x-0 bottom-0 bg-[#FFFFFF] rounded-t-[28px] border-t-2 border-[#12A150] shadow-2xl p-5 z-30">
+                    <div className="w-10 h-1 bg-[#D7E3DB] rounded-full mx-auto mb-3" />
+                    
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-3 h-3 rounded-full bg-[#12A150]" />
+                      <div className="text-xs font-bold text-[#0F2A20]">
+                        M-Pesa payment request
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-[#506259] mb-4 leading-snug">
+                      Pay KSh 4,500 to Mama Njeri Fabrics. Enter your PIN.
+                    </p>
+
+                    {/* 4 PIN Boxes */}
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <div className="w-10 h-11 rounded-xl border-2 border-[#D7E3DB] bg-[#F7FAF8] flex items-center justify-center">
+                        <span className="hero-pin-dot-1 w-3 h-3 rounded-full bg-[#0F2A20]" />
+                      </div>
+                      <div className="w-10 h-11 rounded-xl border-2 border-[#D7E3DB] bg-[#F7FAF8] flex items-center justify-center">
+                        <span className="hero-pin-dot-2 w-3 h-3 rounded-full bg-[#0F2A20]" />
+                      </div>
+                      <div className="w-10 h-11 rounded-xl border-2 border-[#D7E3DB] bg-[#F7FAF8] flex items-center justify-center">
+                        <span className="hero-pin-dot-3 w-3 h-3 rounded-full bg-[#0F2A20]" />
+                      </div>
+                      <div className="w-10 h-11 rounded-xl border-2 border-[#D7E3DB] bg-[#F7FAF8] flex items-center justify-center">
+                        <span className="hero-pin-dot-4 w-3 h-3 rounded-full bg-[#0F2A20]" />
+                      </div>
+                    </div>
+
+                    <div className="text-center text-[10px] text-[#7B8B82] mt-2">
+                      Encrypted Daraja 3.0 session
+                    </div>
+                  </div>
+
+                  {/* Full-Screen Payment Received Overlay (fades in 64-69%, stays to 88%, gone by 94%) */}
+                  <div className="hero-success-screen absolute inset-0 bg-[#12A150] text-white flex flex-col items-center justify-center p-6 text-center z-40">
+                    <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-4">
+                      <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="text-lg font-extrabold mb-1">
+                      Payment received
+                    </div>
+                    <div className="text-xs text-white/90 font-medium">
+                      KSh 4,500 confirmed in seconds
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Beside Phone: eTIMS Invoice Card (right edge, in front, rotated 3deg, width 200px on mobile) */}
+              <div className="hero-invoice-card absolute -right-3 sm:-right-8 top-1/3 z-20 w-[200px] sm:w-[220px] p-4 rounded-2xl bg-white border border-[#D7E3DB] shadow-xl text-[#0F2A20] pointer-events-none">
+                <div className="flex items-center justify-between gap-1 mb-2">
+                  <div className="text-[11px] font-bold text-[#0F2A20]">
+                    Invoice sent to customer
+                  </div>
+                  {/* Amber eTIMS stamp */}
+                  <span className="px-1.5 py-0.5 rounded-md bg-[#F5B335]/20 text-[#0F2A20] border border-[#F5B335] text-[10px] font-extrabold tracking-wider shrink-0">
+                    eTIMS
+                  </span>
+                </div>
+
+                <div className="text-[11px] text-[#506259] mb-1">
+                  Invoice no. 0001042
+                </div>
+                <div className="text-xs font-bold text-[#0F2A20] mb-2.5">
+                  Total incl. VAT KSh 4,500
+                </div>
+
+                <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#12A150]">
+                  <span>✓</span>
+                  <span>Recorded for KRA</span>
+                </div>
+              </div>
+
+              {/* Bottom-left of stage: "Example payments" label & Toast card (hidden below 900px) */}
+              <div className="hidden min-[900px]:flex flex-col items-start absolute left-0 bottom-4 z-20 pointer-events-none">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B8B82] mb-1.5">
+                  Example payments
+                </span>
+
+                <div
+                  className={`px-3.5 py-2 rounded-xl bg-white border border-[#D7E3DB] shadow-md flex items-center gap-2 text-xs font-medium text-[#0F2A20] transition-all duration-450 ${
+                    toastVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#12A150] animate-pulse shrink-0" />
+                  <span>{TOAST_MESSAGES[toastIndex]}</span>
+                </div>
+              </div>
+
             </div>
+
           </div>
+        </div>
+      </section>
 
-          {/* Right Column: 3 Feature Cards */}
-          <div className="lg:col-span-5 flex flex-col gap-3 sm:gap-3.5">
-            {/* Card 1: Payments */}
-            <div className="p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-xs hover:border-[#00c853] transition-all">
-              <div className="text-[11px] font-mono text-[#00c853] dark:text-[#00e676] font-bold mb-1 tracking-wider">
-                [ 01 / PAYMENTS ]
-              </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1">
-                Customers pay with M-Pesa STK Push
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                280ms push · 99.98% webhook SLA
-              </p>
-            </div>
-
-            {/* Card 2: Tax */}
-            <div className="p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-xs hover:border-[#00c853] transition-all">
-              <div className="text-[11px] font-mono text-[#00c853] dark:text-[#00e676] font-bold mb-1 tracking-wider">
-                [ 02 / TAX ]
-              </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1">
-                KRA eTIMS receipts, automatically
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                Type C &amp; E · real-time ledger
-              </p>
-            </div>
-
-            {/* Card 3: Speed */}
-            <div className="p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-xs hover:border-[#00c853] transition-all">
-              <div className="text-[11px] font-mono text-[#00c853] dark:text-[#00e676] font-bold mb-1 tracking-wider">
-                [ 03 / SPEED ]
-              </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1">
-                Be found on Google, load fast on 4G
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                Loads under 1.2s · React 19 / TypeScript
-              </p>
-            </div>
+      {/* Fixed Bottom-Right WhatsApp Pill Button with Slow Ripple Ring */}
+      <div
+        className="fixed bottom-6 right-6 z-40 flex flex-col items-end pointer-events-auto"
+        style={{
+          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))',
+          right: 'calc(1.5rem + env(safe-area-inset-right, 0px))',
+        }}
+      >
+        {/* Tooltip visible after 9s for 6s */}
+        {showWhatsAppTip && (
+          <div className="mb-2 px-3 py-1.5 rounded-xl bg-[#0F2A20] text-white text-xs font-semibold shadow-lg animate-fade-in border border-[#12A150]/30 whitespace-nowrap">
+            Questions? We reply in under 2 hours.
           </div>
+        )}
 
+        <div className="relative">
+          {/* Slow Ripple Ring */}
+          <span className="absolute -inset-1.5 rounded-full bg-[#12A150]/30 animate-ping opacity-60 pointer-events-none" />
+
+          <a
+            href={`https://wa.me/${agencyPhone}?text=${encodeURIComponent('Hi Domain Tech Hub, I have a quick question about my project.')}`}
+            target="_blank"
+            rel="noopener"
+            aria-label="Chat with Domain Tech Hub on WhatsApp"
+            onClick={() => {
+              trackEvent('generate_lead', {
+                method: 'hero_floating_whatsapp',
+                page_path: window.location.pathname,
+              });
+            }}
+            className="relative px-4 py-3 rounded-full bg-[#12A150] text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xl hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-[#12A150]/30 transition-all duration-200 focus:outline-none focus:ring-3 focus:ring-[#F5B335]"
+          >
+            {/* WhatsApp Icon SVG */}
+            <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
         </div>
       </div>
 
-      {/* Metrics & Social Proof Bar (Dark Banner across full width) */}
-      <div className="w-full bg-[#080d1a] py-8 sm:py-12 border-y border-slate-800/90">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* 4 Stats Grid with High-Contrast Vibrant Green Numbers */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pb-6 sm:pb-8 border-b border-slate-800/80">
-            <div>
-              <div className="text-3xl sm:text-5xl font-black tracking-tight font-mono text-[#00e676] drop-shadow-xs mb-1">
-                50+
-              </div>
-              <div className="text-xs sm:text-sm font-medium !text-slate-200">
-                projects delivered
-              </div>
-            </div>
+      {/* Scoped CSS Keyframes for Page Load and Phone 9s Loop */}
+      <style>{`
+        /* Page Load Fade-Rise */
+        @keyframes heroFadeRise {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-            <div>
-              <div className="text-3xl sm:text-5xl font-black tracking-tight font-mono text-[#00e676] drop-shadow-xs mb-1">
-                98%
-              </div>
-              <div className="text-xs sm:text-sm font-medium !text-slate-200">
-                client retention
-              </div>
-            </div>
+        .hero-h1-line-1 {
+          animation: heroFadeRise 700ms cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+        }
+        .hero-h1-line-2 {
+          animation: heroFadeRise 700ms cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+        }
+        .hero-h1-line-3 {
+          animation: heroFadeRise 700ms cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+        }
+        .hero-phone {
+          animation: heroFadeRise 700ms cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+        .hero-subtitle {
+          animation: heroFadeRise 700ms cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .hero-form {
+          animation: heroFadeRise 700ms cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+        }
 
-            <div>
-              <div className="text-3xl sm:text-5xl font-black tracking-tight font-mono text-[#00e676] drop-shadow-xs mb-1">
-                &lt; 1.2s
-              </div>
-              <div className="text-xs sm:text-sm font-medium !text-slate-200">
-                average load on Safaricom 4G
-              </div>
-            </div>
+        /* 9s Loop: Pay Button Press (9-12%) */
+        @keyframes heroBtnPress {
+          0%, 8.9% {
+            transform: scale(1);
+          }
+          9%, 12% {
+            transform: scale(0.95);
+          }
+          12.1%, 100% {
+            transform: scale(1);
+          }
+        }
+        .hero-mpesa-btn {
+          animation: heroBtnPress 9s infinite ease-in-out;
+        }
 
-            <div>
-              <div className="text-3xl sm:text-5xl font-black tracking-tight font-mono text-[#00e676] drop-shadow-xs mb-1">
-                6+ yrs
-              </div>
-              <div className="text-xs sm:text-sm font-medium !text-slate-200">
-                building in Nairobi
-              </div>
-            </div>
-          </div>
+        /* 9s Loop: M-Pesa Request Sheet Slide-up (12-18% in, 64-69% out) */
+        @keyframes heroSheetSlide {
+          0%, 11.9% {
+            transform: translateY(105%);
+            opacity: 0;
+          }
+          18%, 64% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+          69%, 100% {
+            transform: translateY(105%);
+            opacity: 0;
+          }
+        }
+        .hero-mpesa-sheet {
+          animation: heroSheetSlide 9s infinite cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-          {/* Client Logos / Verification Badges Row */}
-          <div className="pt-5 sm:pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-xs font-mono">
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="w-2 h-2 rounded-full bg-[#00c853] animate-pulse" />
-              <span className="!text-slate-300 uppercase tracking-wider text-[11px] font-bold">Trusted by real clients:</span>
-            </div>
-            <div className="grid grid-cols-2 xs:grid-cols-3 sm:flex sm:flex-wrap items-center gap-2 sm:gap-2.5">
-              <a
-                href="https://www.arenaproperties.ae/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-slate-800 border border-slate-700/80 hover:border-[#00c853] !text-white font-bold tracking-wide shadow-xs transition-colors text-center truncate"
-              >
-                Arena Properties
-              </a>
-              <a
-                href="https://greafrica.group/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-slate-800 border border-slate-700/80 hover:border-[#00c853] !text-white font-bold tracking-wide shadow-xs transition-colors text-center truncate"
-              >
-                GRE Africa Group
-              </a>
-              <a
-                href="https://www.just.property/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-slate-800 border border-slate-700/80 hover:border-[#00c853] !text-white font-bold tracking-wide shadow-xs transition-colors text-center truncate"
-              >
-                Just Property
-              </a>
-              <a
-                href="https://tessasbakery.co.za/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-slate-800 border border-slate-700/80 hover:border-[#00c853] !text-white font-bold tracking-wide shadow-xs transition-colors text-center truncate"
-              >
-                Tessa's Bakery
-              </a>
-              <a
-                href="https://www.classicbakery.co.za/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-slate-800 border border-slate-700/80 hover:border-[#00c853] !text-white font-bold tracking-wide shadow-xs transition-colors text-center truncate"
-              >
-                Classic Bakery
-              </a>
-              <a
-                href="https://www.zoominfo.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#0f172a] hover:bg-slate-800 border border-slate-700/80 hover:border-[#00c853] !text-white font-bold tracking-wide shadow-xs transition-colors text-center truncate"
-              >
-                ZoomInfo
-              </a>
-            </div>
-          </div>
+        /* 9s Loop: PIN Dots Pop In (28%, 34%, 40%, 46%) */
+        @keyframes heroPinDot1 {
+          0%, 27.9% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+          28%, 64% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          65%, 100% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+        }
+        @keyframes heroPinDot2 {
+          0%, 33.9% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+          34%, 64% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          65%, 100% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+        }
+        @keyframes heroPinDot3 {
+          0%, 39.9% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+          40%, 64% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          65%, 100% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+        }
+        @keyframes heroPinDot4 {
+          0%, 45.9% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+          46%, 64% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          65%, 100% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+        }
 
-        </div>
-      </div>
-    </section>
+        .hero-pin-dot-1 {
+          animation: heroPinDot1 9s infinite ease-out;
+        }
+        .hero-pin-dot-2 {
+          animation: heroPinDot2 9s infinite ease-out;
+        }
+        .hero-pin-dot-3 {
+          animation: heroPinDot3 9s infinite ease-out;
+        }
+        .hero-pin-dot-4 {
+          animation: heroPinDot4 9s infinite ease-out;
+        }
+
+        /* 9s Loop: Green Success Overlay (fade in 64-69%, stays to 88%, gone by 94%) */
+        @keyframes heroSuccessScreen {
+          0%, 63.9% {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96);
+          }
+          69%, 88% {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+          }
+          94%, 100% {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.02);
+          }
+        }
+        .hero-success-screen {
+          animation: heroSuccessScreen 9s infinite cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 9s Loop: eTIMS Invoice Card (slide in 74-80%, stay until 92%, fade out by 96%) */
+        @keyframes heroInvoiceCard {
+          0%, 73.9% {
+            opacity: 0;
+            transform: translateX(35px) rotate(3deg);
+          }
+          80%, 92% {
+            opacity: 1;
+            transform: translateX(0) rotate(3deg);
+          }
+          96%, 100% {
+            opacity: 0;
+            transform: translateX(15px) rotate(3deg);
+          }
+        }
+        .hero-invoice-card {
+          animation: heroInvoiceCard 9s infinite cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Reduced Motion Mode: No animation, show final complete states */
+        @media (prefers-reduced-motion: reduce) {
+          .hero-h1-line-1,
+          .hero-h1-line-2,
+          .hero-h1-line-3,
+          .hero-phone,
+          .hero-subtitle,
+          .hero-form,
+          .hero-mpesa-btn,
+          .hero-mpesa-sheet,
+          .hero-pin-dot-1,
+          .hero-pin-dot-2,
+          .hero-pin-dot-3,
+          .hero-pin-dot-4,
+          .hero-success-screen,
+          .hero-invoice-card {
+            animation: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+          .hero-invoice-card {
+            transform: rotate(3deg) !important;
+          }
+          .hero-success-screen {
+            display: none !important;
+          }
+          .hero-mpesa-sheet {
+            transform: translateY(0) !important;
+          }
+          .hero-pin-dot-1,
+          .hero-pin-dot-2,
+          .hero-pin-dot-3,
+          .hero-pin-dot-4 {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+          }
+        }
+      `}</style>
+    </>
   );
 };
