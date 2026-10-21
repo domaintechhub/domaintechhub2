@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     <>
       {/* Hero Section Container */}
       <section
-        className="relative w-full bg-[#FFFFFF] text-[#0F2A20] selection:bg-[#E6F4EC] selection:text-[#0F2A20] pt-8 sm:pt-14 pb-16 sm:pb-24 border-b border-[#D7E3DB]"
+        className="relative w-full bg-[#FFFFFF] text-[#0F2A20] selection:bg-[#E6F4EC] selection:text-[#0F2A20] pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-24 border-b border-[#D7E3DB] overflow-x-clip"
         style={{
           paddingLeft: 'clamp(20px, 5.5vw, 80px)',
           paddingRight: 'clamp(20px, 5.5vw, 80px)',
@@ -142,8 +142,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               
               {/* 1. H1, three lines, 800 weight, tight letter spacing, size clamp(34px, 4.6vw, 60px) */}
               <h1
-                className="font-extrabold text-[#0F2A20] tracking-tight leading-[1.08] mb-5"
-                style={{ fontSize: 'clamp(34px, 4.6vw, 60px)' }}
+                className="font-extrabold text-[#0F2A20] tracking-tight leading-[1.08] mb-5 text-[clamp(28px,6vw,38px)] sm:text-[clamp(34px,4.6vw,60px)]"
               >
                 <span className="block hero-h1-line-1">
                   Web Development &amp;
@@ -176,7 +175,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     placeholder="Your name"
                     aria-label="Your name"
                     required
-                    className="flex-1 px-4 py-3 rounded-xl bg-[#FFFFFF] text-[#0F2A20] placeholder-[#7B8B82] text-sm font-medium border border-transparent focus:border-[#12A150] focus:outline-none focus:ring-3 focus:ring-[#F5B335] transition-all"
+                    className="flex-1 px-4 py-3 rounded-xl bg-[#FFFFFF] text-[#0F2A20] placeholder-[#7B8B82] text-sm font-medium border border-[#D7E3DB] sm:border-transparent focus:border-[#12A150] focus:outline-none focus:ring-3 focus:ring-[#F5B335] transition-all"
                   />
                   <input
                     ref={phoneInputRef}
@@ -186,7 +185,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     placeholder="WhatsApp number"
                     aria-label="WhatsApp number"
                     required
-                    className="flex-1 px-4 py-3 rounded-xl bg-[#FFFFFF] text-[#0F2A20] placeholder-[#7B8B82] text-sm font-medium border border-transparent focus:border-[#12A150] focus:outline-none focus:ring-3 focus:ring-[#F5B335] transition-all"
+                    className="flex-1 px-4 py-3 rounded-xl bg-[#FFFFFF] text-[#0F2A20] placeholder-[#7B8B82] text-sm font-medium border border-[#D7E3DB] sm:border-transparent focus:border-[#12A150] focus:outline-none focus:ring-3 focus:ring-[#F5B335] transition-all"
                   />
                   <button
                     type="submit"
