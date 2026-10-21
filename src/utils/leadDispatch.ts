@@ -24,14 +24,18 @@ const STORAGE_KEY = 'dth_all_leads';
 
 export function discardPersistedLeadData(): void {
   try {
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem('dth_bookings');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('dth_bookings');
+    }
   } catch (err) {
     console.error('Error clearing locally stored lead data:', err);
   }
 
   try {
-    sessionStorage.removeItem('dth_owner_vault_auth');
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.removeItem('dth_owner_vault_auth');
+    }
   } catch (err) {
     console.error('Error clearing local lead-viewer state:', err);
   }

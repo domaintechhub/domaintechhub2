@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { lazy, Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { lazy, Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { PageHeader } from './components/PageHeader';
-import { Hero, BuildLayerKey } from './components/Hero';
+import { Hero } from './components/Hero';
 import type { SprintTimeline } from './components/ProjectRoadmap';
 import type { MoreTab } from './components/MorePage';
 import type { ToolTab } from './components/ToolsPage';
@@ -64,7 +64,6 @@ export default function App() {
   const [calculatorServiceId, setCalculatorServiceId] = useState<string>('web-development');
   const [prefilledService, setPrefilledService] = useState<string>('');
   const [prefilledNotes, setPrefilledNotes] = useState<string>('');
-  const [activeBuildLayer, setActiveBuildLayer] = useState<BuildLayerKey>('build');
   const [isFirstVisitModalOpen, setIsFirstVisitModalOpen] = useState(false);
 
   useEffect(() => {
@@ -98,12 +97,7 @@ export default function App() {
     };
   }, []);
 
-  // Ensure browser never restores old scroll offset from the bottom of previous pages
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-  }, []);
+
 
   const scrollToTopHeader = () => {
     // 1. Unfocus clicked element (e.g. from footer link) so browser doesn't scroll to keep it in view
@@ -401,15 +395,11 @@ export default function App() {
               <div className="animate-in fade-in duration-200">
                 <Hero 
                   onNavigate={navigateTo} 
-                  onSelectCalculatorService={setCalculatorServiceId}
-                  onSelectBuildLayer={setActiveBuildLayer}
                 />
                 <HomeSections
                   calculatorServiceId={calculatorServiceId}
                   prefilledService={prefilledService}
                   prefilledNotes={prefilledNotes}
-                  activeBuildLayer={activeBuildLayer}
-                  onSelectBuildLayer={setActiveBuildLayer}
                   onNavigate={navigateTo}
                   onSelectForQuote={handleSelectForQuote}
                   onBookService={handleBookService}

@@ -32,15 +32,15 @@ const INTENT_PRESETS: {
   {
     key: 'ecommerce',
     patterns: [
-      /e-?commerce/i,
-      /m-?pesa/i,
+      /e[-\s]?commerce/i,
+      /m[-\s]?pesa/i,
       /daraja/i,
       /stk\s*push/i,
       /online\s*store/i,
       /online\s*shop/i,
       /checkout/i,
       /retail\s*store/i,
-      /lipa\s*na\s*m-?pesa/i,
+      /lipa\s*na\s*m[-\s]?pesa/i,
       /paybill/i,
       /buy\s*goods/i,
       /woocommerce/i,
