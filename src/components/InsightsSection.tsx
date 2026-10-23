@@ -626,6 +626,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                     height={450}
                     loading="lazy"
                     decoding="async"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.includes('cloud-security-performance-audit.jpg')) {
+                        target.src = '/images/articles/cloud-security-performance-audit.jpg';
+                      }
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/80" />
@@ -816,6 +823,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                       height={360}
                       loading="lazy"
                       decoding="async"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.includes('cloud-security-performance-audit.jpg')) {
+                          target.src = '/images/articles/cloud-security-performance-audit.jpg';
+                        }
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />

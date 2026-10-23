@@ -363,6 +363,13 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
             height={540}
             loading="eager"
             decoding="async"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.src.includes('cloud-security-performance-audit.jpg')) {
+                target.src = '/images/articles/cloud-security-performance-audit.jpg';
+              }
+            }}
             className="w-full h-full object-cover"
           />
         </div>

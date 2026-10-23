@@ -29,6 +29,7 @@ https://www.domaintechhubs.com/services/website-maintenance
 https://www.domaintechhubs.com/services/graphic-design-branding
 https://www.domaintechhubs.com/services/mobile-app-development
 https://www.domaintechhubs.com/services/pos-systems
+https://www.domaintechhubs.com/insights/php2shell-critical-php-vulnerability-website-protection-guide
 https://www.domaintechhubs.com/insights/how-to-generate-an-etims-invoice
 https://www.domaintechhubs.com/insights/zero-loss-mpesa-stk-push-architecture
 https://www.domaintechhubs.com/insights/headless-nextjs-vs-wordpress-kenya
