@@ -21,6 +21,43 @@ export interface SecondaryKeywordMapping {
  */
 export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
   {
+    keyword: 'website builder free',
+    slug: 'website-builder-free',
+    intent: 'commercial',
+    intentLabel: 'Research Intent',
+    relevanceScore: 99,
+    targetArticleId: 'website-builders-comparison-guide-wix-wordpress-squarespace',
+    targetUrl: '/insights/website-builders-comparison-guide-wix-wordpress-squarespace',
+    targetServiceTitle: 'Website Builders Comparison Guide',
+    entityCategory: 'WebDevelopment',
+    synonyms: [
+      'free website builder',
+      'wix website builder',
+      'squarespace website builder',
+      'google sites builder',
+      'create free website'
+    ],
+    searchSnippetsDescription: 'In-depth comparison of top website builders—Wix, WordPress, Squarespace, Google Sites, GoDaddy, and Weebly—vs custom engineering.'
+  },
+  {
+    keyword: 'wix vs wordpress',
+    slug: 'wix-vs-wordpress',
+    intent: 'informational',
+    intentLabel: 'Comparison Intent',
+    relevanceScore: 98,
+    targetArticleId: 'website-builders-comparison-guide-wix-wordpress-squarespace',
+    targetUrl: '/insights/website-builders-comparison-guide-wix-wordpress-squarespace',
+    targetServiceTitle: 'Wix vs WordPress vs Custom Code',
+    entityCategory: 'SoftwareComparison',
+    synonyms: [
+      'wix or wordpress',
+      'squarespace vs wordpress',
+      'best website builder for business',
+      'weebly vs wix'
+    ],
+    searchSnippetsDescription: 'Comparing drag-and-drop website builders with CMS and custom React development for SEO, speed, and payment integration.'
+  },
+  {
     keyword: 'website development in Kenya',
     slug: 'website-development-in-kenya',
     intent: 'commercial',

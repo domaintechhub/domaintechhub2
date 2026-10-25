@@ -3,10 +3,124 @@ import {
   BookOpen, Clock, Calendar, Search, ArrowRight, ArrowLeft,
   ArrowUpRight, X, Check, Share2, Tag, Terminal,
   MessageSquare, ChevronRight, ChevronLeft, FileText,
-  Layers, BarChart2
+  Layers, BarChart2, Globe, ExternalLink, Sparkles
 } from 'lucide-react';
 import { INSIGHT_ARTICLES, INSIGHT_CATEGORIES, InsightArticle } from '../data/insightsData';
 import { AGENCY_INFO } from '../data/portfolioData';
+
+export interface WebsiteTopicResource {
+  id: string;
+  title: string;
+  url: string;
+  displayUrl: string;
+  category: 'Builder' | 'Reference' | 'E-Commerce' | 'Registrar' | 'CMS';
+  badge: string;
+  description: string;
+  keySearchTerm: string;
+}
+
+export const FEATURED_WEBSITE_TOPICS: WebsiteTopicResource[] = [
+  {
+    id: 'wix-builder',
+    title: 'Website Builder - Create a Free Website In Minutes | Wix.com',
+    url: 'https://www.wix.com/',
+    displayUrl: 'wix.com',
+    category: 'Builder',
+    badge: 'Drag-and-Drop AI Builder',
+    description: 'AI-assisted visual website creator with 900+ customizable designer templates, secure cloud hosting, and integrated app marketplace.',
+    keySearchTerm: 'Wix'
+  },
+  {
+    id: 'website-wikipedia',
+    title: 'Website - Wikipedia',
+    url: 'https://en.wikipedia.org/wiki/Website',
+    displayUrl: 'en.wikipedia.org/wiki/Website',
+    category: 'Reference',
+    badge: 'Web Architecture Reference',
+    description: 'The authoritative encyclopedia overview of website architecture, hypertext markup, hosting protocols, and server infrastructure.',
+    keySearchTerm: 'Website'
+  },
+  {
+    id: 'website-com-free',
+    title: 'Create Your Free Website | Free Website Builder | Website.com',
+    url: 'https://www.website.com/',
+    displayUrl: 'website.com',
+    category: 'Builder',
+    badge: 'Beginner Site Builder',
+    description: 'Template-driven website creator designed for entrepreneurs, portfolios, and small businesses needing quick online publishing.',
+    keySearchTerm: 'Website.com'
+  },
+  {
+    id: 'website-com-minutes',
+    title: 'Build Your Free Website In Minutes | Website.com',
+    url: 'https://www.website.com/free-websites/',
+    displayUrl: 'website.com/free-websites',
+    category: 'Builder',
+    badge: 'Quick Launch Wizard',
+    description: 'Step-by-step free website launcher with responsive layouts, domain mapping, and zero server configuration required.',
+    keySearchTerm: 'Website.com'
+  },
+  {
+    id: 'google-sites',
+    title: 'Google Sites: Website Creator and Hosting | Google Workspace',
+    url: 'https://workspace.google.com/products/sites/',
+    displayUrl: 'workspace.google.com/products/sites',
+    category: 'Reference',
+    badge: 'Google Workspace Ecosystem',
+    description: 'Zero-cost collaborative site creator for team intranets, project documentation, and internal enterprise dashboards.',
+    keySearchTerm: 'Google Sites'
+  },
+  {
+    id: 'squarespace-builder',
+    title: 'Website Builder – Easily Create Your Own Website — Squarespace',
+    url: 'https://www.squarespace.com/',
+    displayUrl: 'squarespace.com',
+    category: 'Builder',
+    badge: 'Design & Typography Studio',
+    description: 'Award-winning aesthetics, refined typographic systems, and integrated booking for creative professionals and luxury brands.',
+    keySearchTerm: 'Squarespace'
+  },
+  {
+    id: 'wix-site-builder',
+    title: 'Website Builder | Create a Free Website | Wix.com',
+    url: 'https://www.wix.com/website-builder',
+    displayUrl: 'wix.com/website-builder',
+    category: 'Builder',
+    badge: 'Complete Creation Suite',
+    description: 'Full-featured no-code website construction suite with custom animations, database collections, and e-commerce carts.',
+    keySearchTerm: 'Wix'
+  },
+  {
+    id: 'godaddy-official',
+    title: 'GoDaddy Official Site: Get a Domain & Launch Your Website',
+    url: 'https://www.godaddy.com/',
+    displayUrl: 'godaddy.com',
+    category: 'Registrar',
+    badge: 'Domain & Hosted Bundles',
+    description: 'All-in-one domain registrar and instant website launcher bundled with Microsoft 365 business email and marketing tools.',
+    keySearchTerm: 'GoDaddy'
+  },
+  {
+    id: 'wordpress-com',
+    title: 'WordPress.com: Everything You Need to Build Your Website',
+    url: 'https://wordpress.com/',
+    displayUrl: 'wordpress.com',
+    category: 'CMS',
+    badge: 'Managed Open-Web CMS',
+    description: 'The world\'s most popular CMS in a managed cloud hosting environment, powering over 40% of the entire internet.',
+    keySearchTerm: 'WordPress'
+  },
+  {
+    id: 'weebly-store',
+    title: 'Free Website Builder: Build a Free Website or Online Store | Weebly',
+    url: 'https://www.weebly.com/',
+    displayUrl: 'weebly.com',
+    category: 'E-Commerce',
+    badge: 'Square E-Commerce Engine',
+    description: 'Simple drag-and-drop store builder with native Square POS checkout, shipping management, and inventory tracking.',
+    keySearchTerm: 'Weebly'
+  }
+];
 import { InsightsGridSkeleton } from './Skeletons';
 import { 
   HIGH_PERFORMING_KEYWORDS, 
@@ -179,6 +293,25 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   const [isLoading, setIsLoading] = useState(initialLoading);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const ARTICLES_PER_PAGE = 6;
+  const [isTopicsExpanded, setIsTopicsExpanded] = useState<boolean>(true);
+  const [selectedTopicCategory, setSelectedTopicCategory] = useState<string>('all');
+
+  const displayedTopics = useMemo(() => {
+    if (selectedTopicCategory === 'all') return FEATURED_WEBSITE_TOPICS;
+    if (selectedTopicCategory === 'CMS') {
+      return FEATURED_WEBSITE_TOPICS.filter(t => t.category === 'CMS' || t.category === 'Registrar');
+    }
+    return FEATURED_WEBSITE_TOPICS.filter(t => t.category === selectedTopicCategory);
+  }, [selectedTopicCategory]);
+
+  const handleFilterByTopic = (searchTerm: string) => {
+    setSearchQuery(searchTerm);
+    setActiveCategory('All Articles');
+    setCurrentPage(1);
+    if (gridTopRef.current) {
+      gridTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const gridTopRef = useRef<HTMLDivElement>(null);
@@ -597,6 +730,147 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             {hiddenKeywords.map((kw) => (
               <span key={kw.slug}>{kw.keyword} ({kw.intent}) - {kw.targetServiceTitle}; </span>
             ))}
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* NEW TOPICS: POPULAR WEBSITE BUILDERS & PLATFORM BENCHMARKS DIRECTORY */}
+        {/* ========================================================================= */}
+        <div className="mb-10 p-5 sm:p-7 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl">
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5 pb-4 border-b border-slate-800/80">
+            <div>
+              <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-1 flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>[ RESEARCH TOPICS &amp; WEBSITE BUILDERS ]</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                Popular Website Builders, Free Creators &amp; Platform Benchmarks
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                Top search topics, free website builders, and reference documentation researched by web creators and business owners:
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsTopicsExpanded(!isTopicsExpanded)}
+                className="px-3.5 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-800"
+              >
+                <span>{isTopicsExpanded ? 'Compact View' : `View All ${FEATURED_WEBSITE_TOPICS.length} Topics`}</span>
+                <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isTopicsExpanded ? 'rotate-90' : ''}`} />
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Filter Sub-Tabs */}
+          <div className="flex flex-wrap items-center gap-2 mb-5">
+            <span className="text-xs font-mono text-slate-500 mr-1">Filter by type:</span>
+            {[
+              { label: 'All Topics (10)', key: 'all' },
+              { label: 'Drag-and-Drop Builders', key: 'Builder' },
+              { label: 'E-Commerce Storefronts', key: 'E-Commerce' },
+              { label: 'CMS & Registrars', key: 'CMS' },
+              { label: 'Web Architecture & Reference', key: 'Reference' },
+            ].map(tab => (
+              <button
+                key={tab.key}
+                type="button"
+                onClick={() => setSelectedTopicCategory(tab.key)}
+                className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                  selectedTopicCategory === tab.key
+                    ? 'bg-emerald-500/20 text-[#00e676] border border-emerald-500/40 font-semibold'
+                    : 'bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Topics Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+            {(isTopicsExpanded ? displayedTopics : displayedTopics.slice(0, 4)).map(topic => (
+              <div 
+                key={topic.id}
+                className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/90 hover:border-[#00c853]/60 hover:bg-slate-950 transition-all flex flex-col justify-between group shadow-xs"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950/90 text-[#00e676] border border-emerald-800/60 uppercase">
+                      {topic.badge}
+                    </span>
+                    <a
+                      href={topic.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-400 hover:text-[#00e676] transition-colors"
+                    >
+                      <span>{topic.displayUrl}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+
+                  <h4 className="text-sm font-bold text-white mb-1.5 group-hover:text-[#00e676] transition-colors leading-snug">
+                    <a 
+                      href={topic.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="hover:underline flex items-start justify-between gap-1"
+                    >
+                      <span>{topic.title}</span>
+                    </a>
+                  </h4>
+
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                    {topic.description}
+                  </p>
+                </div>
+
+                <div className="pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                  <button
+                    type="button"
+                    onClick={() => handleFilterByTopic(topic.keySearchTerm)}
+                    className="text-[#00e676] hover:text-emerald-300 flex items-center gap-1 font-semibold cursor-pointer"
+                  >
+                    <Search className="w-3 h-3" />
+                    <span>Filter "{topic.keySearchTerm}" Articles</span>
+                  </button>
+
+                  <a
+                    href="/insights/website-builders-comparison-guide-wix-wordpress-squarespace"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleInternalNavigate('/insights/website-builders-comparison-guide-wix-wordpress-squarespace');
+                    }}
+                    className="text-slate-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                  >
+                    <span>Read Guide</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Read comparison prompt */}
+          <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-400 font-mono">
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-[#00e676]" />
+              <span>Comparing website builders vs custom fullstack engineering?</span>
+            </div>
+            <a
+              href="/insights/website-builders-comparison-guide-wix-wordpress-squarespace"
+              onClick={(e) => {
+                e.preventDefault();
+                handleInternalNavigate('/insights/website-builders-comparison-guide-wix-wordpress-squarespace');
+              }}
+              className="text-[#00e676] hover:text-emerald-300 font-bold underline flex items-center gap-1"
+            >
+              <span>Read our 2026 Website Builders Comparison Guide</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
         </>
