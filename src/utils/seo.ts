@@ -565,15 +565,9 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       canonicalPath: '/tools/calculator',
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'WebApplication',
+        '@type': 'WebPage',
         name: 'Project Cost & Scope Calculator',
-        applicationCategory: 'FinancialApplication',
-        operatingSystem: 'All',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-        },
+        description: 'Free interactive estimator for web and software project cost and timeline in USD and KES.',
       },
     };
   },
@@ -643,36 +637,19 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     canonicalPath: '/roadmap',
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'HowTo',
+      '@type': 'WebPage',
       name: 'Domain Tech Hub 4 to 8 Week Agile Delivery Process',
       description: 'A 5-stage sprint methodology with milestone gates, live staging previews, and 30-day post-launch warranty.',
-      step: [
-        {
-          '@type': 'HowToStep',
-          name: 'Stage 1: Discovery, Technical Scoping & Architecture',
-          text: 'Technical requirements specification, database entity models, and API integration mapping.'
-        },
-        {
-          '@type': 'HowToStep',
-          name: 'Stage 2: High-Fidelity UI/UX & Interactive Design Tokens',
-          text: 'Component design tokens, interactive prototypes, and typography styling.'
-        },
-        {
-          '@type': 'HowToStep',
-          name: 'Stage 3: Fullstack Engineering & Third-Party Integration',
-          text: 'React/Next.js frontend, backend APIs, Safaricom Daraja STK Push, and test suites.'
-        },
-        {
-          '@type': 'HowToStep',
-          name: 'Stage 4: Quality Assurance, Security Hardening & UAT',
-          text: 'Core Web Vitals tuning, penetration testing, and client sign-off.'
-        },
-        {
-          '@type': 'HowToStep',
-          name: 'Stage 5: Production Deployment, DNS Cutover & Warranty',
-          text: 'Zero-downtime deployment, DNS cutover, Google indexing, and 30-day bug warranty.'
-        }
-      ]
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Stage 1: Discovery, Technical Scoping & Architecture' },
+          { '@type': 'ListItem', position: 2, name: 'Stage 2: High-Fidelity UI/UX & Interactive Design Tokens' },
+          { '@type': 'ListItem', position: 3, name: 'Stage 3: Fullstack Engineering & Third-Party Integration' },
+          { '@type': 'ListItem', position: 4, name: 'Stage 4: Quality Assurance, Security Hardening & UAT' },
+          { '@type': 'ListItem', position: 5, name: 'Stage 5: Production Deployment, DNS Cutover & Warranty' },
+        ],
+      },
     },
   }),
 
