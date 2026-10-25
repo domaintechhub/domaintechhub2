@@ -93,7 +93,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         fullName: name.trim(),
         email: '',
         phone: phone.trim(),
-        serviceOrItem: 'Web Development & M-Pesa Integration (Free Quote)',
+        serviceOrItem: 'AI Solutions, Web Design & Digital Marketing (Free Quote)',
         notes: 'Submitted via Hero inline form on domaintechhubs.com',
       });
     } catch (err) {
@@ -128,24 +128,24 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             {/* LEFT COLUMN */}
             <div className="flex flex-col items-start max-w-xl min-[900px]:max-w-none">
               
-              {/* 1. H1, three lines, 800 weight, tight letter spacing, size clamp(34px, 4.6vw, 60px) */}
+              {/* 1. H1, three lines, 800 weight, tight letter spacing, size clamp */}
               <h1
-                className="font-extrabold text-[#0F2A20] tracking-tight leading-[1.08] mb-5 text-[clamp(28px,6vw,38px)] sm:text-[clamp(34px,4.6vw,60px)]"
+                className="font-extrabold text-[#0F2A20] tracking-tight leading-[1.12] mb-5 text-[clamp(28px,5.5vw,36px)] sm:text-[clamp(34px,4.4vw,56px)]"
               >
                 <span className="block hero-h1-line-1">
-                  Web Development &amp;
+                  AI Solutions,
                 </span>
                 <span className="block hero-h1-line-2 text-[#12A150]">
-                  M-Pesa Integration
+                  Web Design &amp; Digital Marketing
                 </span>
                 <span className="block hero-h1-line-3">
-                  in Nairobi, Kenya
+                  That Grow Your Business
                 </span>
               </h1>
 
               {/* 2. Subtitle (muted, ~20px) */}
-              <p className="hero-subtitle text-[#506259] text-base sm:text-lg lg:text-[20px] leading-relaxed mb-8 max-w-lg">
-                We build fast websites, M-Pesa checkout and KRA-ready business systems for Kenyan companies. Free quote within 24 hours.
+              <p className="hero-subtitle text-[#506259] text-base sm:text-lg lg:text-[20px] leading-relaxed mb-8 max-w-xl">
+                We help Kenyan businesses attract more customers, build a strong online presence, and save time through modern websites, AI-powered solutions, and results-driven digital marketing.
               </p>
 
               {/* 3. Inline quote form */}

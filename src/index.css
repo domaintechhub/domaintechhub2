@@ -402,6 +402,19 @@ html:not(.dark) [class*="from-[#00c853]"] h2,
 html:not(.dark) [class*="from-[#00c853]"] h3,
 html:not(.dark) [class*="from-[#00c853]"] p,
 html:not(.dark) [class*="from-[#00c853]"] span,
+html:not(.dark) .green-showcase-section,
+html:not(.dark) .green-showcase-section h1,
+html:not(.dark) .green-showcase-section h2,
+html:not(.dark) .green-showcase-section h3,
+html:not(.dark) .green-showcase-section p,
+html:not(.dark) .green-showcase-section li,
+html:not(.dark) .green-showcase-section span,
+html:not(.dark) .green-packages-section,
+html:not(.dark) .green-packages-section h1,
+html:not(.dark) .green-packages-section h2,
+html:not(.dark) .green-packages-section h3,
+html:not(.dark) .green-packages-section p,
+html:not(.dark) .green-packages-section span,
 html:not(.dark) .\!text-white,
 html:not(.dark) .\!text-white *,
 html:not(.dark) [class*="bg-[#25D366]"],
@@ -409,16 +422,22 @@ html:not(.dark) [class*="bg-[#25D366]"] * {
   color: #ffffff !important;
 }
 
-/* White cards (e.g. the home quote form) sit inside green gradient sections whose
-   rule above forces white text; restore dark text inside the card. */
+/* White cards sitting inside green sections: ensure text inside the white card is dark */
 html:not(.dark) [class*="from-[#00c853]"] .bg-white,
-html:not(.dark) [class*="from-[#00c853]"] .bg-white * {
+html:not(.dark) [class*="from-[#00c853]"] .bg-white *,
+html:not(.dark) .green-showcase-section .bg-white,
+html:not(.dark) .green-showcase-section .bg-white *,
+html:not(.dark) .green-packages-section .bg-white,
+html:not(.dark) .green-packages-section .bg-white * {
   color: #0f172a !important;
 }
 
 html:not(.dark) [class*="from-[#00c853]"] .bg-white [class*="bg-[#00c853]"],
 html:not(.dark) [class*="from-[#00c853]"] .bg-white [class*="bg-[#00c853]"] *,
-html:not(.dark) [class*="from-[#00c853]"] .bg-white .\!text-white {
+html:not(.dark) .green-packages-section .bg-white [class*="bg-[#00c853]"],
+html:not(.dark) .green-packages-section .bg-white [class*="bg-[#00c853]"] *,
+html:not(.dark) [class*="from-[#00c853]"] .bg-white .\!text-white,
+html:not(.dark) .green-packages-section .bg-white .\!text-white {
   color: #ffffff !important;
 }
 
