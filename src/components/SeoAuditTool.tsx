@@ -46,8 +46,7 @@ export const SeoAuditTool: React.FC<SeoAuditToolProps> = ({ onFixWithAgency }) =
 
     let rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
     if (!rawInput) {
-      rawInput = 'https://www.domaintechhubs.com';
-      setUrlInput(rawInput);
+      return;
     }
 
     // Check if it's a real link or just words posted: if not a real link, do nothing!

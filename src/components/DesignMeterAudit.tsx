@@ -55,7 +55,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 }) => {
   const urlInputId = useId();
 
-  const [urlInput, setUrlInput] = useState('https://www.domaintechhubs.com');
+  const [urlInput, setUrlInput] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [activeStage, setActiveStage] = useState<number>(0); // 1, 2, 3, 4
   const [stageProgress, setStageProgress] = useState<number[]>([0, 0, 0, 0]);
@@ -268,8 +268,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
 
     let rawInput = (typeof overrideUrl === 'string' ? overrideUrl : urlInput).trim();
     if (!rawInput) {
-      rawInput = 'https://www.domaintechhubs.com';
-      setUrlInput(rawInput);
+      return;
     }
 
     // Check if it's a real link or just words posted: if not a real link, do nothing!
@@ -458,9 +457,10 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                   <input
                     id={urlInputId}
                     type="text"
+                    required
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
-                    placeholder="https://www.domaintechhubs.com"
+                    placeholder="Paste your website URL (e.g. https://yourbusiness.co.ke)"
                     disabled={isScanning}
                     className={`w-full pl-10 pr-4 py-3.5 text-sm rounded-2xl bg-stone-50 dark:bg-slate-950/80 border text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none transition-all shadow-inner ${
                       urlInput.trim() && !isValidWebUrl(urlInput.trim())
