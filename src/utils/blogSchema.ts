@@ -104,7 +104,6 @@ export function generateBlogSchema(
     datePublished: publishedIso,
     dateModified: publishedIso,
     timeRequired: readingTimeIso,
-    readTime: article.readTime,
     wordCount,
     inLanguage: 'en-US',
     articleSection: article.category,
