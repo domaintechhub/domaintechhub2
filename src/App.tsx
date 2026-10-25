@@ -208,7 +208,7 @@ export default function App() {
     } else if (target === 'calculator') {
       targetPage = 'tools';
       targetSub = 'calculator';
-    } else if (target === 'design-audit' || target === 'designmeter' || target === 'ux-audit') {
+    } else if (target === 'design-audit' || target === 'designmeter' || target === 'domainmeter' || target === 'domain-meter' || target === 'ux-audit') {
       targetPage = 'tools';
       targetSub = 'design-audit';
     } else if (target === 'audit') {
@@ -296,7 +296,7 @@ export default function App() {
 
   const handleFixDesignAuditWithAgency = (domain: string, fixCount: number, topRisk?: string) => {
     setPrefilledService('UI/UX Product Redesign & Conversion Optimization');
-    setPrefilledNotes(`I ran a DesignMeter UI/UX audit for ${domain} and found ${fixCount} prioritized fixes (Top Risk: ${topRisk || 'User journey & conversion drop-off'}). I would like Domain Tech Hub to implement these fixes.`);
+    setPrefilledNotes(`I ran a Domain Meter UI/UX audit for ${domain} and found ${fixCount} prioritized fixes (Top Risk: ${topRisk || 'User journey & conversion drop-off'}). I would like Domain Tech Hub to implement these fixes.`);
     navigateTo('contact');
   };
 

@@ -506,13 +506,13 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   tools: (subTab?: ToolTab) => {
     if (subTab === 'design-audit') {
       return {
-        title: 'DesignMeter UI/UX Audit & Prioritized Fix List | Domain Tech Hub',
+        title: 'Domain Meter UI/UX Audit & Prioritized Fix List | Domain Tech Hub',
         description: 'See how your website performs: scan your UI, UX, user journey, and gamification to receive an instant score and prioritized fix list.',
         canonicalPath: '/tools/design-audit',
         jsonLd: {
           '@context': 'https://schema.org',
           '@type': 'WebApplication',
-          name: 'DesignMeter UI/UX & Website Fix List Scanner',
+          name: 'Domain Meter UI/UX & Website Fix List Scanner',
           applicationCategory: 'DesignApplication',
           operatingSystem: 'All',
           offers: {

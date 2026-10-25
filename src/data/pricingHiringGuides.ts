@@ -223,7 +223,7 @@ export const PRICING_HIRING_GUIDES: InsightArticle[] = [
       },
       {
         heading: 'Step 2: Inspect Technical Foundations with Google Tools',
-        body: `Run their portfolio sites through Google PageSpeed Insights and our free [DesignMeter & SEO Audit Tool](/tools/design-audit). If their showcase websites score 28/100 on mobile performance, your website will suffer the same fate.`
+        body: `Run their portfolio sites through Google PageSpeed Insights and our free [Domain Meter & SEO Audit Tool](/tools/design-audit). If their showcase websites score 28/100 on mobile performance, your website will suffer the same fate.`
       },
       {
         heading: 'Step 3: Insist on Milestone-Based Contracts',

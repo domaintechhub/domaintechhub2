@@ -285,12 +285,12 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
     // Dispatch lead record
     saveLead({
       source: 'audit',
-      sourceTitle: 'DesignMeter UI/UX Audit',
+      sourceTitle: 'Domain Meter UI/UX Audit',
       fullName: 'Website Visitor',
       email: '',
       phone: 'Via Audit Scanner',
       serviceOrItem: `UI/UX Audit: ${cleanUrl}`,
-      notes: `User submitted ${cleanUrl} for full DesignMeter UI/UX, User Journey and Fix List analysis.`,
+      notes: `User submitted ${cleanUrl} for full Domain Meter UI/UX, User Journey and Fix List analysis.`,
     });
 
     // Increment website scan counter
@@ -549,7 +549,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
               {scannedWebsitesCount.toLocaleString()}
             </div>
             <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              founders and teams who&apos;ve audited their site with DesignMeter
+              founders and teams who&apos;ve audited their site with Domain Meter
             </div>
           </div>
         </div>
@@ -714,7 +714,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                   onClick={() => {
                     sendToWhatsApp({
                       source: 'audit',
-                      sourceTitle: 'DesignMeter UI/UX Audit',
+                      sourceTitle: 'Domain Meter UI/UX Audit',
                       serviceOrItem: `UI/UX Audit for ${scanResult.url}`,
                       notes: `Audit Score: ${scanResult.overallScore}/100 (Grade: ${scanResult.grade}). Top Risk: ${scanResult.topRisk}. Found ${scanResult.fixes.length} prioritized fixes.`,
                     });
@@ -1031,7 +1031,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                 Workflow
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-                How DesignMeter Works
+                How Domain Meter Works
               </h2>
             </div>
 
@@ -1043,7 +1043,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                   icon: Globe,
                 },
                 {
-                  step: '2. DesignMeter Analyzes Your Site',
+                  step: '2. Domain Meter Analyzes Your Site',
                   desc: 'We review your UI, UX, user journey, and engagement and flag what&apos;s most likely to hurt performance.',
                   icon: Sparkles,
                 },

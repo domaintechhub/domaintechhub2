@@ -86,14 +86,14 @@ export function parseAppRoute(path: string): AppRoute {
 
   if (first === 'tools') {
     if (!second) return { page: 'tools', subTab: 'calculator' };
-    if (second === 'designmeter' || second === 'ux-audit' || second === 'design-audit') {
+    if (second === 'designmeter' || second === 'domainmeter' || second === 'domain-meter' || second === 'ux-audit' || second === 'design-audit') {
       return { page: 'tools', subTab: 'design-audit' };
     }
     if (TOOL_TABS.includes(second)) return { page: 'tools', subTab: second };
     return { page: 'not-found' };
   }
 
-  if (first === 'design-audit' || first === 'designmeter' || first === 'ux-audit') {
+  if (first === 'design-audit' || first === 'designmeter' || first === 'domainmeter' || first === 'domain-meter' || first === 'ux-audit') {
     return { page: 'tools', subTab: 'design-audit' };
   }
 

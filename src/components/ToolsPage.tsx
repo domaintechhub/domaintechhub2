@@ -59,8 +59,8 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
     },
     {
       id: 'design-audit' as ToolTab,
-      label: 'DesignMeter UI/UX & Fix List Scanner',
-      shortLabel: 'UI/UX Fix Scanner',
+      label: 'Domain Meter UI/UX & Fix List Scanner',
+      shortLabel: 'Domain Meter',
       icon: Sparkles,
       description: 'Review UI, UX, user journey, and gamification with an AI-powered prioritized fix list.'
     },

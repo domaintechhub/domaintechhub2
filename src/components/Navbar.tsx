@@ -419,7 +419,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                         </div>
                         <div>
                           <div className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-300 transition-colors flex items-center gap-1.5">
-                            <span>DesignMeter UI/UX Audit</span>
+                            <span>Domain Meter UI/UX Audit</span>
                             <span className="text-[9px] font-mono text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/80 px-1 py-0.2 rounded border border-orange-200">AI SCAN</span>
                           </div>
                           <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
@@ -741,7 +741,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                   {[
                     { id: 'services', label: t('nav.services'), subtitle: 'Web Development, E-Commerce, SEO & Apps', icon: Globe, active: isServicesActive },
                     { id: 'about', label: t('nav.about'), subtitle: 'Nairobi Office, Mission & Track Record', icon: Award, active: isAboutActive },
-                    { id: 'tools', label: t('nav.tools'), subtitle: 'Cost Estimator, DesignMeter UI/UX & SEO Audit', icon: Calculator, active: isToolsActive },
+                    { id: 'tools', label: t('nav.tools'), subtitle: 'Cost Estimator, Domain Meter UI/UX & SEO Audit', icon: Calculator, active: isToolsActive },
                     { id: 'portfolio', label: t('nav.projects'), subtitle: 'Client Case Studies & Verified Results', icon: FolderGit2, active: isPortfolioActive },
                     { id: 'contact', label: t('nav.contact'), subtitle: 'Direct Phone, Email & Nairobi Office', icon: PhoneCall, active: isContactActive }
                   ].map((item) => {

@@ -243,7 +243,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
       'Professional monthly SEO retainers in Kenya range between KSh 25,000 and KSh 85,000/month for active ranking campaigns.',
       'Unlike Google Ads where traffic stops the second your daily ad budget ends, SEO creates compounding organic traffic that lasts for years.',
       'Realistic organic ranking in competitive Kenyan niches requires 3 to 6 months of steady technical fixes, content, and citations.',
-      'Run a free audit with our DesignMeter & SEO tool to uncover immediate indexing and performance issues.'
+      'Run a free audit with our Domain Meter & SEO tool to uncover immediate indexing and performance issues.'
     ],
     contentSections: [
       {
