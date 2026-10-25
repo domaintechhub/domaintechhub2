@@ -986,64 +986,72 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
           <div className="space-y-4">
             
             {/* Q1 */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs transition-colors">
               <button 
+                type="button"
                 onClick={() => toggleFaq(1)}
-                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer"
+                aria-expanded={openFaqIndex === 1}
+                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer select-none"
               >
                 <span>How much does a website cost?</span>
-                {openFaqIndex === 1 ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${openFaqIndex === 1 ? 'rotate-180 text-teal-600' : ''}`} />
               </button>
-              {(openFaqIndex === 1 || openFaqIndex === null) && (
-                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              {openFaqIndex === 1 && (
+                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed animate-in fade-in duration-200">
                   Sites start at KSh 35,000. You get a fixed quote within 48 hours.
                 </p>
               )}
             </div>
 
             {/* Q2 */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs transition-colors">
               <button 
+                type="button"
                 onClick={() => toggleFaq(2)}
-                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer"
+                aria-expanded={openFaqIndex === 2}
+                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer select-none"
               >
                 <span>Do I own the code?</span>
-                {openFaqIndex === 2 ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${openFaqIndex === 2 ? 'rotate-180 text-teal-600' : ''}`} />
               </button>
-              {(openFaqIndex === 2 || openFaqIndex === null) && (
-                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              {openFaqIndex === 2 && (
+                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed animate-in fade-in duration-200">
                   Yes. Full source code ownership is included in every project.
                 </p>
               )}
             </div>
 
             {/* Q3 */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs transition-colors">
               <button 
+                type="button"
                 onClick={() => toggleFaq(3)}
-                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer"
+                aria-expanded={openFaqIndex === 3}
+                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer select-none"
               >
                 <span>Can I pay in instalments?</span>
-                {openFaqIndex === 3 ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${openFaqIndex === 3 ? 'rotate-180 text-teal-600' : ''}`} />
               </button>
-              {(openFaqIndex === 3 || openFaqIndex === null) && (
-                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              {openFaqIndex === 3 && (
+                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed animate-in fade-in duration-200">
                   Yes. We work on standard milestone payments: 40% initial deposit, 30% after design &amp; staging sign-off, and 30% upon final live deployment.
                 </p>
               )}
             </div>
 
             {/* Q4 */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#f7fcf9] dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xs transition-colors">
               <button 
+                type="button"
                 onClick={() => toggleFaq(4)}
-                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer"
+                aria-expanded={openFaqIndex === 4}
+                className="w-full text-left flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-slate-900 dark:text-white cursor-pointer select-none"
               >
                 <span>Do you offer maintenance after launch?</span>
-                {openFaqIndex === 4 ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${openFaqIndex === 4 ? 'rotate-180 text-teal-600' : ''}`} />
               </button>
-              {(openFaqIndex === 4 || openFaqIndex === null) && (
-                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              {openFaqIndex === 4 && (
+                <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed animate-in fade-in duration-200">
                   30 days of support is included, then monthly plans are available.
                 </p>
               )}
