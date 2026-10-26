@@ -344,7 +344,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     toastVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
                   }`}
                 >
-                  <span className="w-2 h-2 rounded-full bg-[#12A150] animate-pulse shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#12A150] shrink-0" />
                   <span>{TOAST_MESSAGES[toastIndex]}</span>
                 </div>
               </div>

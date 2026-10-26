@@ -937,3 +937,33 @@ html.dark .logo-skeleton-pulse {
     animation-duration: 90s;
   }
 }
+
+/* AI Quick Answer Section - High-contrast visibility on signature green background */
+.ai-quick-answer,
+html:not(.dark) .ai-quick-answer {
+  background: linear-gradient(135deg, #032415 0%, #073d24 50%, #042818 100%) !important;
+  border-color: #00c853 !important;
+  color: #ffffff !important;
+}
+
+.ai-quick-answer h2,
+.ai-quick-answer .ai-title,
+html:not(.dark) .ai-quick-answer h2,
+html:not(.dark) .ai-quick-answer .ai-title {
+  color: #00e676 !important;
+}
+
+.ai-quick-answer .ai-excerpt,
+html:not(.dark) .ai-quick-answer .ai-excerpt {
+  color: #ffffff !important;
+}
+
+.ai-quick-answer .ai-footer-text,
+html:not(.dark) .ai-quick-answer .ai-footer-text {
+  color: #d1fae5 !important;
+}
+
+.ai-quick-answer .ai-verifier,
+html:not(.dark) .ai-quick-answer .ai-verifier {
+  color: #a7f3d0 !important;
+}

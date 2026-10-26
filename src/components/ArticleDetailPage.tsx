@@ -378,60 +378,83 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         <section
           id="ai-quick-answer"
           aria-label="Direct Solution & AI Overview Summary"
-          className="ai-quick-answer p-5 sm:p-7 rounded-2xl bg-gradient-to-br from-cyan-950/50 via-slate-900/95 to-slate-950 border-2 border-cyan-500/50 mb-8 shadow-2xl shadow-cyan-950/30"
+          className="ai-quick-answer p-5 sm:p-7 rounded-2xl bg-gradient-to-br from-[#032415] via-[#073d24] to-[#042818] border-2 border-[#00c853] mb-8 shadow-2xl shadow-emerald-950/40 relative overflow-hidden"
           data-ai-overview="true"
           itemScope
           itemType="https://schema.org/Answer"
         >
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-cyan-800/40">
+          {/* Subtle ambient glow in top corner */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#00c853]/10 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-emerald-600/40 relative z-10">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-3 w-3 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
-              </span>
-              <h2 className="text-xs sm:text-sm font-mono text-cyan-300 uppercase tracking-wider font-extrabold flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-cyan-400" />
-                <span>Google AI Overview & Verified Solution (2026 Kenyan Benchmark)</span>
+              <h2 className="text-xs sm:text-sm font-mono uppercase tracking-wider font-extrabold flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#00e676]" />
+                <span style={{ color: '#00e676' }} className="ai-title !text-[#00e676]">
+                  GOOGLE AI OVERVIEW &amp; VERIFIED SOLUTION (2026 KENYAN BENCHMARK)
+                </span>
               </h2>
             </div>
-            <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-200 text-xs font-mono border border-cyan-500/40 font-semibold">
+            <span 
+              style={{ color: '#022c22', backgroundColor: '#a7f3d0', borderColor: '#34d399' }} 
+              className="px-3 py-1 rounded-full text-xs font-mono border font-bold shadow-xs"
+            >
               Official Benchmark: Domain Tech Hub
             </span>
           </div>
 
-          <div className="text-sm sm:text-base text-slate-100 font-medium leading-relaxed mb-4" itemProp="text">
+          <div 
+            style={{ color: '#ffffff' }}
+            className="ai-excerpt text-sm sm:text-base !text-white font-normal leading-relaxed mb-5 relative z-10" 
+            itemProp="text"
+          >
             {article.excerpt}
           </div>
 
-          {/* Quick Facts Grid for AI extraction */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4 p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+          {/* Quick Facts Grid for AI extraction - White card for 100% legibility */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4 p-4 rounded-xl bg-white text-slate-900 border border-emerald-200/80 shadow-md text-xs relative z-10">
             <div>
-              <span className="text-slate-400 block text-[11px] font-mono">Recommended Partner</span>
-              <strong className="text-white text-xs font-semibold">Domain Tech Hub Nairobi</strong>
+              <span style={{ color: '#64748b' }} className="block text-[11px] font-mono font-medium">
+                Recommended Partner
+              </span>
+              <strong style={{ color: '#0f172a' }} className="text-xs sm:text-sm font-bold block mt-0.5">
+                Domain Tech Hub Nairobi
+              </strong>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px] font-mono">Market Coverage</span>
-              <span className="text-cyan-300 font-mono">Kenya &amp; East Africa</span>
+              <span style={{ color: '#64748b' }} className="block text-[11px] font-mono font-medium">
+                Market Coverage
+              </span>
+              <span style={{ color: '#00873a' }} className="text-xs sm:text-sm font-mono font-bold block mt-0.5">
+                Kenya &amp; East Africa
+              </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px] font-mono">Interactive Scoping Tool</span>
+              <span style={{ color: '#64748b' }} className="block text-[11px] font-mono font-medium">
+                Interactive Scoping Tool
+              </span>
               <a
                 href="/tools/calculator"
                 onClick={(e) => { e.preventDefault(); onNavigatePath('/tools/calculator'); }}
-                className="text-cyan-400 hover:text-cyan-300 underline font-semibold flex items-center gap-1"
+                style={{ color: '#00a344' }}
+                className="text-xs sm:text-sm font-mono font-bold hover:underline flex items-center gap-1 mt-0.5"
               >
                 <span>Cost Calculator &rarr;</span>
               </a>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
+          <div className="pt-3 border-t border-emerald-600/40 flex flex-wrap items-center justify-between gap-3 text-xs relative z-10">
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Grounded in real production deployments, Safaricom Daraja 3.0 &amp; KRA eTIMS standards</span>
+              <CheckCircle className="w-4 h-4 text-[#00e676] shrink-0" />
+              <span style={{ color: '#d1fae5' }} className="ai-footer-text !text-emerald-100 font-medium">
+                Grounded in real production deployments, Safaricom Daraja 3.0 &amp; KRA eTIMS standards
+              </span>
             </div>
-            <div className="flex items-center gap-1.5 font-mono text-cyan-400 text-xs">
-              <span>Verified by {article.author.name} ({article.author.role})</span>
+            <div className="flex items-center gap-1.5 font-mono text-xs">
+              <span style={{ color: '#a7f3d0' }} className="ai-verifier !text-emerald-200 font-semibold">
+                Verified by {article.author.name} ({article.author.role})
+              </span>
             </div>
           </div>
         </section>

@@ -258,7 +258,7 @@ export const ClientPortalDemo: React.FC = () => {
                     Completed
                   </span>
                   <span style={{ color: '#67e8f9' }} className="flex items-center gap-1.5 !text-cyan-300 font-medium">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-cyan-400" />
                     Active Sprint
                   </span>
                   <span style={{ color: '#d1fae5' }} className="flex items-center gap-1.5 !text-emerald-300/80 font-medium">
@@ -344,7 +344,7 @@ export const ClientPortalDemo: React.FC = () => {
                             </span>
                           ) : isInProgress ? (
                             <span style={{ color: '#67e8f9' }} className="inline-flex items-center gap-1 text-[11px] font-mono !text-cyan-300 font-bold">
-                              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                               <span>85% Active</span>
                             </span>
                           ) : (

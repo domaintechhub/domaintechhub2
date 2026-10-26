@@ -216,7 +216,7 @@ export const FirstVisitModal: React.FC<FirstVisitModalProps> = ({
               <span>Karibu · First-Scroll Perk</span>
             </span>
             <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               <span>Only 3 client vouchers left for this week</span>
             </div>
           </div>

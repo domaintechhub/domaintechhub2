@@ -245,10 +245,7 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
             <div className="rounded-2xl border border-slate-800 bg-slate-900/90 overflow-hidden shadow-xl">
               <div className="px-4 py-3 border-b border-slate-800/80 flex items-center justify-between gap-2 bg-slate-900/50">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="relative flex h-2 w-2 shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
                   <span className="text-xs font-semibold text-white truncate">Studio Location</span>
                   <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">· Westlands, Nairobi</span>
                 </div>

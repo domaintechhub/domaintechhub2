@@ -174,7 +174,6 @@ export const ClientProjectsSlider: React.FC<ClientProjectsSliderProps> = ({ onSe
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-5 sm:gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/80 mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#00c853] animate-pulse" />
               <span className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider">
                 [ 07 / REAL CLIENT WEBSITES ]
               </span>
