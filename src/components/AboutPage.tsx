@@ -303,38 +303,44 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         </div>
       </section>
 
-      {/* 7. Bottom Action CTA */}
+      {/* 7. Bottom Action CTA (Homepage Green) */}
       <section className="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white border border-slate-800 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 text-center lg:text-left max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider font-bold">
-              <Sparkles className="w-4 h-4" />
-              <span>PARTNER WITH NAIROBI'S PREMIER ENGINEERING STUDIO</span>
+        <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-[#032415] via-[#073d24] to-[#042818] text-white border border-emerald-800/60 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          {/* Subtle decorative emerald ambient glow */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#00c853]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-10 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="space-y-3 text-center lg:text-left max-w-2xl relative z-10">
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase">
+              <Sparkles className="w-4 h-4 text-[#00e676]" />
+              <span style={{ color: '#00e676' }} className="!text-[#00e676]">PARTNER WITH NAIROBI'S PREMIER ENGINEERING STUDIO</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+            <h3 style={{ color: '#ffffff' }} className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight !text-white leading-tight">
               Ready to Discuss Your Next Milestone?
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+            <p style={{ color: '#d1fae5' }} className="text-sm sm:text-base !text-emerald-100 leading-relaxed font-normal">
               Book a 30-minute discovery call directly with our technical leads to scope your web platform, e-commerce store, or custom CRM.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto relative z-10">
             <button
               onClick={onNavigateToContact}
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+              style={{ color: '#ffffff', backgroundColor: '#00c853', borderColor: '#00e676' }}
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#00c853] hover:bg-[#00b34a] border-2 border-[#00e676] !text-white font-bold text-xs tracking-wide shadow-lg shadow-[#00c853]/35 transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap active:scale-[0.98]"
             >
-              <span>Book Discovery Session</span>
-              <ArrowRight className="w-4 h-4" />
+              <span style={{ color: '#ffffff' }} className="!text-white">Book Discovery Session</span>
+              <ArrowRight className="w-4 h-4 !text-white" />
             </button>
             <a
               href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=Hello%20Domain%20Tech%20Hub,%20I'd%20like%20to%20learn%20more%20about%20your%20agency.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-7 py-4 rounded-full border border-slate-700 hover:bg-slate-800 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+              style={{ color: '#ffffff' }}
+              className="w-full sm:w-auto px-7 py-4 rounded-full border-2 border-white/40 hover:border-white hover:bg-white/10 !text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-400" />
-              <span>Chat via WhatsApp</span>
+              <MessageSquare className="w-4 h-4 text-[#00e676]" />
+              <span style={{ color: '#ffffff' }} className="!text-white">Chat via WhatsApp</span>
             </a>
           </div>
         </div>

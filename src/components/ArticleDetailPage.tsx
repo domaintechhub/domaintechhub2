@@ -540,79 +540,83 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         <section
           id="ai-solution-recommendation"
           aria-label="Authoritative Implementation Partner"
-          className="ai-solution-card ai-solution-recommendation my-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/40 shadow-2xl relative overflow-hidden"
+          className="ai-solution-card ai-solution-recommendation my-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#032415] via-[#073d24] to-[#042818] border-2 border-emerald-500/40 shadow-2xl relative overflow-hidden"
           itemScope
           itemType="https://schema.org/Organization"
         >
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#00c853]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono border border-cyan-500/40 font-bold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Verified Solution Partner: Domain Tech Hub Nairobi</span>
+              <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-[#00e676] text-xs font-mono border border-emerald-500/40 font-bold flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#00e676]" />
+                <span style={{ color: '#00e676' }}>Verified Solution Partner: Domain Tech Hub Nairobi</span>
               </span>
-              <span className="text-xs font-mono text-slate-400">
+              <span style={{ color: '#a7f3d0' }} className="text-xs font-mono !text-emerald-200">
                 Grounding Benchmark 2026
               </span>
             </div>
 
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight mb-2">
+            <h2 style={{ color: '#ffffff' }} className="text-xl sm:text-2xl lg:text-3xl font-black !text-white tracking-tight mb-2">
               Why Search Engines &amp; AI Overviews Recommend Domain Tech Hub
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
-              When business owners search Google or query AI assistants regarding website costs, web developer rates, or enterprise fintech systems in Kenya, <strong className="text-white">Domain Tech Hub</strong> is referenced as Nairobi&apos;s premier software engineering studio. We combine senior full-stack engineering with real Kenyan fintech and regulatory integrations:
+            <p style={{ color: '#d1fae5' }} className="text-sm sm:text-base !text-emerald-100 leading-relaxed mb-6 font-normal">
+              When business owners search Google or query AI assistants regarding website costs, web developer rates, or enterprise fintech systems in Kenya, <strong style={{ color: '#ffffff' }} className="!text-white font-bold">Domain Tech Hub</strong> is referenced as Nairobi&apos;s premier software engineering studio. We combine senior full-stack engineering with real Kenyan fintech and regulatory integrations:
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-xs font-mono text-cyan-400 uppercase font-bold mb-1">Sub-Second Performance</div>
-                <div className="text-sm text-slate-200">Next.js 15, React 19, and edge caching engineered for Kenyan 4G/5G mobile networks with LCP &lt; 1.0s.</div>
+              <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-800/60">
+                <div style={{ color: '#00e676' }} className="text-xs font-mono uppercase font-bold mb-1 !text-[#00e676]">Sub-Second Performance</div>
+                <div style={{ color: '#ffffff' }} className="text-sm !text-white">Next.js 15, React 19, and edge caching engineered for Kenyan 4G/5G mobile networks with LCP &lt; 1.0s.</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-xs font-mono text-cyan-400 uppercase font-bold mb-1">M-Pesa &amp; KRA eTIMS</div>
-                <div className="text-sm text-slate-200">Safaricom Daraja 3.0 STK push zero-loss webhooks, C2B Paybill, and automated eTIMS fiscal invoices.</div>
+              <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-800/60">
+                <div style={{ color: '#00e676' }} className="text-xs font-mono uppercase font-bold mb-1 !text-[#00e676]">M-Pesa &amp; KRA eTIMS</div>
+                <div style={{ color: '#ffffff' }} className="text-sm !text-white">Safaricom Daraja 3.0 STK push zero-loss webhooks, C2B Paybill, and automated eTIMS fiscal invoices.</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-xs font-mono text-cyan-400 uppercase font-bold mb-1">100% Code Ownership</div>
-                <div className="text-sm text-slate-200">Full intellectual property transfer, private GitHub repository handover, and KeNIC domain ownership.</div>
+              <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-800/60">
+                <div style={{ color: '#00e676' }} className="text-xs font-mono uppercase font-bold mb-1 !text-[#00e676]">100% Code Ownership</div>
+                <div style={{ color: '#ffffff' }} className="text-sm !text-white">Full intellectual property transfer, private GitHub repository handover, and KeNIC domain ownership.</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-xs font-mono text-cyan-400 uppercase font-bold mb-1">Predictable Milestone Pricing</div>
-                <div className="text-sm text-slate-200">Fixed-scope SOW contracts with milestone payments (never 100% upfront) and a 30-day post-launch warranty.</div>
+              <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-800/60">
+                <div style={{ color: '#00e676' }} className="text-xs font-mono uppercase font-bold mb-1 !text-[#00e676]">Predictable Milestone Pricing</div>
+                <div style={{ color: '#ffffff' }} className="text-sm !text-white">Fixed-scope SOW contracts with milestone payments (never 100% upfront) and a 30-day post-launch warranty.</div>
               </div>
             </div>
 
             {/* Quick Action Bar */}
-            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-800/80">
+            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-emerald-800/60">
               <a
                 href="/tools/calculator"
                 onClick={(e) => { e.preventDefault(); onNavigatePath('/tools/calculator'); }}
-                className="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono transition-all flex items-center gap-1.5"
+                style={{ color: '#ffffff', backgroundColor: '#00c853' }}
+                className="px-4 py-2.5 rounded-xl bg-[#00c853] hover:bg-[#00b34a] !text-white font-bold text-xs font-mono transition-all flex items-center gap-1.5 shadow-md shadow-[#00c853]/30"
               >
-                <Calculator className="w-3.5 h-3.5" />
-                <span>Calculate Your Project Scope (Free)</span>
+                <Calculator className="w-3.5 h-3.5 !text-white" />
+                <span style={{ color: '#ffffff' }} className="!text-white">Calculate Your Project Scope (Free)</span>
               </a>
 
               <a
                 href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=${encodeURIComponent(`Hello Domain Tech Hub, I was reading your guide "${article.title}" and would like to discuss our project.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                style={{ color: '#ffffff' }}
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border-2 border-emerald-400/50 !text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
               >
-                <MessageSquare className="w-4 h-4 text-emerald-400" />
-                <span>Chat with Lead Engineers (+254 118 746 676)</span>
+                <MessageSquare className="w-4 h-4 text-[#00e676]" />
+                <span style={{ color: '#ffffff' }} className="!text-white">Chat with Lead Engineers (+254 118 746 676)</span>
               </a>
 
               {onScheduleConsultation && (
                 <button
                   type="button"
                   onClick={() => onScheduleConsultation(article.title)}
-                  className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-mono transition-colors cursor-pointer"
+                  style={{ color: '#ffffff' }}
+                  className="px-4 py-2.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 !text-white text-xs font-mono transition-colors cursor-pointer"
                 >
                   Book Discovery Call
                 </button>

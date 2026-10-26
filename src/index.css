@@ -415,6 +415,21 @@ html:not(.dark) .green-packages-section h2,
 html:not(.dark) .green-packages-section h3,
 html:not(.dark) .green-packages-section p,
 html:not(.dark) .green-packages-section span,
+html:not(.dark) .green-roadmap-section,
+html:not(.dark) .green-roadmap-section h1,
+html:not(.dark) .green-roadmap-section h2,
+html:not(.dark) .green-roadmap-section h3,
+html:not(.dark) .green-roadmap-section h4,
+html:not(.dark) .green-roadmap-section p,
+html:not(.dark) .green-roadmap-section li,
+html:not(.dark) .green-roadmap-section span,
+html:not(.dark) .green-portal-section,
+html:not(.dark) .green-portal-section h1,
+html:not(.dark) .green-portal-section h2,
+html:not(.dark) .green-portal-section h3,
+html:not(.dark) .green-portal-section h4,
+html:not(.dark) .green-portal-section p,
+html:not(.dark) .green-portal-section span,
 html:not(.dark) .\!text-white,
 html:not(.dark) .\!text-white *,
 html:not(.dark) [class*="bg-[#25D366]"],
@@ -477,6 +492,11 @@ html:not(.dark) .from-slate-900\/90,
 html:not(.dark) .from-stone-900,
 html:not(.dark) .from-stone-900\/90 {
   --tw-gradient-from: #ffffff !important;
+}
+
+html:not(.dark) .via-slate-950,
+html:not(.dark) .via-slate-900 {
+  --tw-gradient-stops: var(--tw-gradient-from), #f8fafc, var(--tw-gradient-to) !important;
 }
 
 html:not(.dark) .to-slate-950,

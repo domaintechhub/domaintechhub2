@@ -1449,29 +1449,32 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
       {/* 9. BOTTOM ACTION BANNER */}
       <section className="py-16 bg-white dark:bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-teal-600 via-teal-700 to-emerald-800 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-            <div className="space-y-2 text-center md:text-left">
-              <span className="text-xs font-mono text-teal-200 uppercase tracking-wider font-semibold">
+          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#032415] via-[#073d24] to-[#042818] border border-emerald-800/60 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-1/4 w-72 h-72 bg-[#00c853]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="space-y-2 text-center md:text-left relative z-10">
+              <span style={{ color: '#00e676' }} className="text-xs font-mono !text-[#00e676] uppercase tracking-wider font-bold block">
                 Direct Engineering Engagement
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black tracking-tight">
+              <h3 style={{ color: '#ffffff' }} className="text-2xl sm:text-3xl font-black tracking-tight !text-white">
                 Ready to deploy your {service.title}?
               </h3>
-              <p className="text-xs sm:text-sm text-teal-100 max-w-xl leading-relaxed">
+              <p style={{ color: '#d1fae5' }} className="text-xs sm:text-sm !text-emerald-100 max-w-xl leading-relaxed font-normal">
                 Schedule a complimentary 30-minute discovery session with our senior digital architects in Nairobi to plan timeline, technical stack, and milestone deliverables.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 relative z-10">
               <button
                 onClick={() => onBookService(service.title)}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white text-teal-900 font-bold text-xs tracking-wide shadow-md hover:bg-stone-100 transition-colors whitespace-nowrap"
+                style={{ color: '#ffffff', backgroundColor: '#00c853', borderColor: '#00e676' }}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#00c853] hover:bg-[#00b34a] border-2 border-[#00e676] !text-white font-bold text-xs tracking-wide shadow-md shadow-[#00c853]/30 transition-all whitespace-nowrap cursor-pointer active:scale-[0.98]"
               >
                 Schedule Discovery Call
               </button>
               <button
                 onClick={onBackToCatalog}
-                className="w-full sm:w-auto px-5 py-3.5 rounded-full bg-teal-800/80 hover:bg-teal-800 text-white border border-teal-500/40 text-xs font-semibold transition-colors whitespace-nowrap"
+                style={{ color: '#ffffff' }}
+                className="w-full sm:w-auto px-5 py-3.5 rounded-full border-2 border-white/40 hover:border-white hover:bg-white/10 !text-white text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer"
               >
                 Browse All Services
               </button>

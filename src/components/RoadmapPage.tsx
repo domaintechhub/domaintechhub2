@@ -70,36 +70,39 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
 
       {/* 4. Bottom Technical Consultation Callout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 text-center lg:text-left max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-teal-600 dark:text-cyan-400 uppercase tracking-wider font-bold">
-              <Calendar className="w-4 h-4" />
-              <span>Immediate Sprint Availability</span>
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#032415] via-[#073d24] to-[#042818] border border-emerald-800/60 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden text-white">
+          <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#00c853]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="space-y-3 text-center lg:text-left max-w-2xl relative z-10">
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider">
+              <Calendar className="w-4 h-4 text-[#00e676]" />
+              <span style={{ color: '#00e676' }}>Immediate Sprint Availability</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <h3 style={{ color: '#ffffff' }} className="text-2xl sm:text-3xl font-black text-white tracking-tight !text-white">
               Ready to Lock In Your Delivery Sprint?
             </h3>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p style={{ color: '#d1fae5' }} className="text-sm sm:text-base !text-emerald-100 leading-relaxed font-normal">
               Schedule a 30-minute discovery call directly with our Lead Solutions Architect in Nairobi. We will audit your requirements, confirm your architectural dependencies, and map out your custom 4, 6, or 8-week delivery milestones.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto relative z-10">
             <button
               onClick={onBookCall}
-              className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-lg shadow-emerald-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+              style={{ color: '#ffffff', backgroundColor: '#00c853', borderColor: '#00e676' }}
+              className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#00c853] hover:bg-[#00b34a] border-2 border-[#00e676] !text-white font-bold text-xs tracking-wide shadow-lg shadow-[#00c853]/30 transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap active:scale-[0.98]"
             >
-              <span>Book Technical Discovery Call</span>
-              <ArrowRight className="w-4 h-4" />
+              <span style={{ color: '#ffffff' }} className="!text-white">Book Technical Discovery Call</span>
+              <ArrowRight className="w-4 h-4 !text-white" />
             </button>
             <a
               href={`https://wa.me/${AGENCY_INFO.whatsapp}?text=Hello%20Domain%20Tech%20Hub,%20I%20would%20like%20to%20discuss%20a%20project%20sprint%20timeline.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-full border border-stone-300 dark:border-slate-700 hover:bg-stone-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+              style={{ color: '#ffffff' }}
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full border-2 border-white/40 hover:border-white hover:bg-white/10 !text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-500" />
-              <span>Chat via WhatsApp</span>
+              <MessageSquare className="w-4 h-4 text-[#00e676]" />
+              <span style={{ color: '#ffffff' }} className="!text-white">Chat via WhatsApp</span>
             </a>
           </div>
         </div>
