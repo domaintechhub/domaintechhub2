@@ -910,3 +910,30 @@ html.dark .logo-skeleton-pulse {
 .animate-dth-progress {
   animation: dth-progress 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+
+/* Infinite Brand Logos Marquee */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-infinite {
+    animation-duration: 90s;
+  }
+}

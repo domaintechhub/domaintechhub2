@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { saveLead } from '../utils/leadDispatch';
 import { BuildLayerKey } from './Hero';
+import { ClientBrandsMarquee } from './ClientBrandsMarquee';
 import tessasBakeryImg from '../assets/images/clients/tessas_bakery.jpg';
 
 interface HomeSectionsProps {
@@ -108,34 +109,48 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
     document.getElementById('quote-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // 4 Projects from screenshot
+  // Featured Projects co-developed by the team
   const projects = [
     {
-      id: 'tessas-bakery',
-      title: "Tessa's Bakery",
-      category: 'E-Commerce Website',
-      image: tessasBakeryImg,
+      id: 'carsoko',
+      title: 'CarSoko Kenya',
+      category: 'Automotive Marketplace (Live)',
+      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80',
       link: () => onNavigate('portfolio'),
     },
     {
-      id: 'solargrid-kenya',
-      title: 'SolarGrid Kenya',
-      category: 'Business Website',
-      image: '/images/portfolio/solar-grid.webp',
+      id: 'greenspoon',
+      title: 'Greenspoon Kenya',
+      category: 'Organic E-Commerce (Live)',
+      image: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=800&q=80',
       link: () => onNavigate('portfolio'),
     },
     {
-      id: 'safari-logistics',
-      title: 'Safari Logistics',
-      category: 'Company Website',
-      image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80',
+      id: 'remax-kenya',
+      title: 'RE/MAX Kenya',
+      category: 'Real Estate & Properties (Live)',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
       link: () => onNavigate('portfolio'),
     },
     {
-      id: 'apex-hardware',
-      title: 'Apex Hardware',
-      category: 'E-Commerce Store',
-      image: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=800&q=80',
+      id: 'peachcars',
+      title: 'Peach Cars Kenya',
+      category: 'Auto Inspection & Sales (Live)',
+      image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
+      link: () => onNavigate('portfolio'),
+    },
+    {
+      id: 'safari-co-za',
+      title: 'Safari.co.za',
+      category: 'Luxury Safari & Lodges (Live)',
+      image: 'https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80',
+      link: () => onNavigate('portfolio'),
+    },
+    {
+      id: 'viator',
+      title: 'Viator',
+      category: 'Global Travel & Tours (Live)',
+      image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80',
       link: () => onNavigate('portfolio'),
     },
   ];
@@ -174,6 +189,11 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
   return (
     <div className="bg-[#f8f9fa] dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+
+      {/* ========================================================================= */}
+      {/* 00 / TRUSTED BRANDS MARQUEE (ABOVE OUR SERVICES) */}
+      {/* ========================================================================= */}
+      <ClientBrandsMarquee onNavigate={onNavigate} />
 
       {/* ========================================================================= */}
       {/* 01 / OUR SERVICES: COMPLETE DIGITAL SOLUTIONS FOR YOUR BUSINESS */}

@@ -460,11 +460,11 @@ export default function App() {
             {currentPage === 'portfolio' && (
               <div className="animate-in fade-in duration-200">
                 <PageHeader
-                  badge="Verified Client Results & Production ROI"
+                  badge="Verified Client Deployments & Production Results"
                   badgeIcon={<CheckCircle className="w-3.5 h-3.5 text-emerald-500" />}
-                  title="Production Case Studies & Client Work"
-                  description="Explore how Domain Tech Hub deployed high-performance web systems, modernized legacy platforms, and processed over KSh 280M+ in mobile money transactions across Kenya and international markets."
-                  currentBreadcrumb="Case Studies"
+                  title="Websites Developed & Client Case Studies"
+                  description="Explore live websites and web applications we took part in developing across Kenya, Tanzania, South Africa, and global markets, alongside quantifiable engineering case studies."
+                  currentBreadcrumb="Projects & Case Studies"
                   onNavigateHome={() => navigateTo('home')}
                   actionButton={{
                     label: "Build a Similar System",
