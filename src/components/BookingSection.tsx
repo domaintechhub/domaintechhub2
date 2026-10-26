@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { trackEvent } from '../utils/analytics';
 import { 
   Calendar, Clock, Video, Phone, MapPin, CheckCircle2, 
-  Send, MessageSquare, Download, Check, Mail, User, ShieldCheck, X, ArrowRight
+  Send, MessageSquare, Download, Check, Mail, User, ShieldCheck, X, ArrowRight, ExternalLink
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AGENCY_INFO } from '../data/portfolioData';
@@ -239,6 +239,39 @@ ${notes ? `- Notes: ${notes}\n` : ''}Looking forward to discussing my project!`;
               <p className="text-xs text-slate-400 leading-relaxed">
                 All client conversations are protected by mutual non-disclosure agreements (NDA).
               </p>
+            </div>
+
+            {/* Studio Location Map */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/90 overflow-hidden shadow-xl">
+              <div className="px-4 py-3 border-b border-slate-800/80 flex items-center justify-between gap-2 bg-slate-900/50">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="relative flex h-2 w-2 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-xs font-semibold text-white truncate">Studio Location</span>
+                  <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">· Westlands, Nairobi</span>
+                </div>
+                <a
+                  href="https://maps.google.com/?q=domaintechhub+Nairobi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 shrink-0 transition-colors"
+                >
+                  <span>Open Maps</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              <div className="relative w-full h-56 sm:h-64 bg-slate-950">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5411.944594743754!2d36.80944707616322!3d-1.2675000987204328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1764e9d57aaf%3A0xbca2a7efe931567a!2sdomaintechhub!5e1!3m2!1sen!2ske!4v1793017172986!5m2!1sen!2ske"
+                  title="Domain Tech Hub Office Location"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
             </div>
 
           </div>
