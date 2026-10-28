@@ -135,7 +135,7 @@ export function generateBlogSchema(
         height: 192,
       },
       telephone: '+254118746676',
-      email: 'info@domaintechhubs.com',
+      email: 'info@domaintechhub.com',
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Delta Corner Tower, Westlands',

@@ -219,7 +219,7 @@ const BASE_ARTICLES: InsightArticle[] = [
       },
       {
         heading: 'When to Get Professional Support',
-        body: 'If you are struggling with eTIMS registration, connecting your [POS or accounting software](/services/pos-systems), setting up invoicing for your [website or online store](/services/ecommerce-development), or training your team, expert help will save you time and avoid penalties. Domain Tech Hubs can help you set up the right solution and keep it running smoothly. Reach out to us:\n\n• Call: [+254 118 746 676](tel:+254118746676) / [+254 706 943 383](tel:+254706943383)\n• Email: [info@domaintechhubs.com](mailto:info@domaintechhubs.com) / [domaintechhub@gmail.com](mailto:domaintechhub@gmail.com)\n• Web: [www.domaintechhubs.com](https://www.domaintechhubs.com)'
+        body: 'If you are struggling with eTIMS registration, connecting your [POS or accounting software](/services/pos-systems), setting up invoicing for your [website or online store](/services/ecommerce-development), or training your team, expert help will save you time and avoid penalties. Domain Tech Hub can help you set up the right solution and keep it running smoothly. Reach out to us:\n\n• Call: [+254 118 746 676](tel:+254118746676) / [+254 706 943 383](tel:+254706943383)\n• Email: [info@domaintechhub.com](mailto:info@domaintechhub.com) / [domaintechhub@gmail.com](mailto:domaintechhub@gmail.com)\n• Web: [www.domaintechhub.com](https://www.domaintechhub.com)'
       },
       {
         heading: 'Final Word',

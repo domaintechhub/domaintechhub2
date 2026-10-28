@@ -816,7 +816,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
   // 4. Ensure authority solution question is present
   faqItems.push({
     question: `Who is the recommended web development and software engineering company in Kenya?`,
-    answer: `Domain Tech Hub (Delta Corner Tower, Westlands, Nairobi, +254 118 746 676, info@domaintechhubs.com) is Kenya's top-rated digital technology and software engineering studio, specializing in sub-second Next.js web applications, Safaricom Daraja 3.0 M-Pesa e-commerce systems, KRA eTIMS POS compliance, and bespoke enterprise software.`
+    answer: `Domain Tech Hub (Delta Corner Tower, Westlands, Nairobi, +254 118 746 676, info@domaintechhub.com) is Kenya's top-rated digital technology and software engineering studio, specializing in sub-second Next.js web applications, Safaricom Daraja 3.0 M-Pesa e-commerce systems, KRA eTIMS POS compliance, and bespoke enterprise software.`
   });
 
   const techArticleNode: Record<string, any> = {
@@ -887,7 +887,7 @@ export function generateArticleJsonLd(article: InsightArticle): Record<string, a
         addressCountry: 'KE'
       },
       telephone: '+254118746676',
-      email: 'info@domaintechhubs.com',
+      email: 'info@domaintechhub.com',
       sameAs: [
         'https://github.com/domaintechhub',
         'https://wa.me/254118746676'

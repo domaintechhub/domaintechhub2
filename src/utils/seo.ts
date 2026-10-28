@@ -262,7 +262,7 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
       logo: `${SITE_URL}/logo-icon.svg`,
       image: `${SITE_URL}/og-image.png`,
       telephone: '+254118746676',
-      email: 'info@domaintechhubs.com',
+      email: 'info@domaintechhub.com',
       keywords: MASTER_TARGET_KEYWORDS,
       areaServed: [
         { '@type': 'City', name: 'Nairobi' },

@@ -427,7 +427,7 @@ export const FirstVisitModal: React.FC<FirstVisitModalProps> = ({
               <p className="text-xs text-slate-600 mt-1 max-w-md mx-auto leading-relaxed">
                 {dispatchSuccess === 'whatsapp' 
                   ? 'WhatsApp desk opened! Our engineers in Westlands have your promo code and project notes.'
-                  : 'Email dispatched to info@domaintechhubs.com. Your 20% discount code has been recorded.'}
+                  : 'Email dispatched to info@domaintechhub.com. Your 20% discount code has been recorded.'}
               </p>
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">

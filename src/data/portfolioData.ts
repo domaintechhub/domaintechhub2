@@ -182,7 +182,7 @@ export const AGENCY_INFO = {
   name: 'Domain Tech Hub',
   tagline: 'Your Strategic Digital Technology & Growth Partner',
   description: 'Empowering businesses across Kenya, East Africa, and globally with cutting-edge web development, e-commerce, high-ROI digital marketing, custom software, and corporate branding.',
-  email: 'info@domaintechhubs.com',
+  email: 'info@domaintechhub.com',
   secondaryEmail: 'domaintechhub@gmail.com',
   phones: ['+254 118746676', '+254 706 943383'],
   whatsapp: '254118746676',
