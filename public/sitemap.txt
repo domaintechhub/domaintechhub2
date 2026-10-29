@@ -10,6 +10,7 @@ https://www.domaintechhubs.com/about
 https://www.domaintechhubs.com/blog
 https://www.domaintechhubs.com/tech-stack
 https://www.domaintechhubs.com/tools/calculator
+https://www.domaintechhubs.com/tools/invoice
 https://www.domaintechhubs.com/tools/design-audit
 https://www.domaintechhubs.com/tools/audit
 https://www.domaintechhubs.com/tools/domains
@@ -29,6 +30,7 @@ https://www.domaintechhubs.com/services/website-maintenance
 https://www.domaintechhubs.com/services/graphic-design-branding
 https://www.domaintechhubs.com/services/mobile-app-development
 https://www.domaintechhubs.com/services/pos-systems
+https://www.domaintechhubs.com/insights/website-builders-comparison-guide-wix-wordpress-squarespace
 https://www.domaintechhubs.com/insights/php2shell-critical-php-vulnerability-website-protection-guide
 https://www.domaintechhubs.com/insights/how-to-generate-an-etims-invoice
 https://www.domaintechhubs.com/insights/zero-loss-mpesa-stk-push-architecture
