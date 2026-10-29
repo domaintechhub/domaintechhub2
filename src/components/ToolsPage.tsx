@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Calculator, Gauge, Server, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
+import { Calculator, Gauge, Server, CheckCircle2, ArrowRight, Sparkles, FileSpreadsheet } from 'lucide-react';
 import { PageHeader } from './PageHeader';
 import { CostCalculator } from './CostCalculator';
 import { SeoAuditTool } from './SeoAuditTool';
 import { DomainChecker } from './DomainChecker';
 import { DesignMeterAudit } from './DesignMeterAudit';
+import { InvoiceGenerator } from './InvoiceGenerator';
 
-export type ToolTab = 'calculator' | 'design-audit' | 'audit' | 'domains';
+export type ToolTab = 'calculator' | 'invoice' | 'design-audit' | 'audit' | 'domains';
 
 interface ToolsPageProps {
   initialTab?: ToolTab;
@@ -56,6 +57,13 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
       shortLabel: 'Scope Estimator',
       icon: Calculator,
       description: 'Configure custom modules, tech stack, and generate real-time budgets in USD & KES.'
+    },
+    {
+      id: 'invoice' as ToolTab,
+      label: 'Free Invoice Generator',
+      shortLabel: 'Invoice Generator',
+      icon: FileSpreadsheet,
+      description: 'Create professional invoices, calculate VAT & discounts, and export print-ready PDFs.'
     },
     {
       id: 'design-audit' as ToolTab,
@@ -129,6 +137,12 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
           <CostCalculator
             initialServiceId={calculatorServiceId}
             onProceedToBooking={onProceedToBooking}
+          />
+        )}
+
+        {activeTab === 'invoice' && (
+          <InvoiceGenerator
+            onNavigateToContact={() => onProceedToBooking('Invoice Automation Consultation', 'Custom Setup')}
           />
         )}
 

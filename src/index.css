@@ -967,3 +967,61 @@ html:not(.dark) .ai-quick-answer .ai-footer-text {
 html:not(.dark) .ai-quick-answer .ai-verifier {
   color: #a7f3d0 !important;
 }
+
+/* ==========================================================================
+   Print & PDF Generation Styles (Free Invoice Generator)
+   ========================================================================== */
+@media print {
+  @page {
+    margin: 12mm;
+    size: auto;
+  }
+
+  /* Hide everything on the page except the invoice document */
+  body * {
+    visibility: hidden;
+  }
+
+  header, nav, footer, .no-print, [role="navigation"] {
+    display: none !important;
+  }
+
+  #invoice-paper,
+  #invoice-paper * {
+    visibility: visible;
+  }
+
+  #invoice-paper {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt;
+  }
+
+  /* Make sure inputs/textareas show text cleanly when printed */
+  #invoice-paper input,
+  #invoice-paper textarea,
+  #invoice-paper select {
+    border: none !important;
+    background: transparent !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    resize: none !important;
+    box-shadow: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+  }
+
+  #invoice-paper input::placeholder,
+  #invoice-paper textarea::placeholder {
+    color: transparent !important;
+  }
+}
+

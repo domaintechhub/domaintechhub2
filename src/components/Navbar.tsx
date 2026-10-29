@@ -4,7 +4,7 @@ import {
   Cpu, MessageSquare, Calculator, Gauge, Server, FolderGit2, 
   HelpCircle, ArrowRight, ArrowUpRight, Menu, X, BookOpen,
   PhoneCall, ShieldCheck, Languages, SlidersHorizontal,
-  Check, Layers, Award, Users, Rocket, Sparkles
+  Check, Layers, Award, Users, Rocket, Sparkles, FileSpreadsheet
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage, Language } from '../context/LanguageContext';
@@ -406,6 +406,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                           </div>
                           <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
                             Instant scope configuration & quotation
+                          </div>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('tools', 'invoice')}
+                        className="w-full text-left p-2.5 rounded-2xl hover:bg-stone-50 dark:hover:bg-slate-900 transition-colors group flex items-start gap-3 cursor-pointer"
+                      >
+                        <div className="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                          <FileSpreadsheet className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                            <span>Free Invoice Generator</span>
+                            <span className="text-[9px] font-mono text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/80 px-1 py-0.2 rounded border border-emerald-200">100% FREE</span>
+                          </div>
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
+                            VAT, discounts & print-ready PDF invoices
                           </div>
                         </div>
                       </button>

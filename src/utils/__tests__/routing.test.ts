@@ -73,6 +73,7 @@ describe('routing utility - parseAppRoute', () => {
   it('parses tools route and tool tabs', () => {
     assert.deepEqual(parseAppRoute('/tools'), { page: 'tools', subTab: 'calculator' });
     assert.deepEqual(parseAppRoute('/tools/calculator'), { page: 'tools', subTab: 'calculator' });
+    assert.deepEqual(parseAppRoute('/tools/invoice'), { page: 'tools', subTab: 'invoice' });
     assert.deepEqual(parseAppRoute('/tools/design-audit'), { page: 'tools', subTab: 'design-audit' });
     assert.deepEqual(parseAppRoute('/tools/audit'), { page: 'tools', subTab: 'audit' });
     assert.deepEqual(parseAppRoute('/tools/domains'), { page: 'tools', subTab: 'domains' });
@@ -80,6 +81,8 @@ describe('routing utility - parseAppRoute', () => {
 
   it('normalizes standalone tool shortcuts', () => {
     assert.deepEqual(parseAppRoute('/calculator'), { page: 'tools', subTab: 'calculator' });
+    assert.deepEqual(parseAppRoute('/invoice'), { page: 'tools', subTab: 'invoice' });
+    assert.deepEqual(parseAppRoute('/invoice-generator'), { page: 'tools', subTab: 'invoice' });
     assert.deepEqual(parseAppRoute('/audit'), { page: 'tools', subTab: 'audit' });
     assert.deepEqual(parseAppRoute('/domains'), { page: 'tools', subTab: 'domains' });
     assert.deepEqual(parseAppRoute('/designmeter'), { page: 'tools', subTab: 'design-audit' });
