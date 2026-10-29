@@ -154,6 +154,7 @@ describe('routing utility - getPathForRoute', () => {
   it('generates tools paths defaulting to calculator', () => {
     assert.equal(getPathForRoute('tools'), '/tools/calculator');
     assert.equal(getPathForRoute('tools', 'audit'), '/tools/audit');
+    assert.equal(getPathForRoute('tools', 'invoice'), '/tools/invoice');
     assert.equal(getPathForRoute('tools', 'domains'), '/tools/domains');
     assert.equal(getPathForRoute('tools', 'design-audit'), '/tools/design-audit');
     assert.equal(getPathForRoute('tools', 'invalid-tab'), '/tools/calculator');

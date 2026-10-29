@@ -64,6 +64,7 @@ function renderNavHeaderHtml(): string {
         <a href="/team">Team</a>
         <a href="/tech-stack">Tech Stack</a>
         <a href="/tools/calculator">Cost Calculator</a>
+        <a href="/tools/invoice">Invoice Generator</a>
         <a href="/tools/design-audit">DesignMeter UI/UX Audit</a>
         <a href="/tools/audit">SEO Audit Tool</a>
         <a href="/tools/domains">Domain Checker</a>
@@ -411,6 +412,25 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
     ${renderFooterLinksHtml()}`;
   }
 
+  if (route === 'tools' && subTab === 'invoice') {
+    const config = PAGE_SEO_DATA.tools('invoice');
+    return `
+    ${renderNavHeaderHtml()}
+    <main class="max-w-7xl mx-auto px-4 py-12 text-slate-100">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-400 mb-5"><a href="/">Home</a> &rsaquo; <a href="/tools/calculator">Tools</a> &rsaquo; <span>Invoice Generator</span></nav>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">Free Invoice Generator</h1>
+      <p class="text-lg text-slate-300 mb-8">${escapeHtml(config.description)}</p>
+      <section class="grid gap-6 md:grid-cols-3 mb-10">
+        <article class="p-6 rounded-2xl bg-slate-900 border border-slate-800"><h2 class="text-xl font-bold text-white mb-2">Create an invoice</h2><p class="text-slate-300">Add your business and client details, invoice dates, payment terms, and custom line items.</p></article>
+        <article class="p-6 rounded-2xl bg-slate-900 border border-slate-800"><h2 class="text-xl font-bold text-white mb-2">Calculate totals</h2><p class="text-slate-300">Review line-item totals, optional discounts and VAT, shipping, amount paid, and balance due.</p></article>
+        <article class="p-6 rounded-2xl bg-slate-900 border border-slate-800"><h2 class="text-xl font-bold text-white mb-2">Print or save as PDF</h2><p class="text-slate-300">Use your browser’s print dialog to save a clean copy. Invoice details stay in your browser.</p></article>
+      </section>
+      <p class="text-sm text-slate-400 mb-6">This general-purpose invoice template is not an eTIMS submission system or tax-compliance certification. Confirm applicable tax requirements before issuing invoices.</p>
+      <p class="text-slate-300">Need a quote before work begins? Try the <a href="/tools/calculator" class="text-cyan-400 underline">project cost calculator</a>. For guidance on KRA eTIMS, read <a href="/insights/how-to-generate-an-etims-invoice" class="text-cyan-400 underline">how to generate an eTIMS invoice</a>.</p>
+    </main>
+    ${renderFooterLinksHtml()}`;
+  }
+
   // 5. Portfolio / Case Studies Page (/portfolio)
   if (route === 'portfolio') {
     return `
@@ -686,6 +706,7 @@ export function runPrerender() {
     { relPath: 'blog/index.html', route: 'more', subTab: 'blog' },
     { relPath: 'tools/index.html', route: 'tools', subTab: 'calculator' },
     { relPath: 'tools/calculator/index.html', route: 'tools', subTab: 'calculator' },
+    { relPath: 'tools/invoice/index.html', route: 'tools', subTab: 'invoice' },
     { relPath: 'tools/design-audit/index.html', route: 'tools', subTab: 'design-audit' },
     { relPath: 'tools/audit/index.html', route: 'tools', subTab: 'audit' },
     { relPath: 'tools/domains/index.html', route: 'tools', subTab: 'domains' },
