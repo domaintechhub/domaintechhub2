@@ -394,68 +394,73 @@ export const InvoiceGenerator: React.FC<{ onNavigateToContact?: () => void }> = 
           {/* Line Items Table */}
           <div className="py-8 border-b border-stone-200/90 dark:border-slate-800">
             
-            {/* Table Header Bar */}
-            <div className="grid grid-cols-12 gap-3 px-3 py-2 rounded-xl bg-stone-100 dark:bg-slate-950 text-slate-700 dark:text-slate-300 text-[11px] font-mono font-bold uppercase tracking-wider mb-3">
-              <div className="col-span-6 sm:col-span-7">ITEM</div>
-              <div className="col-span-2 text-center">QTY</div>
-              <div className="col-span-2 text-right">RATE</div>
-              <div className="col-span-2 sm:col-span-1 text-right">AMOUNT</div>
-            </div>
+            <div className="overflow-x-auto -mx-1 px-1 sm:mx-0 sm:px-0">
+              <div className="min-w-[480px] sm:min-w-0">
+                {/* Table Header Bar */}
+                <div className="grid grid-cols-12 gap-3 px-3 py-2 rounded-xl bg-stone-100 dark:bg-slate-950 text-slate-700 dark:text-slate-300 text-[11px] font-mono font-bold uppercase tracking-wider mb-3">
+                  <div className="col-span-5 sm:col-span-5">ITEM</div>
+                  <div className="col-span-2 sm:col-span-1 text-center">QTY</div>
+                  <div className="col-span-2 sm:col-span-3 text-right">RATE</div>
+                  <div className="col-span-3 sm:col-span-3 text-right pr-7">AMOUNT</div>
+                </div>
 
-            {/* Line Items Rows */}
-            <div className="space-y-3">
-              {items.map((it) => {
-                const rowAmount = (Number(it.quantity) || 0) * (Number(it.rate) || 0);
-                return (
-                  <div key={it.id} className="grid grid-cols-12 gap-3 items-center group">
-                    <div className="col-span-6 sm:col-span-7">
-                      <input
-                        type="text"
-                        value={it.description}
-                        onChange={(e) => updateItem(it.id, 'description', e.target.value)}
-                        placeholder="Description of item/service..."
-                        className="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#00c853]"
-                      />
-                    </div>
+                {/* Line Items Rows */}
+                <div className="space-y-3">
+                  {items.map((it) => {
+                    const rowAmount = (Number(it.quantity) || 0) * (Number(it.rate) || 0);
+                    return (
+                      <div key={it.id} className="grid grid-cols-12 gap-3 items-center group">
+                        <div className="col-span-5 sm:col-span-5">
+                          <input
+                            type="text"
+                            value={it.description}
+                            onChange={(e) => updateItem(it.id, 'description', e.target.value)}
+                            placeholder="Description of item/service..."
+                            className="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#00c853]"
+                          />
+                        </div>
 
-                    <div className="col-span-2">
-                      <input
-                        type="number"
-                        min="0"
-                        step="any"
-                        value={it.quantity === 0 ? '' : it.quantity}
-                        onChange={(e) => updateItem(it.id, 'quantity', parseFloat(e.target.value) || 0)}
-                        placeholder="1"
-                        className="w-full px-2 py-2 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white text-center font-mono focus:outline-none focus:border-[#00c853]"
-                      />
-                    </div>
+                        <div className="col-span-2 sm:col-span-1">
+                          <input
+                            type="number"
+                            min="0"
+                            step="any"
+                            value={it.quantity === 0 ? '' : it.quantity}
+                            onChange={(e) => updateItem(it.id, 'quantity', parseFloat(e.target.value) || 0)}
+                            placeholder="1"
+                            className="w-full px-2 py-2 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white text-center font-mono focus:outline-none focus:border-[#00c853]"
+                          />
+                        </div>
 
-                    <div className="col-span-2">
-                      <input
-                        type="number"
-                        min="0"
-                        step="any"
-                        value={it.rate === 0 ? '' : it.rate}
-                        onChange={(e) => updateItem(it.id, 'rate', parseFloat(e.target.value) || 0)}
-                        placeholder="0.00"
-                        className="w-full px-2 py-2 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white text-right font-mono focus:outline-none focus:border-[#00c853]"
-                      />
-                    </div>
+                        <div className="col-span-2 sm:col-span-3">
+                          <input
+                            type="number"
+                            min="0"
+                            step="any"
+                            value={it.rate === 0 ? '' : it.rate}
+                            onChange={(e) => updateItem(it.id, 'rate', parseFloat(e.target.value) || 0)}
+                            placeholder="0.00"
+                            className="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white text-right font-mono focus:outline-none focus:border-[#00c853]"
+                          />
+                        </div>
 
-                    <div className="col-span-2 sm:col-span-1 flex items-center justify-end gap-1.5 text-right font-mono text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                      <span>{formatMoney(rowAmount)}</span>
-                      <button
-                        onClick={() => removeItem(it.id)}
-                        type="button"
-                        className="no-print p-1 text-slate-400 hover:text-rose-500 opacity-60 group-hover:opacity-100 transition-opacity"
-                        title="Delete item"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                        <div className="col-span-3 sm:col-span-3 flex items-center justify-end gap-2 text-right font-mono text-xs sm:text-sm font-bold text-slate-900 dark:text-white min-w-0">
+                          <span className="whitespace-nowrap tabular-nums">{formatMoney(rowAmount)}</span>
+                          <button
+                            onClick={() => removeItem(it.id)}
+                            type="button"
+                            className="no-print shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 opacity-60 group-hover:opacity-100 transition-all cursor-pointer text-xs"
+                            title="Delete item"
+                            aria-label="Delete item"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
             {/* Add Line Item Button */}
