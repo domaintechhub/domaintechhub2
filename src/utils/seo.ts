@@ -504,6 +504,20 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
   }),
 
   tools: (subTab?: ToolTab) => {
+    if (subTab === 'invoice') {
+      return {
+        title: 'Free Invoice Generator for Kenya & International Clients | Domain Tech Hub',
+        description: 'Create a professional invoice in KES, USD, EUR, GBP, TZS or UGX. Add line items, calculate VAT and discounts, then print or save as PDF in your browser.',
+        canonicalPath: '/tools/invoice',
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Free Invoice Generator',
+          description: 'Create and print invoices in multiple currencies with line items, tax, discounts and payment terms.',
+        },
+      };
+    }
+
     if (subTab === 'design-audit') {
       return {
         title: 'Domain Meter UI/UX Audit & Prioritized Fix List | Domain Tech Hub',

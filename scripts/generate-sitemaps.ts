@@ -26,6 +26,7 @@ const CORE_PAGES = [
   { path: 'blog', priority: '0.90', changefreq: 'daily', title: 'Engineering Blog' },
   { path: 'tech-stack', priority: '0.85', changefreq: 'monthly', title: 'Tech Stack & Infrastructure' },
   { path: 'tools/calculator', priority: '0.90', changefreq: 'weekly', title: 'Project Cost & Scope Calculator' },
+  { path: 'tools/invoice', priority: '0.90', changefreq: 'weekly', title: 'Free Invoice Generator' },
   { path: 'tools/audit', priority: '0.90', changefreq: 'weekly', title: 'Core Web Vitals & SEO Speed Audit' },
   { path: 'tools/domains', priority: '0.85', changefreq: 'monthly', title: '.co.ke Domain Registration & Hosting' },
 ];
