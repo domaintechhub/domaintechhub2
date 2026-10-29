@@ -13,6 +13,328 @@ export interface InvoiceItem {
   rate: number;
 }
 
+export interface CurrencyOption {
+  code: string;
+  symbol: string;
+  name: string;
+}
+
+export interface CurrencyGroup {
+  region: string;
+  currencies: CurrencyOption[];
+}
+
+export const PRIMARY_CURRENCIES: CurrencyOption[] = [
+  { code: 'KES', symbol: 'KSh', name: 'Kenyan Shilling' },
+  { code: 'USD', symbol: '$', name: 'US Dollar' },
+  { code: 'EUR', symbol: '€', name: 'Euro' },
+  { code: 'GBP', symbol: '£', name: 'British Pound' },
+  { code: 'TZS', symbol: 'TSh', name: 'Tanzanian Shilling' },
+  { code: 'UGX', symbol: 'USh', name: 'Ugandan Shilling' }
+];
+
+export const WORLD_CURRENCY_GROUPS: CurrencyGroup[] = [
+  {
+    region: 'Africa',
+    currencies: [
+      { code: 'ZAR', symbol: 'R', name: 'South African Rand' },
+      { code: 'NGN', symbol: '₦', name: 'Nigerian Naira' },
+      { code: 'GHS', symbol: 'GH₵', name: 'Ghanaian Cedi' },
+      { code: 'RWF', symbol: 'FRw', name: 'Rwandan Franc' },
+      { code: 'ETB', symbol: 'Br', name: 'Ethiopian Birr' },
+      { code: 'EGP', symbol: 'E£', name: 'Egyptian Pound' },
+      { code: 'MAD', symbol: 'MAD', name: 'Moroccan Dirham' },
+      { code: 'ZMW', symbol: 'ZK', name: 'Zambian Kwacha' },
+      { code: 'BWP', symbol: 'P', name: 'Botswana Pula' },
+      { code: 'MWK', symbol: 'MK', name: 'Malawian Kwacha' },
+      { code: 'MZN', symbol: 'MT', name: 'Mozambican Metical' },
+      { code: 'AOA', symbol: 'Kz', name: 'Angolan Kwanza' },
+      { code: 'XOF', symbol: 'CFA', name: 'West African CFA Franc' },
+      { code: 'XAF', symbol: 'FCFA', name: 'Central African CFA Franc' },
+      { code: 'MUR', symbol: '₨', name: 'Mauritian Rupee' },
+      { code: 'SCR', symbol: 'SR', name: 'Seychellois Rupee' },
+      { code: 'SOS', symbol: 'Sh', name: 'Somali Shilling' },
+      { code: 'SSP', symbol: 'SSP', name: 'South Sudanese Pound' },
+      { code: 'DZD', symbol: 'DA', name: 'Algerian Dinar' },
+      { code: 'TND', symbol: 'DT', name: 'Tunisian Dinar' },
+      { code: 'LYD', symbol: 'LD', name: 'Libyan Dinar' },
+      { code: 'NAD', symbol: 'N$', name: 'Namibian Dollar' },
+      { code: 'SZL', symbol: 'L', name: 'Eswatini Lilangeni' },
+      { code: 'LSL', symbol: 'M', name: 'Lesotho Loti' },
+      { code: 'CDF', symbol: 'FC', name: 'Congolese Franc' },
+      { code: 'BIF', symbol: 'FBu', name: 'Burundian Franc' },
+      { code: 'DJF', symbol: 'Fdj', name: 'Djiboutian Franc' },
+      { code: 'GMD', symbol: 'D', name: 'Gambian Dalasi' },
+      { code: 'GNF', symbol: 'FG', name: 'Guinean Franc' },
+      { code: 'LRD', symbol: 'L$', name: 'Liberian Dollar' },
+      { code: 'SLL', symbol: 'Le', name: 'Sierra Leonean Leone' },
+      { code: 'CVE', symbol: 'Esc', name: 'Cape Verdean Escudo' },
+      { code: 'MGA', symbol: 'Ar', name: 'Malagasy Ariary' },
+      { code: 'KMF', symbol: 'CF', name: 'Comorian Franc' },
+      { code: 'ERN', symbol: 'Nkf', name: 'Eritrean Nakfa' },
+      { code: 'STN', symbol: 'Db', name: 'São Tomé & Príncipe Dobra' }
+    ]
+  },
+  {
+    region: 'Americas',
+    currencies: [
+      { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar' },
+      { code: 'BRL', symbol: 'R$', name: 'Brazilian Real' },
+      { code: 'MXN', symbol: 'Mex$', name: 'Mexican Peso' },
+      { code: 'ARS', symbol: 'ARS$', name: 'Argentine Peso' },
+      { code: 'CLP', symbol: 'CLP$', name: 'Chilean Peso' },
+      { code: 'COP', symbol: 'COL$', name: 'Colombian Peso' },
+      { code: 'PEN', symbol: 'S/.', name: 'Peruvian Sol' },
+      { code: 'UYU', symbol: '$U', name: 'Uruguayan Peso' },
+      { code: 'PYG', symbol: '₲', name: 'Paraguayan Guaraní' },
+      { code: 'BOB', symbol: 'Bs.', name: 'Bolivian Boliviano' },
+      { code: 'CRC', symbol: '₡', name: 'Costa Rican Colón' },
+      { code: 'DOP', symbol: 'RD$', name: 'Dominican Peso' },
+      { code: 'GTQ', symbol: 'Q', name: 'Guatemalan Quetzal' },
+      { code: 'HNL', symbol: 'L', name: 'Honduran Lempira' },
+      { code: 'NIO', symbol: 'C$', name: 'Nicaraguan Córdoba' },
+      { code: 'PAB', symbol: 'B/.', name: 'Panamanian Balboa' },
+      { code: 'JMD', symbol: 'J$', name: 'Jamaican Dollar' },
+      { code: 'TTD', symbol: 'TT$', name: 'Trinidad & Tobago Dollar' },
+      { code: 'BSD', symbol: 'B$', name: 'Bahamian Dollar' },
+      { code: 'BBD', symbol: 'Bds$', name: 'Barbadian Dollar' },
+      { code: 'BZD', symbol: 'BZ$', name: 'Belize Dollar' },
+      { code: 'GYD', symbol: 'G$', name: 'Guyanese Dollar' },
+      { code: 'SRD', symbol: 'Sr$', name: 'Surinamese Dollar' },
+      { code: 'XCD', symbol: 'EC$', name: 'East Caribbean Dollar' },
+      { code: 'HTG', symbol: 'G', name: 'Haitian Gourde' },
+      { code: 'AWG', symbol: 'Afl.', name: 'Aruban Florin' },
+      { code: 'ANG', symbol: 'NAƒ', name: 'Netherlands Antillean Guilder' },
+      { code: 'KYD', symbol: 'CI$', name: 'Cayman Islands Dollar' },
+      { code: 'BMD', symbol: 'BD$', name: 'Bermudian Dollar' }
+    ]
+  },
+  {
+    region: 'Europe',
+    currencies: [
+      { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+      { code: 'SEK', symbol: 'kr', name: 'Swedish Krona' },
+      { code: 'NOK', symbol: 'kr', name: 'Norwegian Krone' },
+      { code: 'DKK', symbol: 'kr', name: 'Danish Krone' },
+      { code: 'PLN', symbol: 'zł', name: 'Polish Zloty' },
+      { code: 'CZK', symbol: 'Kč', name: 'Czech Koruna' },
+      { code: 'HUF', symbol: 'Ft', name: 'Hungarian Forint' },
+      { code: 'RON', symbol: 'lei', name: 'Romanian Leu' },
+      { code: 'BGN', symbol: 'лв', name: 'Bulgarian Lev' },
+      { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
+      { code: 'ISK', symbol: 'kr', name: 'Icelandic Króna' },
+      { code: 'RSD', symbol: 'din', name: 'Serbian Dinar' },
+      { code: 'ALL', symbol: 'Lek', name: 'Albanian Lek' },
+      { code: 'BAM', symbol: 'KM', name: 'Bosnia-Herzegovina Mark' },
+      { code: 'MKD', symbol: 'ден', name: 'Macedonian Denar' },
+      { code: 'GEL', symbol: '₾', name: 'Georgian Lari' },
+      { code: 'AMD', symbol: '֏', name: 'Armenian Dram' },
+      { code: 'AZN', symbol: '₼', name: 'Azerbaijani Manat' },
+      { code: 'MDL', symbol: 'L', name: 'Moldovan Leu' },
+      { code: 'UAH', symbol: '₴', name: 'Ukrainian Hryvnia' }
+    ]
+  },
+  {
+    region: 'Asia & Pacific',
+    currencies: [
+      { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+      { code: 'CNY', symbol: '¥', name: 'Chinese Yuan' },
+      { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
+      { code: 'NZD', symbol: 'NZ$', name: 'New Zealand Dollar' },
+      { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' },
+      { code: 'HKD', symbol: 'HK$', name: 'Hong Kong Dollar' },
+      { code: 'KRW', symbol: '₩', name: 'South Korean Won' },
+      { code: 'TWD', symbol: 'NT$', name: 'New Taiwan Dollar' },
+      { code: 'THB', symbol: '฿', name: 'Thai Baht' },
+      { code: 'MYR', symbol: 'RM', name: 'Malaysian Ringgit' },
+      { code: 'IDR', symbol: 'Rp', name: 'Indonesian Rupiah' },
+      { code: 'PHP', symbol: '₱', name: 'Philippine Peso' },
+      { code: 'VND', symbol: '₫', name: 'Vietnamese Dong' },
+      { code: 'PKR', symbol: '₨', name: 'Pakistani Rupee' },
+      { code: 'BDT', symbol: '৳', name: 'Bangladeshi Taka' },
+      { code: 'LKR', symbol: 'Rs', name: 'Sri Lankan Rupee' },
+      { code: 'NPR', symbol: 'रू', name: 'Nepalese Rupee' },
+      { code: 'MMK', symbol: 'K', name: 'Myanmar Kyat' },
+      { code: 'KHR', symbol: '៛', name: 'Cambodian Riel' },
+      { code: 'LAK', symbol: '₭', name: 'Lao Kip' },
+      { code: 'MNT', symbol: '₮', name: 'Mongolian Tugrik' },
+      { code: 'KZT', symbol: '₸', name: 'Kazakhstani Tenge' },
+      { code: 'UZS', symbol: "so'm", name: 'Uzbekistani Som' },
+      { code: 'TJS', symbol: 'SM', name: 'Tajikistani Somoni' },
+      { code: 'TMT', symbol: 'T', name: 'Turkmenistani Manat' },
+      { code: 'MVR', symbol: 'Rf', name: 'Maldivian Rufiyaa' },
+      { code: 'BTN', symbol: 'Nu.', name: 'Bhutanese Ngultrum' },
+      { code: 'BND', symbol: 'B$', name: 'Brunei Dollar' },
+      { code: 'FJD', symbol: 'FJ$', name: 'Fijian Dollar' },
+      { code: 'PGK', symbol: 'K', name: 'Papua New Guinea Kina' },
+      { code: 'WST', symbol: 'WS$', name: 'Samoan Tala' },
+      { code: 'VUV', symbol: 'VT', name: 'Vanuatu Vatu' },
+      { code: 'SBD', symbol: 'SI$', name: 'Solomon Islands Dollar' },
+      { code: 'TOP', symbol: 'T$', name: 'Tongan Paʻanga' }
+    ]
+  },
+  {
+    region: 'Middle East',
+    currencies: [
+      { code: 'AED', symbol: 'AED', name: 'UAE Dirham' },
+      { code: 'SAR', symbol: 'SAR', name: 'Saudi Riyal' },
+      { code: 'QAR', symbol: 'QAR', name: 'Qatari Riyal' },
+      { code: 'KWD', symbol: 'KD', name: 'Kuwaiti Dinar' },
+      { code: 'BHD', symbol: 'BD', name: 'Bahraini Dinar' },
+      { code: 'OMR', symbol: 'OMR', name: 'Omani Rial' },
+      { code: 'ILS', symbol: '₪', name: 'Israeli Shekel' },
+      { code: 'JOD', symbol: 'JD', name: 'Jordanian Dinar' },
+      { code: 'LBP', symbol: 'L£', name: 'Lebanese Pound' },
+      { code: 'IQD', symbol: 'IQD', name: 'Iraqi Dinar' },
+      { code: 'YER', symbol: 'YR', name: 'Yemeni Rial' }
+    ]
+  }
+];
+
+export const ALL_CURRENCY_SYMBOLS: Record<string, string> = {
+  ...Object.fromEntries(PRIMARY_CURRENCIES.map((c) => [c.code, c.symbol])),
+  ...Object.fromEntries(
+    WORLD_CURRENCY_GROUPS.flatMap((g) => g.currencies).map((c) => [c.code, c.symbol])
+  )
+};
+
+/**
+ * Automatically detects the user's local currency based on browser timezone,
+ * locale country code, or previously saved manual preference.
+ */
+export function detectUserCurrency(): string {
+  if (typeof window === 'undefined') return 'KES';
+
+  // 1. Check if user already manually selected a currency in a previous session
+  try {
+    const saved = localStorage.getItem('dth_invoice_currency');
+    if (saved && ALL_CURRENCY_SYMBOLS[saved]) {
+      return saved;
+    }
+  } catch {
+    // Ignore sandbox localStorage errors
+  }
+
+  // 2. Detect via browser timezone (Intl.DateTimeFormat)
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+
+    // East Africa & Africa
+    if (tz.includes('Nairobi')) return 'KES';
+    if (tz.includes('Dar_es_Salaam')) return 'TZS';
+    if (tz.includes('Kampala')) return 'UGX';
+    if (tz.includes('Kigali')) return 'RWF';
+    if (tz.includes('Addis_Ababa')) return 'ETB';
+    if (tz.includes('Johannesburg')) return 'ZAR';
+    if (tz.includes('Lagos')) return 'NGN';
+    if (tz.includes('Accra')) return 'GHS';
+    if (tz.includes('Cairo')) return 'EGP';
+    if (tz.includes('Casablanca')) return 'MAD';
+    if (tz.includes('Lusaka')) return 'ZMW';
+    if (tz.includes('Gaborone')) return 'BWP';
+
+    // United Kingdom & Europe
+    if (tz.includes('London')) return 'GBP';
+    if (tz.includes('Zurich')) return 'CHF';
+    if (tz.includes('Stockholm')) return 'SEK';
+    if (tz.includes('Oslo')) return 'NOK';
+    if (tz.includes('Copenhagen')) return 'DKK';
+    if (tz.includes('Warsaw')) return 'PLN';
+    if (tz.includes('Prague')) return 'CZK';
+    if (tz.includes('Budapest')) return 'HUF';
+    if (tz.includes('Istanbul')) return 'TRY';
+    if (
+      tz.includes('Berlin') || tz.includes('Paris') || tz.includes('Rome') ||
+      tz.includes('Madrid') || tz.includes('Amsterdam') || tz.includes('Brussels') ||
+      tz.includes('Vienna') || tz.includes('Dublin') || tz.includes('Lisbon') ||
+      tz.includes('Helsinki') || tz.includes('Athens') || tz.startsWith('Europe/')
+    ) {
+      return 'EUR';
+    }
+
+    // United States & Americas
+    if (
+      tz.includes('New_York') || tz.includes('Chicago') || tz.includes('Los_Angeles') ||
+      tz.includes('Denver') || tz.includes('Phoenix') || tz.includes('Anchorage') ||
+      tz.includes('Honolulu') || tz.includes('Detroit') || tz.includes('Indianapolis')
+    ) {
+      return 'USD';
+    }
+    if (
+      tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('Montreal') ||
+      tz.includes('Edmonton') || tz.includes('Winnipeg') || tz.includes('Halifax')
+    ) {
+      return 'CAD';
+    }
+    if (tz.includes('Sao_Paulo')) return 'BRL';
+    if (tz.includes('Mexico_City')) return 'MXN';
+    if (tz.includes('Buenos_Aires')) return 'ARS';
+    if (tz.includes('Santiago')) return 'CLP';
+    if (tz.includes('Bogota')) return 'COP';
+    if (tz.includes('Lima')) return 'PEN';
+
+    // Middle East
+    if (tz.includes('Dubai')) return 'AED';
+    if (tz.includes('Riyadh')) return 'SAR';
+    if (tz.includes('Qatar')) return 'QAR';
+    if (tz.includes('Kuwait')) return 'KWD';
+    if (tz.includes('Bahrain')) return 'BHD';
+    if (tz.includes('Muscat')) return 'OMR';
+    if (tz.includes('Jerusalem') || tz.includes('Tel_Aviv')) return 'ILS';
+
+    // Asia & Pacific
+    if (tz.includes('Kolkata') || tz.includes('Calcutta')) return 'INR';
+    if (tz.includes('Tokyo')) return 'JPY';
+    if (tz.includes('Shanghai') || tz.includes('Chongqing')) return 'CNY';
+    if (tz.includes('Hong_Kong')) return 'HKD';
+    if (tz.includes('Taipei')) return 'TWD';
+    if (tz.includes('Seoul')) return 'KRW';
+    if (tz.includes('Singapore')) return 'SGD';
+    if (tz.includes('Bangkok')) return 'THB';
+    if (tz.includes('Kuala_Lumpur')) return 'MYR';
+    if (tz.includes('Jakarta')) return 'IDR';
+    if (tz.includes('Manila')) return 'PHP';
+    if (tz.includes('Ho_Chi_Minh')) return 'VND';
+    if (tz.includes('Karachi')) return 'PKR';
+    if (tz.includes('Dhaka')) return 'BDT';
+    if (tz.includes('Colombo')) return 'LKR';
+    if (tz.includes('Sydney') || tz.includes('Melbourne') || tz.includes('Brisbane') || tz.includes('Perth')) return 'AUD';
+    if (tz.includes('Auckland')) return 'NZD';
+  } catch {
+    // Continue to locale language check
+  }
+
+  // 3. Fallback: Detect from browser navigator language
+  try {
+    const lang = (navigator.language || (navigator.languages && navigator.languages[0]) || '').toUpperCase();
+    const parts = lang.split(/[-_]/);
+    const country = parts.length > 1 ? parts[1] : parts[0];
+
+    const countryMap: Record<string, string> = {
+      KE: 'KES', US: 'USD', GB: 'GBP', UK: 'GBP',
+      TZ: 'TZS', UG: 'UGX', RW: 'RWF', ZA: 'ZAR',
+      NG: 'NGN', GH: 'GHS', ET: 'ETB', EG: 'EGP',
+      CA: 'CAD', AU: 'AUD', NZ: 'NZD', IN: 'INR',
+      JP: 'JPY', CN: 'CNY', AE: 'AED', SA: 'SAR',
+      DE: 'EUR', FR: 'EUR', IT: 'EUR', ES: 'EUR',
+      NL: 'EUR', BE: 'EUR', AT: 'EUR', IE: 'EUR',
+      PT: 'EUR', FI: 'EUR', GR: 'EUR', CH: 'CHF',
+      SE: 'SEK', NO: 'NOK', DK: 'DKK', PL: 'PLN',
+      BR: 'BRL', MX: 'MXN', SG: 'SGD'
+    };
+
+    if (country && countryMap[country]) {
+      return countryMap[country];
+    }
+  } catch {
+    // Continue to default
+  }
+
+  // Default to Kenyan Shilling
+  return 'KES';
+}
+
 export const InvoiceGenerator: React.FC<{ onNavigateToContact?: () => void }> = ({ onNavigateToContact }) => {
   const { t } = useLanguage();
 
@@ -35,7 +357,7 @@ export const InvoiceGenerator: React.FC<{ onNavigateToContact?: () => void }> = 
     return d.toISOString().split('T')[0];
   });
   const [poNumber, setPoNumber] = useState<string>('');
-  const [currency, setCurrency] = useState<'KES' | 'USD' | 'EUR' | 'GBP' | 'TZS' | 'UGX'>('KES');
+  const [currency, setCurrency] = useState<string>(() => detectUserCurrency());
 
   // Items
   const [items, setItems] = useState<InvoiceItem[]>([
@@ -63,16 +385,7 @@ export const InvoiceGenerator: React.FC<{ onNavigateToContact?: () => void }> = 
   // File Input Ref for Logo Upload
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const currencySymbols: Record<string, string> = {
-    KES: 'KSh',
-    USD: '$',
-    EUR: '€',
-    GBP: '£',
-    TZS: 'TSh',
-    UGX: 'USh'
-  };
-
-  const currSymbol = currencySymbols[currency] || 'KSh';
+  const currSymbol = ALL_CURRENCY_SYMBOLS[currency] || currency;
 
   // Math Calculations
   const subtotal = items.reduce((acc, it) => acc + (Number(it.quantity) || 0) * (Number(it.rate) || 0), 0);
@@ -148,6 +461,16 @@ export const InvoiceGenerator: React.FC<{ onNavigateToContact?: () => void }> = 
       setVatPercent(16);
       setShippingFee(0);
       setAmountPaid(0);
+      setCurrency(detectUserCurrency());
+    }
+  };
+
+  const handleCurrencyChange = (newCurr: string) => {
+    setCurrency(newCurr);
+    try {
+      localStorage.setItem('dth_invoice_currency', newCurr);
+    } catch {
+      // Ignore sandbox localStorage errors
     }
   };
 
@@ -375,15 +698,26 @@ export const InvoiceGenerator: React.FC<{ onNavigateToContact?: () => void }> = 
                 </label>
                 <select
                   value={currency}
-                  onChange={(e) => setCurrency(e.target.value as any)}
-                  className="flex-1 px-3 py-1.5 rounded-lg bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs font-mono font-bold text-slate-900 dark:text-white text-right focus:outline-none focus:border-[#00c853] cursor-pointer"
+                  onChange={(e) => handleCurrencyChange(e.target.value)}
+                  className="w-44 sm:w-52 max-w-full px-3 py-1.5 rounded-lg bg-stone-50 dark:bg-slate-950 border border-stone-200 dark:border-slate-800 text-xs font-mono font-bold text-slate-900 dark:text-white text-right focus:outline-none focus:border-[#00c853] cursor-pointer ml-auto"
+                  title="Auto-detected to your region. Click to change."
                 >
-                  <option value="KES">KES (KSh)</option>
-                  <option value="USD">USD ($)</option>
-                  <option value="EUR">EUR (€)</option>
-                  <option value="GBP">GBP (£)</option>
-                  <option value="TZS">TZS (TSh)</option>
-                  <option value="UGX">UGX (USh)</option>
+                  <optgroup label="Default & Popular">
+                    {PRIMARY_CURRENCIES.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.code} ({c.symbol})
+                      </option>
+                    ))}
+                  </optgroup>
+                  {WORLD_CURRENCY_GROUPS.map((group) => (
+                    <optgroup key={group.region} label={group.region}>
+                      {group.currencies.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.code} ({c.symbol}) – {c.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
                 </select>
               </div>
 
