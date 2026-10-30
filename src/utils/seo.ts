@@ -6,7 +6,14 @@ import { INSIGHT_ARTICLES } from '../data/insightsData';
 import { SERVICE_KEYWORD_MAP } from '../data/keywordMapData';
 import { HIGH_PERFORMING_KEYWORDS, generateArticleJsonLd } from './keywordInjection';
 import { normalizeServiceSlug } from './routing';
-export { generateBlogSchema, formatPublishedDateIso, formatReadingTimeIso, calculateArticleWordCount } from './blogSchema';
+export {
+  generateBlogSchema,
+  generateArticleFaqSchema,
+  generateArticleHowToSchema,
+  formatPublishedDateIso,
+  formatReadingTimeIso,
+  calculateArticleWordCount,
+} from './blogSchema';
 
 export interface PageSeoConfig {
   title: string;
@@ -212,6 +219,11 @@ export const MASTER_TARGET_KEYWORDS = [
 ].join(', ');
 
 const ARTICLE_SEO_TITLES: Record<string, string> = {
+  'daraja-api-error-codes-reference-resultcode-1032-1037-2001': 'Daraja API Error Codes Reference: 1032, 1037, 2001 Fix | Domain Tech Hub',
+  'how-to-integrate-mpesa-stk-push-nextjs-daraja-3': 'How to Integrate M-Pesa STK Push in Next.js (Daraja 3) | Domain Tech Hub',
+  'etims-api-integration-guide-oscu-vscu-developers': 'eTIMS API Integration Guide: OSCU vs VSCU Architecture | Domain Tech Hub',
+  'pesapal-vs-flutterwave-vs-dpo-vs-paystack-kenya': 'Pesapal vs Flutterwave vs DPO vs Paystack Kenya 2026 | Domain Tech Hub',
+  'school-website-design-development-kenya-cost-features': 'School Website Design & Cost in Kenya (CBC Guide) | Domain Tech Hub',
   'how-to-generate-an-etims-invoice': 'How to Generate a KRA eTIMS Invoice in Kenya | Domain Tech Hub',
   'zero-loss-mpesa-stk-push-architecture': 'Zero-Loss M-Pesa Daraja 3.0 STK Push Guide | Domain Tech Hub',
   'headless-nextjs-vs-wordpress-kenya': 'Headless Next.js vs WordPress in Kenya | Domain Tech Hub',

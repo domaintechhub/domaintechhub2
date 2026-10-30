@@ -232,3 +232,34 @@ If your organization is ready for a digital presence that drives measurable comm
   - Statutory Data Protection: [Office of the Data Protection Commissioner Kenya (ODPC)](https://www.odpc.go.ke/)
   - Verified Results: [ApexPay Africa Fintech Case Study](https://www.domaintechhubs.com/portfolio) ($2.4M+ in regional transactions processed with 99.99% success rate)
 
+### Guide 8: Daraja API Error Reference: ResultCode 1032, 1037, 2001 & Invalid Access Token
+- **Author**: Brian Mwangi (Lead Cloud & Fintech Architect)
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/daraja-api-error-codes-reference-resultcode-1032-1037-2001](https://www.domaintechhubs.com/insights/daraja-api-error-codes-reference-resultcode-1032-1037-2001)
+- **Primary Search Target**: Daraja API Error Codes
+- **Key Summary**: Comprehensive troubleshooting manual diagnosing ResultCode 1032 (user cancel), 1037 (user inactivity / 25s timeout), 2001 (wrong PIN / invalid initiator), 400.002.02 (bad timestamp / password), and missing webhook callbacks. Includes full error diagnosis tables and safe retry architectures.
+
+### Guide 9: How to Integrate M-Pesa STK Push in Next.js (Daraja 3.0 Guide)
+- **Author**: Brian Mwangi & Amina Hassan
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/how-to-integrate-mpesa-stk-push-nextjs-daraja-3](https://www.domaintechhubs.com/insights/how-to-integrate-mpesa-stk-push-nextjs-daraja-3)
+- **Primary Search Target**: How to Integrate M-Pesa STK Push in Next.js
+- **Key Summary**: End-to-end tutorial using Next.js 14/15 App Router and TypeScript. Complete working code for OAuth token caching, base64 security credential generation, STK push initiation Route Handler, and idempotent callback webhook handler with atomic database locks.
+
+### Guide 10: eTIMS API Integration for Developers and ERPs: OSCU vs VSCU Architecture
+- **Author**: Amina Hassan & Brian Mwangi
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/etims-api-integration-guide-oscu-vscu-developers](https://www.domaintechhubs.com/insights/etims-api-integration-guide-oscu-vscu-developers)
+- **Primary Search Target**: eTIMS API Integration
+- **Key Summary**: In-depth architecture comparing Online Sales Control Unit (OSCU) for offline retail POS syncing vs Virtual Sales Control Unit (VSCU) for cloud ERPs. Covers device initialization, UNSPSC item classification, invoice cryptographic signing, QR verification URL generation, and KRA certification workflows.
+
+### Guide 11: Pesapal vs Flutterwave vs DPO vs Paystack in Kenya: 2026 Payment Gateway Comparison
+- **Author**: Brian Mwangi (Lead Cloud & Fintech Architect)
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/pesapal-vs-flutterwave-vs-dpo-vs-paystack-kenya](https://www.domaintechhubs.com/insights/pesapal-vs-flutterwave-vs-dpo-vs-paystack-kenya)
+- **Primary Search Target**: Pesapal vs Flutterwave vs DPO vs Paystack in Kenya
+- **Key Summary**: Comparative benchmark analyzing transaction fees for M-Pesa and cards, CBK regulation, settlement periods (T+1 to T+3), developer SDKs, and ideal use cases (Pesapal for retail/schools/Sabi POS, Paystack for modern web/SaaS, DPO for safari tourism in USD, and Flutterwave for pan-African mobile money).
+
+### Guide 12: Website for a School in Kenya: Cost, Essential Features & Parent Portal Guide
+- **Author**: Faith Muthoni & Dennis Kiprop
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/school-website-design-development-kenya-cost-features](https://www.domaintechhubs.com/insights/school-website-design-development-kenya-cost-features)
+- **Primary Search Target**: Website for a School in Kenya
+- **Key Summary**: Comprehensive 2026 guide on designing websites for Kenyan primary, junior secondary (CBC), and international schools. Covers cost brackets (KSh 45,000 to KSh 350,000+), automated M-Pesa fee payments reconciled with admission numbers, digital admissions, academic calendar downloads, and secure parent/student portals.
+
+

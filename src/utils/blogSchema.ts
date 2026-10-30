@@ -163,4 +163,79 @@ export function generateBlogSchema(
   };
 }
 
+/**
+ * Extracts FAQ items from an article's FAQ section and generates Schema.org FAQPage structured data.
+ */
+export function generateArticleFaqSchema(
+  article: InsightArticle,
+  baseUrl: string = SITE_URL
+): Record<string, any> | null {
+  const faqSection = article.contentSections?.find((s) =>
+    s.heading.toLowerCase().includes('faq') || s.heading.toLowerCase().includes('frequently asked questions')
+  );
+  if (!faqSection) return null;
+
+  const rawText = faqSection.body;
+  const qaMatches = [...rawText.matchAll(/[•\-]?\s*\*\*Q:\s*([^?*]+\??)\*\*\s*\n([^\n•]+(?:\n(?![•\-]|\*\*Q)[^\n•]+)*)/g)];
+  if (qaMatches.length === 0) return null;
+
+  const mainEntity = qaMatches.map((m) => {
+    const question = m[1].trim();
+    const answer = m[2].trim();
+    return {
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: answer,
+      },
+    };
+  });
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity,
+  };
+}
+
+/**
+ * Extracts HowTo steps from a tutorial article and generates Schema.org HowTo structured data.
+ */
+export function generateArticleHowToSchema(
+  article: InsightArticle,
+  baseUrl: string = SITE_URL
+): Record<string, any> | null {
+  const isTutorial =
+    article.slug.includes('how-to') ||
+    article.slug.includes('integration-guide') ||
+    article.slug.includes('stk-push-nextjs');
+
+  if (!isTutorial) return null;
+
+  const stepSections = (article.contentSections || []).filter(
+    (s) =>
+      /^(\d+\.|step\s*\d+|step\s*[a-d]:)/i.test(s.heading.trim()) ||
+      s.heading.toLowerCase().startsWith('step')
+  );
+
+  if (stepSections.length < 2) return null;
+
+  const stepList = stepSections.map((sec, idx) => ({
+    '@type': 'HowToStep',
+    position: idx + 1,
+    name: sec.heading.replace(/^(\d+\.|step\s*([0-9a-z]+):?)\s*/i, '').trim(),
+    text: sec.body.slice(0, 300).trim(),
+  }));
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: article.title,
+    description: article.excerpt,
+    step: stepList,
+  };
+}
+
 export default generateBlogSchema;
+

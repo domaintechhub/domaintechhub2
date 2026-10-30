@@ -137,11 +137,13 @@ export function crawlArticles() {
   const extraPath = path.resolve(__dirname, 'src/data/seoExplainerArticles.ts');
   const pricingPath = path.resolve(__dirname, 'src/data/pricingHiringGuides.ts');
   const industryPath = path.resolve(__dirname, 'src/data/industryAndTechnicalGuides.ts');
+  const darajaEtimsPath = path.resolve(__dirname, 'src/data/darajaEtimsPaymentGuides.ts');
   const content =
     fs.readFileSync(insightsPath, 'utf8') +
     (fs.existsSync(extraPath) ? '\n' + fs.readFileSync(extraPath, 'utf8') : '') +
     (fs.existsSync(pricingPath) ? '\n' + fs.readFileSync(pricingPath, 'utf8') : '') +
-    (fs.existsSync(industryPath) ? '\n' + fs.readFileSync(industryPath, 'utf8') : '');
+    (fs.existsSync(industryPath) ? '\n' + fs.readFileSync(industryPath, 'utf8') : '') +
+    (fs.existsSync(darajaEtimsPath) ? '\n' + fs.readFileSync(darajaEtimsPath, 'utf8') : '');
   const articles = [];
   const slugMatches = [...content.matchAll(/slug:\s*['"]([^'"]+)['"]/g)];
   for (const m of slugMatches) {

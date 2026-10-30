@@ -21,7 +21,14 @@ import { CASE_STUDIES } from '../src/data/portfolioData';
 import { FAQ_ITEMS } from '../src/data/faqData';
 import { SERVICE_GUIDES } from '../src/data/serviceGuides';
 import { SERVICE_KEYWORD_MAP } from '../src/data/keywordMapData';
-import { PAGE_SEO_DATA, MASTER_TARGET_KEYWORDS, HOME_H1, generateBlogSchema } from '../src/utils/seo';
+import {
+  PAGE_SEO_DATA,
+  MASTER_TARGET_KEYWORDS,
+  HOME_H1,
+  generateBlogSchema,
+  generateArticleFaqSchema,
+  generateArticleHowToSchema,
+} from '../src/utils/seo';
 import { injectSemanticKeywords } from '../src/utils/keywordInjection';
 import { normalizeServiceSlug } from '../src/utils/routing';
 import type { PageRoute } from '../src/App';
@@ -278,6 +285,8 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
         </nav>
         <article itemscope itemtype="https://schema.org/BlogPosting">
           <script type="application/ld+json">${JSON.stringify(generateBlogSchema(article))}</script>
+          ${generateArticleFaqSchema(article) ? `<script type="application/ld+json">${JSON.stringify(generateArticleFaqSchema(article))}</script>` : ''}
+          ${generateArticleHowToSchema(article) ? `<script type="application/ld+json">${JSON.stringify(generateArticleHowToSchema(article))}</script>` : ''}
           <header class="mb-8">
             <span class="text-xs font-mono text-cyan-400 uppercase">${escapeHtml(article.category)} · ${escapeHtml(article.readTime)} · ${escapeHtml(article.publishedDate)}</span>
             <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-2 mb-4">${escapeHtml(article.title)}</h1>

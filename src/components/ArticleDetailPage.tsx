@@ -11,7 +11,7 @@ import { AGENCY_INFO } from '../data/portfolioData';
 import { SITE_URL } from '../config/site';
 import { calculateReadStats } from './InsightsSection';
 import { getKeywordsForArticle, injectSemanticKeywords } from '../utils/keywordInjection';
-import { generateBlogSchema } from '../utils/blogSchema';
+import { generateBlogSchema, generateArticleFaqSchema, generateArticleHowToSchema } from '../utils/blogSchema';
 
 interface ArticleDetailPageProps {
   article: InsightArticle;
@@ -183,13 +183,45 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         document.head.appendChild(schemaScript);
       }
       schemaScript.textContent = JSON.stringify(blogSchema, null, 2);
+
+      // Inject dynamic FAQPage schema if available
+      const faqSchema = generateArticleFaqSchema(article);
+      let faqScript = document.getElementById('article-detail-faq-schema') as HTMLScriptElement | null;
+      if (faqSchema) {
+        if (!faqScript) {
+          faqScript = document.createElement('script');
+          faqScript.id = 'article-detail-faq-schema';
+          faqScript.type = 'application/ld+json';
+          document.head.appendChild(faqScript);
+        }
+        faqScript.textContent = JSON.stringify(faqSchema, null, 2);
+      } else if (faqScript && faqScript.parentNode) {
+        faqScript.parentNode.removeChild(faqScript);
+      }
+
+      // Inject dynamic HowTo schema if available
+      const howToSchema = generateArticleHowToSchema(article);
+      let howToScript = document.getElementById('article-detail-howto-schema') as HTMLScriptElement | null;
+      if (howToSchema) {
+        if (!howToScript) {
+          howToScript = document.createElement('script');
+          howToScript.id = 'article-detail-howto-schema';
+          howToScript.type = 'application/ld+json';
+          document.head.appendChild(howToScript);
+        }
+        howToScript.textContent = JSON.stringify(howToSchema, null, 2);
+      } else if (howToScript && howToScript.parentNode) {
+        howToScript.parentNode.removeChild(howToScript);
+      }
     }
 
     return () => {
-      // Clean up dynamic schema when navigating away
-      const script = document.getElementById('article-detail-blog-schema');
-      if (script && script.parentNode) {
-        script.parentNode.removeChild(script);
+      // Clean up dynamic schemas when navigating away
+      for (const id of ['article-detail-blog-schema', 'article-detail-faq-schema', 'article-detail-howto-schema']) {
+        const script = document.getElementById(id);
+        if (script && script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
       }
     };
   }, [article.id, article.slug, article.title, article.publishedDate, article.readTime]);
