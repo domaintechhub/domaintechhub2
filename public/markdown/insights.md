@@ -262,4 +262,65 @@ If your organization is ready for a digital presence that drives measurable comm
 - **Primary Search Target**: Website for a School in Kenya
 - **Key Summary**: Comprehensive 2026 guide on designing websites for Kenyan primary, junior secondary (CBC), and international schools. Covers cost brackets (KSh 45,000 to KSh 350,000+), automated M-Pesa fee payments reconciled with admission numbers, digital admissions, academic calendar downloads, and secure parent/student portals.
 
+### Guide 13: Restaurant & Hotel Website in Kenya: Cost, Online Ordering, Room Bookings & M-Pesa Payments
+- **Author**: Brian Mwangi & Faith Muthoni
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/restaurant-hotel-website-kenya-online-ordering-bookings](https://www.domaintechhubs.com/insights/restaurant-hotel-website-kenya-online-ordering-bookings)
+- **Primary Search Target**: Restaurant Website Kenya
+- **Key Summary**: Complete operational blueprint for Kenyan restaurants, cafes, and boutique hotels to bypass 15%–30% delivery app commissions. Covers mobile text menus, kitchen tablet alerts, landmark delivery zones, table reservations, and automated Lipa Na M-Pesa STK Push checkouts.
+
+### Guide 14: Real Estate Website in Kenya: Property Listings, Lead Capture & Virtual Tours
+- **Author**: Dennis Kiprop & Faith Muthoni
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/real-estate-website-kenya-property-listings-lead-capture](https://www.domaintechhubs.com/insights/real-estate-website-kenya-property-listings-lead-capture)
+- **Primary Search Target**: Real Estate Website Kenya
+- **Key Summary**: High-converting listing and lead generation guide for property developers, land sellers, and real estate agencies in Nairobi and Kiambu. Features multi-parameter search (price, estate, title deeds), mortgage calculators, 4K virtual video walkthroughs, and direct WhatsApp listing lead capture.
+
+### Guide 15: Law Firm & Accounting Firm Websites in Kenya: Trust, Client Portals & Retainer Billing
+- **Author**: Brian Mwangi & Dennis Kiprop
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/law-firm-accounting-firm-website-kenya-client-portal](https://www.domaintechhubs.com/insights/law-firm-accounting-firm-website-kenya-client-portal)
+- **Primary Search Target**: Law Firm Website Kenya
+- **Key Summary**: Professional practice handbook tailored for Kenyan advocates, CPAs, and audit advisory partnerships. Focuses on strict LSK and ICPAK compliance, partner credential displays, confidential document portals, and automated retainer M-Pesa payments.
+
+### Guide 16: Church & NGO Websites in Kenya: Online M-Pesa Giving, Donations & Community Portals
+- **Author**: Faith Muthoni & Brian Mwangi
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/church-ngo-website-kenya-mpesa-donations-giving](https://www.domaintechhubs.com/insights/church-ngo-website-kenya-mpesa-donations-giving)
+- **Primary Search Target**: Church Website Kenya
+- **Key Summary**: Mission-driven digital handbook for faith organizations and non-profits. Demonstrates automated M-Pesa STK Push for tithes/offerings, multi-currency international credit card processing (USD/EUR/GBP), sermon podcasts, and audited donor impact reports.
+
+### Guide 17: Salon, Barbershop & Spa Booking Websites in Kenya: Appointment Scheduling & M-Pesa Deposits
+- **Author**: Faith Muthoni
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/salon-barbershop-spa-booking-website-kenya](https://www.domaintechhubs.com/insights/salon-barbershop-spa-booking-website-kenya)
+- **Primary Search Target**: Salon Website Kenya
+- **Key Summary**: Operational guide on eliminating client no-shows via automated M-Pesa commitment deposits (KSh 500–1,000), stylist selection, real-time calendar availability, and automated WhatsApp appointment reminders.
+
+### Guide 18: Car Hire & Dealership Websites in Kenya: Vehicle Inventory, Daily Rental Bookings & M-Pesa
+- **Author**: Brian Mwangi & Dennis Kiprop
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/car-hire-dealership-website-kenya-inventory-booking](https://www.domaintechhubs.com/insights/car-hire-dealership-website-kenya-inventory-booking)
+- **Primary Search Target**: Car Hire Website Kenya
+- **Key Summary**: Digital showroom and rental engine guide for car hire firms, safari cruisers, and auto dealerships in Nairobi and Mombasa. Covers daily rate pickers, chauffeur vs self-drive options, license verification uploads, and asset finance loan calculators.
+
+### Guide 19: Fashion Boutique & Online Clothing Store in Kenya: E-Commerce, Sizing & Lipa Na M-Pesa
+- **Author**: Faith Muthoni
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/fashion-boutique-online-clothing-store-kenya](https://www.domaintechhubs.com/insights/fashion-boutique-online-clothing-store-kenya)
+- **Primary Search Target**: Fashion Boutique Website Kenya
+- **Key Summary**: Retail transition playbook for Kenyan apparel designers moving beyond Instagram DMs. Features color/size swatches, Kenyan/UK measurement charts, instant Lipa Na M-Pesa STK push, and zoned courier shipping across Nairobi and upcountry.
+
+### Guide 20: Sacco & Microfinance Websites in Kenya: Member Portals, Loan Calculators & SASRA Compliance
+- **Author**: Amina Hassan & Brian Mwangi
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/sacco-microfinance-website-kenya-loan-portal-sasra](https://www.domaintechhubs.com/insights/sacco-microfinance-website-kenya-loan-portal-sasra)
+- **Primary Search Target**: Sacco Website Kenya
+- **Key Summary**: SASRA-compliant framework for Kenyan Saccos and microfinance institutions. Explains interactive loan repayment calculators, digital membership onboarding forms, FOSA/BOSA product outlines, and core-banking member portals.
+
+### Guide 21: Gym & Fitness Studio Websites in Kenya: Class Bookings & Automated M-Pesa Memberships
+- **Author**: Faith Muthoni & Brian Mwangi
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/gym-fitness-studio-website-kenya-membership-payments](https://www.domaintechhubs.com/insights/gym-fitness-studio-website-kenya-membership-payments)
+- **Primary Search Target**: Gym Website Kenya
+- **Key Summary**: Member retention and subscription automation blueprint for Kenyan gyms, CrossFit boxes, and wellness studios. Covers dynamic weekly class schedules, instant M-Pesa subscription renewals, digital QR check-in passes, and automated expiry alerts.
+
+### Guide 22: Event Planner & Photographer Portfolio Websites in Kenya: Client Galleries & Date Inquiries
+- **Author**: Faith Muthoni & Dennis Kiprop
+- **Canonical URL**: [https://www.domaintechhubs.com/insights/event-planner-photographer-portfolio-website-kenya](https://www.domaintechhubs.com/insights/event-planner-photographer-portfolio-website-kenya)
+- **Primary Search Target**: Photographer Portfolio Website Kenya
+- **Key Summary**: High-aesthetic creative showcase guide for Kenyan wedding planners, corporate coordinators, and commercial photographers. Explains password-protected client download vaults, date availability checkers, package rate cards, and M-Pesa consultation deposits.
+
+
 

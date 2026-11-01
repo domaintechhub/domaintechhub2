@@ -219,6 +219,16 @@ export const MASTER_TARGET_KEYWORDS = [
 ].join(', ');
 
 const ARTICLE_SEO_TITLES: Record<string, string> = {
+  'restaurant-hotel-website-kenya-online-ordering-bookings': 'Restaurant & Hotel Website Kenya: Online Ordering & M-Pesa | Domain Tech Hub',
+  'real-estate-website-kenya-property-listings-lead-capture': 'Real Estate Website Kenya: Listings & Lead Capture Guide | Domain Tech Hub',
+  'law-firm-accounting-firm-website-kenya-client-portal': 'Law & Accounting Firm Website Kenya: Client Portals | Domain Tech Hub',
+  'church-ngo-website-kenya-mpesa-donations-giving': 'Church & NGO Website Kenya: Online M-Pesa Giving Guide | Domain Tech Hub',
+  'salon-barbershop-spa-booking-website-kenya': 'Salon & Spa Booking Website Kenya: M-Pesa Appointments | Domain Tech Hub',
+  'car-hire-dealership-website-kenya-inventory-booking': 'Car Hire & Dealership Website Kenya: Inventory & Booking | Domain Tech Hub',
+  'fashion-boutique-online-clothing-store-kenya': 'Fashion Boutique & Clothing Store Kenya: M-Pesa E-Commerce | Domain Tech Hub',
+  'sacco-microfinance-website-kenya-loan-portal-sasra': 'Sacco & Microfinance Website Kenya: SASRA Member Portal | Domain Tech Hub',
+  'gym-fitness-studio-website-kenya-membership-payments': 'Gym & Fitness Studio Website Kenya: M-Pesa Memberships | Domain Tech Hub',
+  'event-planner-photographer-portfolio-website-kenya': 'Photographer & Event Planner Portfolio Website Kenya | Domain Tech Hub',
   'daraja-api-error-codes-reference-resultcode-1032-1037-2001': 'Daraja API Error Codes Reference: 1032, 1037, 2001 Fix | Domain Tech Hub',
   'how-to-integrate-mpesa-stk-push-nextjs-daraja-3': 'How to Integrate M-Pesa STK Push in Next.js (Daraja 3) | Domain Tech Hub',
   'etims-api-integration-guide-oscu-vscu-developers': 'eTIMS API Integration Guide: OSCU vs VSCU Architecture | Domain Tech Hub',
