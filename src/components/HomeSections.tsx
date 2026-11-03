@@ -162,28 +162,24 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       quote: '“They built our website and handled our digital marketing. Our online enquiries increased by 200%.”',
       author: 'Grace Wanjiku',
       role: "CEO, Tessa's Bakery",
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&h=200&q=80',
     },
     {
       id: 'james-kimani',
       quote: '“Professional, creative and timely. Our brand looks better than ever.”',
       author: 'James Kimani',
       role: 'Managing Director, Apex Hardware',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=200&q=80',
     },
     {
       id: 'sarah-njeri',
       quote: '“Their SEO and Google Ads campaigns brought us qualified leads within 2 months. Highly recommended!”',
       author: 'Sarah Njeri',
       role: 'Marketing Manager, SolarGrid Kenya',
-      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&h=200&q=80',
     },
     {
       id: 'david-mwangi',
       quote: '“The AI chatbot has saved us hours every week. Great team and support!”',
       author: 'David Mwangi',
       role: 'Founder, Safari Logistics',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&h=200&q=80',
     },
   ];
 
@@ -970,19 +966,12 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
                 <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6 italic">
                   {item.quote}
                 </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-stone-100 dark:border-slate-800">
-                  <img 
-                    src={item.avatar} 
-                    alt={item.author}
-                    className="w-11 h-11 rounded-full object-cover shrink-0 border border-stone-200 dark:border-slate-700"
-                  />
-                  <div className="min-w-0">
-                    <div className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                      {item.author}
-                    </div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                      {item.role}
-                    </div>
+                <div className="pt-4 border-t border-stone-100 dark:border-slate-800">
+                  <div className="text-sm font-bold text-slate-900 dark:text-white">
+                    {item.author}
+                  </div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                    {item.role}
                   </div>
                 </div>
               </div>
