@@ -8,119 +8,123 @@ import {
 import { INSIGHT_ARTICLES, INSIGHT_CATEGORIES, InsightArticle } from '../data/insightsData';
 import { AGENCY_INFO } from '../data/portfolioData';
 
-export interface WebsiteTopicResource {
+export interface FeaturedArticleResource {
   id: string;
+  slug: string;
   title: string;
-  url: string;
-  displayUrl: string;
-  category: 'Builder' | 'Reference' | 'E-Commerce' | 'Registrar' | 'CMS';
+  category: 'Industry Playbooks' | 'Fintech & Payments' | 'Website Builders & Pricing' | 'Web Architecture & SEO';
   badge: string;
   description: string;
+  readTime: string;
   keySearchTerm: string;
 }
 
-export const FEATURED_WEBSITE_TOPICS: WebsiteTopicResource[] = [
+export type WebsiteTopicResource = FeaturedArticleResource;
+
+export const FEATURED_CURATED_ARTICLES: FeaturedArticleResource[] = [
   {
-    id: 'wix-builder',
-    title: 'Website Builder - Create a Free Website In Minutes | Wix.com',
-    url: 'https://www.wix.com/',
-    displayUrl: 'wix.com',
-    category: 'Builder',
-    badge: 'Drag-and-Drop AI Builder',
-    description: 'AI-assisted visual website creator with 900+ customizable designer templates, secure cloud hosting, and integrated app marketplace.',
-    keySearchTerm: 'Wix'
+    id: 'restaurant-hotel-playbook',
+    slug: 'restaurant-hotel-website-kenya-online-ordering-bookings',
+    title: 'Restaurant & Hotel Websites in Kenya: Online Ordering, Menus & M-Pesa STK Push',
+    category: 'Industry Playbooks',
+    badge: 'Hospitality Playbook',
+    description: 'A complete playbook for Nairobi restaurants and hotels: menu management, zero-commission online food ordering, instant M-Pesa STK Push checkout, table reservations, and automated kitchen alerts.',
+    readTime: '14 min read',
+    keySearchTerm: 'Restaurant'
   },
   {
-    id: 'website-wikipedia',
-    title: 'Website - Wikipedia',
-    url: 'https://en.wikipedia.org/wiki/Website',
-    displayUrl: 'en.wikipedia.org/wiki/Website',
-    category: 'Reference',
-    badge: 'Web Architecture Reference',
-    description: 'The authoritative encyclopedia overview of website architecture, hypertext markup, hosting protocols, and server infrastructure.',
-    keySearchTerm: 'Website'
+    id: 'real-estate-playbook',
+    slug: 'real-estate-website-kenya-property-listings-lead-capture',
+    title: 'Real Estate Agent Websites in Kenya: Property Listings, Search Filters & Lead Capture',
+    category: 'Industry Playbooks',
+    badge: 'Real Estate Tech',
+    description: 'High-converting real estate web architecture: property search by Nairobi neighborhood, price and bedroom filters, high-resolution galleries, and direct WhatsApp lead capture automation.',
+    readTime: '15 min read',
+    keySearchTerm: 'Real Estate'
   },
   {
-    id: 'website-com-free',
-    title: 'Create Your Free Website | Free Website Builder | Website.com',
-    url: 'https://www.website.com/',
-    displayUrl: 'website.com',
-    category: 'Builder',
-    badge: 'Beginner Site Builder',
-    description: 'Template-driven website creator designed for entrepreneurs, portfolios, and small businesses needing quick online publishing.',
-    keySearchTerm: 'Website.com'
+    id: 'law-firm-playbook',
+    slug: 'law-firm-accounting-firm-website-kenya-client-portal',
+    title: 'Law Firm & Accounting Firm Websites in Kenya: Client Portals & Compliance',
+    category: 'Industry Playbooks',
+    badge: 'Professional Services',
+    description: 'Designing trustworthy digital presence for advocates, corporate lawyers, and CPA auditors: secure document vaults, ODPC privacy compliance, retainer fee payments, and consultation schedulers.',
+    readTime: '13 min read',
+    keySearchTerm: 'Law Firm'
   },
   {
-    id: 'website-com-minutes',
-    title: 'Build Your Free Website In Minutes | Website.com',
-    url: 'https://www.website.com/free-websites/',
-    displayUrl: 'website.com/free-websites',
-    category: 'Builder',
-    badge: 'Quick Launch Wizard',
-    description: 'Step-by-step free website launcher with responsive layouts, domain mapping, and zero server configuration required.',
-    keySearchTerm: 'Website.com'
+    id: 'mpesa-stk-push-guide',
+    slug: 'how-to-integrate-mpesa-stk-push-nextjs-daraja-3',
+    title: 'How to Integrate M-Pesa STK Push in Next.js (Daraja 3.0 API): Full Code Tutorial',
+    category: 'Fintech & Payments',
+    badge: 'Fintech Engineering',
+    description: 'Production-ready TypeScript code walkthrough for Safaricom Daraja 3.0: generating Bearer tokens, base64 passwords, initiating STK Push requests, and processing secure webhook callbacks.',
+    readTime: '14 min read',
+    keySearchTerm: 'M-Pesa STK'
   },
   {
-    id: 'google-sites',
-    title: 'Google Sites: Website Creator and Hosting | Google Workspace',
-    url: 'https://workspace.google.com/products/sites/',
-    displayUrl: 'workspace.google.com/products/sites',
-    category: 'Reference',
-    badge: 'Google Workspace Ecosystem',
-    description: 'Zero-cost collaborative site creator for team intranets, project documentation, and internal enterprise dashboards.',
-    keySearchTerm: 'Google Sites'
+    id: 'daraja-errors-reference',
+    slug: 'daraja-api-error-codes-reference-resultcode-1032-1037-2001',
+    title: 'Daraja API Error Code Reference: ResultCodes 1032, 1037, 2001 & Missing Callbacks',
+    category: 'Fintech & Payments',
+    badge: 'API Troubleshooting',
+    description: 'The definitive troubleshooting guide for Safaricom Daraja integration errors: root causes and exact code fixes for ResultCodes 1032, 1037, 2001, invalid tokens, and missing callback deliveries.',
+    readTime: '13 min read',
+    keySearchTerm: 'Daraja API'
   },
   {
-    id: 'squarespace-builder',
-    title: 'Website Builder – Easily Create Your Own Website — Squarespace',
-    url: 'https://www.squarespace.com/',
-    displayUrl: 'squarespace.com',
-    category: 'Builder',
-    badge: 'Design & Typography Studio',
-    description: 'Award-winning aesthetics, refined typographic systems, and integrated booking for creative professionals and luxury brands.',
-    keySearchTerm: 'Squarespace'
+    id: 'etims-integration-guide',
+    slug: 'etims-api-integration-guide-oscu-vscu-developers',
+    title: 'eTIMS API Integration Guide for Developers & ERPs: OSCU vs VSCU Architecture',
+    category: 'Fintech & Payments',
+    badge: 'KRA Tax Compliance',
+    description: 'Everything software engineers and ERP architects need to connect Kenyan businesses to KRA eTIMS: Online Sales Control Unit vs Virtual Sales Control Unit, digital signing, and QR code verification.',
+    readTime: '16 min read',
+    keySearchTerm: 'eTIMS'
   },
   {
-    id: 'wix-site-builder',
-    title: 'Website Builder | Create a Free Website | Wix.com',
-    url: 'https://www.wix.com/website-builder',
-    displayUrl: 'wix.com/website-builder',
-    category: 'Builder',
-    badge: 'Complete Creation Suite',
-    description: 'Full-featured no-code website construction suite with custom animations, database collections, and e-commerce carts.',
-    keySearchTerm: 'Wix'
+    id: 'pesapal-flutterwave-comparison',
+    slug: 'pesapal-vs-flutterwave-vs-dpo-vs-paystack-kenya',
+    title: 'Pesapal vs Flutterwave vs DPO vs Paystack in Kenya: 2026 Comparison & Fees',
+    category: 'Fintech & Payments',
+    badge: 'Payment Gateways',
+    description: 'Side-by-side comparison of leading payment gateways in Kenya: transaction fees, M-Pesa STK Push and card acceptance rates, settlement timelines, and developer documentation quality.',
+    readTime: '13 min read',
+    keySearchTerm: 'Pesapal'
   },
   {
-    id: 'godaddy-official',
-    title: 'GoDaddy Official Site: Get a Domain & Launch Your Website',
-    url: 'https://www.godaddy.com/',
-    displayUrl: 'godaddy.com',
-    category: 'Registrar',
-    badge: 'Domain & Hosted Bundles',
-    description: 'All-in-one domain registrar and instant website launcher bundled with Microsoft 365 business email and marketing tools.',
-    keySearchTerm: 'GoDaddy'
+    id: 'website-builders-guide',
+    slug: 'website-builders-comparison-guide-wix-wordpress-squarespace',
+    title: 'Website Builders Compared: Wix, WordPress, Squarespace, Google Sites & Custom Code',
+    category: 'Website Builders & Pricing',
+    badge: 'Platform Benchmark',
+    description: 'Unbiased engineering evaluation of top site builders—Wix, Squarespace, WordPress, Google Sites, GoDaddy, and Weebly—measured against custom Next.js development for speed, SEO, and total cost.',
+    readTime: '14 min read',
+    keySearchTerm: 'Website Builders'
   },
   {
-    id: 'wordpress-com',
-    title: 'WordPress.com: Everything You Need to Build Your Website',
-    url: 'https://wordpress.com/',
-    displayUrl: 'wordpress.com',
-    category: 'CMS',
-    badge: 'Managed Open-Web CMS',
-    description: 'The world\'s most popular CMS in a managed cloud hosting environment, powering over 40% of the entire internet.',
-    keySearchTerm: 'WordPress'
+    id: 'website-cost-guide',
+    slug: 'how-much-does-a-website-cost-in-kenya-pricing-guide',
+    title: 'How Much Does a Website Cost in Kenya? 2026 Pricing Guide & Breakdown',
+    category: 'Website Builders & Pricing',
+    badge: '2026 Pricing Guide',
+    description: 'Comprehensive cost guide for Kenyan businesses: realistic prices for basic brochure sites, e-commerce stores, custom web apps, domain registration (.co.ke), fast hosting, and maintenance.',
+    readTime: '12 min read',
+    keySearchTerm: 'Website Cost'
   },
   {
-    id: 'weebly-store',
-    title: 'Free Website Builder: Build a Free Website or Online Store | Weebly',
-    url: 'https://www.weebly.com/',
-    displayUrl: 'weebly.com',
-    category: 'E-Commerce',
-    badge: 'Square E-Commerce Engine',
-    description: 'Simple drag-and-drop store builder with native Square POS checkout, shipping management, and inventory tracking.',
-    keySearchTerm: 'Weebly'
+    id: 'headless-nextjs-guide',
+    slug: 'headless-nextjs-vs-wordpress-kenya',
+    title: 'Headless Next.js vs Monolithic WordPress in Kenya: 2026 Engineering Guide',
+    category: 'Web Architecture & SEO',
+    badge: 'Modern Architecture',
+    description: 'Why performance-driven Kenyan businesses and high-traffic portals are migrating from bloated monolithic WordPress setups to headless Next.js, Edge SSR, and CDN caching.',
+    readTime: '15 min read',
+    keySearchTerm: 'Next.js'
   }
 ];
+
+export const FEATURED_WEBSITE_TOPICS = FEATURED_CURATED_ARTICLES;
 import { InsightsGridSkeleton } from './Skeletons';
 import { 
   HIGH_PERFORMING_KEYWORDS, 
@@ -297,11 +301,8 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
   const [selectedTopicCategory, setSelectedTopicCategory] = useState<string>('all');
 
   const displayedTopics = useMemo(() => {
-    if (selectedTopicCategory === 'all') return FEATURED_WEBSITE_TOPICS;
-    if (selectedTopicCategory === 'CMS') {
-      return FEATURED_WEBSITE_TOPICS.filter(t => t.category === 'CMS' || t.category === 'Registrar');
-    }
-    return FEATURED_WEBSITE_TOPICS.filter(t => t.category === selectedTopicCategory);
+    if (selectedTopicCategory === 'all') return FEATURED_CURATED_ARTICLES;
+    return FEATURED_CURATED_ARTICLES.filter(t => t.category === selectedTopicCategory);
   }, [selectedTopicCategory]);
 
   const handleFilterByTopic = (searchTerm: string) => {
@@ -331,13 +332,18 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleOpenArticlePage = (article: InsightArticle, e?: React.MouseEvent) => {
+  const handleOpenArticleBySlug = (slug: string, e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     if (onOpenArticle) {
-      onOpenArticle(article.slug);
+      onOpenArticle(slug);
     } else {
-      handleInternalNavigate(`/insights/${article.slug}`);
+      handleInternalNavigate(`/insights/${slug}`);
     }
+  };
+
+  const handleOpenArticlePage = (article: InsightArticle, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    handleOpenArticleBySlug(article.slug, e);
   };
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -734,7 +740,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
         </div>
 
         {/* ========================================================================= */}
-        {/* NEW TOPICS: POPULAR WEBSITE BUILDERS & PLATFORM BENCHMARKS DIRECTORY */}
+        {/* FEATURED TECHNICAL ARTICLES & INDUSTRY PLAYBOOKS DIRECTORY */}
         {/* ========================================================================= */}
         <div className="mb-10 p-5 sm:p-7 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl">
           {/* Header Row */}
@@ -742,13 +748,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             <div>
               <div className="text-xs font-mono text-[#00c853] dark:text-[#00e676] font-bold uppercase tracking-wider mb-1 flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>[ RESEARCH TOPICS &amp; WEBSITE BUILDERS ]</span>
+                <span>[ FEATURED TECHNICAL ARTICLES &amp; PLAYBOOKS ]</span>
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-                Popular Website Builders, Free Creators &amp; Platform Benchmarks
+                Featured Engineering Guides, Industry Playbooks &amp; Benchmarks
               </h3>
               <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                Top search topics, free website builders, and reference documentation researched by web creators and business owners:
+                Curated deep-dives, developer references, local industry playbooks, and pricing guides authored by Domain Tech Hub:
               </p>
             </div>
 
@@ -758,7 +764,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
                 onClick={() => setIsTopicsExpanded(!isTopicsExpanded)}
                 className="px-3.5 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-800"
               >
-                <span>{isTopicsExpanded ? 'Compact View' : `View All ${FEATURED_WEBSITE_TOPICS.length} Topics`}</span>
+                <span>{isTopicsExpanded ? 'Compact View' : `View All ${FEATURED_CURATED_ARTICLES.length} Articles`}</span>
                 <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isTopicsExpanded ? 'rotate-90' : ''}`} />
               </button>
             </div>
@@ -766,13 +772,13 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
 
           {/* Quick Filter Sub-Tabs */}
           <div className="flex flex-wrap items-center gap-2 mb-5">
-            <span className="text-xs font-mono text-slate-500 mr-1">Filter by type:</span>
+            <span className="text-xs font-mono text-slate-500 mr-1">Filter by category:</span>
             {[
-              { label: 'All Topics (10)', key: 'all' },
-              { label: 'Drag-and-Drop Builders', key: 'Builder' },
-              { label: 'E-Commerce Storefronts', key: 'E-Commerce' },
-              { label: 'CMS & Registrars', key: 'CMS' },
-              { label: 'Web Architecture & Reference', key: 'Reference' },
+              { label: 'All Featured (10)', key: 'all' },
+              { label: 'Industry Playbooks', key: 'Industry Playbooks' },
+              { label: 'Fintech & Payments', key: 'Fintech & Payments' },
+              { label: 'Website Builders & Pricing', key: 'Website Builders & Pricing' },
+              { label: 'Web Architecture & SEO', key: 'Web Architecture & SEO' },
             ].map(tab => (
               <button
                 key={tab.key}
@@ -789,64 +795,61 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             ))}
           </div>
 
-          {/* Topics Grid */}
+          {/* Articles Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
-            {(isTopicsExpanded ? displayedTopics : displayedTopics.slice(0, 4)).map(topic => (
+            {(isTopicsExpanded ? displayedTopics : displayedTopics.slice(0, 4)).map(article => (
               <div 
-                key={topic.id}
+                key={article.id}
                 className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/90 hover:border-[#00c853]/60 hover:bg-slate-950 transition-all flex flex-col justify-between group shadow-xs"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950/90 text-[#00e676] border border-emerald-800/60 uppercase">
-                      {topic.badge}
+                      {article.badge}
                     </span>
-                    <a
-                      href={topic.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-400 hover:text-[#00e676] transition-colors"
-                    >
-                      <span>{topic.displayUrl}</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-400">
+                      <Clock className="w-3 h-3 text-emerald-400" />
+                      <span>{article.readTime}</span>
+                    </span>
                   </div>
 
                   <h4 className="text-sm font-bold text-white mb-1.5 group-hover:text-[#00e676] transition-colors leading-snug">
                     <a 
-                      href={topic.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                      href={`/insights/${article.slug}`} 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleOpenArticleBySlug(article.slug);
+                      }}
                       className="hover:underline flex items-start justify-between gap-1"
                     >
-                      <span>{topic.title}</span>
+                      <span>{article.title}</span>
                     </a>
                   </h4>
 
                   <p className="text-xs text-slate-400 leading-relaxed mb-3">
-                    {topic.description}
+                    {article.description}
                   </p>
                 </div>
 
                 <div className="pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
                   <button
                     type="button"
-                    onClick={() => handleFilterByTopic(topic.keySearchTerm)}
+                    onClick={() => handleFilterByTopic(article.keySearchTerm)}
                     className="text-[#00e676] hover:text-emerald-300 flex items-center gap-1 font-semibold cursor-pointer"
                   >
                     <Search className="w-3 h-3" />
-                    <span>Filter "{topic.keySearchTerm}" Articles</span>
+                    <span>Filter "{article.keySearchTerm}" Articles</span>
                   </button>
 
                   <a
-                    href="/insights/website-builders-comparison-guide-wix-wordpress-squarespace"
+                    href={`/insights/${article.slug}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      handleInternalNavigate('/insights/website-builders-comparison-guide-wix-wordpress-squarespace');
+                      handleOpenArticleBySlug(article.slug);
                     }}
-                    className="text-slate-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                    className="text-slate-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer group-hover:text-[#00e676]"
                   >
-                    <span>Read Guide</span>
+                    <span>Read Article</span>
                     <ArrowRight className="w-3 h-3" />
                   </a>
                 </div>
@@ -854,23 +857,27 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({
             ))}
           </div>
 
-          {/* Read comparison prompt */}
+          {/* Catalog prompt */}
           <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-400 font-mono">
             <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[#00e676]" />
-              <span>Comparing website builders vs custom fullstack engineering?</span>
+              <BookOpen className="w-4 h-4 text-[#00e676]" />
+              <span>Looking for more developer tutorials, KRA eTIMS guides, and pricing data?</span>
             </div>
-            <a
-              href="/insights/website-builders-comparison-guide-wix-wordpress-squarespace"
-              onClick={(e) => {
-                e.preventDefault();
-                handleInternalNavigate('/insights/website-builders-comparison-guide-wix-wordpress-squarespace');
+            <button
+              type="button"
+              onClick={() => {
+                setActiveCategory('All Articles');
+                setSearchQuery('');
+                setCurrentPage(1);
+                if (gridTopRef.current) {
+                  gridTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
               }}
-              className="text-[#00e676] hover:text-emerald-300 font-bold underline flex items-center gap-1"
+              className="text-[#00e676] hover:text-emerald-300 font-bold underline flex items-center gap-1 cursor-pointer"
             >
-              <span>Read our 2026 Website Builders Comparison Guide</span>
+              <span>Explore all {INSIGHT_ARTICLES.length} articles below</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </button>
           </div>
         </div>
         </>
