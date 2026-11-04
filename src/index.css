@@ -73,6 +73,17 @@ html:not(.dark) .modal-backdrop-scrim,
   background: #94a3b8;
 }
 
+/* Hide scrollbar across all browsers while preserving touch/mouse scrollability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
 /* ==========================================================================
    Light Mode Theme Card & Surface Conversions
    Ensures deep dark slate classes map to crisp warm cards in light mode

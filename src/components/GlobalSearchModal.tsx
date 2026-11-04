@@ -122,9 +122,15 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   const [recentSearches, setRecentSearches] = useState<string[]>(() => {
     try {
       const raw = localStorage.getItem(RECENT_SEARCHES_KEY);
-      return raw ? JSON.parse(raw) : ['eTIMS Invoice', 'POS Systems', 'M-Pesa Integration'];
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      }
+      return ['Daraja API Errors', 'KRA Compliance', 'Restaurant Website'];
     } catch {
-      return ['eTIMS Invoice', 'POS Systems', 'M-Pesa Integration'];
+      return ['Daraja API Errors', 'KRA Compliance', 'Restaurant Website'];
     }
   });
 
@@ -137,16 +143,40 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
     const cleaned = term.trim();
     if (!cleaned || cleaned.length < 2) return;
     try {
+      // Do not duplicate if term already matches a popular prediction
+      const isPopular = POPULAR_PREDICTIONS.some(
+        (p) => p.toLowerCase().trim() === cleaned.toLowerCase()
+      );
+      if (isPopular) return;
+
       const updated = [
         cleaned,
-        ...recentSearches.filter((s) => s.toLowerCase() !== cleaned.toLowerCase()),
-      ].slice(0, 6);
+        ...recentSearches.filter((s) => s.toLowerCase().trim() !== cleaned.toLowerCase()),
+      ].slice(0, 5);
       setRecentSearches(updated);
       localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(updated));
     } catch {
       // Ignore storage errors
     }
   };
+
+  // Ensure recent searches never duplicate words already visible in Popular Predictions
+  const nonDuplicateRecentSearches = useMemo(() => {
+    const popularSet = new Set(POPULAR_PREDICTIONS.map((p) => p.toLowerCase().trim()));
+    const seen = new Set<string>();
+    const list: string[] = [];
+
+    for (const item of recentSearches) {
+      const cleaned = item.trim();
+      const lower = cleaned.toLowerCase();
+      if (cleaned.length >= 2 && !popularSet.has(lower) && !seen.has(lower)) {
+        seen.add(lower);
+        list.push(cleaned);
+      }
+      if (list.length >= 3) break;
+    }
+    return list;
+  }, [recentSearches]);
 
   // Pre-index all searchable items with rich metadata for real-time prediction
   const allItems: SearchResultItem[] = useMemo(
@@ -183,36 +213,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         };
       }),
 
-      // 2. Point of Sale & e-TIMS quick tools
-      {
-        id: 'tool-pos-pricing',
-        type: 'service' as const,
-        categoryLabel: 'POS & Hardware',
-        title: 'Point of Sale (POS) Systems & Hardware Prices Kenya',
-        description:
-          'Cloud POS from KSh 500/mo, on-premise KSh 15,000–35,000, thermal printers, barcode scanners & all-in-one touchscreen bundles KSh 37,000–105,000 with KRA e-TIMS.',
-        searchableBody:
-          'POS hardware Kenya thermal receipt printer barcode scanner cash drawer touchscreen terminal KRA eTIMS integration supermarket pharmacy restaurant retail',
-        metaBadge: 'From KSh 500/mo',
-        secondaryMeta: 'Same-Week Setup',
-        tags: [
-          'pos',
-          'point of sale',
-          'etims',
-          'e-tims',
-          'kra',
-          'thermal printer',
-          'barcode scanner',
-          'cash drawer',
-          'hardware',
-          'retail',
-        ],
-        target: 'services',
-        subTab: 'pos-systems',
-        href: '/services/pos-systems',
-      },
-
-      // 3. Insights / Blog Posts
+      // 2. Insights / Blog Posts
       ...INSIGHT_ARTICLES.map((a) => ({
         id: `insight-${a.id}`,
         type: 'insight' as const,
@@ -315,29 +316,47 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
   // Build vocabulary of predictive phrases from services, articles, and tags
   const predictiveDictionary = useMemo(() => {
-    const phrases = new Set<string>(POPULAR_PREDICTIONS);
+    const seen = new Set<string>();
+    const dictionary: string[] = [];
+
+    const addPhrase = (raw?: string) => {
+      if (!raw) return;
+      const clean = raw.trim();
+      // Keep phrases between 2 and 45 characters to avoid huge multi-sentence titles
+      if (clean.length < 2 || clean.length > 45) return;
+      const key = clean.toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        dictionary.push(clean);
+      }
+    };
+
+    POPULAR_PREDICTIONS.forEach(addPhrase);
     SERVICES_LIST.forEach((s) => {
-      phrases.add(s.title);
-      s.technologies.forEach((t) => phrases.add(t));
+      addPhrase(s.title);
+      s.technologies.forEach(addPhrase);
       const kwMap = SERVICE_KEYWORD_MAP[s.id];
       if (kwMap) {
-        phrases.add(kwMap.primaryKeyword);
-        kwMap.secondaryKeywords.forEach((kw) => phrases.add(kw));
+        addPhrase(kwMap.primaryKeyword);
+        kwMap.secondaryKeywords.forEach(addPhrase);
       }
     });
     INSIGHT_ARTICLES.forEach((a) => {
-      phrases.add(a.title);
-      a.tags.forEach((t) => phrases.add(t));
+      addPhrase(a.title);
+      a.tags.forEach(addPhrase);
     });
-    return Array.from(phrases);
+    return dictionary;
   }, []);
 
-  // Compute real-time predictive keyword completions as the user types
+  // Compute real-time predictive keyword completions as the user types (strictly deduplicated)
   const predictiveCompletions = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
 
-    return predictiveDictionary
+    const seen = new Set<string>();
+    const completions: string[] = [];
+
+    const candidates = predictiveDictionary
       .filter((phrase) => {
         const lower = phrase.toLowerCase();
         return lower !== q && (lower.startsWith(q) || lower.includes(q));
@@ -347,8 +366,18 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         const bStarts = b.toLowerCase().startsWith(q) ? 0 : 1;
         if (aStarts !== bStarts) return aStarts - bStarts;
         return a.length - b.length;
-      })
-      .slice(0, 6);
+      });
+
+    for (const phrase of candidates) {
+      const key = phrase.toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        completions.push(phrase);
+      }
+      if (completions.length >= 6) break;
+    }
+
+    return completions;
   }, [query, predictiveDictionary]);
 
   // Inline ghost autocomplete phrase (if a phrase starts with the exact typed query)
@@ -796,12 +825,12 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         </div>
 
         {/* Real-Time Predictive Keyword Strip OR Recent/Trending Searches */}
-        <div className="px-4 py-2 bg-stone-50/90 dark:bg-slate-900/70 border-b border-stone-200/80 dark:border-slate-800/80 flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <div className="px-4 py-2.5 bg-stone-50/95 dark:bg-slate-900/80 border-b border-stone-200/80 dark:border-slate-800/80 flex flex-wrap items-center gap-1.5 sm:gap-2 no-scrollbar">
           {isTypingQuery ? (
             predictiveCompletions.length > 0 ? (
               <>
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-teal-600 dark:text-teal-400 shrink-0 font-semibold">
-                  <Sparkles className="w-3 h-3" />
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-teal-600 dark:text-teal-400 shrink-0 font-semibold mr-0.5">
+                  <Sparkles className="w-3.5 h-3.5" />
                   Predictions:
                 </span>
                 {predictiveCompletions.map((term) => (
@@ -813,26 +842,26 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                       setSelectedIndex(0);
                       inputRef.current?.focus();
                     }}
-                    className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-stone-200/90 dark:border-slate-800 hover:border-teal-500/50 hover:text-teal-700 dark:hover:text-teal-300 transition-all whitespace-nowrap shrink-0 flex items-center gap-1"
+                    className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-stone-200/90 dark:border-slate-800 hover:border-teal-500/50 hover:text-teal-700 dark:hover:text-teal-300 transition-all flex items-center gap-1 shadow-2xs cursor-pointer"
                   >
-                    <Search className="w-2.5 h-2.5 text-teal-500" />
+                    <Search className="w-2.5 h-2.5 text-teal-500 shrink-0" />
                     <HighlightMatch text={term} query={query} />
                   </button>
                 ))}
               </>
             ) : (
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                <Zap className="w-3 h-3 text-teal-500" />
-                Live predictive filtering active — showing instant matches for "{query.trim()}"
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 py-0.5">
+                <Zap className="w-3.5 h-3.5 text-teal-500 shrink-0" />
+                Live search active — matching services, articles, and tools shown below
               </span>
             )
           ) : (
             <>
-              <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0">
-                <TrendingUp className="w-3 h-3 text-teal-500" />
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0 font-semibold mr-0.5">
+                <TrendingUp className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                 Quick Predict:
               </span>
-              {POPULAR_PREDICTIONS.slice(0, 6).map((term) => (
+              {POPULAR_PREDICTIONS.map((term) => (
                 <button
                   key={term}
                   type="button"
@@ -841,19 +870,19 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     setSelectedIndex(0);
                     inputRef.current?.focus();
                   }}
-                  className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-stone-200/80 dark:border-slate-800 hover:border-teal-500/40 hover:text-teal-600 dark:hover:text-teal-300 transition-all whitespace-nowrap shrink-0"
+                  className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-stone-200/90 dark:border-slate-800 hover:border-teal-500/50 hover:text-teal-700 dark:hover:text-teal-300 transition-all shadow-2xs cursor-pointer"
                 >
                   {term}
                 </button>
               ))}
-              {recentSearches.length > 0 && (
+              {nonDuplicateRecentSearches.length > 0 && (
                 <>
-                  <span className="text-stone-300 dark:text-slate-700">|</span>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 shrink-0">
-                    <Clock className="w-3 h-3" />
+                  <span className="text-stone-300 dark:text-slate-700 mx-1 hidden sm:inline">|</span>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0 font-semibold mr-0.5">
+                    <Clock className="w-3 h-3 text-slate-400" />
                     Recent:
                   </span>
-                  {recentSearches.slice(0, 3).map((term) => (
+                  {nonDuplicateRecentSearches.map((term) => (
                     <button
                       key={`recent-${term}`}
                       type="button"
@@ -862,7 +891,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                         setSelectedIndex(0);
                         inputRef.current?.focus();
                       }}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-300 whitespace-nowrap shrink-0"
+                      className="px-2 py-0.5 rounded-md text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-stone-100/70 dark:bg-slate-900/60 hover:text-teal-600 dark:hover:text-teal-300 border border-stone-200/60 dark:border-slate-800/60 transition-colors cursor-pointer"
                     >
                       {term}
                     </button>
@@ -874,7 +903,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         </div>
 
         {/* Quick Filter Categories */}
-        <div className="px-4 py-2 bg-stone-50/50 dark:bg-slate-900/40 border-b border-stone-200 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto text-xs font-medium">
+        <div className="px-4 py-2 bg-stone-50/50 dark:bg-slate-900/40 border-b border-stone-200 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs font-medium">
           {[
             { id: 'all', label: 'All Results' },
             { id: 'services', label: `Services (${SERVICES_LIST.length})` },
@@ -888,7 +917,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                 setActiveCategory(cat.id);
                 setSelectedIndex(0);
               }}
-              className={`px-3 py-1 rounded-full whitespace-nowrap transition-all ${
+              className={`px-3 py-1 rounded-full whitespace-nowrap shrink-0 transition-all cursor-pointer ${
                 activeCategory === cat.id
                   ? 'bg-teal-600 text-white shadow-sm font-semibold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-slate-800'
