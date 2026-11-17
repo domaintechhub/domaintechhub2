@@ -140,7 +140,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
       'WooCommerce stores cost KSh 90,000 – KSh 160,000 upfront with zero monthly platform subscriptions and native Daraja M-Pesa plugin support.',
       'Shopify costs KSh 60,000 – KSh 130,000 upfront but carries recurring monthly fees of $39–$399/mo plus third-party gateway charges.',
       'Custom Next.js e-commerce (KSh 220,000 – KSh 450,000) delivers sub-second load times, limitless customization, and direct KRA eTIMS invoice generation.',
-      'M-Pesa STK Push is non-negotiable in Kenya—stores without automated mobile payment experience 65%+ cart abandonment.'
+      'M-Pesa STK Push is non-negotiable in Kenya: stores without automated mobile payment experience 65%+ cart abandonment.'
     ],
     contentSections: [
       {
@@ -148,15 +148,15 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
         body: `Setting up an online store in Nairobi or Mombasa requires balancing upfront development costs, monthly operational overhead, and customer payment habits. In East Africa, 80%+ of online transactions are completed via mobile money.\n\nHere is how the three dominant e-commerce platforms compare in terms of total cost of ownership in 2026.`
       },
       {
-        heading: '1. WooCommerce (WordPress) — The SME Workhorse',
+        heading: '1. WooCommerce (WordPress): The SME Workhorse',
         body: `• Upfront Development Cost: KSh 90,000 – KSh 160,000.\n• Monthly Platform Fee: KSh 0 (Self-hosted).\n• M-Pesa Integration: Seamless via free or one-off Daraja API plugins.\n• Hosting & Domain Cost: KSh 8,000 – KSh 25,000 per year.\n• Pros: Complete ownership of your data, zero transaction cut from the platform, thousands of free plugins, easy product management.\n• Cons: Requires regular security and plugin updates to prevent site bloat and vulnerabilities.`
       },
       {
-        heading: '2. Shopify — Quick Launch, Higher Ongoing Overhead',
+        heading: '2. Shopify: Quick Launch, Higher Ongoing Overhead',
         body: `• Upfront Setup Cost: KSh 60,000 – KSh 130,000.\n• Monthly Platform Fee: $39 to $105/month (approx. KSh 5,000 – KSh 14,000/month).\n• M-Pesa Integration: Requires third-party payment apps (e.g. Pesapal or DPO).\n• Pros: Fully hosted and maintained by Shopify, excellent mobile app for inventory, reliable uptime.\n• Cons: Ongoing dollar-denominated monthly bills that never stop, plus additional fees on every sale.`
       },
       {
-        heading: '3. Custom Headless Next.js Storefront — Maximum Speed & Scale',
+        heading: '3. Custom Headless Next.js Storefront: Maximum Speed & Scale',
         body: `• Upfront Development Cost: KSh 220,000 – KSh 450,000.\n• Monthly Fee: Minimal serverless cloud hosting (KSh 2,500 – KSh 8,000/month).\n• M-Pesa & KRA Integration: Custom server-side webhooks with zero loss and cryptographic invoice generation.\n• Pros: 3x faster page loads than Shopify or WooCommerce, top-tier Google rankings, unlimited customization, immune to common CMS hacks.\n• Cons: Higher initial capital investment; requires skilled TypeScript engineers for updates.\n\nCalculate your exact store price with our [E-Commerce Cost Calculator](/tools/calculator).`
       }
     ]
@@ -182,7 +182,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
     contentSections: [
       {
         heading: 'The Mistake of the "Build It and Forget It" Mindset',
-        body: `A website is like a company vehicle: it requires regular servicing, security inspections, and oil changes to remain safe and high-performing. Many Kenyan businesses spend KSh 100,000 building a great website, but abandon maintenance entirely—until one morning their site is infected with malware or displays an embarrassing "Domain Expired" notice.`
+        body: `A website is like a company vehicle: it requires regular servicing, security inspections, and oil changes to remain safe and high-performing. Many Kenyan businesses spend KSh 100,000 building a great website, but abandon maintenance entirely until one morning their site is infected with malware or displays an embarrassing "Domain Expired" notice.`
       },
       {
         heading: 'Mandatory Annual Infrastructure Costs',
@@ -219,7 +219,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
       },
       {
         heading: 'Concrete ROI Example: Commercial Solar Installer in Nairobi',
-        body: `Consider a mid-sized commercial solar contractor in Nairobi:\n• Website Build Cost: KSh 120,000 (Custom React site + Local SEO setup).\n• Monthly Maintenance & SEO: KSh 20,000/month.\n• Monthly Organic Website Visitors: 800 people searching "commercial solar installation Kenya", "factory solar panels Nairobi".\n• Lead Inquiries Generated: 12 qualified factory and warehouse owners per month.\n• Deals Closed: Just 1 commercial contract every 2 months at KSh 1,800,000 gross value.\n• Financial Result: Over KSh 9,000,000 in closed revenue against a total year-one digital expenditure of KSh 360,000—delivering over 2,400% ROI.`
+        body: `Consider a mid-sized commercial solar contractor in Nairobi:\n• Website Build Cost: KSh 120,000 (Custom React site + Local SEO setup).\n• Monthly Maintenance & SEO: KSh 20,000/month.\n• Monthly Organic Website Visitors: 800 people searching "commercial solar installation Kenya", "factory solar panels Nairobi".\n• Lead Inquiries Generated: 12 qualified factory and warehouse owners per month.\n• Deals Closed: Just 1 commercial contract every 2 months at KSh 1,800,000 gross value.\n• Financial Result: Over KSh 9,000,000 in closed revenue against a total year-one digital expenditure of KSh 360,000, delivering over 2,400% ROI.`
       },
       {
         heading: 'How a Website Multiplies Your Existing Marketing',
@@ -347,7 +347,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
       },
       {
         heading: 'Core Web Vitals: What Google Actually Measures',
-        body: `• Largest Contentful Paint (LCP): How quickly your main hero banner or headline appears. Must be under 2.5 seconds.\n• Interaction to Next Paint (INP): How snappy the website feels when a user taps a menu or button. Must be under 200 milliseconds.\n• Cumulative Layout Shift (CLS): Visual stability—ensuring banners or buttons don't jump around while the user is trying to read or click.`
+        body: `• Largest Contentful Paint (LCP): How quickly your main hero banner or headline appears. Must be under 2.5 seconds.\n• Interaction to Next Paint (INP): How snappy the website feels when a user taps a menu or button. Must be under 200 milliseconds.\n• Cumulative Layout Shift (CLS): Visual stability, ensuring banners or buttons don't jump around while the user is trying to read or click.`
       },
       {
         heading: 'How Domain Tech Hub Engineers Sub-Second Performance',
@@ -544,7 +544,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
       'Yes, an SSL certificate is 100% mandatory for every commercial website in Kenya in 2026.',
       'Without SSL, Google Chrome and Apple Safari display a alarming red warning: "Your connection is not private".',
       'SSL encrypts passwords, form submissions, and customer phone numbers, preventing Wi-Fi eavesdropping.',
-      'Google explicitly uses HTTPS as a search ranking factor—non-SSL sites are pushed down in search results.'
+      'Google explicitly uses HTTPS as a search ranking factor; non-SSL sites are pushed down in search results.'
     ],
     contentSections: [
       {
@@ -661,7 +661,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
     readTime: '8 min read',
     featured: false,
     author: dennis,
-    excerpt: 'Spot untrustworthy developers before you lose your hard-earned money. Watch out for these 8 warning signs—from suspiciously cheap prices to holding client domains hostage.',
+    excerpt: 'Spot untrustworthy developers before you lose your hard-earned money. Watch out for these 8 warning signs, from suspiciously cheap prices to holding client domains hostage.',
     coverImage: '/images/articles/microservices-vs-modular-monoliths-nairobi.webp',
     tags: ['Web Developer Red Flags', 'Avoid Scams Kenya', 'Hiring Web Designers', 'Bad Web Developers', 'Contract Protection'],
     keyTakeaways: [
@@ -826,7 +826,7 @@ export const INDUSTRY_AND_TECHNICAL_GUIDES: InsightArticle[] = [
     contentSections: [
       {
         heading: 'Why "Pageviews" Do Not Pay the Bills',
-        body: `Many Kenyan business owners brag about getting "10,000 hits this month". But how many of those visitors actually called your sales department? How many placed an order via M-Pesa? How many submitted a request for quotation?\n\nModern website analytics focuses on conversion tracking and lead attribution—knowing exactly which marketing campaigns produce profitable revenue.`
+        body: `Many Kenyan business owners brag about getting "10,000 hits this month". But how many of those visitors actually called your sales department? How many placed an order via M-Pesa? How many submitted a request for quotation?\n\nModern website analytics focuses on conversion tracking and lead attribution, so you know exactly which marketing campaigns produce profitable revenue.`
       },
       {
         heading: 'The Essential Analytics Stack Every Kenyan Site Needs',

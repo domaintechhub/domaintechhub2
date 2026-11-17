@@ -42,7 +42,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     seoDescription:
       'Custom website development in Nairobi, Kenya. We engineer sub-second React & Next.js corporate websites, client portals, and lead systems from KSh 85,000.',
     h1Subheadline:
-      'Bespoke Corporate Website Development in Nairobi & Across Kenya — Engineered for Sub-Second Speed & Search Dominance',
+      'Bespoke Corporate Website Development in Nairobi & Across Kenya, Engineered for Sub-Second Speed & Search Dominance',
     searchIntent: 'Transactional',
     demandMetric: '4,400+ monthly searches (KE)',
     competitionTier: 'Medium',
@@ -265,7 +265,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     seoDescription:
       'Bespoke CRM, ERP, and internal workflow software development in Nairobi, Kenya. Automate sales pipelines, multi-branch inventory, invoicing, and RBAC security.',
     h1Subheadline:
-      'Proprietary CRM, ERP & Internal Operations Software Engineered for Kenyan Enterprises — Zero Per-User SaaS License Fees',
+      'Proprietary CRM, ERP & Internal Operations Software Engineered for Kenyan Enterprises, with Zero Per-User SaaS License Fees',
     searchIntent: 'Transactional',
     demandMetric: '1,900+ monthly searches (KE)',
     competitionTier: 'Low-Medium',
@@ -388,7 +388,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
       {
         question: 'How do you prevent keyword cannibalization and doorway-page penalties?',
         answer:
-          'We build a strict 1-to-1 Keyword & Intent Map where every commercial service and informational guide has a single authoritative canonical URL, unique H1/meta tags, and distinct structured data—never spinning up duplicate near-identical city pages.',
+          'We build a strict 1-to-1 Keyword & Intent Map where every commercial service and informational guide has a single authoritative canonical URL, unique H1/meta tags, and distinct structured data, never spinning up duplicate near-identical city pages.',
         searchSource: 'Bing Webmaster Tools',
       },
       {
@@ -474,7 +474,7 @@ export const SERVICE_KEYWORD_MAP: Record<string, ServiceKeywordMapEntry> = {
     seoDescription:
       'Custom Android and iOS mobile app development in Nairobi, Kenya. React Native & Flutter apps with offline sync, M-Pesa payments, GPS tracking & Play Store launch.',
     h1Subheadline:
-      'Cross-Platform Android & iOS Mobile Application Engineering in Nairobi, Kenya — Built with React Native & Flutter',
+      'Cross-Platform Android & iOS Mobile Application Engineering in Nairobi, Kenya, Built with React Native & Flutter',
     searchIntent: 'Transactional',
     demandMetric: '1,800+ monthly searches (KE)',
     competitionTier: 'Medium',

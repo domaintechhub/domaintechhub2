@@ -1,4 +1,4 @@
-# 4 to 8 Week Agile Sprint Delivery Roadmap — Domain Tech Hub
+# 4 to 8 Week Agile Sprint Delivery Roadmap | Domain Tech Hub
 
 Domain Tech Hub delivers projects using a predictable 5-stage sprint engineering methodology. Each stage includes defined milestone gates, live staging URLs, video walkthroughs, and client sign-off before advancing.
 

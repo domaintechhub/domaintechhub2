@@ -1,4 +1,4 @@
-# Core Services — Domain Tech Hub Nairobi
+# Core Services | Domain Tech Hub Nairobi
 
 Domain Tech Hub offers 6 core digital engineering and growth services:
 

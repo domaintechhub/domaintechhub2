@@ -34,7 +34,7 @@ export const PRICING_HIRING_GUIDES: InsightArticle[] = [
     readTime: '9 min read',
     featured: true,
     author: brian,
-    excerpt: 'A transparent, comprehensive breakdown of what websites cost in Kenya in 2026—from basic brochure sites at KSh 15,000 to custom enterprise platforms over KSh 500,000, with hidden costs and ROI factors explained.',
+    excerpt: 'A transparent, comprehensive breakdown of what websites cost in Kenya in 2026, from basic brochure sites at KSh 15,000 to custom enterprise platforms over KSh 500,000, with hidden costs and ROI factors explained.',
     coverImage: '/images/articles/kenya-web-pricing-benchmark.jpg',
     tags: ['Website Cost Kenya', 'Web Design Pricing Nairobi', 'Kenyan Web Developers', 'Website Budget 2026', 'SME Web Design'],
     keyTakeaways: [
@@ -322,7 +322,7 @@ export const PRICING_HIRING_GUIDES: InsightArticle[] = [
       },
       {
         heading: 'The #1 Cause of Delays: Content & Approvals',
-        body: `In over 80% of delayed web projects in Nairobi, the bottleneck is not coding—it is client content. If your developer finishes the staging build in 10 days, but your team takes 4 weeks to provide service text, team headshots, and product pricing, the launch stalls.\n\nTo ensure rapid delivery, have your text draft, logo files, and brand assets ready before development begins.`
+        body: `In over 80% of delayed web projects in Nairobi, the bottleneck is not coding, it is client content. If your developer finishes the staging build in 10 days, but your team takes 4 weeks to provide service text, team headshots, and product pricing, the launch stalls.\n\nTo ensure rapid delivery, have your text draft, logo files, and brand assets ready before development begins.`
       }
     ]
   },
@@ -409,7 +409,7 @@ export const PRICING_HIRING_GUIDES: InsightArticle[] = [
     coverImage: '/images/articles/local-seo-core-web-vitals.webp',
     tags: ['Why Have a Website', 'Instagram vs Website', 'Business Website Kenya', 'Brand Credibility', 'Digital Marketing Kenya'],
     keyTakeaways: [
-      'Social media accounts are rented land—an algorithm change or sudden account ban can erase your audience overnight.',
+      'Social media accounts are rented land. An algorithm change or sudden account ban can erase your audience overnight.',
       'Corporate clients, procurement officers, and high-net-worth buyers in Kenya demand a credible domain before signing contracts.',
       'A website captures high-intent Google searchers actively looking to buy, whereas social media relies on passive interruption.',
       'Your website functions as an automated 24/7 sales pipeline with integrated M-Pesa payments and lead tracking.'
@@ -454,7 +454,7 @@ export const PRICING_HIRING_GUIDES: InsightArticle[] = [
     contentSections: [
       {
         heading: 'Why the 5-Page Website Is Kenya’s Most Popular Choice',
-        body: `For over 70% of businesses in Nairobi—from accounting firms and logistics providers to interior designers and medical practices—a 5-page website provides the ideal balance between thorough information, brand authority, and affordability.`
+        body: `For over 70% of businesses in Nairobi (from accounting firms and logistics providers to interior designers and medical practices), a 5-page website provides the ideal balance between thorough information, brand authority, and affordability.`
       },
       {
         heading: 'Page-by-Page Feature & Content Architecture',

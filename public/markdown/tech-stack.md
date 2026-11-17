@@ -1,4 +1,4 @@
-# Enterprise Tech Stack & Standards — Domain Tech Hub
+# Enterprise Tech Stack & Standards | Domain Tech Hub
 
 Domain Tech Hub builds web applications with standard enterprise open-source technologies:
 

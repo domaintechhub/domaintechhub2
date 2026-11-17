@@ -152,7 +152,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
 
   const handleBookWithCustomScope = () => {
     const addonNames = activeAddons.map(a => a.name).join(', ');
-    const summary = `${service.title} (${activePackage.name})` + (addonNames ? ` + Add-ons: [${addonNames}]` : '') + ` — Estimated: ${formatPrice(calculatedUSD, calculatedKES)}`;
+    const summary = `${service.title} (${activePackage.name})` + (addonNames ? ` + Add-ons: [${addonNames}]` : '') + ` | Estimated: ${formatPrice(calculatedUSD, calculatedKES)}`;
     onBookService(service.title, summary);
   };
 
@@ -1100,7 +1100,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                   <blockquote className="pt-2 text-xs sm:text-sm italic text-slate-600 dark:text-slate-400 border-l-2 border-teal-500 pl-3">
                     "{matchedCaseStudy.testimonial.quote}"
                     <footer className="text-[11px] font-mono text-slate-500 not-italic mt-1">
-                      — {matchedCaseStudy.testimonial.author}, {matchedCaseStudy.testimonial.role}
+                      - {matchedCaseStudy.testimonial.author}, {matchedCaseStudy.testimonial.role}
                     </footer>
                   </blockquote>
                 )}

@@ -1,4 +1,4 @@
-# About Domain Tech Hub — Nairobi Web Engineering Studio
+# About Domain Tech Hub | Nairobi Web Engineering Studio
 
 ## Who We Are
 Domain Tech Hub is an established digital technology and software engineering agency based in Nairobi, Kenya (Delta Corner Tower, Westlands). Founded in 2018, we build resilient web applications, fintech payment integrations, and custom digital software for regional enterprises and international businesses.

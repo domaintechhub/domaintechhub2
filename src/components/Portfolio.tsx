@@ -672,7 +672,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({
                 </p>
                 <div className="text-xs font-mono">
                   <span className="text-slate-900 dark:text-white font-bold">{selectedCase.testimonial.author}</span>
-                  <span className="text-slate-500 dark:text-slate-400 ml-1.5">— {selectedCase.testimonial.role}</span>
+                  <span className="text-slate-500 dark:text-slate-400 ml-1.5">- {selectedCase.testimonial.role}</span>
                 </div>
               </div>
             )}

@@ -1,4 +1,4 @@
-# Domain Tech Hub — Digital & Web Development Agency
+# Domain Tech Hub: Digital & Web Development Agency
 
 > Innovate. Connect. Succeed. Premium digital engineering, enterprise web development, e-commerce with M-Pesa integration, live SEO audits, and custom business systems.
 

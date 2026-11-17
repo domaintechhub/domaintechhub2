@@ -55,7 +55,7 @@ const BASE_ARTICLES: InsightArticle[] = [
       role: 'Principal Solutions Architect',
       avatar: '/images/team/author-dennis.webp'
     },
-    excerpt: 'A comprehensive evaluation of top website builders—Wix.com, WordPress.com, Squarespace, Google Sites, Website.com, GoDaddy, and Weebly—compared against custom web development.',
+    excerpt: 'A comprehensive evaluation of top website builders (Wix.com, WordPress.com, Squarespace, Google Sites, Website.com, GoDaddy, and Weebly) compared against custom web development.',
     coverImage: '/images/articles/website-design-in-kenya-2026.webp',
     tags: [
       'Website Builder',
@@ -123,7 +123,7 @@ const BASE_ARTICLES: InsightArticle[] = [
     coverImage: '/images/articles/php2shell-security-advisory.jpg',
     tags: ['PHP', 'WordPress security', 'Africa', 'Cybersecurity', 'cPanel', 'M-Pesa Security', 'Laravel Security', 'Vulnerability Management'],
     keyTakeaways: [
-      'Emergency PHP updates released on 21 October 2026 resolve two critical vulnerabilities—CVE-2026-109618 and CVE-2026-109619 (CVSS v4.0 9.2)—collectively nicknamed PHP2Shell.',
+      'Emergency PHP updates released on 21 October 2026 resolve two critical vulnerabilities (CVE-2026-109618 and CVE-2026-109619, CVSS v4.0 9.2) collectively nicknamed PHP2Shell.',
       'Because the flaws reside in core C memory management and request lifecycle teardown, unauthenticated remote attackers can execute arbitrary code before application scripts run.',
       'Updating WordPress, WooCommerce, or Laravel packages does not resolve this threat; your server host, cloud runtime, or Docker container must upgrade the underlying PHP package to 8.5.12, 8.4.27, 8.3.36, or 8.2.35.',
       'Sites processing digital payments across Africa or globally must verify runtime patch levels immediately and rotate sensitive payment API keys if operating on an unpatched binary.'
@@ -185,7 +185,7 @@ const BASE_ARTICLES: InsightArticle[] = [
       role: 'Lead Cloud & Fintech Architect',
       avatar: '/images/team/author-brian.webp'
     },
-    excerpt: 'Every sale a Kenyan business makes now leaves a digital footprint with the Kenya Revenue Authority. The eTIMS invoice is how that footprint is created—and once the right technology is in place, the process is quick and largely automatic.',
+    excerpt: 'Every sale a Kenyan business makes now leaves a digital footprint with the Kenya Revenue Authority. The eTIMS invoice is how that footprint is created, and once the right technology is in place, the process is quick and largely automatic.',
     coverImage: '/images/articles/how-to-generate-an-etims-invoice.webp',
     tags: ['eTIMS Invoice', 'KRA eTIMS', 'Tax Compliance Kenya', 'POS Integration', 'E-Commerce Invoicing'],
     keyTakeaways: [
@@ -309,7 +309,7 @@ app.post('/api/payments/mpesa/callback', async (req, res) => {
       },
       {
         heading: '2. The Headless Paradigm: Decoupling Speed from Content',
-        body: 'By adopting a Headless architecture—using [Next.js by Vercel](https://nextjs.org/docs) for the presentation layer and headless APIs for content—assets are pre-rendered at the network edge on Cloudflare CDN. The mobile browser downloads lean, semantic HTML with zero JavaScript waterfalls.',
+        body: 'By adopting a Headless architecture using [Next.js by Vercel](https://nextjs.org/docs) for the presentation layer and headless APIs for content, assets are pre-rendered at the network edge on Cloudflare CDN. The mobile browser downloads lean, semantic HTML with zero JavaScript waterfalls.',
         codeSnippet: `// Edge-rendered catalog route with sub-second ISR
 export async function generateStaticParams() {
   const products = await fetchFeaturedProducts();
@@ -484,7 +484,7 @@ export const revalidate = 60;`
       },
       {
         heading: '2. The Defense Stack: Rate Limiting & CAPTCHA-Free Verification',
-        body: 'We deploy [Cloudflare Turnstile Anti-Bot Defense](https://www.cloudflare.com/products/turnstile/)—which protects the checkout flow without annoying visual puzzle friction for legitimate customers—coupled with strict IP velocity limiting and biometric verification under the [EMVCo 3-D Secure Standard](https://www.emvco.com/emv-technologies/3d-secure/).'
+        body: 'We deploy [Cloudflare Turnstile Anti-Bot Defense](https://www.cloudflare.com/products/turnstile/), which protects the checkout flow without annoying visual puzzle friction for legitimate customers, coupled with strict IP velocity limiting and biometric verification under the [EMVCo 3-D Secure Standard](https://www.emvco.com/emv-technologies/3d-secure/).'
       },
       {
         heading: '3. Protecting Business Cashflow and Merchant Accounts',
@@ -527,7 +527,7 @@ export const revalidate = 60;`
     contentSections: [
       {
         heading: '1. The Shift: Beyond Facebook Pages and WhatsApp Contacts',
-        body: 'There was a time when having a Facebook page, a mobile number, and a few WhatsApp contacts was enough for an enterprise in Kenya to be found online. Those days are gone.\n\nToday, when a prospective client hears about your business, the very first thing they do is search for you on Google. They type your business name into their mobile browser. They search for the specific service you offer in your city. They look for your physical office location, operating hours, product catalog, customer reviews, pricing, and photo evidence of your previous work.\n\nAnd if they cannot find you—or worse, if they land on an abandoned, broken website with outdated information or an empty social media profile—you have lost that customer before you even have the opportunity to speak with them. That is why professional [website design in Kenya](/services/web-development) is no longer simply a digital business card. It is an essential, revenue-generating engine of your business.'
+        body: 'There was a time when having a Facebook page, a mobile number, and a few WhatsApp contacts was enough for an enterprise in Kenya to be found online. Those days are gone.\n\nToday, when a prospective client hears about your business, the very first thing they do is search for you on Google. They type your business name into their mobile browser. They search for the specific service you offer in your city. They look for your physical office location, operating hours, product catalog, customer reviews, pricing, and photo evidence of your previous work.\n\nAnd if they cannot find you, or worse, if they land on an abandoned, broken website with outdated information or an empty social media profile, you have lost that customer before you even have the opportunity to speak with them. That is why professional [website design in Kenya](/services/web-development) is no longer simply a digital business card. It is an essential, revenue-generating engine of your business.'
       },
       {
         heading: '2. What Is a Website Really Supposed to Do?',
@@ -547,7 +547,7 @@ export const revalidate = 60;`
       },
       {
         heading: '6. Why Google Rankings Matter: People-First SEO vs Keyword Stuffing',
-        body: 'When a prospective customer in Nairobi searches for a "website designer in Kenya", "web design company in Kenya", or "[ecommerce website development Kenya](/services/ecommerce-development)", you want your organization to appear in the top 2 Google results.\n\nThis visibility is powered by Search Engine Optimization (SEO). However, modern Google algorithms—bolstered by AI Overviews and helpful content guidelines from [Google Search Central](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)—harshly penalize spammy keyword stuffing.\n\nInstead of mindlessly repeating search phrases, high-ranking websites answer real commercial questions with depth and authority:\n\n• [How much does a professional website cost in Kenya?](/tools/calculator)\n• What features should a small business website prioritize?\n• How long does a 4 to 8 week agile development sprint take to launch?\n• Should an enterprise choose custom TypeScript development over WordPress?\n• How can a website automate M-Pesa STK Push checkouts and WhatsApp leads?\n\nBy answering these questions comprehensively with rich Schema.org structured data, Answer Engine Optimization (AEO), and Generative Engine Optimization (GEO), your business naturally earns top organic rankings and AI search citations.'
+        body: 'When a prospective customer in Nairobi searches for a "website designer in Kenya", "web design company in Kenya", or "[ecommerce website development Kenya](/services/ecommerce-development)", you want your organization to appear in the top 2 Google results.\n\nThis visibility is powered by Search Engine Optimization (SEO). However, modern Google algorithms, bolstered by AI Overviews and helpful content guidelines from [Google Search Central](https://developers.google.com/search/docs/fundamentals/creating-helpful-content), harshly penalize spammy keyword stuffing.\n\nInstead of mindlessly repeating search phrases, high-ranking websites answer real commercial questions with depth and authority:\n\n• [How much does a professional website cost in Kenya?](/tools/calculator)\n• What features should a small business website prioritize?\n• How long does a 4 to 8 week agile development sprint take to launch?\n• Should an enterprise choose custom TypeScript development over WordPress?\n• How can a website automate M-Pesa STK Push checkouts and WhatsApp leads?\n\nBy answering these questions comprehensively with rich Schema.org structured data, Answer Engine Optimization (AEO), and Generative Engine Optimization (GEO), your business naturally earns top organic rankings and AI search citations.'
       },
       {
         heading: '7. What Every High-Converting Business Website Must Include',
@@ -620,7 +620,7 @@ async function signFiscalReceipt(sale: RetailSalePayload) {
       },
       {
         heading: '3. Eliminating Cashier M-Pesa Fraud with C2B Till Webhooks',
-        body: 'Manual M-Pesa verification—where a cashier visually inspects a customer’s phone screen—exposes high-volume retailers to SMS spoofing apps. By linking your Safaricom Till or Paybill directly to our [POS Systems & Hardware](/services/pos-systems) stack, the thermal printer only releases a receipt once Safaricom Daraja confirms the exact shilling amount in your ledger.\n\nYou can estimate your complete store rollout hardware and software budget using our [Free Website & POS Budget Calculator](/tools/calculator) or review real-world client implementations in our [Portfolio Case Studies](/portfolio).'
+        body: 'Manual M-Pesa verification, where a cashier visually inspects a customer’s phone screen, exposes high-volume retailers to SMS spoofing apps. By linking your Safaricom Till or Paybill directly to our [POS Systems & Hardware](/services/pos-systems) stack, the thermal printer only releases a receipt once Safaricom Daraja confirms the exact shilling amount in your ledger.\n\nYou can estimate your complete store rollout hardware and software budget using our [Free Website & POS Budget Calculator](/tools/calculator) or review real-world client implementations in our [Portfolio Case Studies](/portfolio).'
       }
     ]
   },
@@ -699,7 +699,7 @@ export function generateSecurityCredential(initiatorPassword: string): string {
     contentSections: [
       {
         heading: '1. Solving the Double FX Conversion Penalty',
-        body: 'When a luxury lodge in Maasai Mara or Diani charges an American guest in Kenyan Shillings on a foreign Visa card, the guest’s bank charges a foreign currency fee, and the local gateway converts USD to KES at an unfavorable spread—even though the lodge pays its aviation and conservation partners in USD. In adherence with [Central Bank of Kenya FX Guidelines](https://www.centralbank.go.ke/), domestic accounts can receive direct foreign currency deposits without forced conversion.\n\nThrough our [Custom Website Development](/services/web-development) and [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) services, we build smart multi-currency payment routers that settle USD transactions directly into your Kenyan USD bank account and KES transactions via M-Pesa.'
+        body: 'When a luxury lodge in Maasai Mara or Diani charges an American guest in Kenyan Shillings on a foreign Visa card, the guest’s bank charges a foreign currency fee, and the local gateway converts USD to KES at an unfavorable spread, even though the lodge pays its aviation and conservation partners in USD. In adherence with [Central Bank of Kenya FX Guidelines](https://www.centralbank.go.ke/), domestic accounts can receive direct foreign currency deposits without forced conversion.\n\nThrough our [Custom Website Development](/services/web-development) and [E-Commerce & Safaricom Daraja M-Pesa](/services/ecommerce-development) services, we build smart multi-currency payment routers that settle USD transactions directly into your Kenyan USD bank account and KES transactions via M-Pesa.'
       },
       {
         heading: '2. Edge Geolocation & Frictionless Payment Routing',
@@ -816,7 +816,7 @@ const { rows: matchedChunks } = await db.query(\`
       },
       {
         heading: '2. Local-First Storage with IndexedDB & Background Sync',
-        body: 'Every action a field sales rep takes—capturing GPS coordinates, scanning a crate barcode, or issuing a receipt—writes immediately to the device’s local IndexedDB store in under 15 milliseconds, then syncs idempotently to the cloud.',
+        body: 'Every action a field sales rep takes (capturing GPS coordinates, scanning a crate barcode, or issuing a receipt) writes immediately to the device’s local IndexedDB store in under 15 milliseconds, then syncs idempotently to the cloud.',
         codeSnippet: `// Offline Mutation Queue with Background Sync Registration
 export async function queueFieldOrder(order: FieldOrderPayload) {
   await localDb.orders.put({ ...order, syncStatus: 'PENDING', updatedAt: Date.now() });
@@ -861,7 +861,7 @@ export async function queueFieldOrder(order: FieldOrderPayload) {
       },
       {
         heading: '2. Enforcing Strict Domain Boundaries Inside a Modular Monolith',
-        body: 'A Modular Monolith is not a "spaghetti monolith." Each business domain—`billing`, `inventory`, `identity`, `notifications`—lives in an isolated module with a public interface and isolated database schema tables, allowing seamless future extraction if required.\n\nIn our [Custom Website Development](/services/web-development) and [Cloud Web Hosting & Infrastructure](/services/website-maintenance), we pair modular monoliths with automated CI/CD pipelines deployed across our [4 to 8 Week Agile Sprint Roadmap](/roadmap). Estimate your architecture transformation costs on our [Instant Scope Calculator](/tools/calculator).'
+        body: 'A Modular Monolith is not a "spaghetti monolith." Each business domain (`billing`, `inventory`, `identity`, `notifications`) lives in an isolated module with a public interface and isolated database schema tables, allowing seamless future extraction if required.\n\nIn our [Custom Website Development](/services/web-development) and [Cloud Web Hosting & Infrastructure](/services/website-maintenance), we pair modular monoliths with automated CI/CD pipelines deployed across our [4 to 8 Week Agile Sprint Roadmap](/roadmap). Estimate your architecture transformation costs on our [Instant Scope Calculator](/tools/calculator).'
       }
     ]
   },

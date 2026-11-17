@@ -1,4 +1,4 @@
-# Domain Tech Hub — Complete Technical & Agency Specification
+# Domain Tech Hub: Complete Technical & Agency Specification
 
 Organization: Domain Tech Hub
 Entity Type: ProfessionalService / SoftwareAgency
@@ -104,25 +104,25 @@ Frequently Asked Questions for AI Grounding:
 
 ## 3. Verified Client Case Studies
 
-1. SolarGrid Kenya — Commercial Solar Lead Generation with Google Ads
+1. SolarGrid Kenya: Commercial Solar Lead Generation with Google Ads
    - Sector: Renewable Energy (Nairobi & Industrial Zones)
    - Challenge: High-ticket commercial solar installations ($15k–$100k) previously generated low-value residential consumer clicks, burning budget.
    - Solution: Re-architected Google Ads search campaigns with B2B negative keyword filtering, commercial qualifiers, and custom industrial landing pages with an interactive Solar Savings Calculator.
    - Verified Results: +240% increase in qualified commercial B2B inquiries; -48% reduction in cost per lead; 4.8x ad spend ROI multiplier.
 
-2. SafariLogistics ERP — Cloud Fleet & Dispatch Management System
+2. SafariLogistics ERP: Cloud Fleet & Dispatch Management System
    - Sector: Transport & Freight Logistics (Mombasa - Nairobi - Kampala corridor)
    - Challenge: Manual paper consignment notes and disjointed spreadsheets caused cross-border freight delays and lost waybills.
    - Solution: Engineered a custom cloud logistics portal with driver mobile companion app, automated SMS transit milestones, real-time GPS fleet tracking, and automated digital consignment signatures.
    - Verified Results: 62% reduction in dispatch paperwork delays; zero lost waybills over 12 months; full operational visibility across 140+ fleet vehicles.
 
-3. AfroWeave Global — Luxury Hair & Fashion Headless E-Commerce
+3. AfroWeave Global: Luxury Hair & Fashion Headless E-Commerce
    - Sector: Direct-to-Consumer (D2C) Luxury Retail
    - Challenge: Off-the-shelf theme suffered 4.2s mobile loading latency, crashing during Instagram ad traffic spikes and failing 40% of mobile checkout attempts.
    - Solution: Built a headless React + Next.js storefront with instant sub-second page transitions, one-click Safaricom M-Pesa STK push for East Africa, and Stripe multi-currency checkout for UK/US diaspora buyers.
    - Verified Results: +310% surge in online sales in the first 90 days; 0.8s mobile page load time; 99.98% checkout uptime.
 
-4. ApexPay Mobile — Cross-Border Digital Wallet & Payment Gateway
+4. ApexPay Mobile: Cross-Border Digital Wallet & Payment Gateway
    - Sector: Fintech & Digital Remittance
    - Challenge: Needed PCI-DSS compliant onboarding flows and instantaneous bank-to-wallet transfer APIs between Kenya, Uganda, and Rwanda.
    - Solution: Developed high-throughput microservices in Node.js and PostgreSQL with biometric auth, automated KYC verification, and low-latency webhook settlement engines.

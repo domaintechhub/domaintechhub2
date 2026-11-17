@@ -1,4 +1,4 @@
-# Domain Tech Hub — Nairobi Web Engineering & Digital Agency
+# Domain Tech Hub | Nairobi Web Engineering & Digital Agency
 
 > Official Web & Software Engineering Agency in Nairobi, Kenya. We engineer high-performance web systems, Safaricom Daraja 3.0 M-Pesa platforms, custom software, and corporate branding.
 

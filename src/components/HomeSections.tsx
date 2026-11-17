@@ -9,6 +9,15 @@ import {
 import { saveLead } from '../utils/leadDispatch';
 import { BuildLayerKey } from './Hero';
 import { ClientBrandsMarquee } from './ClientBrandsMarquee';
+import {
+  HomeCapabilitiesAndWhyUsBand,
+  HomeIndustriesAndDemosBand,
+  HomeProcessAndRolesBand,
+  HomeTiersAndStackBand,
+  HomeEditorialAndBlogBand,
+  HomeExpandedFaqBlock,
+  HomeClosingContactBand,
+} from './HomeExpandedSections';
 import tessasBakeryImg from '../assets/images/clients/tessas_bakery.jpg';
 
 interface HomeSectionsProps {
@@ -32,6 +41,8 @@ interface HomeSectionsProps {
 export const HomeSections: React.FC<HomeSectionsProps> = ({
   onNavigate,
   onSelectForQuote,
+  onBookService,
+  onSelectTechForProject,
 }) => {
   // Quote form state
   const [quoteName, setQuoteName] = useState('');
@@ -74,7 +85,7 @@ export const HomeSections: React.FC<HomeSectionsProps> = ({
       });
 
       const details = quoteNeeds ? quoteNeeds : 'Custom Digital & AI Solutions';
-      const text = `*New Quote Request — Domain Tech Hub*
+      const text = `*New Quote Request - Domain Tech Hub*
 
 *Name:* ${quoteName}
 *Phone / WhatsApp:* ${quotePhone}
@@ -94,7 +105,7 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
   const handleOpenWhatsAppFromForm = (e: React.MouseEvent) => {
     e.preventDefault();
     const details = quoteNeeds ? quoteNeeds : 'Custom Digital & AI Solutions';
-    const text = `*New Quote Request — Domain Tech Hub*
+    const text = `*New Quote Request - Domain Tech Hub*
 
 *Name:* ${quoteName}
 *Phone / WhatsApp:* ${quotePhone}
@@ -419,6 +430,13 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
         </div>
       </section>
 
+      <HomeCapabilitiesAndWhyUsBand
+        onNavigate={onNavigate}
+        onSelectForQuote={onSelectForQuote}
+        onBookService={onBookService}
+        onSelectTechForProject={onSelectTechForProject}
+      />
+
 
       {/* ========================================================================= */}
       {/* 02 / SHOWCASE: PROFESSIONAL WEBSITES THAT WORK FOR YOU (GREEN BACKGROUND) */}
@@ -695,6 +713,13 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
         </div>
       </section>
 
+      <HomeIndustriesAndDemosBand
+        onNavigate={onNavigate}
+        onSelectForQuote={onSelectForQuote}
+        onBookService={onBookService}
+        onSelectTechForProject={onSelectTechForProject}
+      />
+
 
       {/* ========================================================================= */}
       {/* 04 / OUR PROCESS: SIMPLE STEPS TO GET STARTED */}
@@ -771,6 +796,13 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
         </div>
       </section>
+
+      <HomeProcessAndRolesBand
+        onNavigate={onNavigate}
+        onSelectForQuote={onSelectForQuote}
+        onBookService={onBookService}
+        onSelectTechForProject={onSelectTechForProject}
+      />
 
 
       {/* ========================================================================= */}
@@ -939,6 +971,13 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
         </div>
       </section>
 
+      <HomeTiersAndStackBand
+        onNavigate={onNavigate}
+        onSelectForQuote={onSelectForQuote}
+        onBookService={onBookService}
+        onSelectTechForProject={onSelectTechForProject}
+      />
+
 
       {/* ========================================================================= */}
       {/* 06 / WHAT OUR CLIENTS SAY: TESTIMONIALS */}
@@ -978,8 +1017,26 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             ))}
           </div>
 
+          <div className="mt-10 text-center">
+            <button
+              type="button"
+              onClick={() => onNavigate('portfolio')}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 hover:border-[#00c853] text-sm font-bold text-slate-900 dark:text-white transition-colors cursor-pointer"
+            >
+              <span>Check All Reviews &amp; Client Case Studies</span>
+              <ArrowRight className="w-4 h-4 text-[#00c853]" />
+            </button>
+          </div>
+
         </div>
       </section>
+
+      <HomeEditorialAndBlogBand
+        onNavigate={onNavigate}
+        onSelectForQuote={onSelectForQuote}
+        onBookService={onBookService}
+        onSelectTechForProject={onSelectTechForProject}
+      />
 
 
       {/* ========================================================================= */}
@@ -1067,6 +1124,8 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
             </div>
 
           </div>
+
+          <HomeExpandedFaqBlock />
 
         </div>
       </section>
@@ -1204,6 +1263,13 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
 
         </div>
       </section>
+
+      <HomeClosingContactBand
+        onNavigate={onNavigate}
+        onSelectForQuote={onSelectForQuote}
+        onBookService={onBookService}
+        onSelectTechForProject={onSelectTechForProject}
+      />
 
     </div>
   );

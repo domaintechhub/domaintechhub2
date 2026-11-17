@@ -37,7 +37,7 @@ export const HIGH_PERFORMING_KEYWORDS: SecondaryKeywordMapping[] = [
       'google sites builder',
       'create free website'
     ],
-    searchSnippetsDescription: 'In-depth comparison of top website builders—Wix, WordPress, Squarespace, Google Sites, GoDaddy, and Weebly—vs custom engineering.'
+    searchSnippetsDescription: 'In-depth comparison of top website builders (Wix, WordPress, Squarespace, Google Sites, GoDaddy, and Weebly) vs custom engineering.'
   },
   {
     keyword: 'wix vs wordpress',

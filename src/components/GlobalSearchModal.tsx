@@ -852,7 +852,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
             ) : (
               <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 py-0.5">
                 <Zap className="w-3.5 h-3.5 text-teal-500 shrink-0" />
-                Live search active — matching services, articles, and tools shown below
+                Live search active: matching services, articles, and tools shown below
               </span>
             )
           ) : (

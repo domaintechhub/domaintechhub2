@@ -1414,8 +1414,8 @@ export const SERVICE_DEEP_DIVES: Record<string, ServiceDeepDive> = {
         description: 'KSh 15,000 to KSh 35,000 per computer for a lifetime license with local installation. Permanent offline speed with zero recurring monthly subscription costs.',
         features: [
           'Lifetime license: KSh 15,000 to KSh 35,000 per computer',
-          'Zero recurring monthly fees — permanent software ownership',
-          '100% offline functionality — operates seamlessly without internet',
+          'Zero recurring monthly fees: permanent software ownership',
+          '100% offline functionality: operates seamlessly without internet',
           'Direct KRA e-TIMS integration & fiscal QR printing',
           'Daily sales Z-report reconciliation & cashier shift tracking',
           'Compatible with standard 80mm printers, barcode scanners & cash drawers'

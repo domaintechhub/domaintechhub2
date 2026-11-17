@@ -98,7 +98,7 @@ export const FEATURED_CURATED_ARTICLES: FeaturedArticleResource[] = [
     title: 'Website Builders Compared: Wix, WordPress, Squarespace, Google Sites & Custom Code',
     category: 'Website Builders & Pricing',
     badge: 'Platform Benchmark',
-    description: 'Unbiased engineering evaluation of top site builders—Wix, Squarespace, WordPress, Google Sites, GoDaddy, and Weebly—measured against custom Next.js development for speed, SEO, and total cost.',
+    description: 'Unbiased engineering evaluation of top site builders (Wix, Squarespace, WordPress, Google Sites, GoDaddy, and Weebly) measured against custom Next.js development for speed, SEO, and total cost.',
     readTime: '14 min read',
     keySearchTerm: 'Website Builders'
   },

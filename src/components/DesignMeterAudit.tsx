@@ -989,7 +989,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                 Expert Audit & Product Implementation
               </h3>
               <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                Go beyond quick fixes with a full product review by a senior product designer & engineer — uncovering where you&apos;re losing users, revenue, and growth opportunities across the entire experience.
+                Go beyond quick fixes with a full product review by a senior product designer & engineer, uncovering where you&apos;re losing users, revenue, and growth opportunities across the entire experience.
               </p>
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button
@@ -1147,7 +1147,7 @@ export const DesignMeterAudit: React.FC<DesignMeterAuditProps> = ({
                 Expert Audit
               </h3>
               <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                Go beyond quick fixes with a full product review by a senior product designer — uncovering where you&apos;re losing users, revenue, and growth opportunities across the entire experience.
+                Go beyond quick fixes with a full product review by a senior product designer, uncovering where you&apos;re losing users, revenue, and growth opportunities across the entire experience.
               </p>
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button

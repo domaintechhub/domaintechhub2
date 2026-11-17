@@ -201,7 +201,7 @@ function buildBodyHtmlForRoute(route: PageRoute, subTab?: string): string {
           <section class="mb-10">
             <h2 class="text-xl font-bold text-white mb-3">Explore Other Engineering Services</h2>
             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              ${otherServices.map((s) => `<li><a href="/services/${s.id}" class="text-cyan-400 underline">${escapeHtml(s.title)}</a> — ${escapeHtml(s.shortDesc)}</li>`).join('\n              ')}
+              ${otherServices.map((s) => `<li><a href="/services/${s.id}" class="text-cyan-400 underline">${escapeHtml(s.title)}</a>: ${escapeHtml(s.shortDesc)}</li>`).join('\n              ')}
             </ul>
           </section>
           <section>

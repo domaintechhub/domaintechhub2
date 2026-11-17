@@ -1,4 +1,4 @@
-# Frequently Asked Questions (FAQ) — Domain Tech Hub
+# Frequently Asked Questions (FAQ) | Domain Tech Hub
 
 Direct answers to common questions regarding our engineering agency, pricing, delivery timelines, intellectual property, and payment gateways.
 
@@ -14,7 +14,7 @@ Direct answers to common questions regarding our engineering agency, pricing, de
 - **Starter Web Solutions**: KES 45,000 – KES 75,000 (Conversion landing pages, corporate showcase sites).
 - **Growth & E-Commerce Platforms**: KES 85,000 – KES 165,000 (M-Pesa STK Push checkout, product catalogs, customer portals).
 - **Custom Enterprise & ERP Systems**: KES 180,000 – KES 350,000+ (Multi-user roles, custom APIs, automated workflows).
-We operate with 100% price certainty—zero surprise invoices or hidden add-ons.
+We operate with 100% price certainty: zero surprise invoices or hidden add-ons.
 
 ---
 
