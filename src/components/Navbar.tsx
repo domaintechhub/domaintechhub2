@@ -4,7 +4,7 @@ import {
   Cpu, MessageSquare, Calculator, Gauge, Server, FolderGit2, 
   HelpCircle, ArrowRight, ArrowUpRight, Menu, X, BookOpen,
   PhoneCall, ShieldCheck, Languages, SlidersHorizontal,
-  Check, Layers, Award, Users, Rocket, Sparkles, FileSpreadsheet
+  Check, Layers, Award, Users, Rocket, Sparkles, FileSpreadsheet, Compass
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLanguage, Language } from '../context/LanguageContext';
@@ -168,6 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
   const isPortalActive = activeSection === 'portal' || activeSection === 'client-portal';
   const isFaqActive = activeSection === 'faq';
   const isContactActive = activeSection === 'contact';
+  const isVirtualOfficeActive = activeSection === 'virtual-office';
   const isRoadmapActive = activeSection === 'roadmap' || activeSection === 'process' || activeSection === 'sprint-roadmap' || (activeSection === 'more' && currentPath.includes('roadmap'));
   const isTeamActive = activeSection === 'team' || activeSection === 'our-team' || (activeSection === 'more' && currentPath.includes('team'));
   const isBlogActive = (activeSection === 'more' && currentPath.includes('blog')) || activeSection === 'insights';
@@ -498,6 +499,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                 {t('nav.projects')}
               </button>
 
+              {/* 4b. Virtual Tour Link */}
+              <a
+                href="/virtual-office"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('virtual-office');
+                }}
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-full cursor-pointer liquid-glass-btn whitespace-nowrap ${
+                  isVirtualOfficeActive
+                    ? 'active text-teal-800 dark:text-teal-300'
+                    : 'text-slate-700 dark:text-slate-200'
+                }`}
+                title="Virtual Office Tour | Domain Tech Hub, Nairobi"
+              >
+                {t('nav.virtualTour')}
+              </a>
+
               {/* 5. More Dropdown Menu (Contains Tech Stack, Insights, Portal, FAQ, etc.) */}
               <div 
                 className="relative" 
@@ -761,6 +779,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection, onOpe
                     { id: 'about', label: t('nav.about'), subtitle: 'Nairobi Office, Mission & Track Record', icon: Award, active: isAboutActive },
                     { id: 'tools', label: t('nav.tools'), subtitle: 'Cost Estimator, Domain Meter UI/UX & SEO Audit', icon: Calculator, active: isToolsActive },
                     { id: 'portfolio', label: t('nav.projects'), subtitle: 'Client Case Studies & Verified Results', icon: FolderGit2, active: isPortfolioActive },
+                    { id: 'virtual-office', label: t('nav.virtualTour'), subtitle: '3D Walkthrough of Our Nairobi Office', icon: Compass, active: isVirtualOfficeActive },
                     { id: 'contact', label: t('nav.contact'), subtitle: 'Direct Phone, Email & Nairobi Office', icon: PhoneCall, active: isContactActive }
                   ].map((item) => {
                     const Icon = item.icon;

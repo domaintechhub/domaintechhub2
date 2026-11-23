@@ -37,6 +37,7 @@ const InsightsSection = lazy(() => import('./components/InsightsSection').then((
 const ClientPortalDemo = lazy(() => import('./components/ClientPortalDemo').then(({ ClientPortalDemo }) => ({ default: ClientPortalDemo })));
 const FaqSection = lazy(() => import('./components/FaqSection').then(({ FaqSection }) => ({ default: FaqSection })));
 const BookingSection = lazy(() => import('./components/BookingSection').then(({ BookingSection }) => ({ default: BookingSection })));
+const VirtualOfficePage = lazy(() => import('./components/VirtualOfficePage').then(({ VirtualOfficePage }) => ({ default: VirtualOfficePage })));
 
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then(({ GlobalSearchModal }) => ({ default: GlobalSearchModal })));
 const LeadInboxModal = lazy(() => import('./components/LeadInboxModal').then(({ LeadInboxModal }) => ({ default: LeadInboxModal })));
@@ -46,7 +47,7 @@ if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
 }
 
-export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about' | 'not-found';
+export type PageRoute = 'home' | 'services' | 'portfolio' | 'tools' | 'insights' | 'portal' | 'faq' | 'contact' | 'roadmap' | 'team' | 'more' | 'about' | 'virtual-office' | 'not-found';
 
 export default function App() {
   useLayoutEffect(() => {
@@ -233,6 +234,9 @@ export default function App() {
       targetSub = undefined;
     } else if (target === 'contact' || target === 'booking') {
       targetPage = 'contact';
+      targetSub = undefined;
+    } else if (target === 'virtual-office' || target === 'virtual-tour') {
+      targetPage = 'virtual-office';
       targetSub = undefined;
     } else if (target === 'not-found') {
       targetPage = 'not-found';
@@ -657,6 +661,21 @@ export default function App() {
                   onNavigateToRoadmap={() => navigateTo('more', 'roadmap')}
                   onNavigateToContact={() => navigateTo('contact')}
                   onNavigateToTools={() => navigateTo('tools')}
+                />
+              </div>
+            )}
+
+            {/* 10b. DEDICATED PAGE: VIRTUAL OFFICE TOUR */}
+            {currentPage === 'virtual-office' && (
+              <div className="animate-in fade-in duration-200">
+                <VirtualOfficePage
+                  onNavigateHome={() => navigateTo('home')}
+                  onBookVisit={() => {
+                    setPrefilledService('Nairobi Office Consultation & Discovery Call');
+                    setPrefilledNotes('I took the 3D Virtual Office Tour and would like to schedule a consultation.');
+                    navigateTo('contact');
+                  }}
+                  onOpenCalculator={() => navigateTo('calculator')}
                 />
               </div>
             )}

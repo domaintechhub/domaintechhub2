@@ -777,6 +777,30 @@ export const PAGE_SEO_DATA: Record<PageRoute, (subTab?: any) => PageSeoConfig> =
     },
   }),
 
+  'virtual-office': () => ({
+    title: 'Virtual Office Tour | Domain Tech Hub, Nairobi',
+    description:
+      "Take a 3D tour of Domain Tech Hub's Nairobi office and see where we build websites, AI solutions and digital marketing campaigns.",
+    canonicalPath: '/virtual-office',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Virtual Office Tour | Domain Tech Hub, Nairobi',
+      description:
+        "Take a 3D tour of Domain Tech Hub's Nairobi office and see where we build websites, AI solutions and digital marketing campaigns.",
+      about: {
+        '@type': 'LocalBusiness',
+        name: 'Domain Tech Hub',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Delta Corner Tower, Westlands',
+          addressLocality: 'Nairobi',
+          addressCountry: 'KE',
+        },
+      },
+    },
+  }),
+
   'not-found': () => ({
     title: '404 Page Not Found | Domain Tech Hub',
     description: 'The requested page could not be found on Domain Tech Hub. Explore our web development services, engineering insights, case studies, or project cost calculator.',

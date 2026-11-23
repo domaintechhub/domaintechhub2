@@ -4,7 +4,7 @@ import {
   ChevronDown, ChevronUp, ShieldCheck, 
   Clock, CheckCircle2, ChevronLeft, ChevronRight,
   Code, Bot, Target, ShoppingCart, Globe, Smartphone,
-  Users, CreditCard, FileText, Palette, BarChart3, Rocket, Phone
+  Users, CreditCard, FileText, Palette, BarChart3, Rocket, Phone, Compass
 } from 'lucide-react';
 import { saveLead } from '../utils/leadDispatch';
 import { BuildLayerKey } from './Hero';
@@ -201,6 +201,47 @@ Hi Domain Tech Hub, I have submitted my request through your website. Looking fo
       {/* 00 / TRUSTED BRANDS MARQUEE (ABOVE OUR SERVICES) */}
       {/* ========================================================================= */}
       <ClientBrandsMarquee onNavigate={onNavigate} />
+
+      {/* ========================================================================= */}
+      {/* 00b / VIRTUAL OFFICE 3D TOUR BANNER */}
+      {/* ========================================================================= */}
+      <section className="py-8 sm:py-10 border-b border-stone-200 dark:border-slate-800 bg-[#f8f9fa] dark:bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <a
+            href="/virtual-office"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('virtual-office');
+            }}
+            className="green-showcase-section group block p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-[#032415] via-[#073d24] to-[#042818] border border-emerald-900/50 shadow-xl hover:shadow-2xl transition-all"
+          >
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-2.5 max-w-2xl">
+                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider !text-[#00e676]">
+                  <Compass className="w-4 h-4 shrink-0 !text-[#00e676]" />
+                  <span>WESTLANDS, NAIROBI · INTERACTIVE 3D TOUR</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black !text-white tracking-tight text-balance">
+                  Step inside our Nairobi office, take the 3D tour
+                </h2>
+                <p className="text-sm sm:text-base !text-emerald-100 leading-relaxed">
+                  Explore where we build custom websites, AI solutions, and high-converting digital marketing campaigns.
+                </p>
+              </div>
+
+              <div className="shrink-0">
+                <span
+                  style={{ backgroundColor: '#12A150', color: '#ffffff' }}
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#12A150] group-hover:bg-[#0e8a43] !text-white font-bold text-sm tracking-wide shadow-lg shadow-[#12A150]/30 transition-all whitespace-nowrap"
+                >
+                  <span className="!text-white">Explore Virtual Tour</span>
+                  <ArrowRight className="w-4 h-4 !text-white group-hover:translate-x-0.5 transition-transform" />
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
 
       {/* ========================================================================= */}
       {/* 01 / OUR SERVICES: COMPLETE DIGITAL SOLUTIONS FOR YOUR BUSINESS */}

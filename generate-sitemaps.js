@@ -67,6 +67,7 @@ export function crawlAppRoutes() {
     contact: { path: 'contact', priority: '0.90', changefreq: 'weekly', title: 'Contact & Discovery Session' },
     roadmap: { path: 'roadmap', priority: '0.85', changefreq: 'weekly', title: 'Sprint Roadmap & Delivery Methodology' },
     team: { path: 'team', priority: '0.85', changefreq: 'weekly', title: 'Engineering Team & Leadership' },
+    'virtual-office': { path: 'virtual-office', priority: '0.85', changefreq: 'monthly', title: 'Virtual Office Tour | Domain Tech Hub, Nairobi' },
   };
 
   const pages = [];

@@ -104,6 +104,8 @@ describe('routing utility - parseAppRoute', () => {
     assert.deepEqual(parseAppRoute('/faq'), { page: 'faq' });
     assert.deepEqual(parseAppRoute('/contact'), { page: 'contact' });
     assert.deepEqual(parseAppRoute('/booking'), { page: 'contact' });
+    assert.deepEqual(parseAppRoute('/virtual-office'), { page: 'virtual-office' });
+    assert.deepEqual(parseAppRoute('/virtual-tour'), { page: 'virtual-office' });
   });
 
   it('strips query parameters and hash fragments before parsing', () => {
@@ -142,6 +144,7 @@ describe('routing utility - getPathForRoute', () => {
     assert.equal(getPathForRoute('portal'), '/portal');
     assert.equal(getPathForRoute('faq'), '/faq');
     assert.equal(getPathForRoute('contact'), '/contact');
+    assert.equal(getPathForRoute('virtual-office'), '/virtual-office');
   });
 
   it('generates services paths with and without subTabs', () => {

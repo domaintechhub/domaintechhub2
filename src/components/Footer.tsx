@@ -301,6 +301,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </a>
               </li>
               <li>
+                <a href="/virtual-office" onClick={(e) => handleFooterNavigate(e, 'virtual-office')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1 font-medium text-white">
+                  <span>{t('nav.virtualTour')}</span>
+                  <ArrowUpRight className="w-3 h-3 text-cyan-400" />
+                </a>
+              </li>
+              <li>
                 <a href="/team" onClick={(e) => handleFooterNavigate(e, 'team')} className="hover:text-cyan-300 text-left transition-colors flex items-center gap-1">
                   <span>Our Engineering Team</span>
                   <ArrowUpRight className="w-3 h-3 text-cyan-400" />

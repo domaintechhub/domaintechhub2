@@ -132,6 +132,7 @@ export function parseAppRoute(path: string): AppRoute {
   if ((first === 'portal' || first === 'client-portal') && !second) return { page: 'portal' };
   if (first === 'faq' && !second) return { page: 'faq' };
   if ((first === 'contact' || first === 'booking') && !second) return { page: 'contact' };
+  if ((first === 'virtual-office' || first === 'virtual-tour') && !second) return { page: 'virtual-office' };
 
   return { page: 'not-found' };
 }
@@ -161,6 +162,7 @@ export function getPathForRoute(page: string, subTab?: string): string {
     case 'portal': path = '/portal'; break;
     case 'faq': path = '/faq'; break;
     case 'contact': path = '/contact'; break;
+    case 'virtual-office': path = '/virtual-office'; break;
     case 'not-found':
       path = typeof window !== 'undefined' ? removeBaseUrl(window.location.pathname) : '/404';
       break;
