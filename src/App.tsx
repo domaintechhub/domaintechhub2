@@ -350,7 +350,7 @@ export default function App() {
     <ThemeProvider>
       <CurrencyProvider>
         <LanguageProvider>
-          <div className="min-h-screen bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-teal-500/20 selection:text-teal-800">
+          <div className="min-h-screen bg-[#faf8f5] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col overflow-x-clip selection:bg-teal-500/20 selection:text-teal-800">
 
           {/* Navigation Bar with Search Trigger */}
           <Navbar 
