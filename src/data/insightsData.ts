@@ -41,6 +41,90 @@ export const INSIGHT_CATEGORIES = [
   'Cloud & Security'
 ] as const;
 
+const LATEST_SECURITY_ADVISORY_ARTICLES: InsightArticle[] = [
+  {
+    id: '1password-hacked-customer-data-source-code-stolen-github-breach',
+    title: '1Password Hacked: Customer Data & Source Code Stolen in GitHub Account Breach (2026 Analysis)',
+    slug: '1password-hacked-customer-data-source-code-stolen-github-breach',
+    category: 'Cloud & Security',
+    publishedDate: 'November 26th, 2026',
+    readTime: '8 min read',
+    featured: true,
+    author: {
+      name: 'Brian Mwangi',
+      role: 'Lead Cloud & Fintech Architect',
+      avatar: '/images/team/author-brian.webp'
+    },
+    excerpt: 'An attacker hijacked a 1Password employee GitHub account, accessed private source code, and injected malicious CI/CD code to exfiltrate administrative user records. Here is what was exposed, why password vaults stayed encrypted, and how engineering teams can harden GitHub pipelines.',
+    coverImage: '/images/articles/1password-github-breach-2026.jpg',
+    tags: [
+      '1Password Breach',
+      'GitHub Security',
+      'CI/CD Supply Chain',
+      'Cybersecurity',
+      'Zero-Knowledge Encryption',
+      'DevSecOps',
+      'Incident Response'
+    ],
+    keyTakeaways: [
+      'On November 19, 2026, 1Password detected unauthorized access to an employee corporate GitHub account; the attacker copied private source code and injected malicious code into backend services and CI/CD pipelines before disclosure on November 25, 2026.',
+      'Customer password vaults, stored secrets, Master Passwords, and local Secret Keys were NOT compromised, preserving end-to-end zero-knowledge vault encryption.',
+      'Exfiltrated administrative records for a subset of users included names, email addresses, account/user IDs, creation and last sign-in timestamps, public keys, SRP protocol parameters, and specific email provisioning/recovery tokens.',
+      'Users do not need to wipe or rotate vault items, but IT teams and individuals must watch closely for targeted phishing using leaked metadata and enforce phishing-resistant FIDO2/OIDC guardrails across their own GitHub and CI/CD infrastructure.'
+    ],
+    contentSections: [
+      {
+        heading: '1. Incident Overview & Timeline: How the 1Password GitHub Breach Happened',
+        body: 'In late November 2026, enterprise password manager 1Password disclosed a significant backend security incident originating from a compromised employee corporate GitHub account. Rather than breaking the cryptographic protections around user vaults, the threat actor targeted the software delivery pipeline itself.\n\n• **November 19, 2026 (Detection):** 1Password security monitoring identified indicators of unauthorized access to an employee corporate GitHub account and immediately opened an internal investigation.\n• **Repository & CI/CD Pivot:** Using the hijacked GitHub identity, the intruder accessed private source code repositories, exfiltrated proprietary code, and pushed malicious modifications into backend services and Continuous Integration / Continuous Delivery (CI/CD) workflows.\n• **Administrative Data Exfiltration:** The injected code was engineered to pull administrative account metadata belonging to a subset of 1Password customers.\n• **November 25, 2026 (Public Disclosure):** Following containment, credential rotation, service restoration, and engagement of third-party forensic specialists, 1Password published its incident disclosure and began direct outreach to affected accounts with pending provisioning or recovery tokens.'
+      },
+      {
+        heading: '2. What Was Stolen vs. What Stayed Protected (Technical Breakdown)',
+        body: 'Understanding the blast radius of the 1Password incident requires separating **service-layer metadata** from **zero-knowledge vault data**. Because 1Password never receives a user Master Password or their locally generated 128-bit Secret Key, compromising backend services or source code did not hand the attacker decryption keys.\n\n| Data Category | Exposure Status | Technical Impact & Risk Profile |\n|---|---|---|\n| Encrypted Vaults, Passwords & Secrets | **Not Accessed** | Vault payloads remain unreadable without local Master Password + Secret Key |\n| Customer Names & Email Addresses | **Exposed (Subset)** | Raises targeted spear-phishing and social-engineering risk |\n| Account/User IDs & Timestamps | **Exposed (Subset)** | Reveals account creation dates and last sign-in activity |\n| Public Cryptographic Keys | **Exposed (Subset)** | Public by protocol design; cannot decrypt private user data |\n| Secure Remote Password (SRP) Parameters | **Exposed (Subset)** | Cannot authenticate without the local Secret Key & Master Password |\n| Email Invitation, Provisioning & Recovery Tokens | **Exposed (Subset)** | Cannot be abused standalone; requires SSO or separate email verification code |\n| Private Source Code & Internal Metadata | **Exposed** | Gives adversaries architectural visibility to hunt for future logic bugs |\n\nWhile Secure Remote Password (SRP) verifiers can normally invite offline dictionary attacks in weaker authentication designs, 1Password derives authentication credentials using both the user Master Password and the local Secret Key—meaning an attacker possessing only server-side SRP parameters still lacks the high-entropy local secret needed for brute-force cracking.'
+      },
+      {
+        heading: '3. Containment & Post-Incident Hardening by 1Password',
+        body: 'Once the compromised GitHub session was flagged on November 19, 1Password executed a multi-layer containment and remediation sequence:\n\n• **Identity & Access Revocation:** Disabled the hijacked employee GitHub account and invalidated all associated personal access tokens, session tokens, and deployment keys.\n• **Clean Build Restoration:** Purged the tampered workflow code and redeployed verified, clean builds of affected backend services from trusted commits.\n• **Full Secret Rotation:** Rotated internal infrastructure credentials, service tokens, and environment secrets reachable from the CI/CD pipeline.\n• **Stronger Verification Entropy:** Upgraded verification codes used in email-based account invitations and recovery flows from **6 numeric digits** to **10 alphanumeric characters**, dramatically increasing resistance against brute-force guessing.\n• **Independent Audit & Targeted Notification:** Retained external cybersecurity responders to validate containment and directly alerted customers whose accounts had active provisioning or recovery tokens during the exposure window.'
+      },
+      {
+        heading: '4. What 1Password Users & IT Administrators Should Do Now',
+        body: 'For security teams, software agencies, and everyday 1Password customers across Nairobi, East Africa, and globally, panic-rotating hundreds of vault passwords is unnecessary—and can introduce operational errors. Instead, prioritize these high-leverage steps:\n\n• **Leave Healthy Vault Items Alone (Unless Reused Elsewhere):** Vault contents were not exposed. Only rotate credentials that were weak, reused, or shared outside your encrypted vault.\n• **Stay on High Alert for Lookalike Phishing:** Because names, sign-in emails, account creation dates, and last-login timestamps were exfiltrated for a subset of users, attackers may send hyper-personalized phishing emails mimicking 1Password account recovery, team invitation, or billing alerts. Always navigate directly to your official 1Password app or bookmarked portal rather than clicking email links.\n• **Review Pending Provisioning & Recovery Invites:** Enterprise administrators should inspect recent user onboarding logs and expire any stale or unrecognized invitation links inside their admin console.\n• **Audit SSO & IdP Session Logs:** If your organization uses Okta, Microsoft Entra ID, or Google Workspace SSO to unlock 1Password, verify there are no anomalous login attempts or MFA fatigue prompts targeting IT admins.'
+      },
+      {
+        heading: '5. DevSecOps Lessons: Locking Down GitHub & CI/CD Against Employee Account Takeover',
+        body: 'The 1Password incident underscores an uncomfortable truth for modern engineering teams: **your production database and customer records are only as secure as the least-protected developer GitHub account with write access to CI/CD workflows.** Whether you run a global SaaS platform or process payments via [M-Pesa Daraja integrations](/insights/zero-loss-mpesa-stk-push-architecture) and [enterprise web applications](/services/web-development), an attacker who captures a maintainer GitHub session can bypass external firewalls from the inside.\n\nAdopt these five non-negotiable GitHub & CI/CD guardrails:\n\n• **Enforce Hardware FIDO2/WebAuthn 2FA:** Ban SMS and app-based TOTP fallback for engineers with repository write or admin permissions; require phishing-resistant passkeys or YubiKeys.\n• **Eliminate Static Cloud Credentials in CI/CD:** Replace long-lived AWS, GCP, or server SSH keys inside GitHub Actions secrets with short-lived OpenID Connect (OIDC) federated tokens scoped per branch and environment.\n• **Require Protected Environments & Manual Approvals:** Gate production deployments and secret-accessing CI/CD jobs behind explicit multi-reviewer approvals and deployment branch policies.\n• **Mandatory Signed Commits & CODEOWNERS on Workflows:** Lock **.github/workflows/** with strict **CODEOWNERS** reviews from security or principal architects so a single compromised account cannot silently alter build scripts.\n• **Monitor GitHub Audit Logs in Real Time:** Stream organization audit events (new PAT creation, workflow edits, repo clones, SSH key additions) to your SIEM or Slack alert channel.',
+        codeSnippet: `# Hardened GitHub Actions Deployment Pattern (Short-Lived OIDC + Environment Gate)
+name: Production Deploy (Hardened)
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write   # Request ephemeral OIDC token instead of static API keys
+  contents: read    # Least-privilege read-only repo access by default
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: production   # Requires manual reviewer approval in GitHub Settings
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify Commit Signature
+        run: git verify-commit HEAD || exit 1`
+      },
+      {
+        heading: '6. Frequently Asked Questions (FAQ)',
+        body: '• **Q: Were customer passwords, credit cards, or 1Password vaults stolen in the GitHub breach?**\nNo. 1Password confirmed that customer vaults, stored items, Master Passwords, and local Secret Keys were never accessed and remain protected by zero-knowledge encryption.\n\n• **Q: What customer data did the attackers actually download?**\nFor a subset of users, the injected CI/CD code downloaded administrative records including names, email addresses, user and account IDs, creation and last sign-in dates, public cryptographic keys, SRP parameters, and tokens from specific invitation, provisioning, and recovery emails.\n\n• **Q: Should I change my 1Password Master Password or Secret Key right now?**\n1Password stated that users do not need to update or change anything in their vaults. However, if you ever reused your Master Password on another service, change it immediately, and stay vigilant against phishing emails.\n\n• **Q: Can attackers use the stolen SRP parameters or recovery tokens to hijack my account?**\nAccording to 1Password, SRP parameters cannot be used to access an account without your Master Password and Secret Key, and the exposed email tokens cannot be exploited independently without passing SSO authentication or entering a separate verification code.\n\n• **Q: How can my engineering team prevent a similar GitHub account breach?**\nRequire hardware FIDO2 security keys for all repository contributors, replace static CI/CD secrets with short-lived OIDC tokens, enforce signed commits, and require multi-person CODEOWNERS approval for any change inside .github/workflows/.'
+      },
+      {
+        heading: '7. Official Advisories & Security Hardening Support',
+        body: 'Stay informed using primary vendor disclosures and industry documentation:\n\n• [1Password Official Security Blog & Incident Disclosures](https://blog.1password.com/)\n• [GitHub Docs: Hardening Your Actions & Supply Chain Security](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions)\n• Related Advisory: [PHP2Shell Critical Runtime Vulnerability & Credential Rotation Guide](/insights/php2shell-critical-php-vulnerability-website-protection-guide)\n\nIf your organization needs a comprehensive DevSecOps audit, GitHub CI/CD hardening, or managed cloud infrastructure security in Kenya and East Africa, explore our [Website Maintenance & Cloud Security Services](/services/website-maintenance) or run an instant diagnostics check with our [SEO & Security Audit Tool](/tools/audit).'
+      }
+    ]
+  }
+];
+
 const BASE_ARTICLES: InsightArticle[] = [
   {
     id: 'website-builders-comparison-guide-wix-wordpress-squarespace',
@@ -1079,6 +1163,7 @@ ON orders (kra_etims_signature) WHERE kra_etims_signature IS NOT NULL;`
 const EXPANSIONS = { ...PAYMENTS_EXPANSIONS, ...WEB_EXPANSIONS };
 
 export const INSIGHT_ARTICLES: InsightArticle[] = [
+  ...LATEST_SECURITY_ADVISORY_ARTICLES,
   ...INDUSTRY_WEBSITE_GUIDES,
   ...DARAJA_ETIMS_PAYMENT_GUIDES,
   ...PRICING_HIRING_GUIDES,
