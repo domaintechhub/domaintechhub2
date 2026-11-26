@@ -22,7 +22,7 @@ interface VirtualOfficePageProps {
   onOpenCalculator: () => void;
 }
 
-const TOUR_EMBED_PATH = '/assets/aistudio/domaintechhub-office-3d__3__aa35df29.html';
+const TOUR_EMBED_PATH = '/assets/aistudio/domaintechhub-office-3d__2__ddeb1149.html';
 
 export const VirtualOfficePage: React.FC<VirtualOfficePageProps> = ({
   onNavigateHome,
